@@ -160,7 +160,7 @@ export class MediaRelayProvider implements AIProvider {
     }
 
     if (params.mediaType === AIMediaType.VIDEO) {
-      if (params.options?.video_input?.length) throw new Error('APIKEY.FAN relay does not support video-to-video');
+      if (params.options?.video_input?.length) throw new Error('中转站暂不支持视频转视频 / relay does not support video-to-video');
       const body: Record<string, any> = { model: params.model, prompt: params.prompt, resolution: '720p', duration: 8 };
       if (params.options?.image_input?.[0]) body.image = { url: params.options.image_input[0] };
       const { data } = await this.request(AIMediaType.VIDEO, '/videos/generations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });

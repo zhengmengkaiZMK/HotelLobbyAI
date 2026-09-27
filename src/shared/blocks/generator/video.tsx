@@ -236,16 +236,21 @@ export function VideoGenerator({
   );
   const { user, isCheckSign, setIsShowSignModal, fetchUserCredits, configs, fetchConfigs } =
     useAppContext();
+  const relayModels = useMemo(() => getRelayModels(configs, 'video'), [configs]);
   const MODEL_OPTIONS = useMemo(
-    () => [...DEFAULT_MODEL_OPTIONS, ...getRelayModels(configs, 'video')],
-    [configs]
+    () => (relayModels.length ? relayModels : DEFAULT_MODEL_OPTIONS),
+    [relayModels]
   );
   const PROVIDER_OPTIONS = useMemo(
-    () => [
-      ...PROVIDER_OPTIONS_DEFAULT,
-      ...(getRelayModels(configs, 'video').length ? [{ value: 'media-relay', label: 'APIKEY.FAN Relay' }] : []),
-    ],
-    [configs]
+    () =>
+      relayModels.length
+        ? [{ value: 'media-relay', label: '中转站 / Relay' }]
+        : PROVIDER_OPTIONS_DEFAULT,
+    [relayModels]
+  );
+  const showVideoToVideoTab = useMemo(
+    () => relayModels.length === 0 || relayModels.some((item) => item.scenes?.includes('video-to-video')),
+    [relayModels]
   );
 
   useEffect(() => {
@@ -651,16 +656,18 @@ export function VideoGenerator({
               </CardHeader>
               <CardContent className="space-y-6 pb-8">
                 <Tabs value={activeTab} onValueChange={handleTabChange}>
-                  <TabsList className="bg-primary/10 grid w-full grid-cols-3">
+                  <TabsList className={`bg-primary/10 grid w-full ${showVideoToVideoTab ? 'grid-cols-3' : 'grid-cols-2'}`}>
                     <TabsTrigger value="text-to-video">
                       {t('tabs.text-to-video')}
                     </TabsTrigger>
                     <TabsTrigger value="image-to-video">
                       {t('tabs.image-to-video')}
                     </TabsTrigger>
-                    <TabsTrigger value="video-to-video">
-                      {t('tabs.video-to-video')}
-                    </TabsTrigger>
+                    {showVideoToVideoTab && (
+                      <TabsTrigger value="video-to-video">
+                        {t('tabs.video-to-video')}
+                      </TabsTrigger>
+                    )}
                   </TabsList>
                 </Tabs>
 

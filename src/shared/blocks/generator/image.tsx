@@ -237,16 +237,17 @@ export function ImageGenerator({
   );
   const { user, isCheckSign, setIsShowSignModal, fetchUserCredits, configs, fetchConfigs } =
     useAppContext();
+  const relayModels = useMemo(() => getRelayModels(configs, 'image'), [configs]);
   const MODEL_OPTIONS = useMemo(
-    () => [...DEFAULT_MODEL_OPTIONS, ...getRelayModels(configs, 'image')],
-    [configs]
+    () => (relayModels.length ? relayModels : DEFAULT_MODEL_OPTIONS),
+    [relayModels]
   );
   const PROVIDER_OPTIONS = useMemo(
-    () => [
-      ...PROVIDER_OPTIONS_DEFAULT,
-      ...(getRelayModels(configs, 'image').length ? [{ value: 'media-relay', label: 'APIKEY.FAN Relay' }] : []),
-    ],
-    [configs]
+    () =>
+      relayModels.length
+        ? [{ value: 'media-relay', label: '中转站 / Relay' }]
+        : PROVIDER_OPTIONS_DEFAULT,
+    [relayModels]
   );
 
   useEffect(() => {
