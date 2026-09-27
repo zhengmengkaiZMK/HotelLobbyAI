@@ -4,6 +4,7 @@ import { PERMISSIONS, requirePermission } from '@/core/rbac';
 import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { TableCard } from '@/shared/blocks/table';
 import { getAITasks, getAITasksCount } from '@/shared/models/ai_task';
+import { refreshPendingAITasks } from '@/shared/services/ai';
 import { Button, Crumb, Tab } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
 
@@ -39,6 +40,9 @@ export default async function AiTasksPage({
     mediaType: type,
   });
 
+  // backfill results for tasks left pending/processing (e.g. user closed the page)
+  await refreshPendingAITasks();
+
   const aiTasks = await getAITasks({
     getUser: true,
     page,
@@ -59,7 +63,25 @@ export default async function AiTasksPage({
       { name: 'model', title: t('fields.model'), type: 'label' },
       { name: 'prompt', title: t('fields.prompt'), type: 'copy' },
       { name: 'options', title: t('fields.options'), type: 'json_preview' },
-      { name: 'taskResult', title: t('fields.result'), type: 'json_preview' },
+      {
+        name: 'taskResult',
+        title: t('fields.result'),
+        callback: (item: any) => {
+          if (!item.taskResult) return '-';
+          let result: any;
+          try {
+            result = JSON.parse(item.taskResult);
+          } catch {
+            return item.taskResult;
+          }
+          const videoUrl =
+            result.video?.url || result.video_url || result.output?.url || result.url;
+          if (item.mediaType === 'video' && videoUrl && typeof videoUrl === 'string' && videoUrl.startsWith('http')) {
+            return <video src={videoUrl} controls className="w-80" />;
+          }
+          return <pre className="max-w-xs overflow-auto text-xs">{item.taskResult}</pre>;
+        },
+      },
     ],
     data: aiTasks,
     pagination: {

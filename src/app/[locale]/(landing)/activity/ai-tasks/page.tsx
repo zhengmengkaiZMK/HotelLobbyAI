@@ -5,6 +5,7 @@ import { AudioPlayer, Empty, LazyImage } from '@/shared/blocks/common';
 import { TableCard } from '@/shared/blocks/table';
 import { AITask, getAITasks, getAITasksCount } from '@/shared/models/ai_task';
 import { getUserInfo } from '@/shared/models/user';
+import { refreshPendingAITasks } from '@/shared/services/ai';
 import { Button, Tab } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
 
@@ -23,6 +24,9 @@ export default async function AiTasksPage({
   }
 
   const t = await getTranslations('activity.ai-tasks');
+
+  // backfill results for tasks left pending/processing (e.g. user closed the page)
+  await refreshPendingAITasks({ userId: user.id });
 
   const aiTasks = await getAITasks({
     userId: user.id,
@@ -76,6 +80,21 @@ export default async function AiTasksPage({
                   </div>
                 );
               }
+            } else if (taskInfo.videos && taskInfo.videos.length > 0) {
+              return (
+                <div className="flex flex-col gap-2">
+                  {taskInfo.videos
+                    .filter((video: any) => video.videoUrl)
+                    .map((video: any, index: number) => (
+                      <video
+                        key={index}
+                        src={video.videoUrl}
+                        controls
+                        className="w-80"
+                      />
+                    ))}
+                </div>
+              );
             } else if (taskInfo.images && taskInfo.images.length > 0) {
               return (
                 <div className="flex flex-col gap-2">

@@ -106,6 +106,9 @@ export class MediaRelayProvider implements AIProvider {
         key: `media-relay/image/${getUuid()}.png`,
         contentType,
       });
+      if (result && result.success === false) {
+        console.error('media relay: upload image to storage failed', result.error);
+      }
       if (result?.url) saved.push(result.url);
     }
     return saved;
@@ -124,8 +127,15 @@ export class MediaRelayProvider implements AIProvider {
         key: `media-relay/video/${getUuid()}.mp4`,
         contentType: 'video/mp4',
       });
+      if (result && result.success === false) {
+        console.error('media relay: upload video to storage failed', result.error);
+      }
+      if (!result?.url) {
+        console.error('media relay: video not persisted to storage, upstream url may expire');
+      }
       return result?.url || url;
-    } catch {
+    } catch (e) {
+      console.error('media relay: persist video failed', e);
       return url;
     }
   }

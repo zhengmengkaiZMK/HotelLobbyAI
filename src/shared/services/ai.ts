@@ -1,5 +1,6 @@
 import {
   AIManager,
+  AITaskStatus,
   FalProvider,
   GeminiProvider,
   KieProvider,
@@ -8,6 +9,7 @@ import {
   type MediaRelayEndpointConfigs,
 } from '@/extensions/ai';
 import { Configs, getAllConfigs } from '@/shared/models/config';
+import { AITask, getAITasks, updateAITaskById } from '@/shared/models/ai_task';
 
 export type MediaRelayMediaType = 'image' | 'video';
 
@@ -113,4 +115,62 @@ export async function getAIService(configs?: Configs): Promise<AIManager> {
   aiService = getAIManagerWithConfigs(configs);
 
   return aiService;
+}
+
+/**
+ * re-query pending/processing tasks that have not been updated for a while,
+ * so results land in the database even if the user closed the page early.
+ */
+export async function refreshPendingAITasks(options: {
+  userId?: string;
+  olderThanMs?: number;
+  limit?: number;
+} = {}): Promise<number> {
+  const olderThanMs = options.olderThanMs ?? 60_000;
+  const limit = options.limit ?? 10;
+  const tasks: AITask[] = [];
+  for (const status of [AITaskStatus.PENDING, AITaskStatus.PROCESSING]) {
+    const rows = await getAITasks({
+      userId: options.userId,
+      status,
+      page: 1,
+      limit,
+    });
+    tasks.push(...rows);
+  }
+
+  const now = Date.now();
+  const stale = tasks.filter((task) => {
+    const raw: any = task.createdAt;
+    let created = typeof raw === 'number' ? raw : Date.parse(raw);
+    if (!Number.isFinite(created)) return false;
+    if (created < 1e12) created *= 1000; // seconds → milliseconds
+    return now - created >= olderThanMs;
+  });
+
+  for (const task of stale) {
+    try {
+      const aiService = await getAIService();
+      const aiProvider = aiService.getProvider(task.provider);
+      if (!aiProvider?.query) continue;
+      const result = await aiProvider.query({
+        taskId: task.taskId,
+        mediaType: task.mediaType,
+        model: task.model,
+      });
+      if (!result?.taskStatus) continue;
+      const update = {
+        status: result.taskStatus,
+        taskInfo: result.taskInfo ? JSON.stringify(result.taskInfo) : null,
+        taskResult: result.taskResult ? JSON.stringify(result.taskResult) : null,
+        creditId: task.creditId,
+      };
+      if (update.taskInfo !== task.taskInfo) {
+        await updateAITaskById(task.id, update);
+      }
+    } catch (e) {
+      console.error('refresh pending ai task failed', task.id, e);
+    }
+  }
+  return stale.length;
 }
