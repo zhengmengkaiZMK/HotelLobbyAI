@@ -15,10 +15,6 @@ export interface MediaRelayEndpointConfigs {
 }
 
 export interface MediaRelayConfigs extends AIConfigs {
-  /** @deprecated legacy shared credentials, used as fallback */
-  apiKey?: string;
-  /** @deprecated legacy shared credentials, used as fallback */
-  baseUrl?: string;
   image?: MediaRelayEndpointConfigs;
   video?: MediaRelayEndpointConfigs;
 }
@@ -71,9 +67,9 @@ export class MediaRelayProvider implements AIProvider {
   }
 
   private endpoint(mediaType?: AIMediaType): MediaRelayEndpointConfigs {
-    const endpoint = (mediaType && this.endpoints[mediaType]) || this.endpoints[AIMediaType.IMAGE] || this.endpoints[AIMediaType.VIDEO];
+    const endpoint = mediaType ? this.endpoints[mediaType] : undefined;
     if (!endpoint) {
-      throw new Error(mediaType === AIMediaType.VIDEO ? '视频中转站未配置 Base URL 或 API Key' : '中转站未配置 Base URL 或 API Key');
+      throw new Error(mediaType === AIMediaType.VIDEO ? '视频中转站未配置 Base URL 或 API Key' : '绘画中转站未配置 Base URL 或 API Key');
     }
     return endpoint;
   }

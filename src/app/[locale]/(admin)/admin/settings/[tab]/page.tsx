@@ -86,15 +86,7 @@ export default async function SettingsPage({
             assertUrl(baseUrl);
             continue;
           }
-          if (baseUrl || apiKey) {
-            throw new Error(`${labels[media]}中转站的 Base URL 和 API Key 需同时填写`);
-          }
-          const sharedBaseUrl = merged.media_relay_base_url?.trim();
-          const sharedApiKey = merged.media_relay_api_key?.trim();
-          if (!sharedBaseUrl || !sharedApiKey) {
-            throw new Error(`请填写${labels[media]}中转站的 Base URL 和 API Key`);
-          }
-          assertUrl(sharedBaseUrl);
+          throw new Error(`请完整填写${labels[media]}中转站的 Base URL 和 API Key`);
         }
       } else {
         for (const media of ['image', 'video'] as const) {

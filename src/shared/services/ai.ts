@@ -21,15 +21,11 @@ function readRelayEndpoint(configs: Configs, media: MediaRelayMediaType): MediaR
   const baseUrl = configs[`media_relay_${media}_base_url` as keyof Configs]?.trim();
   const apiKey = configs[`media_relay_${media}_api_key` as keyof Configs]?.trim();
   if (baseUrl && apiKey) return { apiKey, baseUrl };
-  if (baseUrl || apiKey) return undefined;
-  const sharedBaseUrl = configs.media_relay_base_url?.trim();
-  const sharedApiKey = configs.media_relay_api_key?.trim();
-  if (sharedBaseUrl && sharedApiKey) return { apiKey: sharedApiKey, baseUrl: sharedBaseUrl };
   return undefined;
 }
 
 /**
- * resolve image / video relay endpoints; shared legacy credentials act as fallback.
+ * resolve image / video relay endpoints (per media type, no legacy fallback).
  * errors contains messages for partially configured media types.
  */
 export function resolveMediaRelayEndpoints(configs: Configs): MediaRelayEndpoints {
