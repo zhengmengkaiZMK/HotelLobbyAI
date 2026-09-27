@@ -115,27 +115,61 @@ export class MediaRelayProvider implements AIProvider {
   }
 
   private async persistVideoUrl(data: any): Promise<string | undefined> {
-    const url = data.video?.url || data.video_url || data.output?.url || data.url;
-    if (!url) return undefined;
+    const rawUrl =
+      data.video?.url ||
+      data.video_url ||
+      (typeof data.output === 'string' ? data.output : data.output?.url) ||
+      data.data?.url ||
+      data.url;
+    if (typeof rawUrl !== 'string' || !rawUrl) return undefined;
+
+    let url: string;
     try {
-      const response = await fetch(url);
-      if (!response.ok) return url;
+      url = new URL(rawUrl).toString();
+    } catch {
+      console.error('media relay: invalid video url', { url: rawUrl });
+      return rawUrl;
+    }
+
+    try {
+      const endpoint = this.endpoint(AIMediaType.VIDEO);
+      const endpointOrigin = new URL(endpoint.baseUrl).origin;
+      const headers = url.startsWith(endpointOrigin)
+        ? { Authorization: `Bearer ${endpoint.apiKey}` }
+        : undefined;
+      const response = await fetch(url, headers ? { headers } : undefined);
+      if (!response.ok) {
+        console.error('media relay: download video failed', {
+          status: response.status,
+          statusText: response.statusText,
+          url,
+        });
+        return url;
+      }
       const { getStorageService } = await import('@/shared/services/storage');
       const storage = await getStorageService();
       const result = await storage.uploadFile({
         body: Buffer.from(await response.arrayBuffer()),
         key: `media-relay/video/${getUuid()}.mp4`,
-        contentType: 'video/mp4',
+        contentType: response.headers.get('content-type')?.split(';')[0] || 'video/mp4',
       });
       if (result && result.success === false) {
-        console.error('media relay: upload video to storage failed', result.error);
+        console.error('media relay: upload video to storage failed', {
+          error: result.error,
+          provider: result.provider,
+          url,
+        });
       }
       if (!result?.url) {
-        console.error('media relay: video not persisted to storage, upstream url may expire');
+        console.error('media relay: video not persisted to storage, upstream url may expire', { url });
       }
       return result?.url || url;
     } catch (e) {
-      console.error('media relay: persist video failed', e);
+      console.error('media relay: persist video failed', {
+        url,
+        error: e instanceof Error ? e.message : String(e),
+        stack: e instanceof Error ? e.stack : undefined,
+      });
       return url;
     }
   }

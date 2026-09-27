@@ -387,8 +387,11 @@ export function VideoGenerator({
         const currentStatus = task.status as AITaskStatus;
         setTaskStatus(currentStatus);
 
-        const parsedResult = parseTaskResult(task.taskInfo);
-        const videoUrls = extractVideoUrls(parsedResult);
+        const parsedInfo = parseTaskResult(task.taskInfo);
+        const parsedResult = parseTaskResult(task.taskResult);
+        const videoUrls = Array.from(
+          new Set([...extractVideoUrls(parsedInfo), ...extractVideoUrls(parsedResult)])
+        );
 
         if (currentStatus === AITaskStatus.PENDING) {
           setProgress((prev) => Math.max(prev, 20));
