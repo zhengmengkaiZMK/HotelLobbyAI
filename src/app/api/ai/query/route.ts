@@ -28,6 +28,10 @@ export async function POST(req: Request) {
       return respErr('no permission');
     }
 
+    if (task.provider === 'media-relay' && ['success', 'failed', 'canceled'].includes(task.status)) {
+      return respData(task);
+    }
+
     const aiService = await getAIService();
     const aiProvider = aiService.getProvider(task.provider);
     if (!aiProvider) {

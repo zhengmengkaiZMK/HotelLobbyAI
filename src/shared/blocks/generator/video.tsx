@@ -34,6 +34,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { useAppContext } from '@/shared/contexts/app';
+import { getRelayModels } from '@/shared/lib/ai-models';
 
 interface VideoGeneratorProps {
   maxSizeMB?: number;
@@ -68,7 +69,7 @@ const textToVideoCredits = 6;
 const imageToVideoCredits = 8;
 const videoToVideoCredits = 10;
 
-const MODEL_OPTIONS = [
+const DEFAULT_MODEL_OPTIONS = [
   // Replicate models
   {
     value: 'google/veo-3.1',
@@ -116,7 +117,7 @@ const MODEL_OPTIONS = [
   },
 ];
 
-const PROVIDER_OPTIONS = [
+const PROVIDER_OPTIONS_DEFAULT = [
   {
     value: 'replicate',
     label: 'Replicate',
@@ -213,8 +214,9 @@ export function VideoGenerator({
     useState<VideoGeneratorTab>('text-to-video');
 
   const [costCredits, setCostCredits] = useState<number>(textToVideoCredits);
-  const [provider, setProvider] = useState(PROVIDER_OPTIONS[0]?.value ?? '');
-  const [model, setModel] = useState(MODEL_OPTIONS[0]?.value ?? '');
+  const [isMounted, setIsMounted] = useState(false);
+  const [provider, setProvider] = useState(PROVIDER_OPTIONS_DEFAULT[0]?.value ?? '');
+  const [model, setModel] = useState(DEFAULT_MODEL_OPTIONS[0]?.value ?? '');
   const [prompt, setPrompt] = useState('');
   const [referenceImageItems, setReferenceImageItems] = useState<
     ImageUploaderValue[]
@@ -232,14 +234,30 @@ export function VideoGenerator({
   const [downloadingVideoId, setDownloadingVideoId] = useState<string | null>(
     null
   );
-  const [isMounted, setIsMounted] = useState(false);
-
-  const { user, isCheckSign, setIsShowSignModal, fetchUserCredits } =
+  const { user, isCheckSign, setIsShowSignModal, fetchUserCredits, configs, fetchConfigs } =
     useAppContext();
+  const MODEL_OPTIONS = useMemo(
+    () => [...DEFAULT_MODEL_OPTIONS, ...getRelayModels(configs, 'video')],
+    [configs]
+  );
+  const PROVIDER_OPTIONS = useMemo(
+    () => [
+      ...PROVIDER_OPTIONS_DEFAULT,
+      ...(getRelayModels(configs, 'video').length ? [{ value: 'media-relay', label: 'APIKEY.FAN Relay' }] : []),
+    ],
+    [configs]
+  );
 
   useEffect(() => {
     setIsMounted(true);
-  }, []);
+    if (Object.keys(configs).length === 0) fetchConfigs();
+  }, [configs, fetchConfigs]);
+
+  useEffect(() => {
+    const available = MODEL_OPTIONS.filter((item) => item.provider === provider && item.scenes.includes(activeTab));
+    if (!available.some((item) => item.value === model)) setModel(available[0]?.value ?? '');
+    if (!PROVIDER_OPTIONS.some((item) => item.value === provider)) setProvider(PROVIDER_OPTIONS[0]?.value ?? '');
+  }, [MODEL_OPTIONS, PROVIDER_OPTIONS, model, provider, activeTab]);
 
   const promptLength = prompt.trim().length;
   const remainingCredits = user?.credits?.remainingCredits ?? 0;

@@ -19,6 +19,7 @@ import {
   getChatMessages,
   NewChatMessage,
 } from '@/shared/models/chat_message';
+import { getChatModels } from '@/shared/lib/ai-models';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 
@@ -63,6 +64,11 @@ export async function POST(req: Request) {
     }
 
     const configs = await getAllConfigs();
+    const allowedModels = getChatModels(configs.chat_models);
+    if (!allowedModels.some((item) => item.name === model)) {
+      throw new Error('model is not configured');
+    }
+
     const openrouterApiKey = configs.openrouter_api_key;
     if (!openrouterApiKey) {
       throw new Error('openrouter_api_key is not set');

@@ -2,10 +2,10 @@
   "header": {
     "id": "header",
     "brand": {
-      "title": "ShipAny Two",
+      "title": "VFitly",
       "logo": {
-        "src": "/logo.png",
-        "alt": "ShipAny Two",
+        "src": "https://assets.selfagent.ai/uploads/272b40a3351d2c91a830496b98b61f44.jpg",
+        "alt": "VFitly",
         "width": 100,
         "height": 100
       },
@@ -113,11 +113,11 @@
   "footer": {
     "id": "footer",
     "brand": {
-      "title": "ShipAny Two",
+      "title": "VFitly",
       "description": "ShipAny 是专为 AI SaaS 创业项目打造的 NextJS 模板。丰富模板与组件，极速交付你的产品。",
       "logo": {
-        "src": "/logo.png",
-        "alt": "ShipAny Two",
+        "src": "https://assets.selfagent.ai/uploads/272b40a3351d2c91a830496b98b61f44.jpg",
+        "alt": "VFitly",
         "width": 100,
         "height": 100
       },

@@ -1,6 +1,6 @@
 import '@/config/style/global.css';
 
-import { JetBrains_Mono, Merriweather, Noto_Sans_Mono } from 'next/font/google';
+import localFont from 'next/font/local';
 import { notFound } from 'next/navigation';
 import { hasLocale, NextIntlClientProvider } from 'next-intl';
 import { setRequestLocale } from 'next-intl/server';
@@ -20,23 +20,27 @@ import { getAffiliateService } from '@/shared/services/affiliate';
 import { getAnalyticsService } from '@/shared/services/analytics';
 import { getCustomerService } from '@/shared/services/customer_service';
 
-const notoSansMono = Noto_Sans_Mono({
-  subsets: ['latin'],
+// Fonts are self-hosted locally (src/fonts/) to avoid build-time
+// network dependency on Google Fonts, which can stall builds.
+const notoSansMono = localFont({
+  src: '../../fonts/noto-sans-mono-latin.woff2',
+  weight: '100 900',
   variable: '--font-sans',
   display: 'swap',
   preload: true,
 });
 
-const merriweather = Merriweather({
-  subsets: ['latin'],
-  weight: ['400', '700'],
+const merriweather = localFont({
+  src: '../../fonts/merriweather-latin.woff2',
+  weight: '300 900',
   variable: '--font-serif',
   display: 'swap',
   preload: true,
 });
 
-const jetbrainsMono = JetBrains_Mono({
-  subsets: ['latin'],
+const jetbrainsMono = localFont({
+  src: '../../fonts/jetbrains-mono-latin.woff2',
+  weight: '100 800',
   variable: '--font-mono',
   display: 'swap',
   preload: true,

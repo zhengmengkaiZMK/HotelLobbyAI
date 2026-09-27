@@ -2,6 +2,8 @@ import { generateId } from 'ai';
 
 import { respData, respErr } from '@/shared/lib/resp';
 import { ChatStatus, createChat, NewChat } from '@/shared/models/chat';
+import { getChatModels } from '@/shared/lib/ai-models';
+import { getAllConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 
 export async function POST(req: Request) {
@@ -17,6 +19,11 @@ export async function POST(req: Request) {
     const user = await getUserInfo();
     if (!user) {
       throw new Error('no auth, please sign in');
+    }
+
+    const configs = await getAllConfigs();
+    if (!getChatModels(configs.chat_models).some((item) => item.name === body.model)) {
+      throw new Error('model is not configured');
     }
 
     // todo: check user credits

@@ -1,5 +1,7 @@
 import { envConfigs } from '@/config';
 import { AIMediaType } from '@/extensions/ai';
+import { getRelayModels } from '@/shared/lib/ai-models';
+import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
 import { createAITask, NewAITask } from '@/shared/models/ai_task';
@@ -20,7 +22,31 @@ export async function POST(request: Request) {
       throw new Error('prompt or options is required');
     }
 
-    const aiService = await getAIService();
+    const configs = await getAllConfigs();
+    const aiService = await getAIService(configs);
+    if (provider === 'media-relay') {
+      if (mediaType !== AIMediaType.IMAGE && mediaType !== AIMediaType.VIDEO) {
+        throw new Error('unsupported relay media type');
+      }
+      const configured = getRelayModels(configs, mediaType);
+      if (!configured.some((item) => item.value === model && item.scenes.includes(scene))) {
+        throw new Error('model or scene is not configured');
+      }
+      const images = options?.image_input;
+      const requiresImage = scene === 'image-to-image' || scene === 'image-to-video';
+      if (requiresImage && (!Array.isArray(images) || images.length !== 1)) {
+        throw new Error('Please provide exactly one reference image for the relay');
+      }
+      if (requiresImage) {
+        const image = new URL(images[0]);
+        const allowedOrigins = [configs.r2_domain, configs.s3_domain, configs.r2_endpoint, configs.s3_endpoint]
+          .filter(Boolean).map((url) => new URL(url).origin);
+        if (image.protocol !== 'https:' || image.username || image.password || !allowedOrigins.includes(image.origin)) {
+          throw new Error('Reference image must come from the configured HTTPS storage domain');
+        }
+      }
+      options = requiresImage ? { image_input: images } : {};
+    }
 
     // check generate type
     if (!aiService.getMediaTypes().includes(mediaType)) {

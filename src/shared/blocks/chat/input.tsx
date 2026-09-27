@@ -1,6 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useEffect, useMemo, useState } from 'react';
+import { useAppContext } from '@/shared/contexts/app';
+import { getChatModels } from '@/shared/lib/ai-models';
 import { UIMessage, UseChatHelpers } from '@ai-sdk/react';
 import { BrainCircuitIcon, GlobeIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
@@ -53,30 +55,32 @@ export function ChatInput({
 }) {
   const t = useTranslations('ai.chat.generator');
 
-  // todo: get models from api
-  const models: ChatModel[] = [
-    {
-      title: 'Kimi K2 Thinking',
-      name: 'moonshotai/kimi-k2-thinking',
-    },
-    {
-      title: 'Deepseek R1',
-      name: 'deepseek/deepseek-r1',
-    },
-    {
-      title: 'GPT-5',
-      name: 'openai/gpt-5',
-    },
-    {
-      title: 'Claude 4.5 Sonnet',
-      name: 'anthropic/claude-4.5-sonnet',
-    },
-  ];
+  const { configs, fetchConfigs } = useAppContext();
+  const models: ChatModel[] = useMemo(
+    () => getChatModels(configs.chat_models).map((model) => ({
+      name: model.name,
+      title: model.title,
+    })),
+    [configs.chat_models]
+  );
 
-  const [model, setModel] = useState<string>(models[0].name);
+  useEffect(() => {
+    if (Object.keys(configs).length === 0) {
+      fetchConfigs();
+    }
+  }, [configs, fetchConfigs]);
+
+  const [model, setModel] = useState<string>('');
   const [input, setInput] = useState('');
   const [webSearch, setWebSearch] = useState(false);
   const [reasoning, setReasoning] = useState(false);
+
+  useEffect(() => {
+    if (!model || !models.some((item) => item.name === model)) {
+      setModel(models[0]?.name ?? '');
+    }
+  }, [model, models]);
+
   const selectedModelLabel =
     models.find((item) => item.name === model)?.title ?? models[0]?.title ?? '';
 

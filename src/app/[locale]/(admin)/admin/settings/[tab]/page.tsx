@@ -3,6 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { PERMISSIONS, requireAllPermissions } from '@/core/rbac';
 import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { FormCard } from '@/shared/blocks/form';
+import { getChatModels, parseModelList } from '@/shared/lib/ai-models';
 import { getConfigs, saveConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 import {
@@ -51,11 +52,32 @@ export default async function SettingsPage({
       throw new Error('no auth');
     }
 
+    await requireAllPermissions({ codes: [PERMISSIONS.SETTINGS_WRITE], locale });
+    const updates: Record<string, string> = {};
+    const allowedNames = settings.filter((setting) => setting.tab === tab).map((setting) => setting.name);
     data.forEach((value, name) => {
-      configs[name] = value as string;
+      if (allowedNames.includes(name) && typeof value === 'string') updates[name] = value;
     });
 
-    await saveConfigs(configs);
+    if ('chat_models' in updates) getChatModels(updates.chat_models);
+    for (const media of ['image', 'video'] as const) {
+      const key = `media_relay_${media}_models`;
+      if (key in updates) parseModelList(updates[key], media);
+    }
+    if ('media_relay_enabled' in updates) {
+      const merged = { ...await getConfigs(), ...updates };
+      if (merged.media_relay_enabled === 'true') {
+        if (!merged.media_relay_api_key?.trim()) throw new Error('请填写中转站 API Key');
+        const url = new URL(merged.media_relay_base_url);
+        if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash) {
+          throw new Error('Base URL 必须是无凭据、无查询参数的 HTTPS 地址');
+        }
+        if (!merged.media_relay_image_models?.trim() && !merged.media_relay_video_models?.trim()) {
+          throw new Error('请至少配置一个图片或视频模型');
+        }
+      }
+    }
+    await saveConfigs(updates);
 
     return {
       status: 'success',

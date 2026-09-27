@@ -3,6 +3,7 @@ import {
   FalProvider,
   GeminiProvider,
   KieProvider,
+  MediaRelayProvider,
   ReplicateProvider,
 } from '@/extensions/ai';
 import { Configs, getAllConfigs } from '@/shared/models/config';
@@ -12,6 +13,13 @@ import { Configs, getAllConfigs } from '@/shared/models/config';
  */
 export function getAIManagerWithConfigs(configs: Configs) {
   const aiManager = new AIManager();
+
+  if (configs.media_relay_api_key && configs.media_relay_base_url) {
+    aiManager.addProvider(new MediaRelayProvider({
+      apiKey: configs.media_relay_api_key,
+      baseUrl: configs.media_relay_base_url,
+    }));
+  }
 
   if (configs.kie_api_key) {
     aiManager.addProvider(

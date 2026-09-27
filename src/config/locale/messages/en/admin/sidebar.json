@@ -1,10 +1,10 @@
 {
   "header": {
     "brand": {
-      "title": "ShipAny Two",
+      "title": "VFitly",
       "logo": {
         "src": "/logo.png",
-        "alt": "ShipAny Two"
+        "alt": "VFitly"
       },
       "url": "/admin"
     },
