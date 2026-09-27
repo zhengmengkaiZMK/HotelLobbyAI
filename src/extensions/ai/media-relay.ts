@@ -123,16 +123,16 @@ export class MediaRelayProvider implements AIProvider {
       data.url;
     if (typeof rawUrl !== 'string' || !rawUrl) return undefined;
 
+    const endpoint = this.endpoint(AIMediaType.VIDEO);
     let url: string;
     try {
-      url = new URL(rawUrl).toString();
+      url = new URL(rawUrl, endpoint.baseUrl).toString();
     } catch {
       console.error('media relay: invalid video url', { url: rawUrl });
       return rawUrl;
     }
 
     try {
-      const endpoint = this.endpoint(AIMediaType.VIDEO);
       const endpointOrigin = new URL(endpoint.baseUrl).origin;
       const headers = url.startsWith(endpointOrigin)
         ? { Authorization: `Bearer ${endpoint.apiKey}` }
