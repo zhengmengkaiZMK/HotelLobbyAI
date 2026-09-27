@@ -9,9 +9,18 @@ import {
   AITaskStatus,
 } from './types';
 
-export interface MediaRelayConfigs extends AIConfigs {
+export interface MediaRelayEndpointConfigs {
   apiKey: string;
   baseUrl: string;
+}
+
+export interface MediaRelayConfigs extends AIConfigs {
+  /** @deprecated legacy shared credentials, used as fallback */
+  apiKey?: string;
+  /** @deprecated legacy shared credentials, used as fallback */
+  baseUrl?: string;
+  image?: MediaRelayEndpointConfigs;
+  video?: MediaRelayEndpointConfigs;
 }
 
 function parseResponse(text: string): any {
@@ -49,16 +58,32 @@ function imageUrls(data: any): string[] {
 export class MediaRelayProvider implements AIProvider {
   readonly name = 'media-relay';
   configs: MediaRelayConfigs;
+  private endpoints: Partial<Record<AIMediaType, MediaRelayEndpointConfigs>>;
 
   constructor(configs: MediaRelayConfigs) {
-    this.configs = { ...configs, baseUrl: configs.baseUrl.replace(/\/$/, '') };
+    const normalize = (endpoint?: MediaRelayEndpointConfigs) =>
+      endpoint ? { ...endpoint, baseUrl: endpoint.baseUrl.replace(/\/$/, '') } : undefined;
+    this.configs = { ...configs };
+    this.endpoints = {
+      [AIMediaType.IMAGE]: normalize(configs.image),
+      [AIMediaType.VIDEO]: normalize(configs.video),
+    };
   }
 
-  private async request(path: string, init: RequestInit) {
-    const response = await fetch(`${this.configs.baseUrl}${path}`, {
+  private endpoint(mediaType?: AIMediaType): MediaRelayEndpointConfigs {
+    const endpoint = (mediaType && this.endpoints[mediaType]) || this.endpoints[AIMediaType.IMAGE] || this.endpoints[AIMediaType.VIDEO];
+    if (!endpoint) {
+      throw new Error(mediaType === AIMediaType.VIDEO ? '视频中转站未配置 Base URL 或 API Key' : '中转站未配置 Base URL 或 API Key');
+    }
+    return endpoint;
+  }
+
+  private async request(mediaType: AIMediaType, path: string, init: RequestInit) {
+    const endpoint = this.endpoint(mediaType);
+    const response = await fetch(`${endpoint.baseUrl}${path}`, {
       ...init,
       headers: {
-        Authorization: `Bearer ${this.configs.apiKey}`,
+        Authorization: `Bearer ${endpoint.apiKey}`,
         ...(init.headers || {}),
       },
     });
@@ -124,9 +149,9 @@ export class MediaRelayProvider implements AIProvider {
         const parts: Buffer[] = [];
         for (const [key, value] of Object.entries(fields)) parts.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="${key}"\r\n\r\n${value}\r\n`));
         parts.push(Buffer.from(`--${boundary}\r\nContent-Disposition: form-data; name="image"; filename="source.png"\r\nContent-Type: ${source.headers.get('content-type') || 'image/png'}\r\n\r\n`), bytes, Buffer.from(`\r\n--${boundary}--\r\n`));
-        ({ data } = await this.request(path, { method: 'POST', headers: { 'Content-Type': `multipart/form-data; boundary=${boundary}` }, body: Buffer.concat(parts) }));
+        ({ data } = await this.request(AIMediaType.IMAGE, path, { method: 'POST', headers: { 'Content-Type': `multipart/form-data; boundary=${boundary}` }, body: Buffer.concat(parts) }));
       } else {
-        ({ data } = await this.request(path, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' }, body: JSON.stringify({ model: params.model, prompt: params.prompt, n: 1, size: params.options?.size || '1024x1024', stream: true, response_format: 'b64_json', ...params.options }) }));
+        ({ data } = await this.request(AIMediaType.IMAGE, path, { method: 'POST', headers: { 'Content-Type': 'application/json', Accept: 'text/event-stream' }, body: JSON.stringify({ model: params.model, prompt: params.prompt, n: 1, size: params.options?.size || '1024x1024', stream: true, response_format: 'b64_json', ...params.options }) }));
       }
       const urls = await this.saveBase64Images(data);
       if (!urls.length) throw new Error('media relay returned no image');
@@ -138,7 +163,7 @@ export class MediaRelayProvider implements AIProvider {
       if (params.options?.video_input?.length) throw new Error('APIKEY.FAN relay does not support video-to-video');
       const body: Record<string, any> = { model: params.model, prompt: params.prompt, resolution: '720p', duration: 8 };
       if (params.options?.image_input?.[0]) body.image = { url: params.options.image_input[0] };
-      const { data } = await this.request('/videos/generations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+      const { data } = await this.request(AIMediaType.VIDEO, '/videos/generations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const taskId = data.request_id || data.id;
       if (!taskId) throw new Error('media relay returned no request_id');
       return { taskStatus: AITaskStatus.PENDING, taskId, taskInfo: { status: data.status || 'pending' }, taskResult: data };
@@ -148,7 +173,7 @@ export class MediaRelayProvider implements AIProvider {
 
   async query({ taskId, mediaType }: { taskId: string; mediaType?: string }): Promise<AITaskResult> {
     if (mediaType !== AIMediaType.VIDEO) throw new Error('query is only supported for video tasks');
-    const { data } = await this.request(`/videos/${encodeURIComponent(taskId)}`, { method: 'GET' });
+    const { data } = await this.request(AIMediaType.VIDEO, `/videos/${encodeURIComponent(taskId)}`, { method: 'GET' });
     const status = String(data.status || '').toLowerCase();
     if (['completed', 'done', 'succeeded', 'success'].includes(status)) {
       const videoUrl = await this.persistVideoUrl(data);

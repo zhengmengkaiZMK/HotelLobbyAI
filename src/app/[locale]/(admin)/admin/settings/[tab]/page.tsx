@@ -64,16 +64,46 @@ export default async function SettingsPage({
       const key = `media_relay_${media}_models`;
       if (key in updates) parseModelList(updates[key], media);
     }
-    if ('media_relay_enabled' in updates) {
+    const mediaRelayKeys = allowedNames.filter((name) => name.startsWith('media_relay_'));
+    if (mediaRelayKeys.some((name) => name in updates)) {
       const merged = { ...await getConfigs(), ...updates };
-      if (merged.media_relay_enabled === 'true') {
-        if (!merged.media_relay_api_key?.trim()) throw new Error('请填写中转站 API Key');
-        const url = new URL(merged.media_relay_base_url);
-        if (url.protocol !== 'https:' || url.username || url.password || url.search || url.hash) {
+      const assertUrl = (url: string) => {
+        const parsed = new URL(url);
+        if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.search || parsed.hash) {
           throw new Error('Base URL 必须是无凭据、无查询参数的 HTTPS 地址');
         }
+      };
+      if (merged.media_relay_enabled === 'true') {
         if (!merged.media_relay_image_models?.trim() && !merged.media_relay_video_models?.trim()) {
           throw new Error('请至少配置一个图片或视频模型');
+        }
+        const labels: Record<string, string> = { image: '绘画', video: '视频' };
+        for (const media of ['image', 'video'] as const) {
+          if (!merged[`media_relay_${media}_models` as keyof typeof merged]?.trim()) continue;
+          const baseUrl = merged[`media_relay_${media}_base_url` as keyof typeof merged]?.trim();
+          const apiKey = merged[`media_relay_${media}_api_key` as keyof typeof merged]?.trim();
+          if (baseUrl && apiKey) {
+            assertUrl(baseUrl);
+            continue;
+          }
+          if (baseUrl || apiKey) {
+            throw new Error(`${labels[media]}中转站的 Base URL 和 API Key 需同时填写`);
+          }
+          const sharedBaseUrl = merged.media_relay_base_url?.trim();
+          const sharedApiKey = merged.media_relay_api_key?.trim();
+          if (!sharedBaseUrl || !sharedApiKey) {
+            throw new Error(`请填写${labels[media]}中转站的 Base URL 和 API Key`);
+          }
+          assertUrl(sharedBaseUrl);
+        }
+      } else {
+        for (const media of ['image', 'video'] as const) {
+          const baseUrl = merged[`media_relay_${media}_base_url` as keyof typeof merged]?.trim();
+          const apiKey = merged[`media_relay_${media}_api_key` as keyof typeof merged]?.trim();
+          if ((baseUrl || apiKey) && !(baseUrl && apiKey)) {
+            const labels: Record<string, string> = { image: '绘画', video: '视频' };
+            throw new Error(`${labels[media]}中转站的 Base URL 和 API Key 需同时填写`);
+          }
         }
       }
     }

@@ -33,6 +33,7 @@ export default async function RefreshAITaskPage({
 
     const result = await aiProvider?.query?.({
       taskId: task.taskId,
+      mediaType: task.mediaType,
     });
 
     if (result && result.taskStatus && result.taskInfo) {

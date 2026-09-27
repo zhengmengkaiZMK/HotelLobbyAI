@@ -5,8 +5,50 @@ import {
   KieProvider,
   MediaRelayProvider,
   ReplicateProvider,
+  type MediaRelayEndpointConfigs,
 } from '@/extensions/ai';
 import { Configs, getAllConfigs } from '@/shared/models/config';
+
+export type MediaRelayMediaType = 'image' | 'video';
+
+export interface MediaRelayEndpoints {
+  image?: MediaRelayEndpointConfigs;
+  video?: MediaRelayEndpointConfigs;
+  errors: string[];
+}
+
+function readRelayEndpoint(configs: Configs, media: MediaRelayMediaType): MediaRelayEndpointConfigs | undefined {
+  const baseUrl = configs[`media_relay_${media}_base_url` as keyof Configs]?.trim();
+  const apiKey = configs[`media_relay_${media}_api_key` as keyof Configs]?.trim();
+  if (baseUrl && apiKey) return { apiKey, baseUrl };
+  if (baseUrl || apiKey) return undefined;
+  const sharedBaseUrl = configs.media_relay_base_url?.trim();
+  const sharedApiKey = configs.media_relay_api_key?.trim();
+  if (sharedBaseUrl && sharedApiKey) return { apiKey: sharedApiKey, baseUrl: sharedBaseUrl };
+  return undefined;
+}
+
+/**
+ * resolve image / video relay endpoints; shared legacy credentials act as fallback.
+ * errors contains messages for partially configured media types.
+ */
+export function resolveMediaRelayEndpoints(configs: Configs): MediaRelayEndpoints {
+  const labels: Record<MediaRelayMediaType, string> = { image: '绘画', video: '视频' };
+  const endpoints: MediaRelayEndpoints = { errors: [] };
+  for (const media of ['image', 'video'] as const) {
+    const endpoint = readRelayEndpoint(configs, media);
+    if (endpoint) {
+      endpoints[media] = endpoint;
+      continue;
+    }
+    const baseUrl = configs[`media_relay_${media}_base_url` as keyof Configs]?.trim();
+    const apiKey = configs[`media_relay_${media}_api_key` as keyof Configs]?.trim();
+    if (baseUrl || apiKey) {
+      endpoints.errors.push(`请完整填写${labels[media]}中转站的 Base URL 和 API Key`);
+    }
+  }
+  return endpoints;
+}
 
 /**
  * get ai manager with configs
@@ -14,10 +56,11 @@ import { Configs, getAllConfigs } from '@/shared/models/config';
 export function getAIManagerWithConfigs(configs: Configs) {
   const aiManager = new AIManager();
 
-  if (configs.media_relay_api_key && configs.media_relay_base_url) {
+  const relay = resolveMediaRelayEndpoints(configs);
+  if (relay.image || relay.video) {
     aiManager.addProvider(new MediaRelayProvider({
-      apiKey: configs.media_relay_api_key,
-      baseUrl: configs.media_relay_base_url,
+      image: relay.image,
+      video: relay.video,
     }));
   }
 
