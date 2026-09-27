@@ -3,6 +3,10 @@ main = ".open-next/worker.js"
 compatibility_date = "2025-03-01"
 compatibility_flags = ["nodejs_compat"]
 
+# CPU 限额（毫秒/请求）。付费版默认 30 秒，显式提高到 2 分钟以排除限额不足
+[limits]
+cpu_ms = 120000
+
 # 自定义域名绑定（需要 selfagent.ai 已添加到 Cloudflare 账号）
 routes = [
   { pattern = "www.selfagent.ai", custom_domain = true }
