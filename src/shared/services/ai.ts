@@ -152,7 +152,7 @@ export async function refreshPendingAITasks(options: {
     try {
       const aiService = await getAIService();
       const aiProvider = aiService.getProvider(task.provider);
-      if (!aiProvider?.query) continue;
+      if (!aiProvider?.query || !task.taskId) continue;
       const result = await aiProvider.query({
         taskId: task.taskId,
         mediaType: task.mediaType,
