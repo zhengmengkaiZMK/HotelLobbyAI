@@ -1,0 +1,39 @@
+name = "shipany-two"
+main = ".open-next/worker.js"
+compatibility_date = "2025-03-01"
+compatibility_flags = ["nodejs_compat"]
+
+# 自定义域名绑定（需要 selfagent.ai 已添加到 Cloudflare 账号）
+routes = [
+  { pattern = "www.selfagent.ai", custom_domain = true }
+]
+
+[assets]
+binding = "ASSETS"
+directory = ".open-next/assets"
+
+[[d1_databases]]
+binding = "DB"
+database_name = "shipany-db"
+database_id = "8ddd8696-034c-4bbf-8808-9563fe4fcaef"
+migrations_dir = "src/config/db/migrations_d1"
+
+[observability]
+enabled = true
+
+[vars]
+# app
+NEXT_PUBLIC_APP_URL = "https://www.selfagent.ai"
+NEXT_PUBLIC_APP_LOGO = "https://assets.selfagent.ai/uploads/272b40a3351d2c91a830496b98b61f44.jpg"
+NEXT_PUBLIC_APP_NAME = "VFitly"
+
+# theme
+NEXT_PUBLIC_THEME = "default"
+
+# appearance
+NEXT_PUBLIC_APPEARANCE = "system"
+
+# database
+DATABASE_PROVIDER = "d1"
+DB_SINGLETON_ENABLED = "true"
+DB_MAX_CONNECTIONS = "1"
