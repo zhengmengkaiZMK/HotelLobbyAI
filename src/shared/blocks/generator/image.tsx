@@ -71,7 +71,6 @@ type ImageGeneratorTab = 'text-to-image' | 'image-to-image';
 
 const POLL_INTERVAL = 5000;
 const GENERATION_TIMEOUT = 180000;
-const MAX_PROMPT_LENGTH = 2000;
 
 const DEFAULT_MODEL_OPTIONS = [
   {
@@ -263,7 +262,6 @@ export function ImageGenerator({
 
   const promptLength = prompt.trim().length;
   const remainingCredits = user?.credits?.remainingCredits ?? 0;
-  const isPromptTooLong = promptLength > MAX_PROMPT_LENGTH;
   const isTextToImageMode = activeTab === 'text-to-image';
 
   const handleTabChange = (value: string) => {
@@ -720,14 +718,7 @@ export function ImageGenerator({
                     className="min-h-32"
                   />
                   <div className="text-muted-foreground flex items-center justify-between text-xs">
-                    <span>
-                      {promptLength} / {MAX_PROMPT_LENGTH}
-                    </span>
-                    {isPromptTooLong && (
-                      <span className="text-destructive">
-                        {t('form.prompt_too_long')}
-                      </span>
-                    )}
+                    <span>{promptLength}</span>
                   </div>
                 </div>
 
@@ -749,7 +740,6 @@ export function ImageGenerator({
                     disabled={
                       isGenerating ||
                       !prompt.trim() ||
-                      isPromptTooLong ||
                       isReferenceUploading ||
                       hasReferenceUploadError
                     }

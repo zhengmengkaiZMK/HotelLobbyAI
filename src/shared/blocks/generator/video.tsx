@@ -63,7 +63,6 @@ type VideoGeneratorTab = 'text-to-video' | 'image-to-video' | 'video-to-video';
 
 const POLL_INTERVAL = 15000;
 const GENERATION_TIMEOUT = 600000; // 10 minutes for video
-const MAX_PROMPT_LENGTH = 2000;
 
 const textToVideoCredits = 6;
 const imageToVideoCredits = 8;
@@ -266,7 +265,6 @@ export function VideoGenerator({
 
   const promptLength = prompt.trim().length;
   const remainingCredits = user?.credits?.remainingCredits ?? 0;
-  const isPromptTooLong = promptLength > MAX_PROMPT_LENGTH;
   const isTextToVideoMode = activeTab === 'text-to-video';
   const isImageToVideoMode = activeTab === 'image-to-video';
   const isVideoToVideoMode = activeTab === 'video-to-video';
@@ -756,14 +754,7 @@ export function VideoGenerator({
                     className="min-h-32"
                   />
                   <div className="text-muted-foreground flex items-center justify-between text-xs">
-                    <span>
-                      {promptLength} / {MAX_PROMPT_LENGTH}
-                    </span>
-                    {isPromptTooLong && (
-                      <span className="text-destructive">
-                        {t('form.prompt_too_long')}
-                      </span>
-                    )}
+                    <span>{promptLength}</span>
                   </div>
                 </div>
 
@@ -785,7 +776,6 @@ export function VideoGenerator({
                     disabled={
                       isGenerating ||
                       (isTextToVideoMode && !prompt.trim()) ||
-                      isPromptTooLong ||
                       isReferenceUploading ||
                       hasReferenceUploadError ||
                       (isImageToVideoMode && referenceImageUrls.length === 0) ||
