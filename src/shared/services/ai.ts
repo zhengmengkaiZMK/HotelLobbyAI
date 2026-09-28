@@ -165,7 +165,7 @@ export async function refreshPendingAITasks(options: {
         taskResult: result.taskResult ? JSON.stringify(result.taskResult) : null,
         creditId: task.creditId,
       };
-      if (update.taskInfo !== task.taskInfo) {
+      if (update.status !== task.status || update.taskInfo !== task.taskInfo || update.taskResult !== task.taskResult) {
         await updateAITaskById(task.id, update);
       }
     } catch (e) {

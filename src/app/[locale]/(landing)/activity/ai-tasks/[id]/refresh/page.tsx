@@ -1,4 +1,4 @@
-import { getTranslations } from 'next-intl/server';
+import { getUserInfo } from '@/shared/models/user';
 
 import { redirect } from '@/core/i18n/navigation';
 import { AITaskStatus } from '@/extensions/ai';
@@ -12,10 +12,11 @@ export default async function RefreshAITaskPage({
   params: Promise<{ locale: string; id: string }>;
 }) {
   const { locale, id } = await params;
-  const t = await getTranslations('activity.ai-tasks');
+  const user = await getUserInfo();
+  if (!user) return <Empty message="no auth" />;
 
   const task = await findAITaskById(id);
-  if (!task || !task.taskId || !task.provider || !task.status) {
+  if (!task || task.userId !== user.id || !task.taskId || !task.provider || !task.status) {
     return <Empty message="Task not found" />;
   }
 
@@ -34,10 +35,12 @@ export default async function RefreshAITaskPage({
     const result = await aiProvider?.query?.({
       taskId: task.taskId,
       mediaType: task.mediaType,
+      model: task.model,
     });
 
-    if (result && result.taskStatus && result.taskInfo) {
+    if (result?.taskStatus) {
       await updateAITaskById(task.id, {
+        creditId: task.creditId,
         status: result.taskStatus,
         taskInfo: result.taskInfo ? JSON.stringify(result.taskInfo) : null,
         taskResult: result.taskResult

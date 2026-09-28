@@ -1,13 +1,45 @@
 import { getTranslations } from 'next-intl/server';
 
 import { AITaskStatus } from '@/extensions/ai';
-import { AudioPlayer, Empty, LazyImage } from '@/shared/blocks/common';
+import { AudioPlayer, Empty } from '@/shared/blocks/common';
+import { TaskMediaPreview } from '@/shared/blocks/common/task-media-preview';
 import { TableCard } from '@/shared/blocks/table';
 import { AITask, getAITasks, getAITasksCount } from '@/shared/models/ai_task';
 import { getUserInfo } from '@/shared/models/user';
 import { refreshPendingAITasks } from '@/shared/services/ai';
 import { Button, Tab } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
+
+function parseTaskData(value: string | null) {
+  try {
+    return value ? JSON.parse(value) : null;
+  } catch {
+    return null;
+  }
+}
+
+function mediaUrls(value: unknown, type: 'image' | 'video', depth = 0): string[] {
+  if (!value || depth > 5) return [];
+  if (typeof value === 'string') {
+    try {
+      const url = new URL(value);
+      return ['https:', 'http:'].includes(url.protocol) && !url.username && !url.password ? [url.href] : [];
+    } catch {
+      return [];
+    }
+  }
+  if (Array.isArray(value)) return value.flatMap((entry) => mediaUrls(entry, type, depth + 1));
+  if (typeof value !== 'object') return [];
+  const result = value as Record<string, unknown>;
+  const keys = type === 'image'
+    ? ['images', 'imageUrl', 'image', 'output', 'data', 'url', 'uri', 'src']
+    : ['videos', 'videoUrl', 'video', 'output', 'data', 'url', 'uri', 'src'];
+  for (const key of keys) {
+    const urls = mediaUrls(result[key], type, depth + 1);
+    if (urls.length) return [...new Set(urls)];
+  }
+  return [];
+}
 
 export default async function AiTasksPage({
   searchParams,
@@ -54,8 +86,16 @@ export default async function AiTasksPage({
         name: 'result',
         title: t('fields.result'),
         callback: (item: AITask) => {
-          if (item.taskInfo) {
-            const taskInfo = JSON.parse(item.taskInfo);
+          const parsedInfo = parseTaskData(item.taskInfo);
+          if (item.mediaType === 'image' || item.mediaType === 'video') {
+            const primary = mediaUrls(parsedInfo, item.mediaType);
+            const urls = [...new Set(primary.length ? primary : mediaUrls(parseTaskData(item.taskResult), item.mediaType))];
+            if (urls.length) {
+              return <TaskMediaPreview urls={urls} mediaType={item.mediaType} prompt={item.prompt || ''} />;
+            }
+          }
+          if (parsedInfo) {
+            const taskInfo = parsedInfo;
             if (taskInfo.errorMessage) {
               return (
                 <div className="text-red-500">
@@ -80,34 +120,6 @@ export default async function AiTasksPage({
                   </div>
                 );
               }
-            } else if (taskInfo.videos && taskInfo.videos.length > 0) {
-              return (
-                <div className="flex flex-col gap-2">
-                  {taskInfo.videos
-                    .filter((video: any) => video.videoUrl)
-                    .map((video: any, index: number) => (
-                      <video
-                        key={index}
-                        src={video.videoUrl}
-                        controls
-                        className="w-80"
-                      />
-                    ))}
-                </div>
-              );
-            } else if (taskInfo.images && taskInfo.images.length > 0) {
-              return (
-                <div className="flex flex-col gap-2">
-                  {taskInfo.images.map((image: any, index: number) => (
-                    <LazyImage
-                      key={index}
-                      src={image.imageUrl}
-                      alt="Generated image"
-                      className="h-32 w-auto"
-                    />
-                  ))}
-                </div>
-              );
             } else {
               return '-';
             }
