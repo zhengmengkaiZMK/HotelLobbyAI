@@ -208,7 +208,17 @@ export class MediaRelayProvider implements AIProvider {
         duration: params.options?.duration || 8,
       };
       if (params.options?.aspect_ratio) body.aspect_ratio = params.options.aspect_ratio;
-      if (params.options?.image_input?.[0]) body.image = { url: params.options.image_input[0] };
+      const images = params.options?.image_input;
+      if (images?.length) {
+        if (params.model === 'grok-imagine-video-1.5') {
+          if (!Array.isArray(images) || images.length > 7) throw new Error('R2V supports up to seven reference images');
+          if (!['480p', '720p'].includes(body.resolution)) throw new Error('R2V supports 480p or 720p resolution');
+          body.reference_images = images.map((url: string) => ({ url }));
+        } else {
+          if (!Array.isArray(images) || images.length !== 1) throw new Error('This relay model supports exactly one reference image');
+          body.image = { url: images[0] };
+        }
+      }
       const { data } = await this.request(AIMediaType.VIDEO, '/videos/generations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const taskId = data.request_id || data.id;
       if (!taskId) throw new Error('media relay returned no request_id');

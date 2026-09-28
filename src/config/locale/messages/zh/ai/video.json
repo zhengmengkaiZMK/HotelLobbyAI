@@ -24,6 +24,7 @@
       "prompt_placeholder": "描述视频内容，如场景、动作、风格等",
       "reference_image": "参考图片",
       "reference_image_placeholder": "上传参考图片用于视频生成",
+      "reference_images_r2v": "R2V：支持 1–7 张参考图。按图片显示顺序，在提示词中使用 {image1}、{image2} 指定角色或物体；不是首帧锁定模式。",
       "reference_video": "参考视频链接",
       "reference_video_placeholder": "输入参考视频的链接",
       "some_images_failed_to_upload": "图片上传失败，请删除并重新上传",

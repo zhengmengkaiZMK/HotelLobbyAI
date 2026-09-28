@@ -24,6 +24,7 @@
       "prompt_placeholder": "Describe the video content, such as scene, action, style, etc.",
       "reference_image": "Reference Image",
       "reference_image_placeholder": "Upload a reference image for video generation",
+      "reference_images_r2v": "R2V supports 1–7 reference images. Use {image1}, {image2} in display order to identify characters or objects. This mode does not lock the first frame.",
       "reference_video": "Reference Video URL",
       "reference_video_placeholder": "Enter the URL of the reference video",
       "some_images_failed_to_upload": "Image failed to upload, please delete and re-upload",

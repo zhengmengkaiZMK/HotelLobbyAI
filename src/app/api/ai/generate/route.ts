@@ -34,15 +34,25 @@ export async function POST(request: Request) {
       }
       const images = options?.image_input;
       const requiresImage = scene === 'image-to-image' || scene === 'image-to-video';
-      if (requiresImage && (!Array.isArray(images) || images.length !== 1)) {
-        throw new Error('Please provide exactly one reference image for the relay');
+      const supportsReferenceImages = mediaType === AIMediaType.VIDEO && model === 'grok-imagine-video-1.5' && scene === 'image-to-video';
+      const validImageCount = supportsReferenceImages
+        ? Array.isArray(images) && images.length >= 1 && images.length <= 7
+        : Array.isArray(images) && images.length === 1;
+      if (requiresImage && !validImageCount) {
+        throw new Error(
+          supportsReferenceImages
+            ? 'Please provide between one and seven reference images for the relay'
+            : 'Please provide exactly one reference image for the relay'
+        );
       }
       if (requiresImage) {
-        const image = new URL(images[0]);
         const allowedOrigins = [configs.r2_domain, configs.s3_domain, configs.r2_endpoint, configs.s3_endpoint]
           .filter(Boolean).map((url) => new URL(url).origin);
-        if (image.protocol !== 'https:' || image.username || image.password || !allowedOrigins.includes(image.origin)) {
-          throw new Error('Reference image must come from the configured HTTPS storage domain');
+        for (const imageUrl of images) {
+          const image = new URL(imageUrl);
+          if (image.protocol !== 'https:' || image.username || image.password || !allowedOrigins.includes(image.origin)) {
+            throw new Error('Reference image must come from the configured HTTPS storage domain');
+          }
         }
       }
       options = {

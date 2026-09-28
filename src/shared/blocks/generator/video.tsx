@@ -529,6 +529,14 @@ export function VideoGenerator({
       return;
     }
 
+    const maxReferenceImages = provider === 'media-relay'
+      ? (model === 'grok-imagine-video-1.5' ? 7 : 1)
+      : 3;
+    if (isImageToVideoMode && referenceImageUrls.length > maxReferenceImages) {
+      toast.error(`Please upload no more than ${maxReferenceImages} reference images.`);
+      return;
+    }
+
     if (isVideoToVideoMode && !referenceVideoUrl) {
       toast.error('Please provide a reference video URL before generating.');
       return;
@@ -724,13 +732,18 @@ export function VideoGenerator({
                   <div className="space-y-4">
                     <ImageUploader
                       title={t('form.reference_image')}
-                      allowMultiple={true}
-                      maxImages={3}
+                      allowMultiple={provider !== 'media-relay' || model === 'grok-imagine-video-1.5'}
+                      maxImages={provider === 'media-relay' ? (model === 'grok-imagine-video-1.5' ? 7 : 1) : 3}
                       maxSizeMB={maxSizeMB}
                       onChange={handleReferenceImagesChange}
                       emptyHint={t('form.reference_image_placeholder')}
                     />
 
+                    {provider === 'media-relay' && model === 'grok-imagine-video-1.5' && (
+                      <p className="text-muted-foreground text-xs">
+                        {t('form.reference_images_r2v', { image1: '<IMAGE_1>', image2: '<IMAGE_2>' })}
+                      </p>
+                    )}
                     {hasReferenceUploadError && (
                       <p className="text-destructive text-xs">
                         {t('form.some_images_failed_to_upload')}
