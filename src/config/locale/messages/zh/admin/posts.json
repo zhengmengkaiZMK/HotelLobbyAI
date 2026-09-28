@@ -56,5 +56,13 @@
     "buttons": {
       "submit": "编辑文章"
     }
+  },
+  "delete": {
+    "description": "确定要删除这篇文章吗？删除后文章将从后台列表和公开页面隐藏。",
+    "confirm": "确认删除",
+    "cancel": "取消",
+    "success": "文章已删除",
+    "failed": "删除文章失败",
+    "not_found": "文章不存在"
   }
 }

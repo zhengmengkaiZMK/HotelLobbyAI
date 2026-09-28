@@ -125,11 +125,12 @@ export default async function PostEditPage({
         if (!user) {
           throw new Error('no auth');
         }
+        await requirePermission({ code: PERMISSIONS.POSTS_WRITE });
 
         const { post } = passby;
 
-        if (!user || !post) {
-          throw new Error('no auth');
+        if (!user || !post || post.status === PostStatus.ARCHIVED) {
+          throw new Error('post is not editable');
         }
 
         const slug = data.get('slug') as string;

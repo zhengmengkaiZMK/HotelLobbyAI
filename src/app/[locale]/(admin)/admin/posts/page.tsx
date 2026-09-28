@@ -5,6 +5,8 @@ import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { TableCard } from '@/shared/blocks/table';
 import { getPosts, getPostsCount, Post, PostType } from '@/shared/models/post';
 import { getTaxonomies } from '@/shared/models/taxonomy';
+import { getSignUser } from '@/shared/models/user';
+import { hasPermission } from '@/shared/services/rbac';
 import { Button, Crumb } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
 
@@ -30,6 +32,8 @@ export default async function PostsPage({
   const limit = pageSize || 30;
 
   const t = await getTranslations('admin.posts');
+  const user = await getSignUser();
+  const canDelete = user ? await hasPermission(user.id, PERMISSIONS.POSTS_DELETE) : false;
 
   const crumbs: Crumb[] = [
     { title: t('list.crumbs.admin'), url: '/admin' },
@@ -88,7 +92,7 @@ export default async function PostsPage({
         title: '',
         type: 'dropdown',
         callback: (item: Post) => {
-          return [
+          const items = [
             {
               name: 'edit',
               title: t('list.buttons.edit'),
@@ -103,6 +107,15 @@ export default async function PostsPage({
               target: '_blank',
             },
           ];
+          if (canDelete) {
+            items.push({
+              name: 'delete',
+              title: t('list.buttons.delete'),
+              icon: 'RiDeleteBinLine',
+              url: `/admin/posts/${item.id}/delete`,
+            });
+          }
+          return items;
         },
       },
     ],

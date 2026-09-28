@@ -1,5 +1,5 @@
 import { getMDXComponents } from '@/mdx-components';
-import { and, count, desc, eq, like } from 'drizzle-orm';
+import { and, count, desc, eq, like, ne } from 'drizzle-orm';
 import { createRelativeLink } from 'fumadocs-ui/mdx';
 import moment from 'moment';
 
@@ -42,16 +42,21 @@ export async function updatePost(id: string, data: UpdatePost) {
   const [result] = await db()
     .update(post)
     .set(data)
-    .where(eq(post.id, id))
+    .where(and(eq(post.id, id), ne(post.status, PostStatus.ARCHIVED)))
     .returning();
 
   return result;
 }
 
 export async function deletePost(id: string) {
-  const result = await updatePost(id, {
-    status: PostStatus.ARCHIVED,
-  });
+  const [result] = await db()
+    .update(post)
+    .set({
+      status: PostStatus.ARCHIVED,
+      deletedAt: new Date(),
+    })
+    .where(and(eq(post.id, id), eq(post.type, PostType.ARTICLE)))
+    .returning();
 
   return result;
 }
@@ -72,7 +77,7 @@ export async function findPost({
       and(
         id ? eq(post.id, id) : undefined,
         slug ? eq(post.slug, slug) : undefined,
-        status ? eq(post.status, status) : undefined
+        status ? eq(post.status, status) : ne(post.status, PostStatus.ARCHIVED)
       )
     )
     .limit(1);
@@ -101,7 +106,7 @@ export async function getPosts({
     .where(
       and(
         type ? eq(post.type, type) : undefined,
-        status ? eq(post.status, status) : undefined,
+        status ? eq(post.status, status) : ne(post.status, PostStatus.ARCHIVED),
         category ? like(post.categories, `%${category}%`) : undefined,
         tag ? like(post.tags, `%${tag}%`) : undefined
       )
@@ -130,7 +135,7 @@ export async function getPostsCount({
     .where(
       and(
         type ? eq(post.type, type) : undefined,
-        status ? eq(post.status, status) : undefined,
+        status ? eq(post.status, status) : ne(post.status, PostStatus.ARCHIVED),
         category ? like(post.categories, `%${category}%`) : undefined,
         tag ? like(post.tags, `%${tag}%`) : undefined
       )
