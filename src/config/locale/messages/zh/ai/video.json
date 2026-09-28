@@ -27,6 +27,9 @@
       "reference_video": "参考视频链接",
       "reference_video_placeholder": "输入参考视频的链接",
       "some_images_failed_to_upload": "图片上传失败，请删除并重新上传",
+      "duration": "时长",
+      "aspect_ratio": "画面比例",
+      "resolution": "分辨率",
       "prompt_too_long": "提示词太长，请删除一些内容"
     },
     "generate": "生成视频",

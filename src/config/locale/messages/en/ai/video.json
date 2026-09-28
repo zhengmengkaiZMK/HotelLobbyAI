@@ -27,6 +27,9 @@
       "reference_video": "Reference Video URL",
       "reference_video_placeholder": "Enter the URL of the reference video",
       "some_images_failed_to_upload": "Image failed to upload, please delete and re-upload",
+      "duration": "Duration",
+      "aspect_ratio": "Aspect Ratio",
+      "resolution": "Resolution",
       "prompt_too_long": "Prompt is too long, please delete some content"
     },
     "generate": "Generate Video",

@@ -217,6 +217,9 @@ export function VideoGenerator({
   const [provider, setProvider] = useState(PROVIDER_OPTIONS_DEFAULT[0]?.value ?? '');
   const [model, setModel] = useState(DEFAULT_MODEL_OPTIONS[0]?.value ?? '');
   const [prompt, setPrompt] = useState('');
+  const [duration, setDuration] = useState('8');
+  const [aspectRatio, setAspectRatio] = useState('16:9');
+  const [resolution, setResolution] = useState('720p');
   const [referenceImageItems, setReferenceImageItems] = useState<
     ImageUploaderValue[]
   >([]);
@@ -538,7 +541,11 @@ export function VideoGenerator({
     setGenerationStartTime(Date.now());
 
     try {
-      const options: any = {};
+      const options: any = {
+        duration: Number(duration),
+        aspect_ratio: aspectRatio,
+        resolution,
+      };
 
       if (isImageToVideoMode) {
         options.image_input = referenceImageUrls;
@@ -758,6 +765,48 @@ export function VideoGenerator({
                   />
                   <div className="text-muted-foreground flex items-center justify-between text-xs">
                     <span>{promptLength}</span>
+                  </div>
+                </div>
+
+                <div className="grid grid-cols-1 gap-4 sm:grid-cols-3">
+                  <div className="space-y-2">
+                    <Label>{t('form.duration')}</Label>
+                    <Select value={duration} onValueChange={setDuration}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="6">6s</SelectItem>
+                        <SelectItem value="8">8s</SelectItem>
+                        <SelectItem value="10">10s</SelectItem>
+                        <SelectItem value="12">12s</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>{t('form.aspect_ratio')}</Label>
+                    <Select value={aspectRatio} onValueChange={setAspectRatio}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="16:9">16:9</SelectItem>
+                        <SelectItem value="1:1">1:1</SelectItem>
+                        <SelectItem value="9:16">9:16</SelectItem>
+                      </SelectContent>
+                    </Select>
+                  </div>
+                  <div className="space-y-2">
+                    <Label>{t('form.resolution')}</Label>
+                    <Select value={resolution} onValueChange={setResolution}>
+                      <SelectTrigger className="w-full">
+                        <SelectValue />
+                      </SelectTrigger>
+                      <SelectContent>
+                        <SelectItem value="480p">480p</SelectItem>
+                        <SelectItem value="720p">720p</SelectItem>
+                      </SelectContent>
+                    </Select>
                   </div>
                 </div>
 

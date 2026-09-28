@@ -45,7 +45,16 @@ export async function POST(request: Request) {
           throw new Error('Reference image must come from the configured HTTPS storage domain');
         }
       }
-      options = requiresImage ? { image_input: images } : {};
+      options = {
+        ...(requiresImage ? { image_input: images } : {}),
+        ...(mediaType === AIMediaType.VIDEO
+          ? {
+              duration: options?.duration,
+              aspect_ratio: options?.aspect_ratio,
+              resolution: options?.resolution,
+            }
+          : {}),
+      };
     }
 
     // check generate type
