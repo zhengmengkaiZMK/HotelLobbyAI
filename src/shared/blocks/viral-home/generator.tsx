@@ -29,15 +29,16 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
   const relay = getRelayModels(configs, 'video').filter((m) => m.scenes.includes('image-to-video'));
   const models = configs.media_relay_enabled === 'true' ? relay : defaults;
   const [selected, setSelected] = useState('');
-  const model = models.find((m) => `${m.provider}:${m.value}` === selected) ?? models[0];
+  const selectedModel = models.find((m) => `${m.provider}:${m.value}` === selected);
+  const model = selectedModel ?? models.find((m) => m.value === 'grok-imagine-video-1.5') ?? models[0];
   const single = model?.provider === 'media-relay' && model.value !== 'grok-imagine-video-1.5';
+  const prompt = (configs[`viral_template_prompt_${template.id}`] as string | undefined)?.trim() || template.prompt;
   const defaultImages = [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
   const [images, setImages] = useState<(string | null)[]>(defaultImages);
   const [custom, setCustom] = useState([false, false]);
   const [uploading, setUploading] = useState([false, false]);
   const [ratio, setRatio] = useState('16:9');
   const [resolution, setResolution] = useState('720p');
-  const [prompt, setPrompt] = useState<string>(template.prompt);
   const [busy, setBusy] = useState(false);
   const [task, setTask] = useState<{ id: string; start: number } | null>(null);
   const [result, setResult] = useState<string>('');
@@ -103,6 +104,19 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     } catch (e) { setError(e instanceof Error ? e.message : 'Upload failed'); }
     finally { setUploading((s) => s.map((v, i) => i === index ? false : v)); }
   }
+  const uploadedCache = useRef<Record<string, string>>({});
+  async function ensureUploadable(src: string): Promise<string> {
+    if (/^https?:\/\//.test(src)) return src;
+    if (uploadedCache.current[src]) return uploadedCache.current[src];
+    const blob = await (await fetch(src)).blob();
+    const file = new File([blob], `${template.id}-${src.endsWith('-a.jpg') ? 'a' : 'b'}.jpg`, { type: blob.type || 'image/jpeg' });
+    const body = new FormData(); body.append('files', file);
+    const response = await fetch('/api/storage/upload-image', { method: 'POST', body });
+    const payload = await response.json();
+    if (!response.ok || payload.code !== 0 || !payload.data?.urls?.[0]) throw new Error(payload.message || 'Upload failed');
+    uploadedCache.current[src] = payload.data.urls[0];
+    return payload.data.urls[0];
+  }
   async function generate() {
     if (!user) { onOpenChange(false); setIsShowSignModal(true); return; }
     if (lock.current || !model) return;
@@ -111,7 +125,8 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     if (input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
     lock.current = true; setBusy(true); setError(''); setResult('');
     try {
-      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt, options: { image_input: input, duration: 8, aspect_ratio: ratio, resolution } }) });
+      const resolved = await Promise.all(input.map((v) => ensureUploadable(v!)));
+      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt, options: { image_input: resolved, duration: 8, aspect_ratio: ratio, resolution } }) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
       setTask({ id: payload.data.id, start: Date.now() });
@@ -134,7 +149,7 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     <div><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{[0, 1].map((index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index === 1 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><b>{single ? text('Reference image', '参考图片') : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></label>)}</div>
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{['16:9','9:16','1:1'].map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{['480p','720p'].map((v) => <button key={v} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div></div>
-    <details className="advanced"><summary>{text('Model & prompt', '模型与提示词')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label><label>{text('Prompt', '提示词')}<textarea rows={4} value={prompt} onChange={(e) => setPrompt(e.target.value)}/></label></details></fieldset>
+    <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
     <button className="btn-gen" disabled={busy || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button><p className="credits">{text('1 generation = 8 credits', '1 次生成 = 8 积分')}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
     </div></div></DialogContent></Dialog>;
 }
