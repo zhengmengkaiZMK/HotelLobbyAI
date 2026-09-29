@@ -358,7 +358,7 @@ export function Form({
                       ) : item.type === 'checkbox' ? (
                         <Checkbox field={item} formField={field} data={data} />
                       ) : item.type === 'markdown_editor' ? (
-                        <Markdown field={item} formField={field} data={data} />
+                        <Markdown field={item} formField={field} data={data} form={form} />
                       ) : item.type === 'upload_image' ? (
                         <UploadImage
                           field={item}
