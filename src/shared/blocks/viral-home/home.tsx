@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { ArrowRight, Check, Flame, Maximize, Menu, Mic, Play, Sparkles, Users, Video } from 'lucide-react';
+import { ArrowRight, Check, Flame, Maximize, Menu, Mic, Play, Sparkles, Users, Video, Volume2, VolumeX } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { toast } from 'sonner';
 import { Link } from '@/core/i18n/navigation';
@@ -31,6 +31,7 @@ function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' | 'x'
 }
 function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, string] }) {
   const ref = useRef<HTMLVideoElement | null>(null);
+  const [muted, setMuted] = useState(true);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
@@ -41,7 +42,19 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
-  return <video ref={ref} className="tv-video" src={`/templates/${id}.mp4`} muted loop playsInline preload="metadata" style={{ background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})` }}/>;
+  const toggleSound = (e: { preventDefault: () => void; stopPropagation: () => void }) => {
+    e.preventDefault(); e.stopPropagation();
+    setMuted((m) => {
+      const next = !m;
+      const el = ref.current;
+      if (el) { el.muted = next; if (!next) el.play().catch(() => {}); }
+      return next;
+    });
+  };
+  return <>
+    <video ref={ref} className="tv-video" src={`/templates/${id}.mp4`} muted loop playsInline preload="metadata" style={{ background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})` }}/>
+    <span className="tv-sound" role="button" tabIndex={0} aria-label={muted ? 'Unmute video' : 'Mute video'} onClick={toggleSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleSound(e); }}>{muted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span>
+  </>;
 }
 
 export function ViralHome({ plans }: { plans: PricingItem[] }) {

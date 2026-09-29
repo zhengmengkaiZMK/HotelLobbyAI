@@ -1,7 +1,7 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Camera, Download } from 'lucide-react';
+import { Camera, Download, Volume2, VolumeX } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { Link } from '@/core/i18n/navigation';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/components/ui/dialog';
@@ -31,7 +31,9 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
   const [selected, setSelected] = useState('');
   const model = models.find((m) => `${m.provider}:${m.value}` === selected) ?? models[0];
   const single = model?.provider === 'media-relay' && model.value !== 'grok-imagine-video-1.5';
-  const [images, setImages] = useState<(string | null)[]>([null, null]);
+  const defaultImages = [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
+  const [images, setImages] = useState<(string | null)[]>(defaultImages);
+  const [custom, setCustom] = useState([false, false]);
   const [uploading, setUploading] = useState([false, false]);
   const [ratio, setRatio] = useState('16:9');
   const [resolution, setResolution] = useState('720p');
@@ -41,6 +43,16 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState('');
   const [downloading, setDownloading] = useState(false);
+  const [previewMuted, setPreviewMuted] = useState(true);
+  const previewRef = useRef<HTMLVideoElement | null>(null);
+  const togglePreviewSound = () => {
+    setPreviewMuted((m) => {
+      const next = !m;
+      const el = previewRef.current;
+      if (el) { el.muted = next; if (!next) el.play().catch(() => {}); }
+      return next;
+    });
+  };
   const lock = useRef(false);
   const creditsRef = useRef(fetchUserCredits);
   creditsRef.current = fetchUserCredits;
@@ -87,6 +99,7 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.urls?.[0]) throw new Error(payload.message || 'Upload failed');
       setImages((s) => s.map((v, i) => i === index ? payload.data.urls[0] : v));
+      setCustom((s) => s.map((v, i) => i === index ? true : v));
     } catch (e) { setError(e instanceof Error ? e.message : 'Upload failed'); }
     finally { setUploading((s) => s.map((v, i) => i === index ? false : v)); }
   }
@@ -117,8 +130,8 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     finally { setDownloading(false); }
   }
   return <Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="viral-dialog"><DialogDescription className="sr-only">{text('Create a video from your reference photos', '上传参考照片生成视频')}</DialogDescription><div className="gen-modal">
-    <div className="gen-left"><DialogTitle>{template.name[zh ? 1 : 0]}</DialogTitle><div className="gp-video">{result ? <video src={result} controls playsInline /> : <video src={`/templates/${template.id}.mp4`} muted loop autoPlay playsInline preload="metadata" style={{ background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }}/>}{!result && <span className="gp-badge">{text('TEMPLATE PREVIEW', '模板示意')}</span>}</div>{result && <div className="result-actions"><button className="btn btn-primary" disabled={downloading} onClick={download}><Download size={16}/>{text('Download', '下载视频')}</button></div>}</div>
-    <div><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{[0, 1].map((index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index === 1 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><b>{single ? text('Reference image', '参考图片') : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('tap to upload', '点击上传')}</small></label>)}</div>
+    <div className="gen-left"><DialogTitle>{template.name[zh ? 1 : 0]}</DialogTitle><div className="gp-video">{result ? <video src={result} controls playsInline /> : <video ref={previewRef} src={`/templates/${template.id}.mp4`} muted={previewMuted} loop autoPlay playsInline preload="metadata" style={{ background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }}/>}{!result && <><span className="gp-badge">{text('TEMPLATE PREVIEW', '模板示意')}</span><span className="gp-sound" role="button" tabIndex={0} aria-label={previewMuted ? text('Unmute video', '开启声音') : text('Mute video', '关闭声音')} onClick={togglePreviewSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') togglePreviewSound(); }}>{previewMuted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span></>}</div>{result && <div className="result-actions"><button className="btn btn-primary" disabled={downloading} onClick={download}><Download size={16}/>{text('Download', '下载视频')}</button></div>}</div>
+    <div><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{[0, 1].map((index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index === 1 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><b>{single ? text('Reference image', '参考图片') : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></label>)}</div>
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{['16:9','9:16','1:1'].map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{['480p','720p'].map((v) => <button key={v} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model & prompt', '模型与提示词')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label><label>{text('Prompt', '提示词')}<textarea rows={4} value={prompt} onChange={(e) => setPrompt(e.target.value)}/></label></details></fieldset>
