@@ -3,8 +3,9 @@
 import { useEffect, useRef, useState } from 'react';
 import { Camera, Download, Volume2, VolumeX } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { Link } from '@/core/i18n/navigation';
+import { Link, useRouter } from '@/core/i18n/navigation';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/components/ui/dialog';
+import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
 import { getRelayModels } from '@/shared/lib/ai-models';
 import { HomeTemplate } from './templates';
@@ -25,7 +26,8 @@ function urls(raw: string | null): string[] {
 export function TemplateGenerator({ template, open, onOpenChange }: { template: HomeTemplate; open: boolean; onOpenChange: (open: boolean) => void }) {
   const zh = useLocale() === 'zh';
   const text = (en: string, cn: string) => zh ? cn : en;
-  const { user, configs, setIsShowSignModal, fetchUserCredits } = useAppContext();
+  const { user, configs, setIsShowSignModal, fetchUserCredits, isCheckSign } = useAppContext();
+  const router = useRouter();
   const relay = getRelayModels(configs, 'video').filter((m) => m.scenes.includes('image-to-video'));
   const models = configs.media_relay_enabled === 'true' ? relay : defaults;
   const [selected, setSelected] = useState('');
@@ -41,6 +43,8 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
   const [resolution, setResolution] = useState('720p');
   const [busy, setBusy] = useState(false);
   const [task, setTask] = useState<{ id: string; start: number } | null>(null);
+  const [progress, setProgress] = useState(0);
+  const [stage, setStage] = useState<'uploading' | 'pending' | 'processing' | null>(null);
   const [result, setResult] = useState<string>('');
   const [error, setError] = useState('');
   const [downloading, setDownloading] = useState(false);
@@ -57,6 +61,13 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
   const lock = useRef(false);
   const creditsRef = useRef(fetchUserCredits);
   creditsRef.current = fetchUserCredits;
+  // progress creeps smoothly toward the cap of the current stage between polls
+  useEffect(() => {
+    if (!busy || !stage) return;
+    const cap = stage === 'processing' ? 92 : stage === 'pending' ? 45 : 20;
+    const timer = setInterval(() => setProgress((p) => Math.min(cap, p + Math.max(0.4, (cap - p) * 0.035))), 700);
+    return () => clearInterval(timer);
+  }, [busy, stage]);
   useEffect(() => {
     if (!task) return;
     let cancelled = false;
@@ -69,10 +80,13 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
         if (!response.ok || payload.code !== 0) throw new Error(payload.message || 'Query failed');
         if (cancelled) return;
         const data = payload.data;
+        if (data.status === 'pending') { setStage((s) => (s === 'processing' ? s : 'pending')); setProgress((p) => Math.max(p, 30)); }
+        if (data.status === 'processing') { setStage('processing'); setProgress((p) => Math.max(p, 55)); }
         if (data.status === 'failed') throw new Error(text('Generation failed. Check task history for details.', '生成失败，请在生成记录中查看详情。'));
         if (data.status === 'success') {
           const video = [...urls(data.taskInfo), ...urls(data.taskResult)][0];
           if (!video) throw new Error(text('No video returned.', '模型没有返回视频。'));
+          setProgress(100); setStage(null);
           setResult(video); setTask(null); setBusy(false); lock.current = false;
           void creditsRef.current();
           return;
@@ -80,7 +94,7 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
         timer = setTimeout(poll, 15000);
       } catch (e) {
         if (cancelled) return;
-        setError(e instanceof Error ? e.message : 'Query failed'); setTask(null); setBusy(false); lock.current = false;
+        setError(e instanceof Error ? e.message : 'Query failed'); setTask(null); setBusy(false); setStage(null); setProgress(0); lock.current = false;
         void creditsRef.current();
       }
     };
@@ -118,20 +132,29 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     return payload.data.urls[0];
   }
   async function generate() {
+    // 1) must be signed in — reuse the framework sign modal
     if (!user) { onOpenChange(false); setIsShowSignModal(true); return; }
     if (lock.current || !model) return;
-    if ((user.credits?.remainingCredits ?? 0) < 8) { setError(text('Insufficient credits. Please top up.', '积分不足，请先购买积分。')); return; }
+    // 2) credits / plan check — not enough: send the user to the pricing page
+    if ((user.credits?.remainingCredits ?? 0) < 8) {
+      setError(text('Insufficient credits. Taking you to the pricing page…', '积分不足，正在前往购买页…'));
+      setTimeout(() => router.push('/pricing'), 1200);
+      return;
+    }
     const input = single ? images.slice(0, 1) : images;
     if (input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
+    // 3) all checks passed — start generation
     lock.current = true; setBusy(true); setError(''); setResult('');
+    setProgress(8); setStage('uploading');
     try {
       const resolved = await Promise.all(input.map((v) => ensureUploadable(v!)));
+      setProgress(18); setStage('pending');
       const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt, options: { image_input: resolved, duration: 8, aspect_ratio: ratio, resolution } }) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
       setTask({ id: payload.data.id, start: Date.now() });
       void creditsRef.current();
-    } catch (e) { setError(e instanceof Error ? e.message : 'Generation failed'); setBusy(false); lock.current = false; }
+    } catch (e) { setError(e instanceof Error ? e.message : 'Generation failed'); setBusy(false); setStage(null); setProgress(0); lock.current = false; }
   }
   async function download() {
     setDownloading(true);
@@ -150,6 +173,6 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{['16:9','9:16','1:1'].map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{['480p','720p'].map((v) => <button key={v} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
-    <button className="btn-gen" disabled={busy || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button><p className="credits">{text('1 generation = 8 credits', '1 次生成 = 8 积分')}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
+    <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/></div>; })()}<p className="credits">{text('1 generation = 8 credits', '1 次生成 = 8 积分')}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
     </div></div></DialogContent></Dialog>;
 }
