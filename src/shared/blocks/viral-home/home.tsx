@@ -16,7 +16,18 @@ import { HomeTemplate, templates } from './templates';
 import './home.css';
 
 function Brand() {
-  return <Link href="/" className="brand"><svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="viral-brand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#f97316"/><stop offset="1" stopColor="#ea580c"/></linearGradient></defs><rect width="64" height="64" rx="12" fill="url(#viral-brand)"/><line x1="32" y1="14" x2="32" y2="26" stroke="#fff" strokeWidth="3" strokeLinecap="round"/><circle cx="32" cy="32" r="7" fill="#fff"/><circle cx="32" cy="32" r="2.6" fill="#ea580c"/><rect x="14" y="46" width="10" height="8" rx="4" fill="#fff" opacity=".9"/><rect x="40" y="46" width="10" height="8" rx="4" fill="#fff" opacity=".9"/></svg><span className="name">Viral<i>Reel</i></span></Link>;
+  return <Link href="/" className="brand"><svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="viral-brand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#f97316"/><stop offset="1" stopColor="#ea580c"/></linearGradient></defs><rect width="64" height="64" rx="12" fill="url(#viral-brand)"/><line x1="32" y1="14" x2="32" y2="26" stroke="#fff" strokeWidth="3" strokeLinecap="round"/><circle cx="32" cy="32" r="7" fill="#fff"/><circle cx="32" cy="32" r="2.6" fill="#ea580c"/><rect x="14" y="46" width="10" height="8" rx="4" fill="#fff" opacity=".9"/><rect x="40" y="46" width="10" height="8" rx="4" fill="#fff" opacity=".9"/></svg><span className="name">Viral<i>Reel</i></span>  </Link>;
+}
+
+function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' | 'x' | 'reddit' }) {
+  const paths: Record<string, ReactNode> = {
+    tiktok: <path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.9 2.9 0 1 1-2.31-2.84V9.25a6.35 6.35 0 1 0 5.76 6.32V8.69a8.16 8.16 0 0 0 4.77 1.52V6.79a4.85 4.85 0 0 1-1-.1z" />,
+    youtube: <><path d="M23.5 6.19a3.02 3.02 0 0 0-2.12-2.14C19.5 3.55 12 3.55 12 3.55s-7.5 0-9.38.5A3.02 3.02 0 0 0 .5 6.19C0 8.07 0 12 0 12s0 3.93.5 5.81a3.02 3.02 0 0 0 2.12 2.14c1.88.5 9.38.5 9.38.5s7.5 0 9.38-.5a3.02 3.02 0 0 0 2.12-2.14C24 15.93 24 12 24 12s0-3.93-.5-5.81z"/><path fill="#fff" d="m9.55 15.57 6.27-3.57-6.27-3.57z"/></>,
+    instagram: <><rect x="3" y="3" width="18" height="18" rx="5" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="12" cy="12" r="4" fill="none" stroke="currentColor" strokeWidth="2"/><circle cx="17.5" cy="6.5" r="1" fill="currentColor"/></>,
+    x: <path d="M18.9 1.15h3.68l-8.04 9.19L24 22.85h-7.41l-5.8-7.58-6.64 7.58H.47l8.6-9.83L0 1.15h7.59l5.24 6.93zm-1.29 19.5h2.04L6.49 3.24H4.3z" />,
+    reddit: <path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.01 4.74a1.25 1.25 0 1 0-1.95.94l-2.91-.62a.34.34 0 0 0-.41.26l-.9 4.17c-1.87.06-3.56.62-4.79 1.5a1.76 1.76 0 1 0-.81 3.33c-.03.17-.05.35-.05.53 0 2.7 3.12 4.87 7 4.87s7-2.17 7-4.87c0-.18-.02-.36-.04-.52a1.76 1.76 0 1 0-2.95-1.11c-1.2-.86-2.85-1.42-4.68-1.49l.8-3.75 2.6.55a1.25 1.25 0 0 0 2.09-1.09zM8.6 13.02a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm6.8 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5z" />,
+  };
+  return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{paths[type]}</svg>;
 }
 export function ViralHome({ plans }: { plans: PricingItem[] }) {
   const locale = useLocale();
