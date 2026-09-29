@@ -1,7 +1,7 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
-import { defaultLocale } from '@/config/locale';
+import { defaultLocale, locales } from '@/config/locale';
 
 // get metadata for page component
 export function getMetadata(
@@ -88,6 +88,7 @@ export function getMetadata(
         defaultMetadata.keywords,
       alternates: {
         canonical: canonicalUrl,
+        languages: getLanguageAlternates(options.canonicalUrl || '/'),
       },
 
       openGraph: {
@@ -117,6 +118,35 @@ export function getMetadata(
 }
 
 const defaultMetadataKey = 'common.metadata';
+
+// build hreflang alternates for all supported locales
+function getLanguageAlternates(canonicalUrl: string): Record<string, string> {
+  let path = canonicalUrl;
+  if (!path.startsWith('http')) {
+    if (!path.startsWith('/')) {
+      path = `/${path}`;
+    }
+  } else {
+    // full url: reduce to path portion
+    try {
+      const url = new URL(path);
+      path = url.pathname;
+    } catch {
+      path = '/';
+    }
+  }
+  if (path.length > 1 && path.endsWith('/')) {
+    path = path.slice(0, -1);
+  }
+
+  const languages: Record<string, string> = {};
+  for (const loc of locales) {
+    languages[loc] = `${envConfigs.app_url}${loc === defaultLocale ? '' : `/${loc}`}${path}`;
+    languages[`${loc}-${loc.toUpperCase()}`] = languages[loc];
+  }
+  languages['x-default'] = `${envConfigs.app_url}${path}`;
+  return languages;
+}
 
 async function getTranslatedMetadata(metadataKey: string, locale: string) {
   setRequestLocale(locale);

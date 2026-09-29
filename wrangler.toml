@@ -7,9 +7,9 @@ compatibility_flags = ["nodejs_compat"]
 [limits]
 cpu_ms = 120000
 
-# 自定义域名绑定（需要 selfagent.ai 已添加到 Cloudflare 账号）
+# 自定义域名绑定（需要 viralreel.app 已添加到 Cloudflare 账号）
 routes = [
-  { pattern = "www.selfagent.ai", custom_domain = true }
+  { pattern = "www.viralreel.app", custom_domain = true }
 ]
 
 [assets]
@@ -27,9 +27,10 @@ enabled = true
 
 [vars]
 # app
-NEXT_PUBLIC_APP_URL = "https://www.selfagent.ai"
-NEXT_PUBLIC_APP_LOGO = "https://assets.selfagent.ai/uploads/272b40a3351d2c91a830496b98b61f44.jpg"
-NEXT_PUBLIC_APP_NAME = "VFitly"
+NEXT_PUBLIC_APP_URL = "https://www.viralreel.app"
+NEXT_PUBLIC_APP_LOGO = "https://assets.viralreel.app/uploads/272b40a3351d2c91a830496b98b61f44.jpg"
+NEXT_PUBLIC_APP_NAME = "ViralReel"
+NEXT_PUBLIC_APP_PREVIEW_IMAGE = "/og-image.jpg"
 
 # theme
 NEXT_PUBLIC_THEME = "default"

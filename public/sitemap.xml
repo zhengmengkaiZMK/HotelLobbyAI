@@ -1,15 +1,51 @@
 <?xml version='1.0' encoding='utf-8' standalone='yes'?>
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://your-domain.com/</loc>
-    <lastmod>2025-11-15T10:00:00+00:00</lastmod>
+    <loc>https://www.viralreel.app/</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://your-domain.com/blog</loc>
-    <lastmod>2025-11-15T10:00:00+00:00</lastmod>
+    <loc>https://www.viralreel.app/pricing</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://your-domain.com/showcases</loc>
-    <lastmod>2025-11-15T10:00:00+00:00</lastmod>
+    <loc>https://www.viralreel.app/ai-video-generator</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.viralreel.app/ai-image-generator</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.viralreel.app/ai-music-generator</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.viralreel.app/blog</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>daily</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.viralreel.app/showcases</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://www.viralreel.app/updates</loc>
+    <lastmod>2026-09-29T21:30:00+00:00</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.5</priority>
   </url>
 </urlset>

@@ -1,10 +1,10 @@
 {
   "header": {
     "brand": {
-      "title": "VFitly",
+      "title": "ViralReel",
       "logo": {
         "src": "/logo.png",
-        "alt": "VFitly"
+        "alt": "ViralReel"
       },
       "url": "/admin"
     },
