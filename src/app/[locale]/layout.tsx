@@ -22,8 +22,8 @@ import { getCustomerService } from '@/shared/services/customer_service';
 
 // Fonts are self-hosted locally (src/fonts/) to avoid build-time
 // network dependency on Google Fonts, which can stall builds.
-const notoSansMono = localFont({
-  src: '../../fonts/noto-sans-mono-latin.woff2',
+const inter = localFont({
+  src: '../../fonts/inter-latin-wght-normal.woff2',
   weight: '100 900',
   variable: '--font-sans',
   display: 'swap',
@@ -114,7 +114,7 @@ export default async function LocaleLayout({
   return (
     <html
       lang={locale}
-      className={`${notoSansMono.variable} ${merriweather.variable} ${jetbrainsMono.variable}`}
+      className={`${inter.variable} ${merriweather.variable} ${jetbrainsMono.variable}`}
       suppressHydrationWarning
     >
       <head>
@@ -147,7 +147,7 @@ export default async function LocaleLayout({
       </head>
       <body suppressHydrationWarning className="overflow-x-hidden">
         <NextTopLoader
-          color="#6466F1"
+          color="#f97316"
           initialPosition={0.08}
           crawlSpeed={200}
           height={3}
