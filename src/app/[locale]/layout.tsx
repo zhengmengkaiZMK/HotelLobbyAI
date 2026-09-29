@@ -122,17 +122,6 @@ export default async function LocaleLayout({
         <link rel="alternate icon" href="/favicon.ico" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-        {locales
-          ? locales.map((loc) => (
-              <link
-                key={loc}
-                rel="alternate"
-                hrefLang={loc}
-                href={`${appUrl}${loc === 'en' ? '' : `/${loc}`}`}
-              />
-            ))
-          : null}
-
         {adsMetaTags}
         {adsHeadScripts}
 

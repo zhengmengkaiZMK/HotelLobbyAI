@@ -142,7 +142,6 @@ function getLanguageAlternates(canonicalUrl: string): Record<string, string> {
   const languages: Record<string, string> = {};
   for (const loc of locales) {
     languages[loc] = `${envConfigs.app_url}${loc === defaultLocale ? '' : `/${loc}`}${path}`;
-    languages[`${loc}-${loc.toUpperCase()}`] = languages[loc];
   }
   languages['x-default'] = `${envConfigs.app_url}${path}`;
   return languages;

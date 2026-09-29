@@ -80,10 +80,18 @@
 .viral-home .soc svg{width:22px;height:22px;flex:none}.viral-home .soc.tiktok{color:#000}.viral-home .soc.youtube{color:#f00}.viral-home .soc.instagram{color:#d62976}.viral-home .soc.x{color:#000}.viral-home .soc.reddit{color:#ff4500}
 .viral-home .stats{padding:56px 0}
 .viral-home .stats-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;text-align:center}
-.viral-home .stats-grid h3{font-size:34px;font-weight:600;letter-spacing:-.02em}
+.viral-home .stats-grid .statnum{font-size:34px;font-weight:600;letter-spacing:-.02em}
 .viral-home .templates-section{padding-top:40px;background:#f4f4f5}.viral-home .templates-section .sec-head{margin-bottom:40px}
 .viral-home .stats-grid em{font-style:normal;color:#ea580c}.viral-home .stats-grid .wide-em{font-size:14px;letter-spacing:0;font-weight:400}.viral-home .hero-proof b{color:#09090b}
 .viral-home .stats-grid p{font-size:14px;color:#71717a;margin-top:4px}
+.viral-home .guide{max-width:820px}
+.viral-home .guide h3{font-size:19px;font-weight:600;margin:32px 0 12px;color:#09090b}
+.viral-home .guide p{color:#3f3f46;line-height:1.75;margin-bottom:14px}
+.viral-home .guide-fig{margin:24px 0 8px}
+.viral-home .guide-fig img{width:100%;border-radius:14px;border:1px solid #e4e4e7}
+.viral-home .guide-fig figcaption{font-size:13px;color:#71717a;margin-top:8px;text-align:center}
+.viral-home .guide-more{margin-top:20px}
+.viral-home .guide-more a{color:#ea580c;font-weight:600}
 .viral-home .grid4,.viral-home .grid4s{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
 .viral-home .grid4{gap:32px}
 .viral-home .feat,.viral-home .step{border-top:1px solid #e4e4e7;padding-top:20px;text-align:left}
@@ -127,7 +135,7 @@
 .viral-home .final-cta p{color:#71717a;margin:14px 0 28px}
 .viral-home footer{background:#09090b;color:#a1a1aa;font-size:13.5px}
 .viral-home .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding:56px 0}
-.viral-home footer h4{color:#fff;font-size:13.5px;font-weight:600;margin-bottom:14px}
+.viral-home footer h3{color:#fff;font-size:13.5px;font-weight:600;margin-bottom:14px}
 .viral-home footer a{display:block;color:#a1a1aa;margin-bottom:10px}
 .viral-home footer a:hover{color:#fff}
 .viral-home footer .brand{display:inline-flex;margin-bottom:14px;color:#fff}

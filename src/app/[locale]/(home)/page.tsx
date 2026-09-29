@@ -45,7 +45,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           offers: plans.slice(0, 5).map((p) => ({
             '@type': 'Offer',
             name: p.product_name || 'ViralReel Plan',
-            price: p.amount,
+            price: (p.amount / 100).toFixed(2),
             priceCurrency: p.currency || 'USD',
             availability: 'https://schema.org/InStock',
             url: `${appUrl}/pricing`,
