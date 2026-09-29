@@ -149,7 +149,7 @@
 .viral-dialog .gp-badge{position:absolute;top:12px;left:12px;background:#ffffffeb;color:#9a3412;font-size:11px;font-weight:700;padding:3px 10px;border-radius:999px}
 .viral-dialog .gp-sound{position:absolute;right:12px;bottom:12px;width:36px;height:36px;border-radius:50%;display:flex;align-items:center;justify-content:center;color:#fff;background:#000000a6;backdrop-filter:blur(4px);z-index:2;cursor:pointer;transition:background .2s}
 .viral-dialog .gp-sound:hover{background:#000000d9}
-.viral-dialog .gp-video video{width:100%;height:100%;max-height:480px;object-fit:cover}
+.viral-dialog .gp-video video{width:100%;height:100%;max-height:480px;object-fit:contain}
 .viral-dialog .g-label{font-size:14.5px;font-weight:600;margin:0 0 10px;display:block}
 .viral-dialog .up-row{display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-bottom:20px}
 .viral-dialog .up-card{background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:10px 10px 12px;text-align:center;cursor:pointer;transition:.15s;display:block;min-width:0}
