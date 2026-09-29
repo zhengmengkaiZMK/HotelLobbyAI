@@ -3,7 +3,7 @@
     "brand": {
       "title": "ViralReel",
       "logo": {
-        "src": "/logo.png",
+        "src": "/logo.svg",
         "alt": "ViralReel"
       },
       "url": "/admin"

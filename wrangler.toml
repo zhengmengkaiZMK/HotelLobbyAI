@@ -28,7 +28,7 @@ enabled = true
 [vars]
 # app
 NEXT_PUBLIC_APP_URL = "https://www.viralreel.app"
-NEXT_PUBLIC_APP_LOGO = "https://assets.viralreel.app/uploads/272b40a3351d2c91a830496b98b61f44.jpg"
+NEXT_PUBLIC_APP_LOGO = "/logo.svg"
 NEXT_PUBLIC_APP_NAME = "ViralReel"
 NEXT_PUBLIC_APP_PREVIEW_IMAGE = "/og-image.jpg"
 
