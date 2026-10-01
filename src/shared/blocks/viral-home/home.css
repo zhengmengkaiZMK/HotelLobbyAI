@@ -45,10 +45,13 @@
 .viral-home .sec-head .kick{font-size:14px;color:#71717a;margin-bottom:12px}
 .viral-home .sec-head h2{font-size:32px;font-weight:600;letter-spacing:-.02em;line-height:1.2}
 .viral-home .sec-head .sub{color:#71717a;font-size:16px;margin-top:12px}
-.viral-home .grid3,.viral-home .quote-grid{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 4px 18px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
-.viral-home .quote-grid .qcard{flex:0 0 320px;scroll-snap-align:start}
-.viral-home .quote-grid::-webkit-scrollbar{height:8px}
-.viral-home .quote-grid::-webkit-scrollbar-thumb{background:#e4e4e7;border-radius:999px}
+.viral-home .grid3{display:flex;gap:20px;overflow-x:auto;scroll-snap-type:x mandatory;padding:4px 4px 18px;-webkit-overflow-scrolling:touch;scrollbar-width:thin}
+.viral-home .quote-viewport{overflow:hidden;padding:4px 0 18px;mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent);-webkit-mask-image:linear-gradient(90deg,transparent,#000 4%,#000 96%,transparent)}
+.viral-home .quote-grid{display:flex;gap:20px;width:max-content;animation:viral-marquee 55s linear infinite}
+.viral-home .quote-viewport:hover .quote-grid{animation-play-state:paused}
+.viral-home .quote-grid .qcard{flex:0 0 320px}
+@keyframes viral-marquee{from{transform:translateX(0)}to{transform:translateX(calc(-50% - 10px))}}
+@media (prefers-reduced-motion: reduce){.viral-home .quote-grid{animation:none;flex-wrap:wrap}}
 .viral-home .tcard{background:#fff;border:1px solid #e4e4e7;border-radius:14px;overflow:hidden;transition:.15s;position:relative}
 .viral-home .tcard:hover{box-shadow:0 8px 30px #09090b1a;transform:translateY(-2px)}
 .viral-home .tv{position:relative;height:230px;overflow:hidden;display:block;width:100%;border:0;text-align:left}
