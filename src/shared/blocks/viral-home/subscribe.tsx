@@ -6,13 +6,20 @@ import { useLocale } from 'next-intl';
 import { toast } from 'sonner';
 
 import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
+import { TopupCard } from '@/shared/blocks/viral-home/topup';
 import { Link } from '@/core/i18n/navigation';
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 import './home.css';
 
-export function SubscribeView({ plans }: { plans: PricingItem[] }) {
+export function SubscribeView({
+  plans,
+  creditsPerUsd = 12,
+}: {
+  plans: PricingItem[];
+  creditsPerUsd?: number;
+}) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => (zh ? cn : en);
@@ -84,8 +91,8 @@ export function SubscribeView({ plans }: { plans: PricingItem[] }) {
     [
       t('What happens to unused credits?', '没用完的积分怎么办？'),
       t(
-        'Monthly credits refresh with each billing cycle, and you can top up extra credits any time at 15 credits = $1.',
-        '每月积分随账单周期刷新，也可以随时加购——15 积分 = 1 美元。'
+        `Monthly credits refresh with each billing cycle, and you can top up extra credits any time at ${creditsPerUsd} credits = $1.`,
+        `每月积分随账单周期刷新，也可以随时加购——${creditsPerUsd} 积分 = 1 美元。`
       ),
     ],
     [
@@ -175,10 +182,25 @@ export function SubscribeView({ plans }: { plans: PricingItem[] }) {
             </div>
             <p className="sub-note">
               {t(
-                '10 credits per video · top up any time at 15 credits = $1 · cancel any time',
-                '每条视频 10 积分 · 随时加购（15 积分 = 1 美元）· 随时取消'
+                `10 credits per video · top up any time at ${creditsPerUsd} credits = $1 · cancel any time`,
+                `每条视频 10 积分 · 随时加购（${creditsPerUsd} 积分 = 1 美元）· 随时取消`
               )}
             </p>
+          </div>
+        </section>
+        <section className="sec" id="credits">
+          <div className="container">
+            <div className="sec-head">
+              <p className="kick">{t('Credit Top-up', '积分加购')}</p>
+              <h2>{t('Need more credits?', '积分不够用？')}</h2>
+              <p className="sub">
+                {t(
+                  'No subscription needed — buy extra credits any time.',
+                  '无需订阅——随时单独购买积分。'
+                )}
+              </p>
+            </div>
+            <TopupCard rate={creditsPerUsd} />
           </div>
         </section>
         <section className="sec" id="faq">

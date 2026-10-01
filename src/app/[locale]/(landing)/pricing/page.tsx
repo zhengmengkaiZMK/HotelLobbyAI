@@ -4,9 +4,10 @@ import { getThemePage } from '@/core/theme';
 import { getMetadata } from '@/shared/lib/seo';
 import { getCurrentSubscription } from '@/shared/models/subscription';
 import { getUserInfo } from '@/shared/models/user';
+import { getPricingPlans } from '@/shared/services/pricing';
 import { DynamicPage } from '@/shared/types/blocks/landing';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export const generateMetadata = getMetadata({
   metadataKey: 'pages.pricing.metadata',
@@ -34,6 +35,7 @@ export default async function PricingPage({
 
   // get pricing data
   const t = await getTranslations('pages.pricing');
+  const plans = await getPricingPlans(locale);
 
   // build page sections
   const page: DynamicPage = {
@@ -41,6 +43,7 @@ export default async function PricingPage({
     sections: {
       pricing: {
         ...t.raw('page.sections.pricing'),
+        items: plans,
         data: {
           currentSubscription,
         },

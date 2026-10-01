@@ -3,9 +3,10 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { envConfigs } from '@/config';
 
 import { SubscribeView } from '@/shared/blocks/viral-home/subscribe';
+import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 const META = {
   en: {
@@ -71,7 +72,8 @@ export default async function SubscribePage({
   const appUrl = envConfigs.app_url;
 
   const t = await getTranslations('pages.pricing');
-  const plans = t.raw('page.sections.pricing.items') as PricingItem[];
+  const plans = await getPricingPlans(locale);
+  const creditsPerUsd = await getCreditsPerUsdFromConfigs();
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -138,7 +140,7 @@ export default async function SubscribePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <SubscribeView plans={plans} />
+      <SubscribeView plans={plans} creditsPerUsd={creditsPerUsd} />
     </>
   );
 }

@@ -3,15 +3,16 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { envConfigs } from '@/config';
 
 import { ViralHome } from '@/shared/blocks/viral-home/home';
+import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
-export const revalidate = 3600;
+export const dynamic = 'force-dynamic';
 
 export default async function HomePage({ params }: { params: Promise<{ locale: string }> }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const t = await getTranslations('pages.pricing');
-  const plans = t.raw('page.sections.pricing.items') as PricingItem[];
+  const plans = await getPricingPlans(locale);
+  const creditsPerUsd = await getCreditsPerUsdFromConfigs();
 
   const appUrl = envConfigs.app_url;
   const jsonLd = {
@@ -61,7 +62,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ViralHome plans={plans} />
+      <ViralHome plans={plans} creditsPerUsd={creditsPerUsd} />
     </>
   );
 }

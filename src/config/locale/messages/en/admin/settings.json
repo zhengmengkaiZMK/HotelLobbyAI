@@ -4,6 +4,7 @@
     "google_auth": "Google Auth",
     "github_auth": "Github Auth",
     "basic_payment": "Basic Payment",
+    "pricing": "Pricing & Credit Rate",
     "stripe": "Stripe",
     "creem": "Creem",
     "paypal": "Paypal",

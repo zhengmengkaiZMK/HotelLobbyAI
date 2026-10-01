@@ -4,6 +4,7 @@
     "google_auth": "Google认证",
     "github_auth": "Github认证",
     "basic_payment": "基础支付",
+    "pricing": "套餐定价与积分汇率",
     "stripe": "Stripe",
     "creem": "Creem",
     "paypal": "Paypal",

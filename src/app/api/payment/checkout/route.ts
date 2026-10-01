@@ -1,5 +1,3 @@
-import { getTranslations } from 'next-intl/server';
-
 import {
   PaymentInterval,
   PaymentOrder,
@@ -16,33 +14,20 @@ import {
   updateOrderByOrderNo,
 } from '@/shared/models/order';
 import { getUserInfo } from '@/shared/models/user';
+import {
+  CREDITS_TOPUP_PRODUCT_ID,
+  getCreditsPerUsd,
+  getPricingPlans,
+} from '@/shared/services/pricing';
 import { getPaymentService } from '@/shared/services/payment';
-import { PricingCurrency } from '@/shared/types/blocks/pricing';
+import { PricingItem, PricingCurrency } from '@/shared/types/blocks/pricing';
 
 export async function POST(req: Request) {
   try {
-    const { product_id, currency, locale, payment_provider, metadata } =
+    const { product_id, currency, locale, payment_provider, metadata, amount_usd } =
       await req.json();
     if (!product_id) {
       return respErr('product_id is required');
-    }
-
-    const t = await getTranslations({
-      locale: locale || 'en',
-      namespace: 'pages.pricing',
-    });
-    const pricing = t.raw('page.sections.pricing');
-
-    const pricingItem = pricing.items.find(
-      (item: any) => item.product_id === product_id
-    );
-
-    if (!pricingItem) {
-      return respErr('pricing item not found');
-    }
-
-    if (!pricingItem.product_id && !pricingItem.amount) {
-      return respErr('invalid pricing item');
     }
 
     // get sign user
@@ -53,6 +38,69 @@ export async function POST(req: Request) {
 
     // get configs
     const configs = await getAllConfigs();
+
+    let pricingItem: any;
+    let checkoutAmount = 0;
+    let checkoutCurrency = 'usd';
+    let creditsAmount = 0;
+
+    if (product_id === CREDITS_TOPUP_PRODUCT_ID) {
+      // credit top-up: amount is chosen by the user, credits are computed
+      // server-side from the admin-configured rate (never trust client credits)
+      const rate = getCreditsPerUsd(configs);
+      const usd = Number(amount_usd);
+      if (!Number.isFinite(usd) || usd < 1 || usd > 1000) {
+        return respErr('invalid top-up amount');
+      }
+      checkoutAmount = Math.round(usd * 100);
+      checkoutCurrency = 'usd';
+      creditsAmount = Math.floor(usd * rate);
+      pricingItem = {
+        product_id: CREDITS_TOPUP_PRODUCT_ID,
+        product_name: 'ViralReel Credits Top-up',
+        description: `${creditsAmount} credits top-up`,
+        currency: 'usd',
+        amount: checkoutAmount,
+      };
+    } else {
+      // subscription plan: amount comes from pricing JSON with admin overrides
+      const plans = await getPricingPlans(locale || 'en');
+      pricingItem = plans.find((item: PricingItem) => item.product_id === product_id);
+
+      if (!pricingItem) {
+        return respErr('pricing item not found');
+      }
+
+      if (!pricingItem.product_id && !pricingItem.amount) {
+        return respErr('invalid pricing item');
+      }
+
+      checkoutAmount = pricingItem.amount;
+      checkoutCurrency = (pricingItem.currency || 'usd').toLowerCase();
+      creditsAmount = pricingItem.credits || 0;
+
+      // If currency is provided, validate it and find corresponding amount from server-side data
+      if (currency) {
+        const requestedCurrency = currency.toLowerCase();
+
+        // Check if requested currency is the default currency
+        if (requestedCurrency !== checkoutCurrency) {
+          if (pricingItem.currencies && pricingItem.currencies.length > 0) {
+            // Find amount for the requested currency in currencies list
+            const selectedCurrencyData = pricingItem.currencies.find(
+              (c: PricingCurrency) => c.currency.toLowerCase() === requestedCurrency
+            );
+            if (selectedCurrencyData) {
+              // Valid currency found, use it
+              checkoutCurrency = requestedCurrency;
+              checkoutAmount = selectedCurrencyData.amount;
+            }
+            // If currency not found in list, fallback to default (already set above)
+          }
+          // If no currencies list exists, fallback to default (already set above)
+        }
+      }
+    }
 
     // choose payment provider
     let paymentProviderName = payment_provider || '';
@@ -100,35 +148,6 @@ export async function POST(req: Request) {
       return respErr('no payment provider configured');
     }
 
-    // checkout currency and amount - calculate from server-side data only (never trust client input)
-    // Security: currency can be provided by frontend, but amount must be calculated server-side
-    const defaultCurrency = (pricingItem.currency || 'usd').toLowerCase();
-    let checkoutCurrency = defaultCurrency;
-    let checkoutAmount = pricingItem.amount;
-
-    // If currency is provided, validate it and find corresponding amount from server-side data
-    if (currency) {
-      const requestedCurrency = currency.toLowerCase();
-
-      // Check if requested currency is the default currency
-      if (requestedCurrency === defaultCurrency) {
-        checkoutCurrency = defaultCurrency;
-        checkoutAmount = pricingItem.amount;
-      } else if (pricingItem.currencies && pricingItem.currencies.length > 0) {
-        // Find amount for the requested currency in currencies list
-        const selectedCurrencyData = pricingItem.currencies.find(
-          (c: PricingCurrency) => c.currency.toLowerCase() === requestedCurrency
-        );
-        if (selectedCurrencyData) {
-          // Valid currency found, use it
-          checkoutCurrency = requestedCurrency;
-          checkoutAmount = selectedCurrencyData.amount;
-        }
-        // If currency not found in list, fallback to default (already set above)
-      }
-      // If no currencies list exists, fallback to default (already set above)
-    }
-
     // get payment interval
     const paymentInterval: PaymentInterval =
       pricingItem.interval || PaymentInterval.ONE_TIME;
@@ -146,7 +165,7 @@ export async function POST(req: Request) {
     let paymentProductId = '';
 
     // If currency is provided and different from default, check currency-specific payment_product_id
-    if (currency && currency.toLowerCase() !== defaultCurrency) {
+    if (currency && currency.toLowerCase() !== checkoutCurrency) {
       const selectedCurrencyData = pricingItem.currencies?.find(
         (c: PricingCurrency) =>
           c.currency.toLowerCase() === currency.toLowerCase()
@@ -263,7 +282,7 @@ export async function POST(req: Request) {
       productName: pricingItem.product_name,
       description: pricingItem.description,
       callbackUrl: callbackUrl,
-      creditsAmount: pricingItem.credits,
+      creditsAmount: creditsAmount,
       creditsValidDays: pricingItem.valid_days,
       planName: pricingItem.plan_name || '',
       paymentProductId: paymentProductId,
