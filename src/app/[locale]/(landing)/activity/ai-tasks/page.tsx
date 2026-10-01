@@ -75,16 +75,10 @@ export default async function AiTasksPage({
   const table: Table = {
     title: t('list.title'),
     columns: [
-      { name: 'prompt', title: t('fields.prompt'), type: 'copy' },
-      { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
-      { name: 'provider', title: t('fields.provider'), type: 'label' },
-      { name: 'model', title: t('fields.model'), type: 'label' },
-      // { name: 'options', title: t('fields.options'), type: 'copy' },
-      { name: 'status', title: t('fields.status'), type: 'label' },
-      { name: 'costCredits', title: t('fields.cost_credits'), type: 'label' },
       {
         name: 'result',
         title: t('fields.result'),
+        className: 'min-w-[240px]',
         callback: (item: AITask) => {
           const parsedInfo = parseTaskData(item.taskInfo);
           if (item.mediaType === 'image' || item.mediaType === 'video') {
@@ -128,6 +122,11 @@ export default async function AiTasksPage({
           return '-';
         },
       },
+      { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
+      { name: 'provider', title: t('fields.provider'), type: 'label' },
+      { name: 'model', title: t('fields.model'), type: 'label' },
+      { name: 'status', title: t('fields.status'), type: 'label' },
+      { name: 'costCredits', title: t('fields.cost_credits'), type: 'label' },
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       {
         name: 'action',
