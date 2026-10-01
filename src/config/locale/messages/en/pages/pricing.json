@@ -152,5 +152,9 @@
         ]
       }
     }
+  },
+  "messages": {
+    "current_plan": "Current Plan",
+    "processing": "Processing"
   }
 }

@@ -124,33 +124,45 @@
     "nav": {
       "items": [
         {
-          "title": "首页",
-          "url": "/",
-          "icon": "Home",
+          "title": "模板",
+          "url": "/#templates",
+          "icon": "LayoutGrid",
           "target": "_blank"
         },
         {
-          "title": "GitHub",
-          "url": "https://github.com/your-app-name",
-          "icon": "Github",
+          "title": "定价",
+          "url": "/subscribe",
+          "icon": "CreditCard",
           "target": "_blank"
         },
         {
-          "title": "推特",
-          "url": "https://twitter.com/your-app-name",
-          "icon": "RiTwitterXFill",
+          "title": "视频生成器",
+          "url": "/ai-video-generator",
+          "icon": "Video",
           "target": "_blank"
         },
         {
-          "title": "Discord",
-          "url": "https://discord.gg/your-app-name",
-          "icon": "RiDiscordFill",
+          "title": "模板指南",
+          "url": "/hotel-lobby-ai-template",
+          "icon": "BookOpen",
           "target": "_blank"
         },
         {
-          "title": "邮箱",
-          "url": "mailto:support@your-domain.com",
-          "icon": "Mail",
+          "title": "常见问题",
+          "url": "/#faq",
+          "icon": "HelpCircle",
+          "target": "_blank"
+        },
+        {
+          "title": "隐私政策",
+          "url": "/privacy-policy",
+          "icon": "Shield",
+          "target": "_blank"
+        },
+        {
+          "title": "服务条款",
+          "url": "/terms-of-service",
+          "icon": "FileText",
           "target": "_blank"
         }
       ]

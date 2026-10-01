@@ -124,7 +124,7 @@ export default async function CreditsPage({
         buttons={[
           {
             title: t('view.buttons.purchase'),
-            url: '/pricing',
+            url: '/subscribe',
             target: '_blank',
             icon: 'Coins',
           },

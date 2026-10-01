@@ -21,14 +21,14 @@
         "announcement": {
           "badge": "New",
           "title": "🎉 ShipAny Template Two",
-          "url": "/pricing"
+          "url": "/subscribe"
         },
         "tip": "🎁 Special offer for the first 1000 users",
         "buttons": [
           {
             "title": "Get Started",
             "icon": "Zap",
-            "url": "/pricing",
+            "url": "/subscribe",
             "target": "_self",
             "variant": "default"
           },

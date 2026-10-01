@@ -48,7 +48,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             price: (p.amount / 100).toFixed(2),
             priceCurrency: p.currency || 'USD',
             availability: 'https://schema.org/InStock',
-            url: `${appUrl}/pricing`,
+            url: `${appUrl}/subscribe`,
           })),
         }),
       },

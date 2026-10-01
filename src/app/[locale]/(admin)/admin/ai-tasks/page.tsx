@@ -27,7 +27,7 @@ export default async function AiTasksPage({
 
   const t = await getTranslations('admin.ai-tasks');
 
-  const { page: pageNum, pageSize, type } = await searchParams;
+  const { page: pageNum, pageSize } = await searchParams;
   const page = pageNum || 1;
   const limit = pageSize || 30;
 
@@ -36,8 +36,9 @@ export default async function AiTasksPage({
     { title: t('list.crumbs.ai-tasks'), is_active: true },
   ];
 
+  // only show video tasks for now
   const total = await getAITasksCount({
-    mediaType: type,
+    mediaType: 'video',
   });
 
   // backfill results for tasks left pending/processing (e.g. user closed the page)
@@ -47,7 +48,7 @@ export default async function AiTasksPage({
     getUser: true,
     page,
     limit,
-    mediaType: type,
+    mediaType: 'video',
   });
 
   const table: Table = {
@@ -75,13 +76,7 @@ export default async function AiTasksPage({
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       { name: 'user', title: t('fields.user'), type: 'user' },
       { name: 'status', title: t('fields.status'), type: 'label' },
-      { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
-      { name: 'scene', title: t('fields.scene'), type: 'label' },
       { name: 'costCredits', title: t('fields.cost_credits'), type: 'label' },
-      { name: 'provider', title: t('fields.provider'), type: 'label' },
-      { name: 'model', title: t('fields.model'), type: 'label', className: 'max-w-[160px] break-words' },
-      { name: 'id', title: t('fields.task_id'), type: 'copy', className: 'max-w-[160px] break-all' },
-      { name: 'options', title: t('fields.options'), type: 'json_preview', className: 'max-w-[280px] whitespace-pre-wrap break-all align-top' },
     ],
     data: aiTasks,
     pagination: {
@@ -93,44 +88,7 @@ export default async function AiTasksPage({
 
   const actions: Button[] = [];
 
-  const tabs: Tab[] = [
-    {
-      title: t('list.tabs.all'),
-      name: 'all',
-      url: '/admin/ai-tasks',
-      is_active: true,
-    },
-    {
-      title: t('list.tabs.music'),
-      name: 'music',
-      url: '/admin/ai-tasks?type=music',
-      is_active: false,
-    },
-    {
-      title: t('list.tabs.image'),
-      name: 'image',
-      url: '/admin/ai-tasks?type=image',
-      is_active: false,
-    },
-    {
-      title: t('list.tabs.video'),
-      name: 'video',
-      url: '/admin/ai-tasks?type=video',
-      is_active: false,
-    },
-    {
-      title: t('list.tabs.audio'),
-      name: 'audio',
-      url: '/admin/ai-tasks?type=audio',
-      is_active: false,
-    },
-    {
-      title: t('list.tabs.text'),
-      name: 'text',
-      url: '/admin/ai-tasks?type=text',
-      is_active: false,
-    },
-  ];
+  const tabs: Tab[] = [];
 
   return (
     <>

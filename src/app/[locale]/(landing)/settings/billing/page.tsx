@@ -200,7 +200,7 @@ export default async function BillingPage({
     buttons = [
       {
         title: t('view.buttons.adjust'),
-        url: '/pricing',
+        url: '/subscribe',
         target: '_blank',
         icon: 'Pencil',
         size: 'sm',
@@ -220,7 +220,7 @@ export default async function BillingPage({
     buttons = [
       {
         title: t('view.buttons.subscribe'),
-        url: '/pricing',
+        url: '/subscribe',
         target: '_blank',
         icon: 'ArrowUpRight',
         size: 'sm',

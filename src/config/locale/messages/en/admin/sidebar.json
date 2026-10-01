@@ -124,33 +124,45 @@
     "nav": {
       "items": [
         {
-          "title": "Home",
-          "url": "/",
-          "icon": "Home",
+          "title": "Templates",
+          "url": "/#templates",
+          "icon": "LayoutGrid",
           "target": "_blank"
         },
         {
-          "title": "GitHub",
-          "url": "https://github.com/your-app-name",
-          "icon": "Github",
+          "title": "Pricing",
+          "url": "/subscribe",
+          "icon": "CreditCard",
           "target": "_blank"
         },
         {
-          "title": "Twitter",
-          "url": "https://twitter.com/your-app-name",
-          "icon": "RiTwitterXFill",
+          "title": "Video Generator",
+          "url": "/ai-video-generator",
+          "icon": "Video",
           "target": "_blank"
         },
         {
-          "title": "Discord",
-          "url": "https://discord.gg/your-app-name",
-          "icon": "RiDiscordFill",
+          "title": "Template Guide",
+          "url": "/hotel-lobby-ai-template",
+          "icon": "BookOpen",
           "target": "_blank"
         },
         {
-          "title": "Email",
-          "url": "mailto:support@your-domain.com",
-          "icon": "Mail",
+          "title": "FAQ",
+          "url": "/#faq",
+          "icon": "HelpCircle",
+          "target": "_blank"
+        },
+        {
+          "title": "Privacy Policy",
+          "url": "/privacy-policy",
+          "icon": "Shield",
+          "target": "_blank"
+        },
+        {
+          "title": "Terms of Service",
+          "url": "/terms-of-service",
+          "icon": "FileText",
           "target": "_blank"
         }
       ]
