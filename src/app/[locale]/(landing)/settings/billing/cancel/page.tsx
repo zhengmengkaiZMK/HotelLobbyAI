@@ -104,8 +104,10 @@ export default async function CancelBillingPage({
       throw new Error('cancel subscription failed');
     }
 
+    // stripe cancels at period end (PENDING_CANCEL) while creem cancels
+    // immediately (CANCELED) — derive the status from the provider result
     await updateSubscriptionBySubscriptionNo(subscription.subscriptionNo, {
-      status: SubscriptionStatus.CANCELED,
+      status: result.subscriptionInfo?.status || SubscriptionStatus.CANCELED,
     });
 
     return {

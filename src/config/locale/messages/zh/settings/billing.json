@@ -37,7 +37,7 @@
   },
   "cancel": {
     "title": "取消订阅",
-    "description": "你确定要取消你的订阅吗？",
+    "description": "你确定要取消订阅吗？订阅将保留至当前计费周期结束，期间可继续使用，到期后自动停止续费扣款。",
     "fields": {
       "subscription_no": "订阅号",
       "subscription_amount": "订阅金额",

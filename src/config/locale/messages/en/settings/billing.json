@@ -37,7 +37,7 @@
   },
   "cancel": {
     "title": "Cancel Subscription",
-    "description": "Are you sure you want to cancel your subscription?",
+    "description": "Are you sure you want to cancel your subscription? Your subscription stays active until the end of the current billing period, and no further charges will be made after that.",
     "fields": {
       "subscription_no": "Subscription No",
       "subscription_amount": "Subscription Amount",
