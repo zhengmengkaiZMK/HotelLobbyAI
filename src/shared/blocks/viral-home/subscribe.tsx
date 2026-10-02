@@ -16,9 +16,11 @@ import './home.css';
 export function SubscribeView({
   plans,
   creditsPerUsd = 12,
+  hasSubscription = false,
 }: {
   plans: PricingItem[];
   creditsPerUsd?: number;
+  hasSubscription?: boolean;
 }) {
   const locale = useLocale();
   const zh = locale === 'zh';
@@ -195,12 +197,12 @@ export function SubscribeView({
               <h2>{t('Need more credits?', '积分不够用？')}</h2>
               <p className="sub">
                 {t(
-                  'No subscription needed — buy extra credits any time.',
-                  '无需订阅——随时单独购买积分。'
+                  'Exclusive to Plus/Pro subscribers — subscribe first, then top up any time.',
+                  'Plus/Pro 订阅用户专享——先订阅套餐，再随时加购。'
                 )}
               </p>
             </div>
-            <TopupCard rate={creditsPerUsd} />
+            <TopupCard rate={creditsPerUsd} hasSubscription={hasSubscription} />
           </div>
         </section>
         <section className="sec" id="faq">

@@ -4,6 +4,8 @@ import { envConfigs } from '@/config';
 
 import { SubscribeView } from '@/shared/blocks/viral-home/subscribe';
 import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
+import { getCurrentSubscription } from '@/shared/models/subscription';
+import { getUserInfo } from '@/shared/models/user';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
 export const dynamic = 'force-dynamic';
@@ -75,6 +77,10 @@ export default async function SubscribePage({
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
 
+  // credit top-ups require an active subscription
+  const user = await getUserInfo();
+  const currentSubscription = user ? await getCurrentSubscription(user.id) : null;
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -140,7 +146,7 @@ export default async function SubscribePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <SubscribeView plans={plans} creditsPerUsd={creditsPerUsd} />
+      <SubscribeView plans={plans} creditsPerUsd={creditsPerUsd} hasSubscription={!!currentSubscription} />
     </>
   );
 }

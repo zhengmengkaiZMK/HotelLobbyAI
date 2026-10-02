@@ -19,7 +19,13 @@ const TOPUP_PRODUCT_ID = 'credits_topup';
  * dashboard. Credits are granted server-side at the admin-configured
  * rate (1 USD = N credits, default 12).
  */
-export function TopupCard({ rate }: { rate: number }) {
+export function TopupCard({
+  rate,
+  hasSubscription = true,
+}: {
+  rate: number;
+  hasSubscription?: boolean;
+}) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => (zh ? cn : en);
@@ -117,6 +123,14 @@ export function TopupCard({ rate }: { rate: number }) {
           `随时加购——1 美元 = ${rate} 积分，积分永不过期。`
         )}
       </p>
+      {!hasSubscription && (
+        <p className="mb-4 rounded-lg border border-amber-500/50 bg-amber-500/10 px-3 py-2 text-sm text-amber-700 dark:text-amber-400">
+          {t(
+            'Credit top-ups are exclusive to Plus/Pro subscribers — please subscribe to a plan first.',
+            '积分加购仅面向 Plus/Pro 订阅用户，请先订阅套餐后再购买。'
+          )}
+        </p>
+      )}
       <div className="flex flex-wrap gap-2 mb-4">
         {PRESETS.map((p) => (
           <button
@@ -173,7 +187,7 @@ export function TopupCard({ rate }: { rate: number }) {
         </p>
         <button
           type="button"
-          disabled={loading || credits <= 0}
+          disabled={loading || credits <= 0 || !hasSubscription}
           onClick={buy}
           className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-primary text-primary-foreground text-sm font-medium disabled:opacity-50 disabled:pointer-events-none"
         >

@@ -13,6 +13,7 @@ import {
   getRemainingCredits,
 } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
+import { getCurrentSubscription } from '@/shared/models/subscription';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { Tab } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
@@ -30,6 +31,9 @@ export default async function CreditsPage({
   if (!user) {
     return <Empty message="no auth" />;
   }
+
+  // credit top-ups require an active subscription
+  const currentSubscription = await getCurrentSubscription(user.id);
 
   const t = await getTranslations('settings.credits');
 
@@ -139,7 +143,7 @@ export default async function CreditsPage({
         </div>
       </PanelCard>
       <TableCard title={t('list.title')} tabs={tabs} table={table} />
-      <TopupCard rate={creditsPerUsd} />
+      <TopupCard rate={creditsPerUsd} hasSubscription={!!currentSubscription} />
     </div>
   );
 }

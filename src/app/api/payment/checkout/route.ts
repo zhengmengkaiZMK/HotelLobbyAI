@@ -14,6 +14,7 @@ import {
   updateOrderByOrderNo,
 } from '@/shared/models/order';
 import { getUserInfo } from '@/shared/models/user';
+import { getCurrentSubscription } from '@/shared/models/subscription';
 import {
   CREDITS_TOPUP_PRODUCT_ID,
   getCreditsPerUsd,
@@ -45,6 +46,15 @@ export async function POST(req: Request) {
     let creditsAmount = 0;
 
     if (product_id === CREDITS_TOPUP_PRODUCT_ID) {
+      // top-ups are exclusive to subscribers: require an active
+      // Plus/Pro subscription (or pending-cancel/trialing one) first
+      const subscription = await getCurrentSubscription(user.id);
+      if (!subscription) {
+        return respErr(
+          'active subscription required before topping up credits'
+        );
+      }
+
       // credit top-up: amount is chosen by the user, credits are computed
       // server-side from the admin-configured rate (never trust client credits)
       const rate = getCreditsPerUsd(configs);
