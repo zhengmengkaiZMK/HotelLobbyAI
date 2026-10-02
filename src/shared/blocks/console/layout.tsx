@@ -60,19 +60,19 @@ export function ConsoleLayout({
 
   const renderSupport = () =>
     support ? (
-      <div className="border-border mt-6 border-t pt-4">
-        {support.label && (
-          <p className="text-muted-foreground mb-1.5 text-xs font-medium">
-            {support.label}
-          </p>
-        )}
-        <a
-          href={`mailto:${support.email}`}
-          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm transition-colors"
-        >
-          <SmartIcon name="Mail" size={16} />
-          <span className="break-all">{support.email}</span>
-        </a>
+      <div className="border-border border-t">
+        <div className="container">
+          <div className="text-muted-foreground flex flex-wrap items-center justify-center gap-x-3 gap-y-1 py-6 text-sm">
+            {support.label && <span>{support.label}</span>}
+            <a
+              href={`mailto:${support.email}`}
+              className="hover:text-foreground flex items-center gap-1.5 transition-colors"
+            >
+              <SmartIcon name="Mail" size={16} />
+              <span>{support.email}</span>
+            </a>
+          </div>
+        </div>
       </div>
     ) : null;
 
@@ -120,7 +120,6 @@ export function ConsoleLayout({
                   <SheetTitle>{title || 'Menu'}</SheetTitle>
                 </SheetHeader>
                 {renderNavItems()}
-                {renderSupport()}
               </SheetContent>
             </Sheet>
 
@@ -154,13 +153,15 @@ export function ConsoleLayout({
 
             {/* Navigation Menu */}
             {renderNavItems()}
-            {renderSupport()}
           </div>
 
           {/* Right Content Area */}
           <div className="min-w-0 flex-1">{children}</div>
         </div>
       </div>
+
+      {/* Support Footer */}
+      {renderSupport()}
     </div>
   );
 }

@@ -7,7 +7,7 @@ import { TableCard } from '@/shared/blocks/table';
 import { AITask, getAITasks, getAITasksCount } from '@/shared/models/ai_task';
 import { getUserInfo } from '@/shared/models/user';
 import { refreshPendingAITasks } from '@/shared/services/ai';
-import { Button, Tab } from '@/shared/types/blocks/common';
+import { Button } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
 
 function parseTaskData(value: string | null) {
@@ -159,48 +159,9 @@ export default async function AiTasksPage({
     },
   };
 
-  const tabs: Tab[] = [
-    {
-      name: 'all',
-      title: t('list.tabs.all'),
-      url: '/activity/ai-tasks',
-      is_active: !type || type === 'all',
-    },
-    {
-      name: 'music',
-      title: t('list.tabs.music'),
-      url: '/activity/ai-tasks?type=music',
-      is_active: type === 'music',
-    },
-    {
-      name: 'image',
-      title: t('list.tabs.image'),
-      url: '/activity/ai-tasks?type=image',
-      is_active: type === 'image',
-    },
-    {
-      name: 'video',
-      title: t('list.tabs.video'),
-      url: '/activity/ai-tasks?type=video',
-      is_active: type === 'video',
-    },
-    {
-      name: 'audio',
-      title: t('list.tabs.audio'),
-      url: '/activity/ai-tasks?type=audio',
-      is_active: type === 'audio',
-    },
-    {
-      name: 'text',
-      title: t('list.tabs.text'),
-      url: '/activity/ai-tasks?type=text',
-      is_active: type === 'text',
-    },
-  ];
-
   return (
     <div className="space-y-8">
-      <TableCard title={t('list.title')} tabs={tabs} table={table} />
+      <TableCard title={t('list.title')} table={table} />
     </div>
   );
 }
