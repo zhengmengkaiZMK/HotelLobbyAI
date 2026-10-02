@@ -148,7 +148,7 @@
 .viral-home .final-cta h2{font-size:36px;font-weight:600;letter-spacing:-.02em}
 .viral-home .final-cta p{color:#71717a;margin:14px 0 28px}
 .viral-home footer{background:#09090b;color:#a1a1aa;font-size:13.5px}
-.viral-home .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:32px;padding:56px 0}
+.viral-home .fgrid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr 1.2fr;gap:32px;padding:56px 0}
 .viral-home footer h3{color:#fff;font-size:13.5px;font-weight:600;margin-bottom:14px}
 .viral-home footer a{display:block;color:#a1a1aa;margin-bottom:10px}
 .viral-home footer a:hover{color:#fff}

@@ -19,6 +19,7 @@ export function ConsoleLayout({
   description,
   nav,
   topNav,
+  support,
   className,
   children,
 }: {
@@ -26,6 +27,7 @@ export function ConsoleLayout({
   description?: string;
   nav?: Nav;
   topNav?: Nav;
+  support?: { label?: string; email: string };
   className?: string;
   children: ReactNode;
 }) {
@@ -55,6 +57,24 @@ export function ConsoleLayout({
       ))}
     </nav>
   );
+
+  const renderSupport = () =>
+    support ? (
+      <div className="border-border mt-6 border-t pt-4">
+        {support.label && (
+          <p className="text-muted-foreground mb-1.5 text-xs font-medium">
+            {support.label}
+          </p>
+        )}
+        <a
+          href={`mailto:${support.email}`}
+          className="text-muted-foreground hover:text-foreground flex items-center gap-2 text-sm transition-colors"
+        >
+          <SmartIcon name="Mail" size={16} />
+          <span className="break-all">{support.email}</span>
+        </a>
+      </div>
+    ) : null;
 
   return (
     <div className={`bg-background min-h-screen ${className}`}>
@@ -100,6 +120,7 @@ export function ConsoleLayout({
                   <SheetTitle>{title || 'Menu'}</SheetTitle>
                 </SheetHeader>
                 {renderNavItems()}
+                {renderSupport()}
               </SheetContent>
             </Sheet>
 
@@ -133,6 +154,7 @@ export function ConsoleLayout({
 
             {/* Navigation Menu */}
             {renderNavItems()}
+            {renderSupport()}
           </div>
 
           {/* Right Content Area */}

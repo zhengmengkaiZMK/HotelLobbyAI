@@ -27,5 +27,9 @@
         "icon": "Settings"
       }
     ]
+  },
+  "support": {
+    "label": "Need help? Contact support",
+    "email": "support@viralreel.app"
   }
 }
