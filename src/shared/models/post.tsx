@@ -462,29 +462,48 @@ export async function getRemotePostsAndCategories({
       };
     }
 
-    dbPostsList.push(
-      ...dbPosts.map((post) => ({
-        id: post.id,
-        slug: post.slug,
-        title: post.title || '',
-        description: post.description || '',
-        author_name: post.authorName || '',
-        author_image: post.authorImage || '',
-        created_at:
-          getPostDate({
-            created_at: post.createdAt.toISOString(),
-            locale,
-          }) || '',
-        image: post.image || '',
-        url: `${postPrefix}${post.slug}`,
-      }))
-    );
-
     // get categories from database
     const dbCategories = await getTaxonomies({
       type: TaxonomyType.CATEGORY,
       status: TaxonomyStatus.PUBLISHED,
     });
+
+    // map category id -> title, so posts assigned to a game category
+    // can be filtered even when the post title itself is clean
+    const categoryIdTitles = new Map<string, string>();
+    for (const category of dbCategories || []) {
+      categoryIdTitles.set(category.id, category.title || '');
+    }
+
+    dbPostsList.push(
+      ...dbPosts
+        .filter((post) => {
+          const categoryTitles = String(post.categories || '')
+            .split(',')
+            .map((id) => categoryIdTitles.get(id.trim()))
+            .filter(Boolean) as string[];
+          return !isGameContent({
+            title: post.title,
+            slug: post.slug,
+            categories: categoryTitles,
+          });
+        })
+        .map((post) => ({
+          id: post.id,
+          slug: post.slug,
+          title: post.title || '',
+          description: post.description || '',
+          author_name: post.authorName || '',
+          author_image: post.authorImage || '',
+          created_at:
+            getPostDate({
+              created_at: post.createdAt.toISOString(),
+              locale,
+            }) || '',
+          image: post.image || '',
+          url: `${postPrefix}${post.slug}`,
+        }))
+    );
 
     dbCategoriesList.push(
       ...(dbCategories || []).map((category) => ({

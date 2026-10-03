@@ -7,6 +7,7 @@ import { Empty } from '@/shared/blocks/common';
 import {
   PostType as DBPostType,
   getPosts,
+  isGameContent,
   PostStatus,
 } from '@/shared/models/post';
 import {
@@ -69,6 +70,11 @@ export default async function CategoryBlogPage({
     return <Empty message={`category not found`} />;
   }
 
+  // game-type categories are not shown on the frontend blog
+  if (isGameContent({ title: categoryData.title, slug: categoryData.slug })) {
+    return <Empty message={`category not found`} />;
+  }
+
   // get posts data
   const postsData = await getPosts({
     category: categoryData.id,
@@ -92,13 +98,18 @@ export default async function CategoryBlogPage({
     url: `/blog/category/${categoryData.slug}`,
   };
 
-  // build category
-  const categories: CategoryType[] = categoriesData.map((category) => ({
-    id: category.id,
-    slug: category.slug,
-    title: category.title,
-    url: `/blog/category/${category.slug}`,
-  }));
+  // build category (game-type categories are hidden from the tabs)
+  const categories: CategoryType[] = categoriesData
+    .filter(
+      (category) =>
+        !isGameContent({ title: category.title, slug: category.slug })
+    )
+    .map((category) => ({
+      id: category.id,
+      slug: category.slug,
+      title: category.title,
+      url: `/blog/category/${category.slug}`,
+    }));
   categories.unshift({
     id: 'all',
     slug: 'all',
