@@ -18,7 +18,7 @@ export async function createAITask(newAITask: NewAITask) {
     // 1. create task record
     const [taskResult] = await tx.insert(aiTask).values(newAITask).returning();
 
-    if (newAITask.costCredits && newAITask.costCredits > 0) {
+    if (newAITask.costCredits && newAITask.costCredits > 0 && ![AITaskStatus.FAILED, AITaskStatus.CANCELED].includes(newAITask.status as AITaskStatus)) {
       // 2. consume credits
       const consumedCredit = await consumeCredits({
         userId: newAITask.userId,
@@ -56,19 +56,19 @@ export async function findAITaskById(id: string) {
 
 export async function updateAITaskById(id: string, updateAITask: UpdateAITask) {
   const result = await db().transaction(async (tx: any) => {
-    // task failed, Revoke credit consumption record
-    if (updateAITask.status === AITaskStatus.FAILED && updateAITask.creditId) {
-      // get consumed credit record
+    // task failed or canceled, revoke credit consumption record
+    if ([AITaskStatus.FAILED, AITaskStatus.CANCELED].includes(updateAITask.status as AITaskStatus) && updateAITask.creditId) {
+      // Claim the consumption atomically so repeated callbacks cannot refund twice.
       const [consumedCredit] = await tx
-        .select()
-        .from(credit)
-        .where(eq(credit.id, updateAITask.creditId));
-      if (consumedCredit && consumedCredit.status === CreditStatus.ACTIVE) {
+        .update(credit)
+        .set({ status: CreditStatus.DELETED })
+        .where(and(eq(credit.id, updateAITask.creditId), eq(credit.status, CreditStatus.ACTIVE)))
+        .returning();
+      if (consumedCredit) {
         const consumedItems = JSON.parse(consumedCredit.consumedDetail || '[]');
 
-        // console.log('consumedItems', consumedItems);
+        // consumed record is already claimed above; only restore source grants
 
-        // add back consumed credits
         await Promise.all(
           consumedItems.map((item: any) => {
             if (item && item.creditId && item.creditsConsumed > 0) {
@@ -82,13 +82,6 @@ export async function updateAITaskById(id: string, updateAITask: UpdateAITask) {
           })
         );
 
-        // delete consumed credit record
-        await tx
-          .update(credit)
-          .set({
-            status: CreditStatus.DELETED,
-          })
-          .where(eq(credit.id, updateAITask.creditId));
       }
     }
 

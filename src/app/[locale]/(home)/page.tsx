@@ -4,6 +4,8 @@ import { envConfigs } from '@/config';
 
 import { ViralHome } from '@/shared/blocks/viral-home/home';
 import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
+import { getAllConfigs } from '@/shared/models/config';
+import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
   buildAggregateRatingJsonLd,
   buildReviewsJsonLd,
@@ -21,6 +23,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
+  const videoCosts = getVideoCostTable(await getAllConfigs());
 
   const appUrl = envConfigs.app_url;
   const jsonLd = {
@@ -74,7 +77,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <ViralHome plans={plans} creditsPerUsd={creditsPerUsd} />
+      <ViralHome plans={plans} creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>
   );
 }

@@ -29,6 +29,9 @@ export async function POST(req: Request) {
     }
 
     if (task.provider === 'media-relay' && ['success', 'failed', 'canceled'].includes(task.status)) {
+      if (['failed', 'canceled'].includes(task.status) && task.creditId) {
+        await updateAITaskById(task.id, { status: task.status, creditId: task.creditId });
+      }
       return respData(task);
     }
 

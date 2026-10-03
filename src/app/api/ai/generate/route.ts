@@ -8,6 +8,7 @@ import { createAITask, NewAITask } from '@/shared/models/ai_task';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
+import { getVideoGenerationCost } from '@/shared/lib/video-cost';
 
 export async function POST(request: Request) {
   try {
@@ -101,7 +102,8 @@ export async function POST(request: Request) {
       if (scene === 'text-to-video') {
         costCredits = 6;
       } else if (scene === 'image-to-video') {
-        costCredits = 8;
+        costCredits = getVideoGenerationCost(options?.resolution, options?.duration, configs);
+        options = { ...options, resolution: options?.resolution ?? '720p', duration: Number(options?.duration ?? 8) };
       } else if (scene === 'video-to-video') {
         costCredits = 10;
       } else {

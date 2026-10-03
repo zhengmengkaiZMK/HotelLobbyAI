@@ -9,6 +9,7 @@ import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
 import { getRelayModels } from '@/shared/lib/ai-models';
 import { HomeTemplate } from './templates';
+import { getVideoGenerationCost } from '@/shared/lib/video-cost';
 
 const defaults = [
   { value: 'google/veo-3.1', label: 'Veo 3.1 · Replicate', provider: 'replicate' },
@@ -33,6 +34,7 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
   const [selected, setSelected] = useState('');
   const selectedModel = models.find((m) => `${m.provider}:${m.value}` === selected);
   const model = selectedModel ?? models.find((m) => m.value === 'grok-imagine-video-1.5') ?? models[0];
+  const unsupported1080 = model?.value === 'grok-imagine-video-1.5';
   const single = model?.provider === 'media-relay' && model.value !== 'grok-imagine-video-1.5';
   const prompt = (configs[`viral_template_prompt_${template.id}`] as string | undefined)?.trim() || template.prompt;
   const defaultImages = [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
@@ -42,6 +44,7 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
   const [ratio, setRatio] = useState('16:9');
   const [resolution, setResolution] = useState('720p');
   const [duration, setDuration] = useState(8);
+  const costCredits = getVideoGenerationCost(resolution, duration, configs);
   const [busy, setBusy] = useState(false);
   const [task, setTask] = useState<{ id: string; start: number } | null>(null);
   const [progress, setProgress] = useState(0);
@@ -83,7 +86,7 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
         const data = payload.data;
         if (data.status === 'pending') { setStage((s) => (s === 'processing' ? s : 'pending')); setProgress((p) => Math.max(p, 30)); }
         if (data.status === 'processing') { setStage('processing'); setProgress((p) => Math.max(p, 55)); }
-        if (data.status === 'failed') throw new Error(text('Generation failed. Check task history for details.', '生成失败，请在生成记录中查看详情。'));
+        if (data.status === 'failed' || data.status === 'canceled') throw new Error(text('Generation canceled or failed. Credits were refunded.', '生成已取消或失败，积分已退回。'));
         if (data.status === 'success') {
           const video = [...urls(data.taskInfo), ...urls(data.taskResult)][0];
           if (!video) throw new Error(text('No video returned.', '模型没有返回视频。'));
@@ -137,11 +140,12 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     if (!user) { onOpenChange(false); setIsShowSignModal(true); return; }
     if (lock.current || !model) return;
     // 2) credits / plan check — not enough: send the user to the pricing page
-    if ((user.credits?.remainingCredits ?? 0) < 8) {
+    if ((user.credits?.remainingCredits ?? 0) < costCredits) {
       setError(text('Insufficient credits. Taking you to the pricing page…', '积分不足，正在前往购买页…'));
       setTimeout(() => router.push('/subscribe'), 1200);
       return;
     }
+    if (unsupported1080 && resolution === '1080p') { setError(text('This model supports up to 720p. Choose another model for 1080p.', '当前模型最高支持 720p，1080p 请切换其他模型。')); return; }
     const input = single ? images.slice(0, 1) : images;
     if (input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
     // 3) all checks passed — start generation
@@ -172,8 +176,8 @@ export function TemplateGenerator({ template, open, onOpenChange }: { template: 
     <div className="gen-left"><DialogTitle>{template.name[zh ? 1 : 0]}</DialogTitle><div className="gp-video">{result ? <video src={result} controls playsInline /> : <video ref={previewRef} src={`/templates/${template.id}.mp4`} muted={previewMuted} loop autoPlay playsInline preload="metadata" style={{ background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }}/>}{!result && <><span className="gp-badge">{text('TEMPLATE PREVIEW', '模板示意')}</span><span className="gp-sound" role="button" tabIndex={0} aria-label={previewMuted ? text('Unmute video', '开启声音') : text('Mute video', '关闭声音')} onClick={togglePreviewSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') togglePreviewSound(); }}>{previewMuted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span></>}</div>{result && <div className="result-actions"><button className="btn btn-primary" disabled={downloading} onClick={download}><Download size={16}/>{text('Download', '下载视频')}</button></div>}</div>
     <div><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{[0, 1].map((index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index === 1 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><b>{single ? text('Reference image', '参考图片') : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></label>)}</div>
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
-    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{['16:9','9:16','1:1'].map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{['480p','720p'].map((v) => <button key={v} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{[8, 12, 15].map((v) => <button key={v} aria-pressed={duration === v} className={duration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
+    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{['16:9','9:16','1:1'].map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{['480p','720p','1080p'].map((v) => <button key={v} disabled={v === '1080p' && unsupported1080} title={v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{[8, 12, 15].map((v) => <button key={v} aria-pressed={duration === v} className={duration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
-    <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/></div>; })()}<p className="credits">{text('1 generation = 8 credits', '1 次生成 = 8 积分')}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>
+    <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>
     </div></div></DialogContent></Dialog>;
 }
