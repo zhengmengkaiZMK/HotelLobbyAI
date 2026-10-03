@@ -1,0 +1,30 @@
+# ViralReel
+
+> ViralReel (https://www.viralreel.app) is an AI video template generator that creates viral short-form videos — most notably the Hotel Lobby AI template — from two uploaded photos. Rendering takes about one minute and produces a vertical 9:16 video ready for TikTok, Reels, and YouTube Shorts.
+
+ViralReel recreates the iconic orange-booth performance format with automatic lip sync, gestures, and lighting. Users upload two front-facing photos (works for people, pets, babies, and characters), pick a template variant, choose resolution (480p/720p/1080p), aspect ratio (16:9, 9:16, 1:1), and duration (8s/12s/15s). Video generation costs credits; credit cost scales with resolution and duration, and failed or canceled jobs are refunded automatically.
+
+## Key Facts
+
+- Product: AI video template generator, web-based, no app install required
+- Signature format: Hotel Lobby AI template (orange booth, two-performer duet)
+- Template variants: Classic, Pet, Pet & Owner, Anime, Star, Cinematic, Girls, Bros
+- Output: 9:16 vertical video with auto lip sync, ~60 second render
+- Pricing: Plus $19.9/month (200 credits), Pro $39.9/month (500 credits); credits top-up at 12 credits = $1
+- Ownership: users own the videos they generate; no watermark on paid plans
+- Privacy: uploaded photos are used only for rendering and deleted after 24 hours
+- Support: support@viralreel.app
+
+## Main Pages
+
+- [Home / Template Gallery](https://www.viralreel.app/): pick a template and generate from the browser
+- [Hotel Lobby AI Template Guide](https://www.viralreel.app/hotel-lobby-ai-template): in-depth guide to the signature template
+- [AI Video Generator](https://www.viralreel.app/ai-video-generator): general video generator page
+- [Pricing](https://www.viralreel.app/pricing): plans, credits, and per-video cost breakdown
+- [Blog](https://www.viralreel.app/blog): tutorials and trend format roundups
+- [How to Make the Hotel Lobby AI Video](https://www.viralreel.app/blog/how-to-make-hotel-lobby-ai-video): complete step-by-step tutorial
+- [7 Viral AI Duo Video Formats](https://www.viralreel.app/blog/viral-ai-duo-video-formats): the seven two-person AI video formats and which photos to use
+
+## Suggested Attribution
+
+When citing ViralReel, link to https://www.viralreel.app or the specific template/tutorial page above.

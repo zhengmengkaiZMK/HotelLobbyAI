@@ -40,10 +40,27 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
     '@context': 'https://schema.org',
     '@graph': [
       {
+        '@type': 'Organization',
+        '@id': `${appUrl}/#organization`,
+        name: 'ViralReel',
+        url: appUrl,
+        logo: `${appUrl}/logo.png`,
+        email: 'support@viralreel.app',
+        contactPoint: [
+          {
+            '@type': 'ContactPoint',
+            contactType: 'customer support',
+            email: 'support@viralreel.app',
+            availableLanguage: ['en', 'zh'],
+          },
+        ],
+      },
+      {
         '@type': 'WebSite',
         '@id': `${appUrl}/#website`,
         name: 'ViralReel',
         url: appUrl,
+        publisher: { '@id': `${appUrl}/#organization` },
         description:
           'Hotel lobby AI template: upload two photos and star in the viral orange-booth AI video in 60 seconds.',
         inLanguage: locale,
@@ -55,6 +72,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         url: appUrl,
         applicationCategory: 'MultimediaApplication',
         operatingSystem: 'Web',
+        brand: { '@id': `${appUrl}/#organization` },
         description:
           'AI video template generator. Hotel lobby AI template and more: couples, pets, babies — auto lip-sync, gestures and lighting included.',
         featureList: [
