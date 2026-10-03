@@ -156,6 +156,9 @@
 .viral-home footer a:hover{color:#fff}
 .viral-home footer .brand{display:inline-flex;margin-bottom:14px;color:#fff}
 .viral-home footer .brand i{color:#fb923c}
+.viral-home footer .badge-launchbuff{display:block;margin-top:14px;width:128px;opacity:.85;transition:opacity .2s}
+.viral-home footer .badge-launchbuff:hover{opacity:1}
+.viral-home footer .badge-launchbuff img{width:128px;height:40px;border-radius:8px;display:block}
 .viral-home footer .legal{border-top:1px solid #27272a;padding:16px 0;font-size:12px;color:#71717a;text-align:center}
 .viral-home .mobile-menu{display:none}
 .viral-dialog{width:calc(100% - 48px)!important;max-width:1040px!important;padding:26px!important;border-radius:16px!important;background:#fafafa!important;gap:28px!important;max-height:92dvh;overflow:auto}
