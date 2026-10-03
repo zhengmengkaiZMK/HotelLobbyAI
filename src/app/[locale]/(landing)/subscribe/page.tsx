@@ -4,6 +4,14 @@ import { envConfigs } from '@/config';
 
 import { SubscribeView } from '@/shared/blocks/viral-home/subscribe';
 import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
+import {
+  buildAggregateRatingJsonLd,
+  buildReviewsJsonLd,
+} from '@/shared/lib/reviews';
+import {
+  buildOfferExtrasJsonLd,
+  buildProductImageUrls,
+} from '@/shared/lib/product-schema';
 import { getCurrentSubscription } from '@/shared/models/subscription';
 import { getUserInfo } from '@/shared/models/user';
 import { PricingItem } from '@/shared/types/blocks/pricing';
@@ -101,6 +109,9 @@ export default async function SubscribePage({
           ? 'ViralReel AI 视频模板订阅：Plus 与 Pro 套餐，月付或年付。'
           : 'ViralReel AI video template subscription: Plus and Pro plans, monthly or yearly.',
         brand: { '@type': 'Brand', name: 'ViralReel' },
+        image: buildProductImageUrls(appUrl),
+        aggregateRating: buildAggregateRatingJsonLd(),
+        review: buildReviewsJsonLd(),
         ...(plans.length > 0 && {
           offers: plans.slice(0, 5).map((p) => ({
             '@type': 'Offer',
@@ -109,6 +120,7 @@ export default async function SubscribePage({
             priceCurrency: p.currency || 'USD',
             availability: 'https://schema.org/InStock',
             url: `${appUrl}/subscribe`,
+            ...buildOfferExtrasJsonLd(),
           })),
         }),
       },

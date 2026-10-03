@@ -4,6 +4,14 @@ import { envConfigs } from '@/config';
 
 import { ViralHome } from '@/shared/blocks/viral-home/home';
 import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
+import {
+  buildAggregateRatingJsonLd,
+  buildReviewsJsonLd,
+} from '@/shared/lib/reviews';
+import {
+  buildOfferExtrasJsonLd,
+  buildProductImageUrls,
+} from '@/shared/lib/product-schema';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
 export const dynamic = 'force-dynamic';
@@ -42,6 +50,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
           'Auto lip-sync and gestures',
           '60-second AI video generation',
         ],
+        image: buildProductImageUrls(appUrl),
         ...(plans.length > 0 && {
           offers: plans.slice(0, 5).map((p) => ({
             '@type': 'Offer',
@@ -50,8 +59,11 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
             priceCurrency: p.currency || 'USD',
             availability: 'https://schema.org/InStock',
             url: `${appUrl}/subscribe`,
+            ...buildOfferExtrasJsonLd(),
           })),
         }),
+        aggregateRating: buildAggregateRatingJsonLd(),
+        review: buildReviewsJsonLd(),
       },
     ],
   };

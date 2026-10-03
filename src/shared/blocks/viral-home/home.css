@@ -120,6 +120,8 @@
 .viral-home .sub-hero{padding:72px 0 8px;text-align:center}
 .viral-home .sub-hero h1{font-size:44px;line-height:1.15;letter-spacing:-.025em;font-weight:600;margin-top:16px;text-wrap:balance}
 .viral-home .sub-hero .sub{color:#71717a;font-size:16.5px;max-width:640px;margin:16px auto 0}
+.sub-hero .sub-rating{display:flex;align-items:center;justify-content:center;gap:10px;margin-top:14px;font-size:14px;color:#52525b}
+.sub-hero .sub-rating .stars{margin-bottom:0;font-size:15px}
 .viral-home .sub-note{text-align:center;color:#71717a;font-size:13.5px;margin-top:24px}
 .viral-home .anchor.was{background:transparent;color:#a1a1aa;text-decoration:line-through;font-weight:500;padding:4px 0;margin:0 0 0 8px}
 .viral-home .price{font-size:40px;font-weight:600;letter-spacing:-.02em;margin:12px 0 0}

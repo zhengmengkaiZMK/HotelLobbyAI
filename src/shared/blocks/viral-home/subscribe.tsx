@@ -128,6 +128,12 @@ export function SubscribeView({
                 '一次订阅，随时追热梗。所有套餐均包含全部 Hotel Lobby AI 模板、自动口型同步和无水印导出。'
               )}
             </p>
+            <p className="sub-rating" aria-label="5 out of 5 stars">
+              <span className="stars">★★★★★</span>
+              <span>
+                {t('5/5 from creator reviews', '创作者评价 5/5')}
+              </span>
+            </p>
             <div className="bill-toggle">
               <button
                 className={group === 'month' ? 'on' : ''}
