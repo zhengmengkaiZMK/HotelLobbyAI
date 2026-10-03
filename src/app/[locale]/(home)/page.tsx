@@ -14,6 +14,7 @@ import {
   buildOfferExtrasJsonLd,
   buildProductImageUrls,
 } from '@/shared/lib/product-schema';
+import { buildViralFaqJsonLd } from '@/shared/lib/viral-faq';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
 export const dynamic = 'force-dynamic';
@@ -26,6 +27,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const videoCosts = getVideoCostTable(await getAllConfigs());
 
   const appUrl = envConfigs.app_url;
+  const plusM = plans.find((p) => p.product_id === 'plus-monthly');
+  const proM = plans.find((p) => p.product_id === 'pro-monthly');
+  const faqJsonLd = buildViralFaqJsonLd({
+    plusPrice: plusM?.price || '$19.9',
+    plusCredits: plusM?.credits || 200,
+    proPrice: proM?.price || '$39.9',
+    proCredits: proM?.credits || 500,
+  });
+
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
@@ -76,6 +86,10 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
       <ViralHome plans={plans} creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>
