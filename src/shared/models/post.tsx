@@ -147,6 +147,48 @@ export async function getPostsCount({
 
 // get single post, both from local file and database
 // database post has higher priority
+// content policy: game-type content is excluded from the blog entirely
+// (list pages, detail pages, and sitemap all route through this filter)
+const GAME_CONTENT_KEYWORDS = [
+  'game',
+  'gaming',
+  'gamer',
+  'esports',
+  '游戏',
+  '电竞',
+  '手游',
+];
+
+export function isGameContent(post: {
+  title?: string | null;
+  slug?: string | null;
+  categories?:
+    | string[]
+    | string
+    | { title?: string; slug?: string }[]
+    | null;
+}): boolean {
+  const haystacks: string[] = [];
+  if (post.title) haystacks.push(String(post.title));
+  if (post.slug) haystacks.push(String(post.slug));
+  if (Array.isArray(post.categories)) {
+    for (const category of post.categories) {
+      if (typeof category === 'string') {
+        haystacks.push(category);
+      } else if (category) {
+        if (category.title) haystacks.push(String(category.title));
+        if (category.slug) haystacks.push(String(category.slug));
+      }
+    }
+  } else if (typeof post.categories === 'string') {
+    haystacks.push(post.categories);
+  }
+  const text = haystacks.join(' ').toLowerCase();
+  return GAME_CONTENT_KEYWORDS.some((keyword) =>
+    text.includes(keyword.toLowerCase())
+  );
+}
+
 export async function getPost({
   slug,
   locale,
@@ -190,6 +232,11 @@ export async function getPost({
         url: `${postPrefix}${postData.slug}`,
       };
 
+      // hide game-type content
+      if (isGameContent({ title: post.title, slug: post.slug, categories: postData.categories })) {
+        return null;
+      }
+
       return post;
     }
   } catch (e) {
@@ -198,6 +245,11 @@ export async function getPost({
 
   // get post from locale file
   const localPost = await getLocalPost({ slug, locale, postPrefix });
+
+  // hide game-type content (detail pages should 404/empty like the list)
+  if (localPost && isGameContent(localPost)) {
+    return null;
+  }
 
   return localPost;
 }
@@ -446,11 +498,18 @@ export async function getRemotePostsAndCategories({
     console.log('get remote posts and categories failed:', e);
   }
 
+  // filter out game-type content and game categories
+  const visibleDbPosts = dbPostsList.filter((post) => !isGameContent(post));
+  const visibleDbCategories = dbCategoriesList.filter(
+    (category) =>
+      !isGameContent({ title: category.title, slug: category.slug })
+  );
+
   return {
-    posts: dbPostsList,
-    postsCount: dbPostsList.length,
-    categories: dbCategoriesList,
-    categoriesCount: dbCategoriesList.length,
+    posts: visibleDbPosts,
+    postsCount: visibleDbPosts.length,
+    categories: visibleDbCategories,
+    categoriesCount: visibleDbCategories.length,
   };
 }
 
@@ -526,9 +585,14 @@ export async function getLocalPostsAndCategories({
     })
   );
 
+  // filter out game-type content
+  const visibleLocalPosts = localPostsList.filter(
+    (post) => !isGameContent(post)
+  );
+
   return {
-    posts: localPostsList,
-    postsCount: localPostsList.length,
+    posts: visibleLocalPosts,
+    postsCount: visibleLocalPosts.length,
     categories: [],
     categoriesCount: 0,
   };
