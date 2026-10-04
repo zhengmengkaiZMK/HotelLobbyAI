@@ -3,9 +3,9 @@ import { getTranslations } from 'next-intl/server';
 
 import { getThemeLayout } from '@/core/theme';
 import { LocaleDetector, TopBanner } from '@/shared/blocks/common';
+import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { getConfigs } from '@/shared/models/config';
 import {
-  Footer as FooterType,
   Header as HeaderType,
 } from '@/shared/types/blocks/landing';
 
@@ -34,9 +34,8 @@ export default async function LandingLayout({
   // load layout component
   const Layout = await getThemeLayout('landing');
 
-  // header and footer to display
+  // header to display
   const header: HeaderType = t.raw('header');
-  const footer: FooterType = t.raw('footer');
 
   // top banner: admin settings (db configs) take priority,
   // language file values are used as fallback.
@@ -54,24 +53,15 @@ export default async function LandingLayout({
     if (header.brand) {
       header.brand.title = configs.app_name;
     }
-    if (footer.brand) {
-      footer.brand.title = configs.app_name;
-    }
-  }
-  if (configs.app_description && footer.brand) {
-    footer.brand.description = configs.app_description;
   }
   if (configs.app_logo) {
     if (header.brand?.logo) {
       header.brand.logo.src = configs.app_logo;
     }
-    if (footer.brand?.logo) {
-      footer.brand.logo.src = configs.app_logo;
-    }
   }
 
   return (
-    <Layout header={header} footer={footer}>
+    <Layout header={header}>
       <LocaleDetector />
       {bannerEnabled && bannerText && (
         <TopBanner
@@ -86,6 +76,7 @@ export default async function LandingLayout({
         />
       )}
       {children}
+      <ViralFooter />
     </Layout>
   );
 }
