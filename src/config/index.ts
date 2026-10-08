@@ -38,4 +38,9 @@ export const envConfigs: ConfigMap = {
   version: packageJson.version,
   locale_detect_enabled:
     process.env.NEXT_PUBLIC_LOCALE_DETECT_ENABLED ?? 'false',
+  // Google Analytics (GA4) measurement ID, e.g. 'G-XXXXXXXXXX'.
+  // Can be overridden via the GOOGLE_ANALYTICS_ID env var or the admin
+  // settings panel (Settings -> Analytics -> Google Analytics ID).
+  google_analytics_id:
+    process.env.GOOGLE_ANALYTICS_ID ?? 'G-KL9FJKED7P',
 };
