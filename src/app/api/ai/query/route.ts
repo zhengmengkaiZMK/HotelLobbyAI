@@ -28,7 +28,7 @@ export async function POST(req: Request) {
       return respErr('no permission');
     }
 
-    if (task.provider === 'media-relay' && ['success', 'failed', 'canceled'].includes(task.status)) {
+    if (['media-relay', 'task-relay'].includes(task.provider) && ['success', 'failed', 'canceled'].includes(task.status)) {
       if (['failed', 'canceled'].includes(task.status) && task.creditId) {
         await updateAITaskById(task.id, { status: task.status, creditId: task.creditId });
       }

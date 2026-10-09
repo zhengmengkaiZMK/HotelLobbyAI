@@ -1,6 +1,6 @@
 import { envConfigs } from '@/config';
 import { AIMediaType } from '@/extensions/ai';
-import { getRelayModels } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels } from '@/shared/lib/ai-models';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
@@ -66,6 +66,44 @@ export async function POST(request: Request) {
             }
           : {}),
       };
+    } else if (provider === 'task-relay') {
+      if (mediaType !== AIMediaType.VIDEO) {
+        throw new Error('task relay only supports video generation');
+      }
+      const configured = getTaskRelayModels(configs, 'video');
+      if (!configured.some((item) => item.value === model && item.scenes.includes(scene))) {
+        throw new Error('model or scene is not configured');
+      }
+      const images = options?.image_input;
+      if (!Array.isArray(images) || images.length < 1 || images.length > 9) {
+        throw new Error('Please provide between one and nine reference images');
+      }
+      // reference materials must be publicly reachable: user uploads come from
+      // our storage domain; the motion reference video comes from our own site
+      const storageOrigins = [configs.r2_domain, configs.s3_domain, configs.r2_endpoint, configs.s3_endpoint]
+        .filter(Boolean).map((url: string) => new URL(url).origin);
+      const allowedOrigins = [...storageOrigins, new URL(envConfigs.app_url).origin];
+      const validateUrl = (rawUrl: string) => {
+        const parsed = new URL(rawUrl);
+        if (parsed.protocol !== 'https:' || parsed.username || parsed.password || !allowedOrigins.includes(parsed.origin)) {
+          throw new Error('Reference material must come from a configured HTTPS domain');
+        }
+      };
+      for (const imageUrl of images) validateUrl(imageUrl);
+      const videos = options?.video_input;
+      if (videos !== undefined && videos !== null) {
+        if (!Array.isArray(videos) || videos.length < 1 || videos.length > 3) {
+          throw new Error('Please provide up to three reference videos');
+        }
+        for (const videoUrl of videos) validateUrl(videoUrl);
+      }
+      options = {
+        image_input: images,
+        ...(Array.isArray(videos) && videos.length ? { video_input: videos } : {}),
+        duration: options?.duration,
+        aspect_ratio: options?.aspect_ratio,
+        resolution: options?.resolution,
+      };
     }
 
     // check generate type
@@ -102,7 +140,9 @@ export async function POST(request: Request) {
       if (scene === 'text-to-video') {
         costCredits = 6;
       } else if (scene === 'image-to-video') {
-        costCredits = getVideoGenerationCost(options?.resolution, options?.duration, configs);
+        // MiniMax-H3 resolutions 768P/2K bill at the 720p/1080p tiers
+        const tier = ({ '768P': '720p', '2K': '1080p' } as Record<string, string>)[options?.resolution] ?? options?.resolution;
+        costCredits = getVideoGenerationCost(tier, options?.duration, configs);
         options = { ...options, resolution: options?.resolution ?? '720p', duration: Number(options?.duration ?? 8) };
       } else if (scene === 'video-to-video') {
         costCredits = 10;

@@ -6,6 +6,7 @@ import {
   KieProvider,
   MediaRelayProvider,
   ReplicateProvider,
+  TaskRelayProvider,
   type MediaRelayEndpointConfigs,
 } from '@/extensions/ai';
 import { Configs, getAllConfigs } from '@/shared/models/config';
@@ -59,6 +60,15 @@ export function getAIManagerWithConfigs(configs: Configs) {
     aiManager.addProvider(new MediaRelayProvider({
       image: relay.image,
       video: relay.video,
+    }));
+  }
+
+  // unified async task relay (e.g. 12ai.org: Seedance 2.0 / MiniMax-H3)
+  const taskRelayKey = configs.task_relay_api_key?.trim();
+  if (configs.task_relay_enabled === 'true' && taskRelayKey) {
+    aiManager.addProvider(new TaskRelayProvider({
+      apiKey: taskRelayKey,
+      baseUrl: configs.task_relay_base_url?.trim() || 'https://cdn.12ai.org',
     }));
   }
 

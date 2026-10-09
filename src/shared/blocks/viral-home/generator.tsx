@@ -7,7 +7,7 @@ import { Link, useRouter } from '@/core/i18n/navigation';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/components/ui/dialog';
 import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
-import { getRelayModels } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels } from '@/shared/lib/ai-models';
 import { TemplateDef } from './templates';
 import { getVideoGenerationCost } from '@/shared/lib/video-cost';
 
@@ -24,18 +24,29 @@ function urls(raw: string | null): string[] {
     return (Array.isArray(output) ? output : [output]).map((v: any) => typeof v === 'string' ? v : v?.url ?? v?.uri ?? v?.videoUrl ?? v?.src).filter((v: unknown): v is string => typeof v === 'string' && /^https?:\/\//.test(v));
   } catch { return []; }
 }
-export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdit = false }: { template: TemplateDef; open: boolean; onOpenChange: (open: boolean) => void; allowPromptEdit?: boolean }) {
+export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdit = false, preferModel }: { template: TemplateDef; open: boolean; onOpenChange: (open: boolean) => void; allowPromptEdit?: boolean; preferModel?: string }) {
   const zh = useLocale() === 'zh';
   const text = (en: string, cn: string) => zh ? cn : en;
   const { user, configs, setIsShowSignModal, fetchUserCredits, isCheckSign } = useAppContext();
   const router = useRouter();
   const relay = getRelayModels(configs, 'video').filter((m) => m.scenes.includes('image-to-video'));
-  const models = configs.media_relay_enabled === 'true' ? relay : defaults;
+  const taskRelay = getTaskRelayModels(configs, 'video').filter((m) => m.scenes.includes('image-to-video'));
+  const relayList = configs.media_relay_enabled === 'true' ? relay : [];
+  const taskRelayList = configs.task_relay_enabled === 'true' ? taskRelay : [];
+  const models = relayList.length || taskRelayList.length ? [...relayList, ...taskRelayList] : defaults;
   const [selected, setSelected] = useState('');
   const selectedModel = models.find((m) => `${m.provider}:${m.value}` === selected);
-  const model = selectedModel ?? models.find((m) => m.value === 'grok-imagine-video-1.5') ?? models[0];
+  const model = selectedModel
+    ?? (preferModel ? models.find((m) => m.value.toLowerCase() === preferModel.toLowerCase()) : undefined)
+    ?? models.find((m) => m.value === 'grok-imagine-video-1.5')
+    ?? models[0];
   const unsupported1080 = model?.value === 'grok-imagine-video-1.5';
   const single = model?.provider === 'media-relay' && model.value !== 'grok-imagine-video-1.5';
+  const isTaskRelay = model?.provider === 'task-relay';
+  // Seedance 2.0 is 720p-only; MiniMax-H3 offers 768P/2K (billed at 720p/1080p tiers)
+  const resolutionOptions = isTaskRelay
+    ? (model!.value.toLowerCase() === 'minimax-h3' ? ['768P', '2K'] : ['720p'])
+    : ['480p', '720p', '1080p'];
   const effectivePrompt = (configs[`viral_template_prompt_${template.id}`] as string | undefined)?.trim() || template.prompt;
   const maxSlots = template.slots ?? 2;
   const defaultImages = template.images ? [...template.images] : [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
@@ -52,7 +63,13 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const [ratio, setRatio] = useState('16:9');
   const [resolution, setResolution] = useState('720p');
   const [duration, setDuration] = useState(8);
-  const costCredits = getVideoGenerationCost(resolution, duration, configs);
+  // keep the selected resolution valid for the current model
+  useEffect(() => {
+    if (model && !resolutionOptions.includes(resolution)) setResolution(resolutionOptions[0]);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [model?.provider, model?.value]);
+  const costTier = resolution === '768P' ? '720p' : resolution === '2K' ? '1080p' : resolution;
+  const costCredits = getVideoGenerationCost(costTier, duration, configs);
   const [busy, setBusy] = useState(false);
   const [task, setTask] = useState<{ id: string; start: number } | null>(null);
   const [progress, setProgress] = useState(0);
@@ -163,7 +180,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     try {
       const resolved = await Promise.all(input.map((v) => ensureUploadable(v!)));
       setProgress(18); setStage('pending');
-      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt, options: { image_input: resolved, duration, aspect_ratio: ratio, resolution } }) });
+      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt, options: { image_input: resolved, ...(isTaskRelay ? { video_input: [`${window.location.origin}/templates/${template.id}.mp4`] } : {}), duration, aspect_ratio: ratio, resolution } }) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
       setTask({ id: payload.data.id, start: Date.now() });
@@ -186,7 +203,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     <div><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{Array.from({ length: maxSlots }).map((_, index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index === 1 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><b>{single ? text('Reference image', '参考图片') : maxSlots === 1 ? text('Main dancer photo', '领舞主角照片') : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></label>)}</div>
     {allowPromptEdit && <div className="prompt-edit"><p className="g-label">{text('Prompt', '文字提示词')}</p><textarea className="prompt-input" rows={4} value={promptDraft} onChange={(e) => setPromptDraft(e.target.value)} placeholder={text('Describe the scene or how to cast your photo — the template prompt is pre-filled.', '描述场景或如何使用你的照片——已预填模板提示词。')}/><p className="notice">{text('The template prompt is pre-filled. Add casting notes like "put my dad in the suit as the main dancer".', '已预填模板提示词，可追加说明，例如"把照片里的爸爸换成领舞者、穿上西装"。')}</p></div>}
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
-    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{['16:9','9:16','1:1'].map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{['480p','720p','1080p'].map((v) => <button key={v} disabled={v === '1080p' && unsupported1080} title={v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{[8, 12, 15].map((v) => <button key={v} aria-pressed={duration === v} className={duration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
+    {isTaskRelay && <p className="notice">{text('This model uses the template video above as the motion reference and your photos as the cast.', '该模型会自动把上方模板视频作为动作参考，配合你上传的照片生成。')}</p>}
+    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{['16:9','9:16','1:1'].map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={!isTaskRelay && v === '1080p' && unsupported1080} title={!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{[8, 12, 15].map((v) => <button key={v} aria-pressed={duration === v} className={duration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
     <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>
     </div></div></DialogContent></Dialog>;
