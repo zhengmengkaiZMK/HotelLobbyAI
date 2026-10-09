@@ -356,6 +356,16 @@ export default async function HotelLobbyAiTemplatePage({
               <ArrowRight size={16} />
             </Link>
           </div>
+          <p style={{ marginTop: 18, fontSize: 14 }}>
+            {t(
+              'Prefer the party-dance meme? Try the ',
+              '更喜欢派对舞梗？试试 '
+            )}
+            <Link href="/burning-bridges-ai-template">
+              {t('Burning Bridges AI template', 'Burning Bridges AI 模板')}
+            </Link>
+            {t(' — one photo and you are the main dancer.', '——一张照片让你成为派对主角。')}
+          </p>
         </div>
       </article>
     </div>

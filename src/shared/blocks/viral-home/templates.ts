@@ -11,3 +11,19 @@ export const templates = [
 ] as const;
 
 export type HomeTemplate = (typeof templates)[number];
+
+/**
+ * Structural template definition shared by every template family
+ * (Hotel Lobby home page, Burning Bridges page, future theme pages).
+ * `slots`: how many reference-image upload slots the template uses (default 2).
+ * `images`: pre-filled cast images (default: /templates/frames/{id}-a.jpg / -b.jpg).
+ * Templates without cast images pass [null, null] so slots start empty.
+ */
+export interface TemplateDef {
+  id: string;
+  name: readonly [string, string];
+  colors: readonly [string, string];
+  prompt: string;
+  slots?: 1 | 2;
+  images?: readonly (string | null)[];
+}
