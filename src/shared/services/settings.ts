@@ -1080,7 +1080,7 @@ export async function getSettings() {
       type: 'textarea',
       attributes: { rows: 5 },
       placeholder: 'seedance-2.0\nMiniMax-H3',
-      tip: '每行一个模型 ID（大小写敏感，MiniMax-H3 必须带大写），显示名称自动生成；也可写 "模型ID | 显示名称" 自定义。需兼容 12API /v1/task/submit 统一异步协议。支持参考图（≤9）+ 参考视频（≤3）混合输入，模板视频会自动作为参考视频。Seedance 仅支持 720p（按 720p 档计费）；MiniMax-H3 支持 768P/2K（分别按 720p/1080p 档计费）；时长 4-15 秒，前端提供 8/12/15 三档。',
+      tip: '每行一个模型 ID（大小写敏感，MiniMax-H3 必须带大写），显示名称自动生成；也可写 "模型ID | 显示名称" 自定义。需兼容 12API /v1/task/submit 统一异步协议。支持参考图 + 参考视频混合输入，模板视频自动作为参考视频（Omni 系自动用 ≤10 秒版本）。前端按时长/分辨率自动切换档位：Seedance 仅 720p；MiniMax-H3 支持 768P/2K（按 720p/1080p 档计费）；gemini-omni 系支持 360p/720p/1080p + 3-10 秒（按 8 秒档单价线性计费）。',
       group: 'task_relay',
       tab: 'ai',
     },

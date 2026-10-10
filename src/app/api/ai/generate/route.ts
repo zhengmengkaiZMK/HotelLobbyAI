@@ -8,7 +8,7 @@ import { createAITask, NewAITask } from '@/shared/models/ai_task';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
-import { getVideoGenerationCost } from '@/shared/lib/video-cost';
+import { getVideoGenerationCost, getOmniVideoCost } from '@/shared/lib/video-cost';
 
 export async function POST(request: Request) {
   try {
@@ -140,9 +140,16 @@ export async function POST(request: Request) {
       if (scene === 'text-to-video') {
         costCredits = 6;
       } else if (scene === 'image-to-video') {
-        // MiniMax-H3 resolutions 768P/2K bill at the 720p/1080p tiers
-        const tier = ({ '768P': '720p', '2K': '1080p' } as Record<string, string>)[options?.resolution] ?? options?.resolution;
-        costCredits = getVideoGenerationCost(tier, options?.duration, configs);
+        // gemini-omni-* models: free duration 3-10s billed per-second at the
+        // configured 8s-tier unit price; MiniMax-H3 768P/2K bill at 720p/1080p tiers
+        const isOmniModel = provider === 'task-relay' && model.toLowerCase().startsWith('gemini-omni');
+        costCredits = isOmniModel
+          ? getOmniVideoCost(options?.resolution, options?.duration, configs)
+          : getVideoGenerationCost(
+              ({ '768P': '720p', '2K': '1080p' } as Record<string, string>)[options?.resolution] ?? options?.resolution,
+              options?.duration,
+              configs
+            );
         options = { ...options, resolution: options?.resolution ?? '720p', duration: Number(options?.duration ?? 8) };
       } else if (scene === 'video-to-video') {
         costCredits = 10;

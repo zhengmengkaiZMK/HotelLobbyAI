@@ -51,6 +51,7 @@ const TASK_RELAY_TITLES: Record<string, string> = {
   'seedance-2.0-fast': 'Seedance 2.0 Fast',
   'seedance-2.5': 'Seedance 2.5',
   'minimax-h3': 'MiniMax H3',
+  'gemini-omni-1.1-flash': 'Gemini Omni 1.1 Flash',
 };
 
 /**
