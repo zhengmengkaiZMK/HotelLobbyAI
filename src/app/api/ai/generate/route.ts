@@ -97,6 +97,11 @@ export async function POST(request: Request) {
         }
         for (const videoUrl of videos) validateUrl(videoUrl);
       }
+      // gemini-omni models only accept 16:9 / 9:16 / auto
+      const isOmniModel = model.toLowerCase().startsWith('gemini-omni');
+      if (isOmniModel && options?.aspect_ratio && !['16:9', '9:16', 'auto'].includes(options.aspect_ratio)) {
+        throw new Error('This model only supports 16:9, 9:16 or auto aspect ratio');
+      }
       options = {
         image_input: images,
         ...(Array.isArray(videos) && videos.length ? { video_input: videos } : {}),
