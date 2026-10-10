@@ -69,6 +69,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const [ratio, setRatio] = useState('16:9');
   const [resolution, setResolution] = useState('720p');
   const [duration, setDuration] = useState(8);
+  // transient-safe values: while switching models the state may briefly hold the
+  // previous model's tier (the reset effects run after render) — cost functions
+  // throw on invalid tiers, so always compute from clamped values, never in-render raw state
+  const activeRatio = ratioOptions.includes(ratio) ? ratio : ratioOptions[0];
+  const activeResolution = resolutionOptions.includes(resolution) ? resolution : resolutionOptions[0];
+  const activeDuration = durationOptions.includes(duration) ? duration : durationOptions[0];
   // keep the selected ratio / resolution / duration valid for the current model
   useEffect(() => {
     if (model && !ratioOptions.includes(ratio)) setRatio(ratioOptions[0]);
@@ -82,10 +88,10 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     if (model && !durationOptions.includes(duration)) setDuration(durationOptions[0]);
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model?.provider, model?.value]);
-  const costTier = resolution === '768P' ? '720p' : resolution === '2K' ? '1080p' : resolution;
+  const costTier = activeResolution === '768P' ? '720p' : activeResolution === '2K' ? '1080p' : activeResolution;
   const costCredits = isOmni
-    ? getOmniVideoCost(resolution, duration, configs)
-    : getVideoGenerationCost(costTier, duration, configs);
+    ? getOmniVideoCost(activeResolution, activeDuration, configs)
+    : getVideoGenerationCost(costTier, activeDuration, configs);
   const [busy, setBusy] = useState(false);
   const [task, setTask] = useState<{ id: string; start: number } | null>(null);
   const [progress, setProgress] = useState(0);
@@ -186,7 +192,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       setTimeout(() => router.push('/subscribe'), 1200);
       return;
     }
-    if (unsupported1080 && resolution === '1080p') { setError(text('This model supports up to 720p. Choose another model for 1080p.', '当前模型最高支持 720p，1080p 请切换其他模型。')); return; }
+    if (unsupported1080 && activeResolution === '1080p') { setError(text('This model supports up to 720p. Choose another model for 1080p.', '当前模型最高支持 720p，1080p 请切换其他模型。')); return; }
     const usable = images.slice(0, maxSlots);
     const input = single ? usable.slice(0, 1) : usable;
     if (input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
@@ -203,7 +209,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         ? ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.'
         : '';
       const videoInput = isTaskRelay ? [`${window.location.origin}/templates${isOmni ? '' : '/reference'}/${template.id}.mp4`] : [];
-      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt: prompt + motionClause, options: { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), duration, aspect_ratio: ratio, resolution } }) });
+      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt: prompt + motionClause, options: { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution } }) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
       setTask({ id: payload.data.id, start: Date.now() });
@@ -227,7 +233,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {allowPromptEdit && <div className="prompt-edit"><p className="g-label">{text('Prompt', '文字提示词')}</p><textarea className="prompt-input" rows={4} value={promptDraft} onChange={(e) => setPromptDraft(e.target.value)} placeholder={text('Describe the scene or how to cast your photo — the template prompt is pre-filled.', '描述场景或如何使用你的照片——已预填模板提示词。')}/><p className="notice">{text('The template prompt is pre-filled. Add casting notes like "put my dad in the suit as the main dancer".', '已预填模板提示词，可追加说明，例如"把照片里的爸爸换成领舞者、穿上西装"。')}</p></div>}
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
     {isTaskRelay && <p className="notice">{text('This model uses the template video above as the motion reference and your photos as the cast.', '该模型会自动把上方模板视频作为动作参考，配合你上传的照片生成。')}</p>}
-    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={ratio === v} className={ratio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={!isTaskRelay && v === '1080p' && unsupported1080} title={!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={resolution === v} className={resolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={duration === v} className={duration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
+    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={!isTaskRelay && v === '1080p' && unsupported1080} title={!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
     <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>
     </div></div></DialogContent></Dialog>;
