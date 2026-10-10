@@ -136,6 +136,6 @@ export function BurningBridgesHome({ plans, creditsPerUsd = 12, videoCosts = get
     <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about Burning Bridges','关于 Burning Bridges 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
     <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to become the main dancer?','准备好成为派对主角了吗？')}</h2><p>{t('Upload one photo, pick a party, and drop yourself in while the trend is still climbing.','上传一张照片，选好派对场景，趁趋势还在上升期直接跳进现场。')}</p><button className="btn btn-primary btn-lg" onClick={() => choose()}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section></main>
     <ViralFooter/>
-    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} allowPromptEdit preferModel="MiniMax-H3"/><PaymentModal isLoading={loading} pricingItem={payment} onCheckout={checkout}/>
+    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} preferModel="MiniMax-H3"/><PaymentModal isLoading={loading} pricingItem={payment} onCheckout={checkout}/>
   </div>;
 }
