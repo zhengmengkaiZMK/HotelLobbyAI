@@ -208,17 +208,19 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     try {
       const resolved = await Promise.all(input.map((v) => ensureUploadable(v!)));
       setProgress(18); setStage('pending');
-      // task-relay models: template video serves as the motion reference, with a
-      // fixed instruction so identity comes from the photos. Omni caps reference
-      // clips at 10s so it used to get the 10s preview cut — but the 12ai Omni
-      // channel rejects ANY video reference (verified 2026-10: even clean clips
-      // fail with "invalid argument"), so Omni runs photo-only.
+      // task-relay models: the template video serves as the motion reference —
+      // admin can disable it via task_relay_include_template_video (then only
+      // photos + prompt drive the generation). Omni caps reference clips at 10s
+      // so it used to get the 10s preview cut — but the 12ai Omni channel
+      // rejects ANY video reference (verified 2026-10: even clean clips fail
+      // with "invalid argument"), so Omni always runs photo-only.
+      const includeTemplateVideo = configs.task_relay_include_template_video !== 'false';
       const motionClause = !isTaskRelay
         ? ''
-        : isOmni
+        : isOmni || !includeTemplateVideo
           ? ' Cast the person(s) from the reference images as the performers, preserving their facial identity, hairstyle and outfit exactly.'
           : ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.';
-      const videoInput = isTaskRelay && !isOmni ? [`${window.location.origin}/templates/reference/${template.id}.mp4`] : [];
+      const videoInput = isTaskRelay && !isOmni && includeTemplateVideo ? [`${window.location.origin}/templates/reference/${template.id}.mp4`] : [];
       const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt: prompt + motionClause, options: { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution } }) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
@@ -243,7 +245,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {allowPromptEdit && <div className="prompt-edit"><p className="g-label">{text('Prompt', '文字提示词')}</p><textarea className="prompt-input" rows={4} value={promptDraft} onChange={(e) => setPromptDraft(e.target.value)} placeholder={text('Describe the scene or how to cast your photo — the template prompt is pre-filled.', '描述场景或如何使用你的照片——已预填模板提示词。')}/><p className="notice">{text('The template prompt is pre-filled. Add casting notes like "put my dad in the suit as the main dancer".', '已预填模板提示词，可追加说明，例如"把照片里的爸爸换成领舞者、穿上西装"。')}</p></div>}
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
     {isOmni && <p className="notice">{text('This model generates from your photos and the prompt only (no video reference). Movie-still photos with celebrity faces may be rejected — upload your own photos for best results.', '该模型仅根据你上传的照片和提示词生成（不使用视频参考）。含名人面孔的影视画面照片可能被拒绝，建议上传你自己的照片。')}</p>}
-    {isTaskRelay && !isOmni && <p className="notice">{text('This model uses the template video above as the motion reference and your photos as the cast.', '该模型会自动把上方模板视频作为动作参考，配合你上传的照片生成。')}</p>}
+    {isTaskRelay && !isOmni && (configs.task_relay_include_template_video !== 'false'
+      ? <p className="notice">{text('This model uses the template video above as the motion reference and your photos as the cast.', '该模型会自动把上方模板视频作为动作参考，配合你上传的照片生成。')}</p>
+      : <p className="notice">{text('This model generates from your photos and the prompt only — no template video is sent.', '该模型仅使用你上传的照片与提示词生成，不携带模板参考视频。')}</p>)}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={!isTaskRelay && v === '1080p' && unsupported1080} title={!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
     <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<p className="notice">{text('Rendering time and output depend on the selected model. No built-in music or guaranteed lip sync.', '生成时长及效果取决于模型，不包含内置音乐或保证口型同步。')}</p><div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>

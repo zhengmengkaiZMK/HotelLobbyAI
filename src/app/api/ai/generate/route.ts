@@ -105,9 +105,10 @@ export async function POST(request: Request) {
       options = {
         image_input: images,
         // gemini-omni upstream rejects ANY video reference (verified 2026-10:
-        // even clean self-produced clips fail with 400 invalid argument) — drop
-        // them so the task degrades to photo-only instead of failing
-        ...(!isOmniModel && Array.isArray(videos) && videos.length ? { video_input: videos } : {}),
+        // even clean self-produced clips fail with 400 invalid argument), and
+        // task_relay_include_template_video=false disables motion reference
+        // entirely (photos + prompt only) — drop the videos in both cases
+        ...(!isOmniModel && configs.task_relay_include_template_video !== 'false' && Array.isArray(videos) && videos.length ? { video_input: videos } : {}),
         duration: options?.duration,
         aspect_ratio: options?.aspect_ratio,
         resolution: options?.resolution,

@@ -1085,6 +1085,15 @@ export async function getSettings() {
       tab: 'ai',
     },
     {
+      name: 'task_relay_include_template_video',
+      title: '传入模板参考视频 / Include Template Motion Video',
+      type: 'switch',
+      value: 'true',
+      group: 'task_relay',
+      tab: 'ai',
+      tip: '开启时生成请求携带模板参考视频（动作/运镜参考）；关闭时仅传入参考图片与提示词，模型自由发挥动作。对 Omni 系无影响（该系始终不传视频参考）。',
+    },
+    {
       name: 'viral_template_prompt_classic',
       title: '原版 Original Hotel Lobby 提示词',
       type: 'textarea',
@@ -1405,6 +1414,7 @@ export const publicSettingNames = [
   'media_relay_video_models',
   'task_relay_enabled',
   'task_relay_video_models',
+  'task_relay_include_template_video',
   'viral_template_prompt_classic',
   'viral_template_prompt_cinematic',
   'viral_template_prompt_girls',
