@@ -55,7 +55,10 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function ViralHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function ViralHome({ plans, creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+  const starterM = plans.find(p => p.product_id === 'starter-monthly');
+  const starterPrice = starterM?.price || '$9.9';
+  const starterCredits = starterM?.credits || 90;
   const plusM = plans.find(p => p.product_id === 'plus-monthly');
   const proM = plans.find(p => p.product_id === 'pro-monthly');
   const plusPrice = plusM?.price || '$19.9';
@@ -70,7 +73,7 @@ export function ViralHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCost
   const [open, setOpen] = useState(false);
   const choose = (item: HomeTemplate = templates[0]) => { setTemplate(item); setOpen(true); };
   const start = () => user ? choose() : setIsShowSignModal(true);
-  const faq = getViralFaqPairs(zh, { plusPrice, plusCredits, proPrice, proCredits });
+  const faq = getViralFaqPairs(zh, { starterPrice, starterCredits, plusPrice, plusCredits, proPrice, proCredits });
   const features = [
     [Mic, t('Iconic orange booth','标志性橙色直播间'), t('1:1 recreation of the viral COLORS-style stage, tuned lighting and framing baked in.','1:1 复刻爆火的 COLORS 风舞台，灯光与构图已预先调好。')],
     [Video, t('Auto lip-sync','自动口型同步'), t("Both performers' lips, heads and gestures sync to the beat automatically. Zero editing.",'两位表演者的口型、头部与手势自动对齐节拍，零剪辑。')],

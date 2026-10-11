@@ -24,6 +24,37 @@
         ],
         "items": [
           {
+            "title": "Starter",
+            "description": "A light way to join the trend.",
+            "features_title": "Includes",
+            "features": [
+              "90 credits every month (≈ 9 videos)",
+              "All templates included",
+              "720p export, watermark-free",
+              "Standard rendering queue",
+              "Instant credit top-ups whenever you need"
+            ],
+            "interval": "month",
+            "amount": 990,
+            "currency": "USD",
+            "price": "$9.9",
+            "original_price": "",
+            "unit": " /mo",
+            "is_featured": false,
+            "tip": "Cancel anytime.",
+            "button": {
+              "title": "Get Starter",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter-monthly",
+            "product_name": "ViralReel Starter Monthly",
+            "credits": 90,
+            "valid_days": 30,
+            "group": "monthly",
+            "plan_name": "Starter"
+          },
+          {
             "title": "Plus",
             "description": "Everything you need to join the trend.",
             "features_title": "Includes",
@@ -85,6 +116,37 @@
             "valid_days": 30,
             "group": "monthly",
             "plan_name": "Pro"
+          },
+          {
+            "title": "Starter",
+            "description": "A light way to join the trend, billed annually.",
+            "features_title": "Includes",
+            "features": [
+              "1,080 credits per year (≈ 108 videos)",
+              "All templates included",
+              "720p export, watermark-free",
+              "Standard rendering queue",
+              "Instant credit top-ups whenever you need"
+            ],
+            "interval": "year",
+            "amount": 9490,
+            "currency": "USD",
+            "price": "$94.9",
+            "original_price": "$118.8",
+            "unit": " /yr",
+            "is_featured": false,
+            "tip": "Save 20% with annual billing.",
+            "button": {
+              "title": "Get Starter",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter-yearly",
+            "product_name": "ViralReel Starter Yearly",
+            "credits": 1080,
+            "valid_days": 365,
+            "group": "yearly",
+            "plan_name": "Starter"
           },
           {
             "title": "Plus",

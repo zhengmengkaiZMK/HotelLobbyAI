@@ -5,12 +5,14 @@ import { PricingItem } from '@/shared/types/blocks/pricing';
 
 export const CREDITS_TOPUP_PRODUCT_ID = 'credits_topup';
 
-export const DEFAULT_CREDITS_PER_USD = 12;
+export const DEFAULT_CREDITS_PER_USD = 10;
 
 // plan settings editable in the admin backend (tab: payment, group: pricing)
 export const PLAN_SETTING_NAMES = [
+  'starter-monthly',
   'plus-monthly',
   'pro-monthly',
+  'starter-yearly',
   'plus-yearly',
   'pro-yearly',
 ] as const;
@@ -57,7 +59,7 @@ export async function getPricingPlans(locale: string): Promise<PricingItem[]> {
 
 /**
  * Credit top-up rate: how many credits 1 USD buys. Editable in the admin
- * backend (`pricing_credits_per_usd`), defaults to 12.
+ * backend (`pricing_credits_per_usd`), defaults to 10.
  */
 export function getCreditsPerUsd(configs: Configs): number {
   const rate = toNumber(configs.pricing_credits_per_usd);

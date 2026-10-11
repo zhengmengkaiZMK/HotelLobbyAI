@@ -24,6 +24,37 @@
         ],
         "items": [
           {
+            "title": "Starter",
+            "description": "轻量上车，轻松玩转折趋势。",
+            "features_title": "包含",
+            "features": [
+              "每月 90 积分（约 9 条视频）",
+              "全部模板可用",
+              "720p 导出，无水印",
+              "标准渲染队列",
+              "积分不够可随时加购"
+            ],
+            "interval": "month",
+            "amount": 990,
+            "currency": "USD",
+            "price": "$9.9",
+            "original_price": "",
+            "unit": " /月",
+            "is_featured": false,
+            "tip": "可随时取消。",
+            "button": {
+              "title": "订阅 Starter",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter-monthly",
+            "product_name": "ViralReel Starter Monthly",
+            "credits": 90,
+            "valid_days": 30,
+            "group": "monthly",
+            "plan_name": "Starter"
+          },
+          {
             "title": "Plus",
             "description": "参与这波趋势所需的一切。",
             "features_title": "包含",
@@ -85,6 +116,37 @@
             "valid_days": 30,
             "group": "monthly",
             "plan_name": "Pro"
+          },
+          {
+            "title": "Starter",
+            "description": "轻量上车，轻松玩转折趋势，按年付费。",
+            "features_title": "包含",
+            "features": [
+              "每年 1,080 积分（约 108 条视频）",
+              "全部模板可用",
+              "720p 导出，无水印",
+              "标准渲染队列",
+              "积分不够可随时加购"
+            ],
+            "interval": "year",
+            "amount": 9490,
+            "currency": "USD",
+            "price": "$94.9",
+            "original_price": "$118.8",
+            "unit": " /年",
+            "is_featured": false,
+            "tip": "年付立省 20%。",
+            "button": {
+              "title": "订阅 Starter",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "starter-yearly",
+            "product_name": "ViralReel Starter Yearly",
+            "credits": 1080,
+            "valid_days": 365,
+            "group": "yearly",
+            "plan_name": "Starter"
           },
           {
             "title": "Plus",

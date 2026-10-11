@@ -15,7 +15,7 @@ import './home.css';
 
 export function SubscribeView({
   plans,
-  creditsPerUsd = 12,
+  creditsPerUsd = 10,
   hasSubscription = false,
 }: {
   plans: PricingItem[];

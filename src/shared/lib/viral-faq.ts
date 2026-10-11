@@ -3,6 +3,8 @@
 // and the FAQPage JSON-LD structured data (home/page.tsx).
 
 export interface ViralFaqPricing {
+  starterPrice: string;
+  starterCredits: number;
   plusPrice: string;
   plusCredits: number;
   proPrice: string;
@@ -10,6 +12,8 @@ export interface ViralFaqPricing {
 }
 
 const defaultPricing: ViralFaqPricing = {
+  starterPrice: '$9.9',
+  starterCredits: 90,
   plusPrice: '$19.9',
   plusCredits: 200,
   proPrice: '$39.9',
@@ -25,8 +29,8 @@ const FAQ_ENTRIES: FaqEntry[] = [
   {
     q: { en: 'How much does ViralReel cost?', zh: 'ViralReel 怎么收费？' },
     a: (p) => ({
-      en: `Plus is ${p.plusPrice}/mo with ${p.plusCredits} credits. Pro is ${p.proPrice}/mo with ${p.proCredits} credits. Video costs vary by resolution and duration; failed or canceled jobs are refunded.`,
-      zh: `Plus 每月 ${p.plusPrice}，含 ${p.plusCredits} 积分；Pro 每月 ${p.proPrice}，含 ${p.proCredits} 积分。视频按清晰度和时长计费，失败或取消会退回积分。`,
+      en: `Starter is ${p.starterPrice}/mo with ${p.starterCredits} credits. Plus is ${p.plusPrice}/mo with ${p.plusCredits} credits. Pro is ${p.proPrice}/mo with ${p.proCredits} credits. Video costs vary by resolution and duration; failed or canceled jobs are refunded.`,
+      zh: `Starter 每月 ${p.starterPrice}，含 ${p.starterCredits} 积分；Plus 每月 ${p.plusPrice}，含 ${p.plusCredits} 积分；Pro 每月 ${p.proPrice}，含 ${p.proCredits} 积分。视频按清晰度和时长计费，失败或取消会退回积分。`,
     }),
   },
   {

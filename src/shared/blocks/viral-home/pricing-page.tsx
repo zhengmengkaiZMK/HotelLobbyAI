@@ -15,7 +15,7 @@ import './home.css';
 // Standalone /pricing page: plan cards + the video-generation credit table
 // (the same content as the homepage pricing section), wrapped in the shared
 // site chrome.
-export function ViralPricingPage({ plans, creditsPerUsd = 12, videoCosts }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts: ReturnType<typeof import('@/shared/lib/video-cost').getVideoCostTable> }) {
+export function ViralPricingPage({ plans, creditsPerUsd = 10, videoCosts }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts: ReturnType<typeof import('@/shared/lib/video-cost').getVideoCostTable> }) {
   const zh = useLocale().startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
   const router = useRouter();

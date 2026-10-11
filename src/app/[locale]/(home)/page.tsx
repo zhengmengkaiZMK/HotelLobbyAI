@@ -27,9 +27,12 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   const videoCosts = getVideoCostTable(await getAllConfigs());
 
   const appUrl = envConfigs.app_url;
+  const starterM = plans.find((p) => p.product_id === 'starter-monthly');
   const plusM = plans.find((p) => p.product_id === 'plus-monthly');
   const proM = plans.find((p) => p.product_id === 'pro-monthly');
   const faqJsonLd = buildViralFaqJsonLd({
+    starterPrice: starterM?.price || '$9.9',
+    starterCredits: starterM?.credits || 90,
     plusPrice: plusM?.price || '$19.9',
     plusCredits: plusM?.credits || 200,
     proPrice: proM?.price || '$39.9',
