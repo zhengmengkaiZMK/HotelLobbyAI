@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { BurningBridgesHome } from '@/shared/blocks/burning-bridges/home';
-import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
+import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { BB_FAQ } from '@/shared/blocks/burning-bridges/faq';
@@ -75,7 +75,6 @@ export default async function BurningBridgesAiTemplatePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const zh = locale === 'zh';
-  const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs());
   const faq = BB_FAQ[zh ? 'zh' : 'en'];
@@ -96,7 +95,7 @@ export default async function BurningBridgesAiTemplatePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <BurningBridgesHome plans={plans} creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
+      <BurningBridgesHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>
   );
 }

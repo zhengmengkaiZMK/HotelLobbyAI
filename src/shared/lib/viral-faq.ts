@@ -29,8 +29,8 @@ const FAQ_ENTRIES: FaqEntry[] = [
   {
     q: { en: 'How much does ViralReel cost?', zh: 'ViralReel 怎么收费？' },
     a: (p) => ({
-      en: `Starter is ${p.starterPrice}/mo with ${p.starterCredits} credits. Plus is ${p.plusPrice}/mo with ${p.plusCredits} credits. Pro is ${p.proPrice}/mo with ${p.proCredits} credits. Video costs vary by resolution and duration; failed or canceled jobs are refunded.`,
-      zh: `Starter 每月 ${p.starterPrice}，含 ${p.starterCredits} 积分；Plus 每月 ${p.plusPrice}，含 ${p.plusCredits} 积分；Pro 每月 ${p.proPrice}，含 ${p.proCredits} 积分。视频按清晰度和时长计费，失败或取消会退回积分。`,
+      en: `Starter is ${p.starterPrice}/mo with ${p.starterCredits} credits. Plus is ${p.plusPrice}/mo with ${p.plusCredits} credits. Pro is ${p.proPrice}/mo with ${p.proCredits} credits. A video costs 7–22 credits depending on resolution and duration; failed or canceled jobs are refunded.`,
+      zh: `Starter 每月 ${p.starterPrice}，含 ${p.starterCredits} 积分；Plus 每月 ${p.plusPrice}，含 ${p.plusCredits} 积分；Pro 每月 ${p.proPrice}，含 ${p.proCredits} 积分。单条视频按清晰度和时长消耗 7–22 积分，失败或取消会退回积分。`,
     }),
   },
   {

@@ -3,14 +3,10 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { ArrowRight, Check, Flame, Maximize, Mic, PartyPopper, Play, Sparkles, Users, Video, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Flame, Maximize, Mic, PartyPopper, Play, Users, Video, Volume2, VolumeX } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { toast } from 'sonner';
 import { Link } from '@/core/i18n/navigation';
-import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
 import { useAppContext } from '@/shared/contexts/app';
-import { getCookie } from '@/shared/lib/cookie';
-import { PricingItem } from '@/shared/types/blocks/pricing';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
@@ -57,50 +53,15 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function BurningBridgesHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
-  const plusM = plans.find(p => p.product_id === 'plus-monthly');
-  const proM = plans.find(p => p.product_id === 'pro-monthly');
-  const plusPrice = plusM?.price || '$19.9';
-  const plusCredits = plusM?.credits || 200;
-  const proPrice = proM?.price || '$39.9';
-  const proCredits = proM?.credits || 500;
+export function BurningBridgesHome({ creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
-  const { user, configs, setIsShowSignModal, setIsShowPaymentModal } = useAppContext();
+  const { user, setIsShowSignModal } = useAppContext();
   const [template, setTemplate] = useState<BBTemplate>(burningBridgesTemplates[0]);
   const [open, setOpen] = useState(false);
-  const [group, setGroup] = useState('month');
-  const [payment, setPayment] = useState<PricingItem | null>(null);
-  const [loading, setLoading] = useState(false);
-  const available = plans.filter((p) => p.interval === group);
-  const displayed = available.slice(0, 2);
-  const priceSpecs = [
-    { title: 'Plus', price: plusPrice, unit: plusM?.unit || ' /mo', credits: `${plusCredits} credits / month`, items: [`${plusCredits} credits every month`, 'All templates included', '720p export, watermark-free', 'Standard rendering queue', 'Instant credit top-ups whenever you need'] },
-    { title: 'Pro', price: proPrice, unit: proM?.unit || ' /mo', credits: `${proCredits} credits / month`, items: ['Everything in Plus', `${proCredits} credits every month`, '1080p export, watermark-free', 'Priority queue — skip the line', 'Top up credits instantly, whenever you need'] },
-  ];
-  const checkoutPlans = displayed.length >= 2 ? displayed : plans.filter((p) => p.interval === 'month').slice(0, 2);
   const choose = (item: BBTemplate = burningBridgesTemplates[0]) => { setTemplate(item); setOpen(true); };
   const start = () => user ? choose() : setIsShowSignModal(true);
-  async function checkout(item: PricingItem, provider?: string) {
-    if (!user) { setIsShowSignModal(true); return; }
-    setLoading(true);
-    try {
-      const metadata: Record<string, string> = {};
-      if (configs.affonso_enabled === 'true') metadata.affonso_referral = getCookie('affonso_referral') || '';
-      if (configs.promotekit_enabled === 'true') metadata.promotekit_referral = getCookie('promotekit_referral') || '';
-      const response = await fetch('/api/payment/checkout', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ product_id: item.product_id, currency: item.currency, locale, payment_provider: provider || '', metadata }) });
-      const payload = await response.json();
-      if (!response.ok || payload.code !== 0 || !payload.data?.checkoutUrl) throw new Error(payload.message || t('Checkout failed', '创建支付失败'));
-      window.location.assign(payload.data.checkoutUrl);
-    } catch (e) { toast.error(e instanceof Error ? e.message : t('Checkout failed', '创建支付失败')); }
-    finally { setLoading(false); }
-  }
-  function buy(item: PricingItem) {
-    if (!user) { setIsShowSignModal(true); return; }
-    if (configs.select_payment_enabled === 'true') { setPayment(item); setIsShowPaymentModal(true); }
-    else void checkout(item, configs.default_payment_provider);
-  }
   const madeBy = ['9.6M made', '4.2M made', '6.8M made', '5.1M made', '3.9M made', '4.5M made'];
   const features = [
     [PartyPopper, t('The viral party scene','爆火派对名场面'), t('The chandelier, the metal cup, the roaring crowd — the exact format everyone is posting, staged for you.','水晶吊灯、金属杯、沸腾人群——人人都在发的那个格式，场景已经为你搭好。')],
@@ -119,7 +80,6 @@ export function BurningBridgesHome({ plans, creditsPerUsd = 12, videoCosts = get
     <section className="stats"><div className="container stats-grid"><div><div className="statnum">890<em>K+</em></div><p>{t('Videos generated','已生成视频')}</p></div><div><div className="statnum">60<em>s</em></div><p>{t('Average render time','平均渲染时长')}</p></div><div><div className="statnum">4.8<em>★</em></div><p>{t('From 3,100+ reviews','来自 3,100+ 条评价')}</p></div><div><div className="statnum">{Math.min(...videoCosts.flatMap(row => row.costs.map(item => item.credits)))}<em className="wide-em">{t(' credits / video from', ' 积分 / 条起')}</em></div><p>{t(`Top-ups available · ${creditsPerUsd} credits = $1`,`随时可加购 · ${creditsPerUsd} 积分 = 1 美元`)}</p></div></div></section>
     <section className="sec sec-alt" id="what"><div className="container"><div className="sec-head"><p className="kick">{t('What is Burning Bridges','Burning Bridges 是什么')}</p><h2>{t('Everything you need to join the trend','参与这波趋势所需的一切')}</h2><p className="sub">{t('The chandelier, the metal cup, the cheering crowd — recreated by AI from just one photo.','水晶吊灯、金属杯、欢呼人群——只需一张照片，AI 全部还原。')}</p></div><div className="grid4">{features.map(([Icon,title,desc]) => <div className="feat" key={title}><div className="ic"><Icon size={20}/></div><h3>{title}</h3><p>{desc}</p></div>)}</div></div></section>
     <section className="sec" id="how"><div className="container"><div className="sec-head"><p className="kick">{t('How it works','使用教程')}</p><h2>{t('How to make a Burning Bridges AI video','如何制作 Burning Bridges AI 视频')}</h2><p className="sub">{t('From one photo to a postable video in about a minute — no app, no editing skills.','从一张照片到可发布视频只要一分钟——不用装 App，不用会剪辑。')}</p></div><div className="grid4s">{steps.map(([title,desc],i) => <div className="step" key={title}><div className="num">{i+1}</div><h3>{title}</h3><p>{desc}</p></div>)}</div></div></section>
-    <section className="sec sec-alt" id="pricing"><div className="container"><div className="sec-head"><p className="kick">{t('Pricing','定价')}</p><h2>{t('Simple pricing. Scale when you go viral.','定价简单，爆火了再扩量。')}</h2></div><div className="bill-toggle"><button className={group === 'month' ? 'on' : ''} aria-pressed={group === 'month'} onClick={() => setGroup('month')}>{t('Monthly','月付')}</button><button className={group === 'year' ? 'on' : ''} aria-pressed={group === 'year'} onClick={() => setGroup('year')}>{t('Yearly','年付')} <span className="save">−20%</span></button></div><div className="price-grid">{priceSpecs.map((spec,i) => <article className={`pcard ${i === 1 ? 'pro' : ''}`} key={spec.title}>{i === 1 && <span className="tag">{t('Most popular','最受欢迎')}</span>}<h3>{spec.title}</h3><div className="price">{spec.price}<small>{spec.unit}</small></div><span className="anchor">{spec.credits}</span><ul>{spec.items.map((item) => <li key={item}><Check size={16} className="ok"/>{t(item, item)}</li>)}</ul><button disabled={loading || !checkoutPlans[i]} className={`btn ${i === 1 ? 'btn-primary' : 'btn-outline'}`} onClick={() => checkoutPlans[i] && buy(checkoutPlans[i])}>{t(`Get ${spec.title}`,`订阅 ${spec.title}`)}</button></article>)}</div><div className="video-pricing-note mt-8 rounded-xl border border-orange-200 bg-white p-6 text-slate-800"><b>{t('Video generation pricing','视频生成计费')}</b><span>{t('Image-to-video costs vary by resolution and duration. Failed or canceled jobs are refunded.','图生视频按清晰度和时长计费，任务失败或取消会退回积分。')}</span><div className="video-pricing-grid mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">{videoCosts.map((row) => <div key={row.resolution}><strong>{row.resolution}</strong>{row.costs.map((item) => <span key={item.duration} className="block">{item.duration}s · {item.credits} {t('credits','积分')}</span>)}</div>)}</div></div><p className="mt-6 text-center"><Link href="/subscribe">{t('View all plans and payment options','查看全部套餐与支付选项')} →</Link></p></div></section>
     <section className="sec"><div className="container"><div className="sec-head"><p className="kick">{t('Testimonials','用户评价')}</p><h2>{t('People love Burning Bridges','用户都爱 Burning Bridges')}</h2><p className="sub">{t('…for making the trend easy to join before it peaks.','…因为它让人人都能在趋势见顶前轻松上车。')}</p></div><div className="quote-viewport"><div className="quote-grid">{reviews.map(([name,quote,handle,img]) => <article className="qcard" key={name}><div className="stars">★★★★★</div><p>{quote}</p><div className="who"><span className="av" style={{ backgroundImage: `url(${img})` }}/><div><b>{name}</b><span>{handle}</span></div></div></article>)}{reviews.map(([name,quote,handle,img]) => <article className="qcard" aria-hidden="true" key={'b-'+name}><div className="stars">★★★★★</div><p>{quote}</p><div className="who"><span className="av" style={{ backgroundImage: `url(${img})` }}/><div><b>{name}</b><span>{handle}</span></div></div></article>)}</div></div></div></section>
     <section className="sec" id="guide"><div className="container guide"><div className="sec-head"><p className="kick">{t('Guide','指南')}</p><h2>{t('Burning Bridges AI template: the complete guide','Burning Bridges AI 模板完全指南')}</h2></div>
       <figure className="guide-fig"><img src="/templates/party-office-poster.jpg" alt="Burning Bridges AI template preview — the main dancer at the party while the crowd cheers" width={1138} height={640} loading="lazy"/><figcaption>{t('The Burning Bridges AI template recreates the viral party scene from just one photo.','Burning Bridges AI 模板只需一张照片即可还原爆火派对名场面。')}</figcaption></figure>
@@ -134,6 +94,6 @@ export function BurningBridgesHome({ plans, creditsPerUsd = 12, videoCosts = get
     <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about Burning Bridges','关于 Burning Bridges 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
     <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to become the main dancer?','准备好成为派对主角了吗？')}</h2><p>{t('Upload one photo, pick a party, and drop yourself in while the trend is still climbing.','上传一张照片，选好派对场景，趁趋势还在上升期直接跳进现场。')}</p><button className="btn btn-primary btn-lg" onClick={() => choose()}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section></main>
     <ViralFooter/>
-    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} preferModel="MiniMax-H3"/><PaymentModal isLoading={loading} pricingItem={payment} onCheckout={checkout}/>
+    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} preferModel="MiniMax-H3"/>
   </div>;
 }
