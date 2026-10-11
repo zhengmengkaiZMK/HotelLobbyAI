@@ -3,18 +3,17 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { ArrowRight, Check, Flame, Maximize, Menu, Mic, PartyPopper, Play, Sparkles, Users, Video, Volume2, VolumeX } from 'lucide-react';
+import { ArrowRight, Check, Flame, Maximize, Mic, PartyPopper, Play, Sparkles, Users, Video, Volume2, VolumeX } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { toast } from 'sonner';
 import { Link } from '@/core/i18n/navigation';
-import { LocaleSelector } from '@/shared/blocks/common/locale-selector';
-import { SignUser } from '@/shared/blocks/sign/sign-user';
 import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
-import { Brand, ViralFooter } from '@/shared/blocks/viral-home/footer';
+import { ViralHeader } from '@/shared/blocks/viral-home/header';
+import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { burningBridgesTemplates, type BBTemplate } from './templates';
 import { BB_FAQ } from './faq';
@@ -102,7 +101,6 @@ export function BurningBridgesHome({ plans, creditsPerUsd = 12, videoCosts = get
     if (configs.select_payment_enabled === 'true') { setPayment(item); setIsShowPaymentModal(true); }
     else void checkout(item, configs.default_payment_provider);
   }
-  const nav = [['templates', t('Templates','模板')], ['how', t('How it works','使用教程')], ['pricing', t('Pricing','定价')], ['faq', t('FAQ','常见问题')], ['blog', t('Blog','博客')]];
   const madeBy = ['9.6M made', '4.2M made', '6.8M made', '5.1M made', '3.9M made', '4.5M made'];
   const features = [
     [PartyPopper, t('The viral party scene','爆火派对名场面'), t('The chandelier, the metal cup, the roaring crowd — the exact format everyone is posting, staged for you.','水晶吊灯、金属杯、沸腾人群——人人都在发的那个格式，场景已经为你搭好。')],
@@ -114,7 +112,7 @@ export function BurningBridgesHome({ plans, creditsPerUsd = 12, videoCosts = get
   const faq = BB_FAQ[zh ? 'zh' : 'en'];
   const reviews = [[t('Jake M.','Jake M.'),'“Put myself into the office party and it hit 500k views the same night. My coworkers lost it when they recognized the meeting room.”','@jakemakes · 412K followers','/avatars/review-1.jpg'],[t('Sofia R.','Sofia R.'),'“I batch-made 10 party videos for our meme page in one sitting. One photo, one click, done — the crowd energy is unreal.”','Runs @dailydoseofmemes','/avatars/review-2.jpg'],[t('Tom K.','Tom K.'),'“Made my cat the main dancer at the party. No editing, no app, works on my phone browser. Posted 6 in a row, all took off.”','@tompetsdaily · 208K followers','/avatars/review-3.jpg'],[t('Liam P.','Liam P.'),'“Our whole office did the Burning Bridges trend after the holiday party. The render queue is fast enough that we posted everything same-day.”','@liam.plays · 96K followers','/avatars/review-4.jpg'],[t('Emma L.','Emma L.'),'“I am not a video editor at all. Uploaded one photo, picked Fantasy Queen, and the thing basically edited itself. 900K views and counting.”','@emmadaybyday · 340K followers','/avatars/review-5.jpg'],[t('Marcus J.','Marcus J.'),'“The editable prompt is the detail nobody else gets right. I added one line and my dad became the dance legend. Straight to Shorts and Reels.”','@marcusmakes · 155K followers','/avatars/review-6.jpg']] as const;
   return <div className="viral-home">
-    <header className="site"><div className="container"><div className="nav"><Brand/><nav className="menu" aria-label={t('Main navigation','主导航')}>{nav.map(([id,label]) => id === 'blog' ? <Link key={id} href="/blog">{label}</Link> : <a key={id} href={`#${id}`}>{label}</a>)}<Link href="/hotel-lobby-ai-template">{t('Hotel Lobby','橙色直播间')}</Link></nav><div className="right"><LocaleSelector type="button"/><div className="signin"><SignUser userNav={{ show_name: true, show_credits: true, show_sign_out: true, items: [{ title: t('My generations','生成记录'), url: '/activity/ai-tasks', icon: 'Video' }] }}/></div><button className="btn btn-primary start-button" onClick={start}>{t('Start creating','开始创作')}</button><details className="mobile-menu"><summary aria-label={t('Open menu','打开菜单')}><Menu size={20}/></summary><nav>{nav.map(([id,label]) => id === 'blog' ? <Link key={id} href="/blog" onClick={(e) => e.currentTarget.closest('details')?.removeAttribute('open')}>{label}</Link> : <a key={id} href={`#${id}`} onClick={(e) => e.currentTarget.closest('details')?.removeAttribute('open')}>{label}</a>)}<Link href="/hotel-lobby-ai-template" onClick={(e) => e.currentTarget.closest('details')?.removeAttribute('open')}>{t('Hotel Lobby','橙色直播间')}</Link></nav></details></div></div></div></header>
+    <ViralHeader onStart={start}/>
     <main><section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#burningbridges is trending</span><span className="bar"/><b>890K videos made</b></div><h1>{t('Become the main dancer in the viral ', '60 秒成为爆火的 ')}<span className="hl">Burning Bridges</span>{t(' party video in 60 seconds', ' 派对舞王')}</h1><p className="lead">{t('Upload one front-facing photo and drop yourself into the packed party — you dance in the center while the crowd cheers around you.', '上传一张正面照片，直接跳进沸腾的派对现场——你在中央领舞，周围人群为你喝彩。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div><div className="hero-proof"><div className="avatars" aria-hidden="true"><span/><span/><span/><span/></div><span><b>890,000+</b> {t('creators joined this week', '位创作者本周加入')}</span></div></div></section>
     <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Pick a party, upload one photo, done','选一个派对场景、传一张照片，一键出片')}</h2><p className="sub">{t('Every template is a tuned variant of the same viral scene — click one to open the generator, the prompt is pre-filled and editable.','每个模板都是同一爆火场景的精调版本——点击卡片打开生成器，提示词已预填且可编辑。')}</p></div><div className="grid3">{burningBridgesTemplates.map((item, index) => <article className="tcard" key={item.id}><button className="tv" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b><span>{madeBy[index]}</span></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>
     <div className="logos"><p className="lbl">{t('Creators are posting ViralReel videos on','创作者们正在这些平台发布 ViralReel 视频')}</p><div className="row"><span className="soc tiktok"><PlatformIcon type="tiktok"/>TikTok</span><span className="soc youtube"><PlatformIcon type="youtube"/>YouTube Shorts</span><span className="soc instagram"><PlatformIcon type="instagram"/>Instagram Reels</span><span className="soc x"><PlatformIcon type="x"/>X / Twitter</span><span className="soc reddit"><PlatformIcon type="reddit"/>Reddit</span></div></div>
