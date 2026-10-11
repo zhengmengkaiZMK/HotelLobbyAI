@@ -97,6 +97,20 @@ export async function POST(request: Request) {
         }
         for (const videoUrl of videos) validateUrl(videoUrl);
       }
+      // driving audio is a MiniMax-H3 capability (≤3 clips, 2-15s each; audio
+      // cannot be the only reference — the image check above already enforces
+      // at least one image). One admin-uploaded file for now.
+      const isMinimaxModel = model === 'MiniMax-H3';
+      const audios = options?.audio_input;
+      if (audios !== undefined && audios !== null) {
+        if (!isMinimaxModel) {
+          throw new Error('Reference audio is only supported for MiniMax-H3');
+        }
+        if (!Array.isArray(audios) || audios.length < 1 || audios.length > 3) {
+          throw new Error('Please provide up to three reference audio files');
+        }
+        for (const audioUrl of audios) validateUrl(audioUrl);
+      }
       // gemini-omni models only accept 16:9 / 9:16 / auto
       const isOmniModel = model.toLowerCase().startsWith('gemini-omni');
       if (isOmniModel && options?.aspect_ratio && !['16:9', '9:16', 'auto'].includes(options.aspect_ratio)) {
@@ -109,6 +123,7 @@ export async function POST(request: Request) {
         // task_relay_include_template_video=false disables motion reference
         // entirely (photos + prompt only) — drop the videos in both cases
         ...(!isOmniModel && configs.task_relay_include_template_video !== 'false' && Array.isArray(videos) && videos.length ? { video_input: videos } : {}),
+        ...(isMinimaxModel && Array.isArray(audios) && audios.length ? { audio_input: audios } : {}),
         duration: options?.duration,
         aspect_ratio: options?.aspect_ratio,
         resolution: options?.resolution,

@@ -69,6 +69,10 @@ export class TaskRelayProvider implements AIProvider {
     if (Array.isArray(images) && images.length) input.image_references = images;
     const videos = params.options?.video_input;
     if (Array.isArray(videos) && videos.length) input.video_references = videos;
+    // MiniMax-H3 driving audio (WAV/MP3, 2-15s per clip, ≤3; must accompany at
+    // least one image/video reference — enforced upstream of this provider)
+    const audios = params.options?.audio_input;
+    if (Array.isArray(audios) && audios.length) input.audio_references = audios;
 
     const { data } = await this.request('/v1/task/submit', {
       method: 'POST',

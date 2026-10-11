@@ -1094,6 +1094,14 @@ export async function getSettings() {
       tip: '开启时生成请求携带模板参考视频（动作/运镜参考）；关闭时仅传入参考图片与提示词，模型自由发挥动作。对 Omni 系无影响（该系始终不传视频参考）。',
     },
     {
+      name: 'task_relay_minimax_audio',
+      title: 'MiniMax-H3 参考音频 / MiniMax-H3 Reference Audio',
+      type: 'upload_audio',
+      group: 'task_relay',
+      tab: 'ai',
+      tip: '上传 WAV/MP3 音频（≤15MB，建议 2-15 秒），选用 MiniMax-H3 生成时作为 driving audio 传入，驱动角色口型/演唱与声音风格。留空则不传音频。注意：音频不能是唯一参考，需配合模板的参考图/视频一起使用。',
+    },
+    {
       name: 'viral_template_prompt_classic',
       title: '原版 Original Hotel Lobby 提示词',
       type: 'textarea',
@@ -1415,6 +1423,7 @@ export const publicSettingNames = [
   'task_relay_enabled',
   'task_relay_video_models',
   'task_relay_include_template_video',
+  'task_relay_minimax_audio',
   'viral_template_prompt_classic',
   'viral_template_prompt_cinematic',
   'viral_template_prompt_girls',
