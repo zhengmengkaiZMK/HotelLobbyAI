@@ -77,6 +77,24 @@ export function Footer({ footer }: { footer: FooterType }) {
             <Copyright brand={footer.brand} />
           ) : null}
 
+          {/* directory badge — Findly.tools */}
+          <a
+            href="https://findly.tools/viralreel?utm_source=viralreel"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Featured on Findly.tools"
+            className="flex shrink-0 items-center"
+          >
+            {/* eslint-disable-next-line @next/next/no-img-element */}
+            <img
+              src="https://findly.tools/badges/findly-tools-badge-light.svg"
+              alt="Featured on Findly.tools"
+              width={175}
+              height={55}
+              loading="lazy"
+            />
+          </a>
+
           <div className="min-w-0 flex-1"></div>
 
           {footer.agreement ? (
