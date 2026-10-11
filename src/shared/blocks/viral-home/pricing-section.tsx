@@ -14,28 +14,30 @@ import { PricingItem } from '@/shared/types/blocks/pricing';
 // Plus/Pro cards with a monthly/yearly toggle plus the video-generation
 // credit table. Self-contained — owns checkout state and the payment modal.
 export function PricingSection({ plans, creditsPerUsd = 10, videoCosts }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts: ReturnType<typeof import('@/shared/lib/video-cost').getVideoCostTable> }) {
-  const starterM = plans.find(p => p.product_id === 'starter-monthly');
-  const plusM = plans.find(p => p.product_id === 'plus-monthly');
-  const proM = plans.find(p => p.product_id === 'pro-monthly');
-  const starterPrice = starterM?.price || '$9.9';
-  const starterCredits = starterM?.credits || 90;
-  const plusPrice = plusM?.price || '$19.9';
-  const plusCredits = plusM?.credits || 200;
-  const proPrice = proM?.price || '$39.9';
-  const proCredits = proM?.credits || 500;
-  const locale = useLocale();
-  const zh = locale === 'zh';
-  const t = (en: string, cn: string) => zh ? cn : en;
   const { user, configs, setIsShowSignModal, setIsShowPaymentModal } = useAppContext();
   const [group, setGroup] = useState('month');
   const [payment, setPayment] = useState<PricingItem | null>(null);
   const [loading, setLoading] = useState(false);
+  const idSuffix = group === 'year' ? 'yearly' : 'monthly';
+  const starterPlan = plans.find(p => p.product_id === `starter-${idSuffix}`) || plans.find(p => p.product_id === 'starter-monthly');
+  const plusPlan = plans.find(p => p.product_id === `plus-${idSuffix}`) || plans.find(p => p.product_id === 'plus-monthly');
+  const proPlan = plans.find(p => p.product_id === `pro-${idSuffix}`) || plans.find(p => p.product_id === 'pro-monthly');
+  const starterPrice = starterPlan?.price || '$9.9';
+  const starterCredits = starterPlan?.credits || 90;
+  const plusPrice = plusPlan?.price || '$19.9';
+  const plusCredits = plusPlan?.credits || 200;
+  const proPrice = proPlan?.price || '$39.9';
+  const proCredits = proPlan?.credits || 500;
+  const locale = useLocale();
+  const zh = locale === 'zh';
+  const t = (en: string, cn: string) => zh ? cn : en;
+  const period = group === 'year' ? 'year' : 'month';
   const available = plans.filter((p) => p.interval === group);
   const displayed = available.slice(0, 3);
   const priceSpecs = [
-    { title: 'Starter', price: starterPrice, unit: starterM?.unit || ' /mo', credits: `${starterCredits} credits / month`, items: [`${starterCredits} credits every month`, 'All templates included', '720p export, watermark-free', 'Standard rendering queue', 'Instant credit top-ups whenever you need'] },
-    { title: 'Plus', price: plusPrice, unit: plusM?.unit || ' /mo', credits: `${plusCredits} credits / month`, items: [`${plusCredits} credits every month`, 'All templates included', '720p export, watermark-free', 'Standard rendering queue', 'Instant credit top-ups whenever you need'] },
-    { title: 'Pro', price: proPrice, unit: proM?.unit || ' /mo', credits: `${proCredits} credits / month`, items: ['Everything in Plus', `${proCredits} credits every month`, '1080p export, watermark-free', 'Priority queue — skip the line', 'Top up credits instantly, whenever you need'] },
+    { title: 'Starter', price: starterPrice, unit: starterPlan?.unit || ' /mo', credits: `${starterCredits} credits / ${period}`, items: [`${starterCredits} credits every ${period}`, 'All templates included', '720p export, watermark-free', 'Standard rendering queue', 'Instant credit top-ups whenever you need'] },
+    { title: 'Plus', price: plusPrice, unit: plusPlan?.unit || ' /mo', credits: `${plusCredits} credits / ${period}`, items: [`${plusCredits} credits every ${period}`, 'All templates included', '720p export, watermark-free', 'Standard rendering queue', 'Instant credit top-ups whenever you need'] },
+    { title: 'Pro', price: proPrice, unit: proPlan?.unit || ' /mo', credits: `${proCredits} credits / ${period}`, items: ['Everything in Plus', `${proCredits} credits every ${period}`, '1080p export, watermark-free', 'Priority queue — skip the line', 'Top up credits instantly, whenever you need'] },
   ];
   const checkoutPlans = displayed.length >= 3 ? displayed : plans.filter((p) => p.interval === 'month').slice(0, 3);
   async function checkout(item: PricingItem, provider?: string) {
