@@ -229,14 +229,27 @@ export class MediaRelayProvider implements AIProvider {
 
   async query({ taskId, mediaType }: { taskId: string; mediaType?: string }): Promise<AITaskResult> {
     if (mediaType !== AIMediaType.VIDEO) throw new Error('query is only supported for video tasks');
-    const { data } = await this.request(AIMediaType.VIDEO, `/videos/${encodeURIComponent(taskId)}`, { method: 'GET' });
+    // Gateways differ on the poll path: xAI passthrough uses /videos/{request_id},
+    // while new-api style task relays expose /videos/generations/{task_id} and may
+    // return their OWN task id at create time (not the upstream request_id). A 404
+    // on the xAI-style path can therefore mean the id is a gateway task id — retry
+    // the task-style path before giving up (verified 2026-10: apikey.fan returns
+    // "Video request not found" when polling a gateway task id the xAI way).
+    let data: any;
+    try {
+      ({ data } = await this.request(AIMediaType.VIDEO, `/videos/${encodeURIComponent(taskId)}`, { method: 'GET' }));
+    } catch (e) {
+      if (!/^\s*media relay request failed \(404\)/.test(e instanceof Error ? e.message : '')) throw e;
+      ({ data } = await this.request(AIMediaType.VIDEO, `/videos/generations/${encodeURIComponent(taskId)}`, { method: 'GET' }));
+    }
     const status = String(data.status || '').toLowerCase();
     if (['completed', 'done', 'succeeded', 'success'].includes(status)) {
       const videoUrl = await this.persistVideoUrl(data);
       if (!videoUrl) return { taskStatus: AITaskStatus.FAILED, taskId, taskInfo: { status, errorMessage: 'media relay returned no video URL' }, taskResult: data };
       return { taskStatus: AITaskStatus.SUCCESS, taskId, taskInfo: { status, videos: [{ videoUrl }] }, taskResult: { ...data, video: { ...data.video, url: videoUrl } } };
     }
-    if (['failed', 'error', 'cancelled', 'canceled'].includes(status)) return { taskStatus: AITaskStatus.FAILED, taskId, taskInfo: { status, errorMessage: data.error || data.message }, taskResult: data };
+    // "expired" is a terminal xAI state (temporary URL / request lifetime passed)
+    if (['failed', 'error', 'cancelled', 'canceled', 'expired'].includes(status)) return { taskStatus: AITaskStatus.FAILED, taskId, taskInfo: { status, errorMessage: data.error || data.message }, taskResult: data };
     return { taskStatus: AITaskStatus.PROCESSING, taskId, taskInfo: { status: status || 'processing' }, taskResult: data };
   }
 }
