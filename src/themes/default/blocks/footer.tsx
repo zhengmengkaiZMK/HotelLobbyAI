@@ -77,6 +77,16 @@ export function Footer({ footer }: { footer: FooterType }) {
             <Copyright brand={footer.brand} />
           ) : null}
 
+          {/* directory link — IndieAI Directory */}
+          <a
+            href="https://indieai.directory/tools/viralreel/"
+            target="_blank"
+            rel="noopener"
+            className="text-muted-foreground hover:text-primary shrink-0 text-sm duration-150"
+          >
+            ViralReel on IndieAI Directory
+          </a>
+
           {/* directory badge — Findly.tools */}
           <a
             href="https://findly.tools/viralreel?utm_source=viralreel"
