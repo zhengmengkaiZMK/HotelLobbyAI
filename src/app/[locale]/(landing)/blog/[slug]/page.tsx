@@ -32,11 +32,33 @@ export async function generateMetadata({
     };
   }
 
+  const ogImage = post.image ? `${envConfigs.app_url}${post.image}` : undefined;
+  const isoDate = post.created_at && !Number.isNaN(new Date(post.created_at).getTime())
+    ? new Date(post.created_at).toISOString()
+    : undefined;
+
   return {
     title: `${post.title} | ${t('title')}`,
     description: post.description,
     alternates: {
       canonical: canonicalUrl,
+    },
+    openGraph: {
+      type: 'article' as const,
+      url: canonicalUrl,
+      title: post.title,
+      description: post.description,
+      siteName: 'ViralReel',
+      publishedTime: isoDate,
+      authors: post.author_name ? [post.author_name] : undefined,
+      images: ogImage ? [{ url: ogImage }] : undefined,
+      locale: locale === 'zh' ? 'zh_CN' : 'en_US',
+    },
+    twitter: {
+      card: ogImage ? ('summary_large_image' as const) : ('summary' as const),
+      title: post.title,
+      description: post.description,
+      images: ogImage ? [ogImage] : undefined,
     },
   };
 }
@@ -55,6 +77,34 @@ export default async function BlogDetailPage({
     return <Empty message={`Post not found`} />;
   }
 
+  // Article JSON-LD for search engines and AI answer engines (SEO + GEO)
+  const postUrl =
+    locale !== envConfigs.locale
+      ? `${envConfigs.app_url}/${locale}/blog/${slug}`
+      : `${envConfigs.app_url}/blog/${slug}`;
+  const isoDate = post.created_at && !Number.isNaN(new Date(post.created_at).getTime())
+    ? new Date(post.created_at).toISOString()
+    : undefined;
+  const articleJsonLd = {
+    '@context': 'https://schema.org',
+    '@type': 'BlogPosting',
+    headline: post.title,
+    description: post.description,
+    image: post.image ? `${envConfigs.app_url}${post.image}` : undefined,
+    datePublished: isoDate,
+    dateModified: isoDate,
+    author: post.author_name
+      ? { '@type': 'Person', name: post.author_name }
+      : undefined,
+    publisher: {
+      '@type': 'Organization',
+      name: 'ViralReel',
+      url: envConfigs.app_url,
+    },
+    mainEntityOfPage: { '@type': 'WebPage', '@id': postUrl },
+    inLanguage: locale === 'zh' ? 'zh-CN' : 'en',
+  };
+
   // build page sections
   const page: DynamicPage = {
     sections: {
@@ -69,5 +119,13 @@ export default async function BlogDetailPage({
 
   const Page = await getThemePage('dynamic-page');
 
-  return <Page locale={locale} page={page} />;
+  return (
+    <>
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
+      />
+      <Page locale={locale} page={page} />
+    </>
+  );
 }

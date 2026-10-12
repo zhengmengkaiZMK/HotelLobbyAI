@@ -297,6 +297,7 @@ export async function getLocalPost({
     author_name: frontmatter.author_name || '',
     author_image: frontmatter.author_image || '',
     author_role: '',
+    image: frontmatter.image || '',
     url: `${postPrefix}${slug}`,
   };
 
