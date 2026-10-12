@@ -8,6 +8,8 @@ import {
   DocsTitle,
 } from 'fumadocs-ui/page';
 
+import { envConfigs } from '@/config';
+import { locales } from '@/config/locale';
 import { source } from '@/core/docs/source';
 
 export const revalidate = 86400;
@@ -57,8 +59,27 @@ export async function generateMetadata(props: {
   const page = source.getPage(params.slug, params.locale);
   if (!page) notFound();
 
+  const { slug = [], locale = 'en' } = params;
+  const path = ['docs', ...slug].join('/');
+  const canonicalUrl = `${envConfigs.app_url}${
+    locale !== envConfigs.locale ? `/${locale}` : ''
+  }/${path}`;
+
+  // hreflang alternates for every supported locale
+  const languages: Record<string, string> = {};
+  for (const loc of locales) {
+    languages[loc] = `${envConfigs.app_url}${
+      loc !== envConfigs.locale ? `/${loc}` : ''
+    }/${path}`;
+  }
+  languages['x-default'] = `${envConfigs.app_url}/${path}`;
+
   return {
     title: page.data.title,
     description: page.data.description,
+    alternates: {
+      canonical: canonicalUrl,
+      languages,
+    },
   };
 }
