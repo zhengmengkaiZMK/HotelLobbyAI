@@ -14,7 +14,7 @@
 
 </div>
 
-**ViralReel**（[viralreel.app](http://www.viralreel.app)）是一个已上线的 AI SaaS 产品：用户上传照片，即可复刻当下最热的视频玩法（COLORS 风格的 *Hotel Lobby* 双人舞台、*Burning Bridges* 吊灯派对等）。内置积分计费、多模型视频生成、中英双语的 SEO/GEO 优化博客和完整的后台管理。基于 [ShipAny](https://shipany.ai) 模板构建，部署在 Cloudflare Workers 上。
+**ViralReel**（[viralreel.app](http://www.viralreel.app)）是一个已上线的 AI SaaS 产品：用户上传照片，即可复刻当下最热的视频玩法（COLORS 风格的 *Hotel Lobby* 双人舞台、*Burning Bridges* 吊灯派对等）。内置积分计费、多模型视频生成、中英双语的 SEO/GEO 优化博客和完整的后台管理，部署在 Cloudflare Workers 上。
 
 ## 功能特性
 
@@ -92,14 +92,13 @@ cp .env.example .env
 npm run dev
 ```
 
-部署目标为 Cloudflare Workers（经 OpenNext 构建），完整配置指引见 [ShipAny 文档](https://shipany.ai/docs/quick-start)。
+部署目标为 Cloudflare Workers（经 OpenNext 构建）：worker 配置在 `wrangler.toml`，CI/CD 工作流在 `.github/workflows/`。
 
 ## 链接
 
 - 🌐 **在线站点**：[http://www.viralreel.app](http://www.viralreel.app)
 - 📝 博客：[viralreel.app/blog](http://www.viralreel.app/blog)
-- 🧱 基础模板：[ShipAny](https://shipany.ai)
 
 ## 许可证
 
-本项目基于 ShipAny 模板构建，受 [ShipAny 授权协议](./LICENSE)约束——源代码不得公开传播。详见 [LICENSE](./LICENSE)。
+源代码仅供学习参考，不得公开传播。详见 [LICENSE](./LICENSE)。

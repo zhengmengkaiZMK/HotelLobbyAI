@@ -14,7 +14,7 @@
 
 </div>
 
-**ViralReel** ([viralreel.app](http://www.viralreel.app)) is a production AI SaaS that recreates trending video formats (the COLORS-style *Hotel Lobby* stage, the *Burning Bridges* chandelier party, etc.) from user-uploaded photos — with credits-based billing, multi-model video generation, a bilingual SEO-optimized blog, and a full admin console. Built on the [ShipAny](https://shipany.ai) template and deployed on Cloudflare Workers.
+**ViralReel** ([viralreel.app](http://www.viralreel.app)) is a production AI SaaS that recreates trending video formats (the COLORS-style *Hotel Lobby* stage, the *Burning Bridges* chandelier party, etc.) from user-uploaded photos — with credits-based billing, multi-model video generation, a bilingual SEO-optimized blog, and a full admin console. Deployed on Cloudflare Workers.
 
 ## Features
 
@@ -92,14 +92,13 @@ cp .env.example .env
 npm run dev
 ```
 
-Deployment targets Cloudflare Workers via OpenNext — see the [ShipAny documentation](https://shipany.ai/docs/quick-start) for the full setup guide.
+Deployment targets Cloudflare Workers via OpenNext — worker config lives in `wrangler.toml`, and the CI/CD workflow is in `.github/workflows/`.
 
 ## Links
 
 - 🌐 **Live site**: [http://www.viralreel.app](http://www.viralreel.app)
 - 📝 Blog: [viralreel.app/blog](http://www.viralreel.app/blog)
-- 🧱 Base template: [ShipAny](https://shipany.ai)
 
 ## License
 
-This project is built on the ShipAny boilerplate and is subject to the [ShipAny License Agreement](./LICENSE) — the source code may not be redistributed publicly. See [LICENSE](./LICENSE) for details.
+The source code is provided for reference only and may not be redistributed. See [LICENSE](./LICENSE) for details.
