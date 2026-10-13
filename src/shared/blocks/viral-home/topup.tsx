@@ -87,6 +87,17 @@ export function TopupCard({
       setIsShowSignModal(true);
       return;
     }
+    if (!hasSubscription) {
+      // non-subscribers get an explicit prompt instead of a dead button —
+      // the checkout API enforces the same rule server-side
+      toast.error(
+        t(
+          'Credit top-ups are exclusive to Plus/Pro subscribers — please subscribe to a plan first.',
+          '积分加购仅面向 Plus/Pro 订阅用户，请先订阅套餐后再购买。'
+        )
+      );
+      return;
+    }
     if (!credits || credits <= 0) {
       toast.error(t('Please enter a valid amount', '请输入有效金额'));
       return;
@@ -110,8 +121,8 @@ export function TopupCard({
   }
 
   return (
-    <div className="rounded-xl border bg-card text-card-foreground p-6 shadow-sm max-w-xl">
-      <div className="flex items-center gap-2 mb-1">
+    <div className="mx-auto w-full max-w-xl rounded-xl border bg-card p-6 text-card-foreground shadow-sm">
+      <div className="flex items-center justify-center gap-2 mb-1">
         <Coins className="size-5 text-primary" />
         <h3 className="text-lg font-semibold">
           {t('Buy credits', '购买积分')}
@@ -187,7 +198,7 @@ export function TopupCard({
         </p>
         <button
           type="button"
-          disabled={loading || credits <= 0 || !hasSubscription}
+          disabled={loading || credits <= 0}
           onClick={buy}
           className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-primary text-primary-foreground text-sm font-medium disabled:opacity-50 disabled:pointer-events-none"
         >

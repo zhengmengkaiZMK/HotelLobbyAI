@@ -147,6 +147,10 @@ export async function getSubscriptions({
 
 /**
  * get current subscription
+ *
+ * A pending-cancel subscription keeps its benefits until current_period_end;
+ * after that it no longer counts as an active subscription (e.g. for
+ * credit top-up eligibility).
  */
 export async function getCurrentSubscription(userId: string) {
   const [result] = await db()
@@ -164,6 +168,15 @@ export async function getCurrentSubscription(userId: string) {
     )
     .orderBy(desc(subscription.createdAt))
     .limit(1);
+
+  if (
+    result &&
+    result.status === SubscriptionStatus.PENDING_CANCEL &&
+    result.currentPeriodEnd &&
+    result.currentPeriodEnd.getTime() < Date.now()
+  ) {
+    return null;
+  }
 
   return result;
 }

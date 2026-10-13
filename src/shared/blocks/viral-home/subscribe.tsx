@@ -196,21 +196,23 @@ export function SubscribeView({
             </p>
           </div>
         </section>
-        <section className="sec" id="credits">
-          <div className="container">
-            <div className="sec-head">
-              <p className="kick">{t('Credit Top-up', '积分加购')}</p>
-              <h2>{t('Need more credits?', '积分不够用？')}</h2>
-              <p className="sub">
-                {t(
-                  'Exclusive to Plus/Pro subscribers — subscribe first, then top up any time.',
-                  'Plus/Pro 订阅用户专享——先订阅套餐，再随时加购。'
-                )}
-              </p>
+        {hasSubscription && (
+          <section className="sec" id="credits">
+            <div className="container">
+              <div className="sec-head">
+                <p className="kick">{t('Credit Top-up', '积分加购')}</p>
+                <h2>{t('Need more credits?', '积分不够用？')}</h2>
+                <p className="sub">
+                  {t(
+                    'Top up any time — credits never expire and work with your plan.',
+                    '随时加购——积分永不过期，与你的套餐通用。'
+                  )}
+                </p>
+              </div>
+              <TopupCard rate={creditsPerUsd} hasSubscription={hasSubscription} />
             </div>
-            <TopupCard rate={creditsPerUsd} hasSubscription={hasSubscription} />
-          </div>
-        </section>
+          </section>
+        )}
         <section className="sec" id="faq">
           <div className="container">
             <div className="sec-head">

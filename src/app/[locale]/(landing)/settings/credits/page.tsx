@@ -143,7 +143,9 @@ export default async function CreditsPage({
         </div>
       </PanelCard>
       <TableCard title={t('list.title')} tabs={tabs} table={table} />
-      <TopupCard rate={creditsPerUsd} hasSubscription={!!currentSubscription} />
+      <div className="flex justify-center">
+        <TopupCard rate={creditsPerUsd} hasSubscription={!!currentSubscription} />
+      </div>
     </div>
   );
 }

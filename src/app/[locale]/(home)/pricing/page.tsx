@@ -4,6 +4,8 @@ import { envConfigs } from '@/config';
 import { ViralPricingPage } from '@/shared/blocks/viral-home/pricing-page';
 import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { getAllConfigs } from '@/shared/models/config';
+import { getCurrentSubscription } from '@/shared/models/subscription';
+import { getUserInfo } from '@/shared/models/user';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 
 export const dynamic = 'force-dynamic';
@@ -62,5 +64,17 @@ export default async function PricingPage({
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs());
 
-  return <ViralPricingPage plans={plans} creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />;
+  // credit top-ups are exclusive to subscribers — only render the
+  // top-up section for users with an active subscription
+  const user = await getUserInfo();
+  const currentSubscription = user ? await getCurrentSubscription(user.id) : null;
+
+  return (
+    <ViralPricingPage
+      plans={plans}
+      creditsPerUsd={creditsPerUsd}
+      videoCosts={videoCosts}
+      hasSubscription={!!currentSubscription}
+    />
+  );
 }
