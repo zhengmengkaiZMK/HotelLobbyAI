@@ -124,65 +124,69 @@ export function TopupCard({
 
   return (
     <div
-      className={`mx-auto w-full max-w-xl rounded-xl border bg-card p-6 text-card-foreground shadow-sm ${className}`}
+      className={`w-full overflow-hidden rounded-lg border bg-card text-card-foreground ${className}`}
     >
-      <div className="flex items-center justify-center gap-2 mb-1">
-        <Coins className="size-5 text-primary" />
-        <h3 className="text-lg font-semibold">
-          {t('Buy credits', '购买积分')}
-        </h3>
-      </div>
-      <p className="text-sm text-muted-foreground mb-4">
-        {t(
-          `Top up any time — $1 = ${rate} credits. Credits never expire.`,
-          `随时加购——1 美元 = ${rate} 积分，积分永不过期。`
-        )}
-      </p>
-      {!hasSubscription && (
-        <p className="mb-4 rounded-lg border border-amber-500/50 bg-amber-500/10 px-3 py-2 text-sm text-amber-700 dark:text-amber-400">
+      <div className="border-b px-6 py-5">
+        <div className="flex items-center gap-2">
+          <Coins className="size-5 text-primary" />
+          <h3 className="text-lg font-semibold">
+            {t('Buy credits', '购买积分')}
+          </h3>
+        </div>
+        <p className="mt-2 text-sm text-muted-foreground">
           {t(
-            'Credit top-ups are exclusive to Plus/Pro subscribers — please subscribe to a plan first.',
-            '积分加购仅面向 Plus/Pro 订阅用户，请先订阅套餐后再购买。'
+            `Top up any time — $1 = ${rate} credits. Credits never expire.`,
+            `随时加购——1 美元 = ${rate} 积分，积分永不过期。`
           )}
         </p>
-      )}
-      <div className="flex flex-wrap gap-2 mb-4">
-        {PRESETS.map((p) => (
-          <button
-            key={p}
-            type="button"
-            onClick={() => {
-              setUsd(p);
-              setCustom('');
-            }}
-            className={`px-4 py-2 rounded-lg border text-sm font-medium transition-colors ${
-              custom.trim() === '' && usd === p
-                ? 'border-primary bg-primary text-primary-foreground'
-                : 'bg-background hover:bg-accent'
-            }`}
-          >
-            ${p}
-          </button>
-        ))}
-        <div className="flex items-center gap-2">
-          <div className="relative">
-            <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
-              $
-            </span>
-            <input
-              type="number"
-              min={1}
-              max={1000}
-              step="1"
-              value={custom}
-              onChange={(e) => setCustom(e.target.value)}
-              placeholder={t('Custom', '自定义')}
-              className="w-28 h-9 pl-7 pr-3 rounded-lg border bg-background text-sm outline-none focus:ring-2 focus:ring-ring"
-            />
+      </div>
+      <div className="space-y-5 px-6 py-6">
+        {!hasSubscription && (
+          <p className="rounded-lg border border-amber-500/50 bg-amber-500/10 px-3 py-2 text-sm text-amber-700 dark:text-amber-400">
+            {t(
+              'Credit top-ups are exclusive to Plus/Pro subscribers — please subscribe to a plan first.',
+              '积分加购仅面向 Plus/Pro 订阅用户，请先订阅套餐后再购买。'
+            )}
+          </p>
+        )}
+        <div className="flex flex-wrap gap-2">
+          {PRESETS.map((p) => (
+            <button
+              key={p}
+              type="button"
+              onClick={() => {
+                setUsd(p);
+                setCustom('');
+              }}
+              className={`rounded-lg border px-4 py-2 text-sm font-medium transition-colors ${
+                custom.trim() === '' && usd === p
+                  ? 'border-primary bg-primary text-primary-foreground'
+                  : 'bg-background hover:bg-accent'
+              }`}
+            >
+              ${p}
+            </button>
+          ))}
+          <div className="flex items-center gap-2">
+            <div className="relative">
+              <span className="absolute left-3 top-1/2 -translate-y-1/2 text-sm text-muted-foreground">
+                $
+              </span>
+              <input
+                type="number"
+                min={1}
+                max={1000}
+                step="1"
+                value={custom}
+                onChange={(e) => setCustom(e.target.value)}
+                placeholder={t('Custom', '自定义')}
+                className="h-9 w-28 rounded-lg border bg-background pl-7 pr-3 text-sm outline-none focus:ring-2 focus:ring-ring"
+              />
+            </div>
           </div>
         </div>
       </div>
-      <div className="flex items-center justify-between gap-4 flex-wrap">
+      <div className="flex flex-wrap items-center justify-between gap-4 bg-muted px-6 py-4">
         <p className="text-sm">
           {credits > 0 ? (
             <>
@@ -204,7 +208,7 @@ export function TopupCard({
           type="button"
           disabled={loading || credits <= 0}
           onClick={buy}
-          className="inline-flex items-center gap-2 h-9 px-4 rounded-lg bg-primary text-primary-foreground text-sm font-medium disabled:opacity-50 disabled:pointer-events-none"
+          className="inline-flex h-9 items-center gap-2 rounded-lg bg-primary px-4 text-sm font-medium text-primary-foreground disabled:pointer-events-none disabled:opacity-50"
         >
           {loading && <Loader className="size-4 animate-spin" />}
           {loading ? t('Processing…', '处理中…') : t('Buy credits', '购买积分')}
