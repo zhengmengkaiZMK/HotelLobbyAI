@@ -6,6 +6,11 @@
         "title": "积分总览",
         "url": "/credits",
         "icon": "Coins"
+      },
+      {
+        "title": "购买积分",
+        "url": "/credits/topup",
+        "icon": "ShoppingCart"
       }
     ]
   },

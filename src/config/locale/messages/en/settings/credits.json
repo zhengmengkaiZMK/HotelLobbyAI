@@ -22,5 +22,8 @@
     "buttons": {
       "purchase": "Purchase Credits"
     }
+  },
+  "topup": {
+    "description": "Top up any time. Credits never expire."
   }
 }

@@ -6,6 +6,11 @@
         "title": "Overview",
         "url": "/credits",
         "icon": "Coins"
+      },
+      {
+        "title": "Buy credits",
+        "url": "/credits/topup",
+        "icon": "ShoppingCart"
       }
     ]
   },

@@ -3,7 +3,6 @@ import { getTranslations } from 'next-intl/server';
 import { Empty } from '@/shared/blocks/common';
 import { PanelCard } from '@/shared/blocks/panel';
 import { TableCard } from '@/shared/blocks/table';
-import { TopupCard } from '@/shared/blocks/viral-home/topup';
 import {
   Credit,
   CreditStatus,
@@ -13,8 +12,6 @@ import {
   getRemainingCredits,
 } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
-import { getCurrentSubscription } from '@/shared/models/subscription';
-import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { Tab } from '@/shared/types/blocks/common';
 import { type Table } from '@/shared/types/blocks/table';
 
@@ -31,9 +28,6 @@ export default async function CreditsPage({
   if (!user) {
     return <Empty message="no auth" />;
   }
-
-  // credit top-ups require an active subscription
-  const currentSubscription = await getCurrentSubscription(user.id);
 
   const t = await getTranslations('settings.credits');
 
@@ -101,7 +95,6 @@ export default async function CreditsPage({
   };
 
   const remainingCredits = await getRemainingCredits(user.id);
-  const creditsPerUsd = await getCreditsPerUsdFromConfigs();
 
   const tabs: Tab[] = [
     {
@@ -124,8 +117,6 @@ export default async function CreditsPage({
     },
   ];
 
-  // section order: balance -> top-up -> records, all full-width so the
-  // three blocks align visually
   return (
     <div className="space-y-8">
       <PanelCard
@@ -133,8 +124,7 @@ export default async function CreditsPage({
         buttons={[
           {
             title: t('view.buttons.purchase'),
-            url: '/subscribe',
-            target: '_blank',
+            url: '/credits/topup',
             icon: 'Coins',
           },
         ]}
@@ -143,11 +133,6 @@ export default async function CreditsPage({
           {remainingCredits}
         </div>
       </PanelCard>
-      <TopupCard
-        rate={creditsPerUsd}
-        hasSubscription={!!currentSubscription}
-        className="max-w-none"
-      />
       <TableCard title={t('list.title')} tabs={tabs} table={table} />
     </div>
   );

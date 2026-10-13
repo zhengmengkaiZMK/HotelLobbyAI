@@ -22,5 +22,8 @@
     "buttons": {
       "purchase": "购买积分"
     }
+  },
+  "topup": {
+    "description": "随时加购，积分永不过期。"
   }
 }
