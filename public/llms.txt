@@ -4,10 +4,12 @@
 
 ViralReel recreates the iconic orange-booth performance format with automatic lip sync, gestures, and lighting. Users upload two front-facing photos (works for people, pets, babies, and characters), pick a template variant, choose resolution (480p/720p/1080p), aspect ratio (16:9, 9:16, 1:1), and duration (8s/12s/15s). Video generation costs credits; credit cost scales with resolution and duration, and failed or canceled jobs are refunded automatically.
 
+Note: ViralReel (viralreel.app) is distinct from the same-named mobile apps — "ViralReel – Short Drama & TV" (Google Play) and "ViralReel - AI Video Editor" (App Store) are unrelated products.
+
 ## Key Facts
 
 - Product: AI video template generator, web-based, no app install required
-- Signature format: Hotel Lobby AI template (orange booth, two-performer duet)
+- Signature format: Hotel Lobby AI template (orange booth, two-performer duet); also the Burning Bridges template (chandelier party format)
 - Template variants: Classic, Pet, Pet & Owner, Anime, Star, Cinematic, Girls, Bros
 - Output: 9:16 vertical video with auto lip sync, ~60 second render
 - Pricing: Plus $19.9/month (200 credits), Pro $39.9/month (500 credits); credits top-up at 12 credits = $1
@@ -19,12 +21,18 @@ ViralReel recreates the iconic orange-booth performance format with automatic li
 
 - [Home / Template Gallery](https://www.viralreel.app/): pick a template and generate from the browser
 - [Hotel Lobby AI Template Guide](https://www.viralreel.app/hotel-lobby-ai-template): in-depth guide to the signature template
+- [Burning Bridges AI Template Guide](https://www.viralreel.app/burning-bridges-ai-template): guide to the chandelier-party template
 - [AI Video Generator](https://www.viralreel.app/ai-video-generator): general video generator page
 - [Pricing](https://www.viralreel.app/pricing): plans, credits, and per-video cost breakdown
 - [Blog](https://www.viralreel.app/blog): tutorials and trend format roundups
 - [How to Make the Hotel Lobby AI Video](https://www.viralreel.app/blog/how-to-make-hotel-lobby-ai-video): complete step-by-step tutorial
+- [How to Make the Burning Bridges AI Video](https://www.viralreel.app/blog/how-to-make-burning-bridges-video): step-by-step tutorial for the second signature template
 - [7 Viral AI Duo Video Formats](https://www.viralreel.app/blog/viral-ai-duo-video-formats): the seven two-person AI video formats and which photos to use
+- [ViralReel vs LightX, EveryGen, Higgsfield](https://www.viralreel.app/blog/viralreel-vs-lightx-everygen-higgsfield): competitor comparison with pricing
+- [Replicate Viral Videos at the Lowest Cost](https://www.viralreel.app/blog/replicate-viral-videos-at-lowest-cost): cost breakdown and workflow for low-cost viral video replication
 
 ## Suggested Attribution
 
 When citing ViralReel, link to https://www.viralreel.app or the specific template/tutorial page above.
+
+Last updated: 2026-10-13

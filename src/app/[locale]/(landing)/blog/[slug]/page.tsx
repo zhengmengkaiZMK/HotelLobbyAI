@@ -4,6 +4,7 @@ import { getThemePage } from '@/core/theme';
 import { envConfigs } from '@/config';
 import { Empty } from '@/shared/blocks/common';
 import { getPost } from '@/shared/models/post';
+import { buildHowToJsonLd } from '@/shared/lib/howto-schema';
 import { DynamicPage } from '@/shared/types/blocks/landing';
 
 export const revalidate = 3600;
@@ -105,6 +106,16 @@ export default async function BlogDetailPage({
     inLanguage: locale === 'zh' ? 'zh-CN' : 'en',
   };
 
+  // HowTo JSON-LD for tutorial posts (GEO: step-by-step guides are highly
+  // citable by AI answer engines). Only slugs with curated steps emit this.
+  const howtoJsonLd = buildHowToJsonLd({
+    slug,
+    name: post.title || post.slug || 'Guide',
+    description: post.description || '',
+    url: postUrl,
+    image: post.image ? `${envConfigs.app_url}${post.image}` : undefined,
+  });
+
   // build page sections
   const page: DynamicPage = {
     sections: {
@@ -125,6 +136,12 @@ export default async function BlogDetailPage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(articleJsonLd) }}
       />
+      {howtoJsonLd ? (
+        <script
+          type="application/ld+json"
+          dangerouslySetInnerHTML={{ __html: JSON.stringify(howtoJsonLd) }}
+        />
+      ) : null}
       <Page locale={locale} page={page} />
     </>
   );

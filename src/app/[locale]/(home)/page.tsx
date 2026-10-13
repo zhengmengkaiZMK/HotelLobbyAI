@@ -49,6 +49,15 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
         url: appUrl,
         logo: `${appUrl}/logo.png`,
         email: 'support@viralreel.app',
+        // Entity anchoring for AI engines (GEO): external pages that mention
+        // ViralReel, helping disambiguate from same-named mobile apps.
+        sameAs: [
+          'https://www.producthunt.com/products/viralreel',
+          'https://news.ycombinator.com/item?id=49952515',
+          'https://launchbuff.com/products/viralreel-0k8f3r',
+          'https://findly.tools/viralreel',
+          'https://indieai.directory/tools/viralreel/',
+        ],
         contactPoint: [
           {
             '@type': 'ContactPoint',
