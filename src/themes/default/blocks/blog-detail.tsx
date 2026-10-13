@@ -92,6 +92,24 @@ export function BlogDetail({ post }: { post: PostType }) {
                       </div>
                     )
                   )}
+
+                  {/* Badge section at the end of every blog post */}
+                  <div className="mt-12 flex justify-center">
+                    <a
+                      href="https://submitaitools.org"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      title="Submit AI Tools"
+                    >
+                      {/* eslint-disable-next-line @next/next/no-img-element */}
+                      <img
+                        src="https://submitaitools.org/static_submitaitools/images/submitaitools.png"
+                        alt="Submit AI Tools"
+                        style={{ borderRadius: 10, width: 200, height: 60 }}
+                        loading="lazy"
+                      />
+                    </a>
+                  </div>
                 </article>
               </div>
 
