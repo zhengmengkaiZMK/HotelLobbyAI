@@ -23,7 +23,8 @@ export async function middleware(request: NextRequest) {
   if (
     pathWithoutLocale.startsWith('/admin') ||
     pathWithoutLocale.startsWith('/settings') ||
-    pathWithoutLocale.startsWith('/activity')
+    pathWithoutLocale.startsWith('/activity') ||
+    pathWithoutLocale.startsWith('/credits')
   ) {
     // Check if session cookie exists
     const sessionCookie = getSessionCookie(request);

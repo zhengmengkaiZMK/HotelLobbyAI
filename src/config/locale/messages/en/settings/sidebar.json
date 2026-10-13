@@ -16,11 +16,6 @@
         "title": "Payments",
         "url": "/settings/payments",
         "icon": "DollarSign"
-      },
-      {
-        "title": "Credits",
-        "url": "/settings/credits",
-        "icon": "Coins"
       }
     ]
   },
@@ -30,6 +25,11 @@
         "title": "Activity",
         "url": "/activity",
         "icon": "Activity"
+      },
+      {
+        "title": "Credits",
+        "url": "/credits",
+        "icon": "Coins"
       },
       {
         "title": "Settings",

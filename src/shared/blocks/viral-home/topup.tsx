@@ -22,9 +22,11 @@ const TOPUP_PRODUCT_ID = 'credits_topup';
 export function TopupCard({
   rate,
   hasSubscription = true,
+  className = '',
 }: {
   rate: number;
   hasSubscription?: boolean;
+  className?: string;
 }) {
   const locale = useLocale();
   const zh = locale === 'zh';
@@ -121,7 +123,9 @@ export function TopupCard({
   }
 
   return (
-    <div className="mx-auto w-full max-w-xl rounded-xl border bg-card p-6 text-card-foreground shadow-sm">
+    <div
+      className={`mx-auto w-full max-w-xl rounded-xl border bg-card p-6 text-card-foreground shadow-sm ${className}`}
+    >
       <div className="flex items-center justify-center gap-2 mb-1">
         <Coins className="size-5 text-primary" />
         <h3 className="text-lg font-semibold">

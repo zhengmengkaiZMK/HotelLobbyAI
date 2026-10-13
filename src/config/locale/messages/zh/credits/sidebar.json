@@ -1,0 +1,35 @@
+{
+  "title": "积分",
+  "nav": {
+    "items": [
+      {
+        "title": "积分总览",
+        "url": "/credits",
+        "icon": "Coins"
+      }
+    ]
+  },
+  "top_nav": {
+    "items": [
+      {
+        "title": "活动",
+        "url": "/activity",
+        "icon": "Activity"
+      },
+      {
+        "title": "积分",
+        "url": "/credits",
+        "icon": "Coins"
+      },
+      {
+        "title": "设置",
+        "url": "/settings",
+        "icon": "Settings"
+      }
+    ]
+  },
+  "support": {
+    "label": "遇到问题？联系客服",
+    "email": "support@viralreel.app"
+  }
+}

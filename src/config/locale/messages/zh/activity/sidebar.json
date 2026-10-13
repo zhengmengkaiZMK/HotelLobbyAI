@@ -17,6 +17,11 @@
         "icon": "Activity"
       },
       {
+        "title": "积分",
+        "url": "/credits",
+        "icon": "Coins"
+      },
+      {
         "title": "设置",
         "url": "/settings",
         "icon": "Settings"

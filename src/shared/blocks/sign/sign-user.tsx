@@ -182,7 +182,7 @@ export function SignUser({
                 <DropdownMenuItem asChild>
                   <Link
                     className="w-full cursor-pointer"
-                    href="/settings/credits"
+                    href="/credits"
                   >
                     <Coins />
                     {t('credits_title', {

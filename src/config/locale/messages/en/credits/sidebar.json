@@ -1,0 +1,35 @@
+{
+  "title": "Credits",
+  "nav": {
+    "items": [
+      {
+        "title": "Overview",
+        "url": "/credits",
+        "icon": "Coins"
+      }
+    ]
+  },
+  "top_nav": {
+    "items": [
+      {
+        "title": "Activity",
+        "url": "/activity",
+        "icon": "Activity"
+      },
+      {
+        "title": "Credits",
+        "url": "/credits",
+        "icon": "Coins"
+      },
+      {
+        "title": "Settings",
+        "url": "/settings",
+        "icon": "Settings"
+      }
+    ]
+  },
+  "support": {
+    "label": "Need help? Contact support",
+    "email": "support@viralreel.app"
+  }
+}
