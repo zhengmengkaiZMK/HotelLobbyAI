@@ -45,6 +45,7 @@ export async function POST(req: Request) {
       taskId: task.taskId,
       mediaType: task.mediaType,
       model: task.model,
+      taskResult: task.taskResult ? JSON.parse(task.taskResult) : undefined,
     });
 
     if (!result?.taskStatus) {

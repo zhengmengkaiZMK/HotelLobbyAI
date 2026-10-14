@@ -115,17 +115,18 @@ export class FalProvider implements AIProvider {
     taskId,
     model,
     mediaType,
+    taskResult,
   }: {
     taskId: string;
     model?: string;
     mediaType?: AIMediaType;
+    taskResult?: any;
   }): Promise<AITaskResult> {
-    // extract first two parts of model name for query url
-    // e.g. fal-ai/bytedance/seedream/v4/edit -> fal-ai/bytedance
+    // Fal returns authoritative status_url/response_url in the submit response.
+    // Use them when available; keep the legacy model-derived URLs for old tasks.
+    const submitResult = taskResult && typeof taskResult === 'object' ? taskResult : undefined;
     const queryModel = this.getQueryModel(model);
-
-    // first check task status
-    const statusUrl = `${this.baseUrl}/${queryModel}/requests/${taskId}/status`;
+    const statusUrl = this.getFalUrl(submitResult?.status_url, `${this.baseUrl}/${queryModel}/requests/${taskId}/status`);
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       Authorization: `Key ${this.configs.apiKey}`,
@@ -137,6 +138,12 @@ export class FalProvider implements AIProvider {
     });
 
     if (!statusResp.ok) {
+      const detail = await statusResp.text().catch(() => '');
+      console.error('fal status query failed', {
+        status: statusResp.status,
+        url: statusUrl,
+        detail: detail.slice(0, 500),
+      });
       throw new Error(`request failed with status: ${statusResp.status}`);
     }
 
@@ -158,13 +165,22 @@ export class FalProvider implements AIProvider {
     }
 
     // get result if task is completed
-    const resultUrl = `${this.baseUrl}/${queryModel}/requests/${taskId}`;
+    const resultUrl = this.getFalUrl(
+      submitResult?.response_url,
+      `${this.baseUrl}/${queryModel}/requests/${taskId}`
+    );
     const resultResp = await fetch(resultUrl, {
       method: 'GET',
       headers,
     });
 
     if (!resultResp.ok) {
+      const detail = await resultResp.text().catch(() => '');
+      console.error('fal result query failed', {
+        status: resultResp.status,
+        url: resultUrl,
+        detail: detail.slice(0, 500),
+      });
       throw new Error(`request failed with status: ${resultResp.status}`);
     }
 
@@ -279,7 +295,21 @@ export class FalProvider implements AIProvider {
     };
   }
 
-  // map status
+  private getFalUrl(value: unknown, fallback: string): string {
+    if (typeof value !== 'string' || !value) {
+      return fallback;
+    }
+    try {
+      const parsed = new URL(value);
+      if (parsed.protocol === 'https:' && parsed.origin === this.baseUrl) {
+        return parsed.toString();
+      }
+    } catch {
+      // Ignore malformed provider URLs and use the safe fallback.
+    }
+    return fallback;
+  }
+
   private mapStatus(status: string): AITaskStatus {
     switch (status) {
       case 'IN_QUEUE':
