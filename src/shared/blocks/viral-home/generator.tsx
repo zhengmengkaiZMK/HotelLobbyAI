@@ -7,7 +7,7 @@ import { Link, useRouter } from '@/core/i18n/navigation';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/components/ui/dialog';
 import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
-import { getRelayModels, getTaskRelayModels, getFalReferenceModel } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel, FAL_KLING_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
 import { TemplateDef } from './templates';
 import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost } from '@/shared/lib/video-cost';
 
@@ -60,6 +60,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const defaultKeepAudio = configs.fal_kling_reference_keep_audio !== 'false';
   const [keepAudio, setKeepAudio] = useState(defaultKeepAudio);
   const effectivePrompt = (configs[`viral_template_prompt_${template.id}`] as string | undefined)?.trim() || template.prompt;
+  const klingPrompt = (configs[`viral_template_kling_prompt_${template.id}`] as string | undefined)?.trim()
+    || `${effectivePrompt} The reference video defines the choreography, camera work, scene layout and crowd energy only. Replace every person in the reference video with the person or people from the reference image(s), preserving their facial identity, hairstyle and outfit exactly.`;
   const maxSlots = template.slots ?? 2;
   const defaultImages = template.images ? [...template.images] : [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
   const [images, setImages] = useState<(string | null)[]>(defaultImages);
@@ -229,7 +231,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       const falRefVideo = configs[`viral_template_reference_video_${template.id}`];
       const falRefVideoInput = [typeof falRefVideo === 'string' && falRefVideo.trim() ? falRefVideo.trim() : `${window.location.origin}/templates/reference/${template.id}.mp4`];
       const motionClause = isFalRef
-        ? ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.'
+        ? ''
         : !isTaskRelay
           ? ''
           : isOmni || !includeTemplateVideo
@@ -247,7 +249,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       const options: Record<string, unknown> = isFalRef
         ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, keep_audio: keepAudio }
         : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
-      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene, provider: model.provider, model: model.value, prompt: prompt + motionClause, options }) });
+      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene, provider: model.provider, model: model.value, prompt: (isFalRef ? klingPrompt : prompt) + motionClause, options }) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
       setTask({ id: payload.data.id, start: Date.now() });
