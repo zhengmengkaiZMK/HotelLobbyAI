@@ -182,6 +182,26 @@ export class FalProvider implements AIProvider {
 
     if (!resultResp.ok) {
       const detail = await resultResp.text().catch(() => '');
+
+      // Failed generations come back as 422 on the result endpoint with the
+      // upstream validation error (e.g. video_too_small). Map them to FAILED
+      // so the task terminates and credits are refunded instead of polling
+      // the same error forever.
+      if (resultResp.status === 422) {
+        const message = this.extractErrorMessage(detail) || 'upstream rejected the request';
+        console.error('fal generation failed', { status: resultResp.status, url: resultUrl, message });
+        return {
+          taskId,
+          taskStatus: AITaskStatus.FAILED,
+          taskInfo: {
+            status: 'ERROR',
+            errorCode: 'upstream_error',
+            errorMessage: message,
+          },
+          taskResult: detail ? { error: detail.slice(0, 2000) } : null,
+        };
+      }
+
       console.error('fal result query failed', {
         status: resultResp.status,
         url: resultUrl,
@@ -314,6 +334,24 @@ export class FalProvider implements AIProvider {
       // Ignore malformed provider URLs and use the safe fallback.
     }
     return fallback;
+  }
+
+  // Extract a human-readable message from fal's error payload, e.g.
+  // {"detail":[{"msg":"Video dimensions are too small..."}]}
+  private extractErrorMessage(detail: string): string {
+    try {
+      const parsed = JSON.parse(detail);
+      const items = Array.isArray(parsed?.detail) ? parsed.detail : null;
+      if (items && items.length > 0 && items[0]?.msg) {
+        return String(items[0].msg);
+      }
+      if (typeof parsed?.detail === 'string') {
+        return parsed.detail;
+      }
+    } catch {
+      // Not JSON — fall through.
+    }
+    return detail.slice(0, 300);
   }
 
   private mapStatus(status: string): AITaskStatus {
