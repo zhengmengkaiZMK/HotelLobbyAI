@@ -89,8 +89,10 @@ export const FAL_KLING_REFERENCE_DEFAULT_MODEL = 'fal-ai/kling-video/o3/pro/vide
  * is never registered and the model cannot run).
  */
 export function getFalReferenceModel(configs: Record<string, string>) {
+  // The Fal API key is intentionally never exposed in public configs. The
+  // frontend therefore gates visibility only on the public feature switch;
+  // the server still verifies the private key/provider before generation.
   if (configs.fal_kling_reference_enabled !== 'true') return null;
-  if (!configs.fal_api_key) return null;
   const value = configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL;
   return {
     value,
