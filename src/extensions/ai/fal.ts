@@ -127,6 +127,10 @@ export class FalProvider implements AIProvider {
     const submitResult = taskResult && typeof taskResult === 'object' ? taskResult : undefined;
     const queryModel = this.getQueryModel(model);
     const statusUrl = this.getFalUrl(submitResult?.status_url, `${this.baseUrl}/${queryModel}/requests/${taskId}/status`);
+    const resultUrl = this.getFalUrl(
+      submitResult?.response_url,
+      `${this.baseUrl}/${queryModel}/requests/${taskId}`
+    );
     const headers: Record<string, string> = {
       'Content-Type': 'application/json',
       Authorization: `Key ${this.configs.apiKey}`,
@@ -160,15 +164,17 @@ export class FalProvider implements AIProvider {
           errorCode: '',
           errorMessage: '',
         },
-        taskResult: statusData,
+        // Keep the resolved query URLs in taskResult so later polls (and the
+        // webhook handler) do not lose them when they overwrite taskResult.
+        taskResult: {
+          ...statusData,
+          status_url: statusUrl,
+          response_url: resultUrl,
+        },
       };
     }
 
     // get result if task is completed
-    const resultUrl = this.getFalUrl(
-      submitResult?.response_url,
-      `${this.baseUrl}/${queryModel}/requests/${taskId}`
-    );
     const resultResp = await fetch(resultUrl, {
       method: 'GET',
       headers,
@@ -327,15 +333,13 @@ export class FalProvider implements AIProvider {
 
   // get query model name (first two parts)
   // e.g. fal-ai/bytedance/seedream/v4/edit -> fal-ai/bytedance
-  // Exception: deep endpoints that are their own queue entry (e.g. Kling O3
-  // Pro reference V2V) must keep the full model ID — their status/result URLs
-  // live under the complete endpoint path.
+  // Verified against the live queue gateway (2026-10): GET status/result routes
+  // only exist under the TOP-LEVEL app path. Deep endpoint paths (e.g.
+  // fal-ai/kling-video/o3/pro/video-to-video/reference/requests/{id}/status)
+  // answer 405 for GET, so the full model ID must NOT be used for polling.
   private getQueryModel(model?: string): string {
     if (!model) {
       return '';
-    }
-    if (model === 'fal-ai/kling-video/o3/pro/video-to-video/reference') {
-      return model;
     }
     const parts = model.split('/');
     if (parts.length <= 2) {
