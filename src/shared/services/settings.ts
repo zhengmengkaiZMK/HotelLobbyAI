@@ -1414,7 +1414,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「原版」模板时使用的动作/运镜参考视频（MP4/MOV，3-15 秒，≤200MB）。留空时回退到站点内置 /templates/reference/classic.mp4。',
+      tip: '选用 Kling O3 Pro Reference 生成「原版」模板时使用的动作/运镜参考视频（MP4/MOV，3-15 秒，≤200MB）。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_cinematic',
@@ -1422,7 +1422,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「电影感版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「电影感版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_girls',
@@ -1430,7 +1430,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「闺蜜版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「闺蜜版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_pets',
@@ -1438,7 +1438,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「宠物版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「宠物版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_petowner',
@@ -1446,7 +1446,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「人宠版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「人宠版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_bros',
@@ -1454,7 +1454,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「兄弟版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「兄弟版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_muscle',
@@ -1462,7 +1462,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「猛男版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「猛男版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_stars',
@@ -1470,7 +1470,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「明星版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「明星版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_anime',
@@ -1478,7 +1478,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成「动漫版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成「动漫版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_party-office',
@@ -1486,7 +1486,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「经典办公室派对」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「经典办公室派对」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_party-queen',
@@ -1494,7 +1494,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「奇幻女王版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「奇幻女王版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_party-legend',
@@ -1502,7 +1502,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「硬核老炮版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「硬核老炮版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_party-lead',
@@ -1510,7 +1510,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「剧集主角版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「剧集主角版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_party-duo',
@@ -1518,7 +1518,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「双人共舞版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「双人共舞版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'viral_template_reference_video_party-pop',
@@ -1526,7 +1526,7 @@ export async function getSettings() {
       type: 'upload_video',
       group: 'viral_templates',
       tab: 'ai',
-      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「流行巨星版」模板时使用的参考视频。留空时回退到站点内置参考视频。',
+      tip: '选用 Kling O3 Pro Reference 生成 Burning Bridges「流行巨星版」模板时使用的参考视频。未配置时该模板将无法发起 Kling 生成。',
     },
     {
       name: 'replicate_api_token',

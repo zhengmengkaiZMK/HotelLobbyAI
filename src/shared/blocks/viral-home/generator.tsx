@@ -212,6 +212,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     const usable = images.slice(0, maxSlots);
     const input = single ? usable.slice(0, 1) : usable;
     if (input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
+    // 2b) Kling reference: the template's admin-configured reference video is
+    // required — never fall back to a built-in clip silently
+    if (isFalRef && !(typeof configs[`viral_template_reference_video_${template.id}`] === 'string' && (configs[`viral_template_reference_video_${template.id}`] as string).trim())) {
+      setError(text('This template has no reference video configured yet. Please try again later.', '该模板尚未配置参考视频，请稍后再试。'));
+      return;
+    }
     // 3) all checks passed — start generation
     lock.current = true; setBusy(true); setError(''); setResult('');
     setProgress(8); setStage('uploading');
@@ -225,11 +231,11 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       // rejects ANY video reference (verified 2026-10: even clean clips fail
       // with "invalid argument"), so Omni always runs photo-only.
       const includeTemplateVideo = configs.task_relay_include_template_video !== 'false';
-      // Kling O3 Pro Reference always uses the template motion video — the
-      // admin-configured per-template reference video when present, otherwise
-      // the built-in static clip — and replaces the people with the user photos.
+      // Kling O3 Pro Reference uses exactly one motion video: the
+      // admin-configured per-template reference video (validated above), and
+      // replaces the people with the user photos.
       const falRefVideo = configs[`viral_template_reference_video_${template.id}`];
-      const falRefVideoInput = [typeof falRefVideo === 'string' && falRefVideo.trim() ? falRefVideo.trim() : `${window.location.origin}/templates/reference/${template.id}.mp4`];
+      const falRefVideoInput = [(falRefVideo as string).trim()];
       const motionClause = isFalRef
         ? ''
         : !isTaskRelay
