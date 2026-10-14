@@ -34,6 +34,7 @@ import { Select } from './select';
 import { Switch } from './switch';
 import { UploadImage } from './upload-image';
 import { UploadAudio } from './upload-audio';
+import { UploadVideo } from './upload-video';
 
 function buildFieldSchema(field: FormFieldType) {
   if (field.type === 'switch') {
@@ -369,6 +370,8 @@ export function Form({
                         />
                       ) : item.type === 'upload_audio' ? (
                         <UploadAudio field={item} formField={field} data={data} />
+                      ) : item.type === 'upload_video' ? (
+                        <UploadVideo field={item} formField={field} data={data} />
                       ) : (
                         <Input field={item} formField={field} data={data} />
                       )}

@@ -34,7 +34,8 @@ import {
 import { Tabs, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { Textarea } from '@/shared/components/ui/textarea';
 import { useAppContext } from '@/shared/contexts/app';
-import { getRelayModels } from '@/shared/lib/ai-models';
+import { getRelayModels, getFalReferenceModel } from '@/shared/lib/ai-models';
+import { getFalReferenceVideoCost } from '@/shared/lib/video-cost';
 
 interface VideoGeneratorProps {
   maxSizeMB?: number;
@@ -239,20 +240,32 @@ export function VideoGenerator({
   const { user, isCheckSign, setIsShowSignModal, fetchUserCredits, configs, fetchConfigs } =
     useAppContext();
   const relayModels = useMemo(() => getRelayModels(configs, 'video'), [configs]);
+  // fal Kling O3 Pro Reference (admin-gated) rides alongside the existing lists
+  const falRefModel = useMemo(() => getFalReferenceModel(configs), [configs]);
+  const [keepAudio, setKeepAudio] = useState(true);
   const MODEL_OPTIONS = useMemo(
-    () => (relayModels.length ? relayModels : DEFAULT_MODEL_OPTIONS),
-    [relayModels]
+    () => [
+      ...(relayModels.length ? relayModels : DEFAULT_MODEL_OPTIONS),
+      ...(falRefModel ? [falRefModel] : []),
+    ],
+    [relayModels, falRefModel]
   );
   const PROVIDER_OPTIONS = useMemo(
     () =>
       relayModels.length
-        ? [{ value: 'media-relay', label: '中转站 / Relay' }]
+        ? [
+            { value: 'media-relay', label: '中转站 / Relay' },
+            ...(falRefModel ? [{ value: 'fal', label: 'Fal' }] : []),
+          ]
         : PROVIDER_OPTIONS_DEFAULT,
-    [relayModels]
+    [relayModels, falRefModel]
   );
   const showVideoToVideoTab = useMemo(
-    () => relayModels.length === 0 || relayModels.some((item) => item.scenes?.includes('video-to-video')),
-    [relayModels]
+    () =>
+      relayModels.length === 0 ||
+      relayModels.some((item) => item.scenes?.includes('video-to-video')) ||
+      !!falRefModel,
+    [relayModels, falRefModel]
   );
 
   useEffect(() => {
@@ -271,6 +284,15 @@ export function VideoGenerator({
   const isTextToVideoMode = activeTab === 'text-to-video';
   const isImageToVideoMode = activeTab === 'image-to-video';
   const isVideoToVideoMode = activeTab === 'video-to-video';
+  // fal Kling O3 Pro Reference: video-to-video billed per output second
+  const isFalRef =
+    provider === 'fal' && !!falRefModel && model === falRefModel.value;
+  useEffect(() => {
+    if (isFalRef) setKeepAudio(configs.fal_kling_reference_keep_audio !== 'false');
+  }, [isFalRef, configs.fal_kling_reference_keep_audio]);
+  const displayCost = isFalRef
+    ? getFalReferenceVideoCost(Number(duration), configs)
+    : costCredits;
 
   const handleTabChange = (value: string) => {
     const tab = value as VideoGeneratorTab;
@@ -508,7 +530,7 @@ export function VideoGenerator({
       return;
     }
 
-    if (remainingCredits < costCredits) {
+    if (remainingCredits < displayCost) {
       toast.error('Insufficient credits. Please top up to keep creating.');
       return;
     }
@@ -561,6 +583,10 @@ export function VideoGenerator({
 
       if (isVideoToVideoMode) {
         options.video_input = [referenceVideoUrl];
+        if (isFalRef) {
+          options.keep_audio = keepAudio;
+          delete options.resolution;
+        }
       }
 
       const resp = await fetch('/api/ai/generate', {
@@ -789,10 +815,11 @@ export function VideoGenerator({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value="6">6s</SelectItem>
-                        <SelectItem value="8">8s</SelectItem>
-                        <SelectItem value="10">10s</SelectItem>
-                        <SelectItem value="12">12s</SelectItem>
+                        {(isFalRef ? ['3', '5', '8', '10', '12', '15'] : ['6', '8', '10', '12']).map((v) => (
+                          <SelectItem key={v} value={v}>
+                            {v}s
+                          </SelectItem>
+                        ))}
                       </SelectContent>
                     </Select>
                   </div>
@@ -803,6 +830,7 @@ export function VideoGenerator({
                         <SelectValue />
                       </SelectTrigger>
                       <SelectContent>
+                        {isFalRef && <SelectItem value="auto">auto</SelectItem>}
                         <SelectItem value="16:9">16:9</SelectItem>
                         <SelectItem value="1:1">1:1</SelectItem>
                         <SelectItem value="9:16">9:16</SelectItem>
@@ -811,7 +839,11 @@ export function VideoGenerator({
                   </div>
                   <div className="space-y-2">
                     <Label>{t('form.resolution')}</Label>
-                    <Select value={resolution} onValueChange={setResolution}>
+                    <Select
+                      value={resolution}
+                      onValueChange={setResolution}
+                      disabled={isFalRef}
+                    >
                       <SelectTrigger className="w-full">
                         <SelectValue />
                       </SelectTrigger>
@@ -820,8 +852,26 @@ export function VideoGenerator({
                         <SelectItem value="720p">720p</SelectItem>
                       </SelectContent>
                     </Select>
+                    {isFalRef && (
+                      <p className="text-muted-foreground text-xs">
+                        Output resolution follows the reference video.
+                      </p>
+                    )}
                   </div>
                 </div>
+
+                {isFalRef && (
+                  <div className="flex items-center justify-between rounded-lg border p-3">
+                    <Label htmlFor="keep-audio">Keep the reference video audio</Label>
+                    <input
+                      id="keep-audio"
+                      type="checkbox"
+                      className="h-4 w-4"
+                      checked={keepAudio}
+                      onChange={(e) => setKeepAudio(e.target.checked)}
+                    />
+                  </div>
+                )}
 
                 {!isMounted ? (
                   <Button className="w-full" disabled size="lg">
@@ -873,14 +923,14 @@ export function VideoGenerator({
                 {!isMounted ? (
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-primary">
-                      {t('credits_cost', { credits: costCredits })}
+                      {t('credits_cost', { credits: displayCost })}
                     </span>
                     <span>{t('credits_remaining', { credits: 0 })}</span>
                   </div>
                 ) : user && remainingCredits > 0 ? (
                   <div className="flex items-center justify-between text-sm">
                     <span className="text-primary">
-                      {t('credits_cost', { credits: costCredits })}
+                      {t('credits_cost', { credits: displayCost })}
                     </span>
                     <span>
                       {t('credits_remaining', { credits: remainingCredits })}
@@ -890,7 +940,7 @@ export function VideoGenerator({
                   <div className="space-y-3">
                     <div className="flex items-center justify-between text-sm">
                       <span className="text-primary">
-                        {t('credits_cost', { credits: costCredits })}
+                        {t('credits_cost', { credits: displayCost })}
                       </span>
                       <span>
                         {t('credits_remaining', { credits: remainingCredits })}

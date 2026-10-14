@@ -52,3 +52,24 @@ export function getOmniVideoCost(
   const unitPrice = getVideoGenerationCost(tier, 8, configs) / 8;
   return Math.max(1, Math.ceil(unitPrice * d));
 }
+
+/**
+ * Per-second billing for the fal.ai Kling O3 Pro Reference video-to-video
+ * model. The upstream price is $0.168/s — at the default 12 credits/USD rate
+ * that is 2.016 credits/s. Admins can override the per-second credits via
+ * `fal_kling_reference_credits_per_second`. Durations follow the upstream
+ * schema: whole seconds from 3 to 15. Total cost rounds up so short clips
+ * are never undercharged.
+ */
+export const FAL_REFERENCE_VIDEO_MODEL = 'fal-ai/kling-video/o3/pro/video-to-video/reference';
+
+export function getFalReferenceVideoCost(
+  duration: number | string | undefined,
+  configs?: Record<string, unknown>
+): number {
+  const d = Number(duration);
+  if (!Number.isInteger(d) || d < 3 || d > 15) throw new Error('Unsupported video duration');
+  const configured = Number(configs?.[`fal_kling_reference_credits_per_second`]);
+  const unitPrice = Number.isFinite(configured) && configured > 0 ? configured : 2.016;
+  return Math.max(1, Math.ceil(unitPrice * d));
+}

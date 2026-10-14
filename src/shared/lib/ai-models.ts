@@ -80,3 +80,22 @@ export function getTaskRelayModels(configs: Record<string, string>, media: 'imag
       };
     });
 }
+
+export const FAL_KLING_REFERENCE_DEFAULT_MODEL = 'fal-ai/kling-video/o3/pro/video-to-video/reference';
+
+/**
+ * fal.ai Kling O3 Pro Reference video-to-video model, gated by its admin
+ * switch. Requires the Fal API key to be configured (otherwise the provider
+ * is never registered and the model cannot run).
+ */
+export function getFalReferenceModel(configs: Record<string, string>) {
+  if (configs.fal_kling_reference_enabled !== 'true') return null;
+  if (!configs.fal_api_key) return null;
+  const value = configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL;
+  return {
+    value,
+    label: configs.fal_kling_reference_title?.trim() || 'Kling O3 Pro Reference',
+    provider: 'fal',
+    scenes: ['video-to-video'],
+  };
+}

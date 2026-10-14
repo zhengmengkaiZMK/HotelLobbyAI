@@ -1,6 +1,6 @@
 import { envConfigs } from '@/config';
 import { AIMediaType } from '@/extensions/ai';
-import { getRelayModels, getTaskRelayModels } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel, FAL_KLING_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
@@ -8,7 +8,7 @@ import { createAITask, NewAITask } from '@/shared/models/ai_task';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
-import { getVideoGenerationCost, getOmniVideoCost } from '@/shared/lib/video-cost';
+import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost } from '@/shared/lib/video-cost';
 
 export async function POST(request: Request) {
   try {
@@ -128,6 +128,56 @@ export async function POST(request: Request) {
         aspect_ratio: options?.aspect_ratio,
         resolution: options?.resolution,
       };
+    } else if (provider === 'fal' && model === (configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL)) {
+      // Kling O3 Pro Reference V2V — dedicated whitelist so the generic fal
+      // image-to-video flow is untouched. Admin switch gates the model.
+      const configured = getFalReferenceModel(configs);
+      if (!configured || configured.value !== model) {
+        throw new Error('model is not configured');
+      }
+      if (mediaType !== AIMediaType.VIDEO || scene !== 'video-to-video') {
+        throw new Error('Kling O3 Pro Reference only supports video-to-video');
+      }
+
+      const storageOrigins = [configs.r2_domain, configs.s3_domain, configs.r2_endpoint, configs.s3_endpoint]
+        .filter(Boolean).map((url: string) => new URL(url).origin);
+      const allowedOrigins = [...storageOrigins, new URL(envConfigs.app_url).origin];
+      const validateUrl = (rawUrl: string) => {
+        const parsed = new URL(rawUrl);
+        if (parsed.protocol !== 'https:' || parsed.username || parsed.password || !allowedOrigins.includes(parsed.origin)) {
+          throw new Error('Reference material must come from a configured HTTPS domain');
+        }
+      };
+
+      const videos = options?.video_input;
+      if (!Array.isArray(videos) || videos.length !== 1 || typeof videos[0] !== 'string') {
+        throw new Error('Please provide exactly one reference video for Kling O3 Pro Reference');
+      }
+      validateUrl(videos[0]);
+
+      const images = options?.image_input;
+      if (images !== undefined && images !== null) {
+        if (!Array.isArray(images) || images.length < 1 || images.length > 4) {
+          throw new Error('Please provide between one and four reference images');
+        }
+        for (const imageUrl of images) validateUrl(imageUrl);
+      }
+
+      const duration = Number(options?.duration);
+      if (!Number.isInteger(duration) || duration < 3 || duration > 15) {
+        throw new Error('Duration must be a whole number between 3 and 15 seconds');
+      }
+      if (options?.aspect_ratio && !['auto', '16:9', '9:16', '1:1'].includes(options.aspect_ratio)) {
+        throw new Error('Aspect ratio must be auto, 16:9, 9:16 or 1:1');
+      }
+
+      options = {
+        video_input: videos,
+        ...(Array.isArray(images) && images.length ? { image_input: images } : {}),
+        duration,
+        aspect_ratio: options?.aspect_ratio || 'auto',
+        keep_audio: options?.keep_audio !== false,
+      };
     }
 
     // check generate type
@@ -176,7 +226,14 @@ export async function POST(request: Request) {
             );
         options = { ...options, resolution: options?.resolution ?? '720p', duration: Number(options?.duration ?? 8) };
       } else if (scene === 'video-to-video') {
-        costCredits = 10;
+        // Kling O3 Pro Reference bills per output second (admin-configured
+        // credits/s); other video-to-video models keep the flat price
+        const isFalReference =
+          provider === 'fal' &&
+          model === (configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL);
+        costCredits = isFalReference
+          ? getFalReferenceVideoCost(options?.duration, configs)
+          : 10;
       } else {
         throw new Error('invalid scene');
       }

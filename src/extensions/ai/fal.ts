@@ -297,9 +297,15 @@ export class FalProvider implements AIProvider {
 
   // get query model name (first two parts)
   // e.g. fal-ai/bytedance/seedream/v4/edit -> fal-ai/bytedance
+  // Exception: deep endpoints that are their own queue entry (e.g. Kling O3
+  // Pro reference V2V) must keep the full model ID — their status/result URLs
+  // live under the complete endpoint path.
   private getQueryModel(model?: string): string {
     if (!model) {
       return '';
+    }
+    if (model === 'fal-ai/kling-video/o3/pro/video-to-video/reference') {
+      return model;
     }
     const parts = model.split('/');
     if (parts.length <= 2) {
@@ -325,6 +331,33 @@ export class FalProvider implements AIProvider {
     };
 
     if (!options) {
+      return input;
+    }
+
+    // Kling O3 Pro Reference V2V has its own schema: video_url (required),
+    // image_urls (array), duration as a string enum, no resolution field.
+    // Map the shared option names to this endpoint's contract and strip
+    // fields the schema does not accept so upstream never rejects the call.
+    if (model === 'fal-ai/kling-video/o3/pro/video-to-video/reference') {
+      input = {
+        prompt,
+        shot_type: 'customize',
+        ...(options.video_input && Array.isArray(options.video_input)
+          ? { video_url: options.video_input[0] }
+          : options.video_url
+            ? { video_url: options.video_url }
+            : {}),
+        ...(options.image_input && Array.isArray(options.image_input)
+          ? { image_urls: options.image_input }
+          : options.image_urls && Array.isArray(options.image_urls)
+            ? { image_urls: options.image_urls }
+            : {}),
+        ...(options.aspect_ratio ? { aspect_ratio: options.aspect_ratio } : {}),
+        ...(options.duration !== undefined && options.duration !== null
+          ? { duration: String(options.duration) }
+          : {}),
+        ...(options.keep_audio !== undefined ? { keep_audio: !!options.keep_audio } : {}),
+      };
       return input;
     }
 

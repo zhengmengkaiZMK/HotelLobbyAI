@@ -7,9 +7,9 @@ import { Link, useRouter } from '@/core/i18n/navigation';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/components/ui/dialog';
 import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
-import { getRelayModels, getTaskRelayModels } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel } from '@/shared/lib/ai-models';
 import { TemplateDef } from './templates';
-import { getVideoGenerationCost, getOmniVideoCost } from '@/shared/lib/video-cost';
+import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost } from '@/shared/lib/video-cost';
 
 const defaults = [
   { value: 'google/veo-3.1', label: 'Veo 3.1 · Replicate', provider: 'replicate' },
@@ -31,9 +31,11 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const router = useRouter();
   const relay = getRelayModels(configs, 'video').filter((m) => m.scenes.includes('image-to-video'));
   const taskRelay = getTaskRelayModels(configs, 'video').filter((m) => m.scenes.includes('image-to-video'));
+  const falRefModel = getFalReferenceModel(configs);
+  const falRefList = falRefModel ? [falRefModel] : [];
   const relayList = configs.media_relay_enabled === 'true' ? relay : [];
   const taskRelayList = configs.task_relay_enabled === 'true' ? taskRelay : [];
-  const models = relayList.length || taskRelayList.length ? [...relayList, ...taskRelayList] : defaults;
+  const models = relayList.length || taskRelayList.length || falRefList.length ? [...relayList, ...taskRelayList, ...falRefList] : defaults;
   const [selected, setSelected] = useState('');
   const selectedModel = models.find((m) => `${m.provider}:${m.value}` === selected);
   const model = selectedModel
@@ -43,6 +45,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const unsupported1080 = model?.value === 'grok-imagine-video-1.5';
   const single = model?.provider === 'media-relay' && model.value !== 'grok-imagine-video-1.5';
   const isTaskRelay = model?.provider === 'task-relay';
+  // fal Kling O3 Pro Reference: template motion video + user photos, billed per second
+  const isFalRef = model?.provider === 'fal' && !!falRefModel && model.value === falRefModel.value;
   // gemini-omni-1.1-flash: 3-10s, 360p/720p/1080p, reference clips capped at 10s
   const isOmni = isTaskRelay && !!model && model.value.toLowerCase().startsWith('gemini-omni');
   const resolutionOptions = !isTaskRelay
@@ -50,9 +54,11 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     : isOmni
       ? ['360p', '720p', '1080p']
       : model!.value.toLowerCase() === 'minimax-h3' ? ['768P', '2K'] : ['720p'];
-  const durationOptions = isOmni ? [4, 6, 8, 10] : [8, 12, 15];
-  // Omni only supports 16:9 / 9:16 / auto — no square output
-  const ratioOptions = isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
+  const durationOptions = isFalRef ? [3, 5, 8, 10, 12, 15] : isOmni ? [4, 6, 8, 10] : [8, 12, 15];
+  // Omni only supports 16:9 / 9:16 / auto; Kling reference adds auto + 1:1
+  const ratioOptions = isFalRef ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
+  const defaultKeepAudio = configs.fal_kling_reference_keep_audio !== 'false';
+  const [keepAudio, setKeepAudio] = useState(defaultKeepAudio);
   const effectivePrompt = (configs[`viral_template_prompt_${template.id}`] as string | undefined)?.trim() || template.prompt;
   const maxSlots = template.slots ?? 2;
   const defaultImages = template.images ? [...template.images] : [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
@@ -89,9 +95,11 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [model?.provider, model?.value]);
   const costTier = activeResolution === '768P' ? '720p' : activeResolution === '2K' ? '1080p' : activeResolution;
-  const costCredits = isOmni
-    ? getOmniVideoCost(activeResolution, activeDuration, configs)
-    : getVideoGenerationCost(costTier, activeDuration, configs);
+  const costCredits = isFalRef
+    ? getFalReferenceVideoCost(activeDuration, configs)
+    : isOmni
+      ? getOmniVideoCost(activeResolution, activeDuration, configs)
+      : getVideoGenerationCost(costTier, activeDuration, configs);
   const [busy, setBusy] = useState(false);
   const [task, setTask] = useState<{ id: string; start: number } | null>(null);
   const [progress, setProgress] = useState(0);
@@ -215,18 +223,31 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       // rejects ANY video reference (verified 2026-10: even clean clips fail
       // with "invalid argument"), so Omni always runs photo-only.
       const includeTemplateVideo = configs.task_relay_include_template_video !== 'false';
-      const motionClause = !isTaskRelay
-        ? ''
-        : isOmni || !includeTemplateVideo
-          ? ' Cast the person(s) from the reference images as the performers, preserving their facial identity, hairstyle and outfit exactly.'
-          : ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.';
-      const videoInput = isTaskRelay && !isOmni && includeTemplateVideo ? [`${window.location.origin}/templates/reference/${template.id}.mp4`] : [];
+      // Kling O3 Pro Reference always uses the template motion video — the
+      // admin-configured per-template reference video when present, otherwise
+      // the built-in static clip — and replaces the people with the user photos.
+      const falRefVideo = configs[`viral_template_reference_video_${template.id}`];
+      const falRefVideoInput = [typeof falRefVideo === 'string' && falRefVideo.trim() ? falRefVideo.trim() : `${window.location.origin}/templates/reference/${template.id}.mp4`];
+      const motionClause = isFalRef
+        ? ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.'
+        : !isTaskRelay
+          ? ''
+          : isOmni || !includeTemplateVideo
+            ? ' Cast the person(s) from the reference images as the performers, preserving their facial identity, hairstyle and outfit exactly.'
+            : ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.';
+      const videoInput = isFalRef
+        ? falRefVideoInput
+        : isTaskRelay && !isOmni && includeTemplateVideo ? [`${window.location.origin}/templates/reference/${template.id}.mp4`] : [];
       // MiniMax-H3 driving audio: admin-uploaded reference audio in the panel
       // (task_relay_minimax_audio) rides along as audio_references; other
       // models reject audio input so it is attached only for MiniMax-H3.
       const isMinimax = isTaskRelay && model!.value === 'MiniMax-H3';
       const audioRef = isMinimax ? String(configs.task_relay_minimax_audio || '').trim() : '';
-      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene: 'image-to-video', provider: model.provider, model: model.value, prompt: prompt + motionClause, options: { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution } }) });
+      const scene = isFalRef ? 'video-to-video' : 'image-to-video';
+      const options: Record<string, unknown> = isFalRef
+        ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, keep_audio: keepAudio }
+        : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
+      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene, provider: model.provider, model: model.value, prompt: prompt + motionClause, options }) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
       setTask({ id: payload.data.id, start: Date.now() });
@@ -250,8 +271,10 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {allowPromptEdit && <div className="prompt-edit"><p className="g-label">{text('Prompt', '文字提示词')}</p><textarea className="prompt-input" rows={4} value={promptDraft} onChange={(e) => setPromptDraft(e.target.value)} placeholder={text('Describe the scene or how to cast your photo — the template prompt is pre-filled.', '描述场景或如何使用你的照片——已预填模板提示词。')}/><p className="notice">{text('The template prompt is pre-filled. Add casting notes like "put my dad in the suit as the main dancer".', '已预填模板提示词，可追加说明，例如"把照片里的爸爸换成领舞者、穿上西装"。')}</p></div>}
     {single && <p className="notice">{text('This model accepts one image. Upload a photo containing both subjects, or select a multi-image model below.', '此模型仅支持一张图片，请上传包含两位主角的合照，或在下方选择多图模型。')}</p>}
     {isOmni && <p className="notice">{text('This model generates from your photos and the prompt only (no video reference). Movie-still photos with celebrity faces may be rejected — upload your own photos for best results.', '该模型仅根据你上传的照片和提示词生成（不使用视频参考）。含名人面孔的影视画面照片可能被拒绝，建议上传你自己的照片。')}</p>}
+    {isFalRef && <p className="notice">{text('Kling O3 Pro Reference uses the template reference video as the motion/camera guide, replaces the people with your photos, and keeps the original audio by default. Output resolution follows the reference video.', 'Kling O3 Pro Reference 会以模板参考视频为动作/运镜参考，用你上传的照片替换其中人物，默认保留参考视频原声；输出分辨率跟随参考视频。')}</p>}
+    {isFalRef && <div className="param-row"><div className="seg" aria-label={text('Audio', '音频')}><button type="button" aria-pressed={keepAudio} className={keepAudio ? 'sel' : ''} onClick={() => setKeepAudio((v) => !v)}>{keepAudio ? text('Keep original audio', '保留参考视频原声') : text('No audio', '不带原声')}</button></div></div>}
     {isTaskRelay && !isOmni && configs.task_relay_include_template_video !== 'false' && <p className="notice">{text('This model uses the template video above as the motion reference and your photos as the cast.', '该模型会自动把上方模板视频作为动作参考，配合你上传的照片生成。')}</p>}
-    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={!isTaskRelay && v === '1080p' && unsupported1080} title={!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
+    <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={isFalRef || (!isTaskRelay && v === '1080p' && unsupported1080)} title={isFalRef ? text('Output resolution follows the reference video', '输出分辨率跟随参考视频') : (!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined)} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
     <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>
     </div></div></DialogContent></Dialog>;

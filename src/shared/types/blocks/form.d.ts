@@ -26,7 +26,8 @@ export interface FormField {
     | 'switch'
     | 'checkbox'
     | 'upload_image'
-    | 'upload_audio';
+    | 'upload_audio'
+    | 'upload_video';
   placeholder?: string;
   group?: string;
   options?: {
