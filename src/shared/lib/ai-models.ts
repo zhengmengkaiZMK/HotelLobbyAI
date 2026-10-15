@@ -101,3 +101,23 @@ export function getFalReferenceModel(configs: Record<string, string>) {
     scenes: ['video-to-video'],
   };
 }
+
+export const FAL_WAN_REFERENCE_DEFAULT_MODEL = 'alibaba/wan-3.0/reference-to-video';
+
+/**
+ * fal.ai Wan 3.0 Reference-to-Video model, gated by its admin switch. Same
+ * family behavior as the Kling reference model: template reference video +
+ * user photos, billed per second. Unlike Kling it accepts a resolution tier
+ * (480p/720p/1080p), durations of 2-30s, and bills input reference video
+ * seconds in addition to output seconds.
+ */
+export function getFalWanReferenceModel(configs: Record<string, string>) {
+  if (configs.fal_wan_reference_enabled !== 'true') return null;
+  const value = configs.fal_wan_reference_model?.trim() || FAL_WAN_REFERENCE_DEFAULT_MODEL;
+  return {
+    value,
+    label: configs.fal_wan_reference_title?.trim() || 'Wan 3.0 Reference',
+    provider: 'fal',
+    scenes: ['video-to-video'],
+  };
+}

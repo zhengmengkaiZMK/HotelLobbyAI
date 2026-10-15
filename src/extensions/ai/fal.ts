@@ -433,6 +433,32 @@ export class FalProvider implements AIProvider {
       return input;
     }
 
+    // Wan 3.0 Reference-to-Video has its own schema: reference_video_urls
+    // (array), reference_image_urls (array), integer duration 2-30, optional
+    // resolution tier and generated-audio switch. Map the shared option names
+    // to this endpoint's contract and strip fields it does not accept.
+    if (model === 'alibaba/wan-3.0/reference-to-video') {
+      input = {
+        prompt,
+        ...(options.video_input && Array.isArray(options.video_input) && options.video_input.length
+          ? { reference_video_urls: options.video_input.slice(0, 5) }
+          : {}),
+        ...(options.image_input && Array.isArray(options.image_input) && options.image_input.length
+          ? { reference_image_urls: options.image_input.slice(0, 10) }
+          : {}),
+        ...(options.audio_input && Array.isArray(options.audio_input) && options.audio_input.length
+          ? { reference_audio_urls: options.audio_input.slice(0, 5) }
+          : {}),
+        ...(options.duration !== undefined && options.duration !== null
+          ? { duration: Number(options.duration) }
+          : {}),
+        ...(options.aspect_ratio ? { aspect_ratio: options.aspect_ratio } : {}),
+        ...(options.resolution ? { resolution: options.resolution } : {}),
+        ...(options.audio !== undefined ? { audio: !!options.audio } : {}),
+      };
+      return input;
+    }
+
     // input with all custom options
     input = {
       ...input,

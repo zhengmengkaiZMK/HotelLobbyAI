@@ -1,6 +1,6 @@
 import { envConfigs } from '@/config';
 import { AIMediaType } from '@/extensions/ai';
-import { getRelayModels, getTaskRelayModels, getFalReferenceModel, FAL_KLING_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, FAL_KLING_REFERENCE_DEFAULT_MODEL, FAL_WAN_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
@@ -8,7 +8,7 @@ import { createAITask, NewAITask } from '@/shared/models/ai_task';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
-import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost } from '@/shared/lib/video-cost';
+import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost } from '@/shared/lib/video-cost';
 
 export async function POST(request: Request) {
   try {
@@ -178,6 +178,71 @@ export async function POST(request: Request) {
         aspect_ratio: options?.aspect_ratio || 'auto',
         keep_audio: options?.keep_audio !== false,
       };
+    } else if (provider === 'fal' && model === (configs.fal_wan_reference_model?.trim() || FAL_WAN_REFERENCE_DEFAULT_MODEL)) {
+      // Wan 3.0 Reference-to-Video — dedicated whitelist so the generic fal
+      // image-to-video flow is untouched. Admin switch gates the model.
+      const configured = getFalWanReferenceModel(configs);
+      if (!configured || configured.value !== model) {
+        throw new Error('model is not configured');
+      }
+      if (mediaType !== AIMediaType.VIDEO || scene !== 'video-to-video') {
+        throw new Error('Wan 3.0 Reference only supports video-to-video');
+      }
+
+      const storageOrigins = [configs.r2_domain, configs.s3_domain, configs.r2_endpoint, configs.s3_endpoint]
+        .filter(Boolean).map((url) => new URL(url).origin);
+      const allowedOrigins = [...storageOrigins, new URL(envConfigs.app_url).origin];
+      const validateUrl = (rawUrl: string) => {
+        const parsed = new URL(rawUrl);
+        if (parsed.protocol !== 'https:' || parsed.username || parsed.password || !allowedOrigins.includes(parsed.origin)) {
+          throw new Error('Reference material must come from a configured HTTPS domain');
+        }
+      };
+
+      const videos = options?.video_input;
+      if (!Array.isArray(videos) || videos.length !== 1 || typeof videos[0] !== 'string') {
+        throw new Error('Please provide exactly one reference video for Wan 3.0 Reference');
+      }
+      validateUrl(videos[0]);
+
+      const images = options?.image_input;
+      if (images !== undefined && images !== null) {
+        if (!Array.isArray(images) || images.length < 1 || images.length > 10) {
+          throw new Error('Please provide between one and ten reference images');
+        }
+        for (const imageUrl of images) validateUrl(imageUrl);
+      }
+
+      // reference audio (admin-uploaded family audio track) guides the
+      // generated soundtrack; up to 5 clips totaling 15 seconds upstream
+      const audios = options?.audio_input;
+      if (audios !== undefined && audios !== null) {
+        if (!Array.isArray(audios) || audios.length < 1 || audios.length > 5) {
+          throw new Error('Please provide up to five reference audio files');
+        }
+        for (const audioUrl of audios) validateUrl(audioUrl);
+      }
+
+      const duration = Number(options?.duration);
+      if (!Number.isInteger(duration) || duration < 2 || duration > 30) {
+        throw new Error('Duration must be a whole number between 2 and 30 seconds');
+      }
+      if (options?.aspect_ratio && !['adaptive', '16:9', '4:3', '1:1', '3:4', '9:16'].includes(options.aspect_ratio)) {
+        throw new Error('Aspect ratio must be adaptive, 16:9, 4:3, 1:1, 3:4 or 9:16');
+      }
+      if (options?.resolution && !['480p', '720p', '1080p'].includes(options.resolution)) {
+        throw new Error('Resolution must be 480p, 720p or 1080p');
+      }
+
+      options = {
+        video_input: videos,
+        ...(Array.isArray(images) && images.length ? { image_input: images } : {}),
+        ...(Array.isArray(audios) && audios.length ? { audio_input: audios } : {}),
+        duration,
+        aspect_ratio: options?.aspect_ratio || 'adaptive',
+        resolution: options?.resolution || '720p',
+        audio: options?.audio !== false,
+      };
     }
 
     // check generate type
@@ -227,13 +292,20 @@ export async function POST(request: Request) {
         options = { ...options, resolution: options?.resolution ?? '720p', duration: Number(options?.duration ?? 8) };
       } else if (scene === 'video-to-video') {
         // Kling O3 Pro Reference bills per output second (admin-configured
-        // credits/s); other video-to-video models keep the flat price
+        // credits/s); Wan 3.0 Reference bills per second by resolution tier
+        // including input reference video seconds; other video-to-video
+        // models keep the flat price
         const isFalReference =
           provider === 'fal' &&
           model === (configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL);
+        const isFalWanReference =
+          provider === 'fal' &&
+          model === (configs.fal_wan_reference_model?.trim() || FAL_WAN_REFERENCE_DEFAULT_MODEL);
         costCredits = isFalReference
           ? getFalReferenceVideoCost(options?.duration, configs)
-          : 10;
+          : isFalWanReference
+            ? getFalWanReferenceVideoCost(options?.resolution, options?.duration, configs)
+            : 10;
       } else {
         throw new Error('invalid scene');
       }
