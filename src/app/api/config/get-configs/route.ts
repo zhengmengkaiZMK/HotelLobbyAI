@@ -3,7 +3,10 @@ import { getPublicConfigs } from '@/shared/models/config';
 
 export async function POST(req: Request) {
   try {
-    const configs = await getPublicConfigs();
+    // fresh read: the frontend generator derives prompts, reference media and
+    // model availability from this payload — a stale isolate cache (up to 1h
+    // on Cloudflare) would silently fall back to built-in templates
+    const configs = await getPublicConfigs(true);
 
     return respData(configs);
   } catch (e: any) {

@@ -74,8 +74,20 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const family = template.id.startsWith('party-') ? 'burning_bridges' : 'hotel';
   const familyRefVideo = (configs[`viral_family_reference_video_${family}`] as string | undefined)?.trim() || '';
   const familyRefAudio = (configs[`viral_family_reference_audio_${family}`] as string | undefined)?.trim() || '';
+  // admin switch: allow the user to pick model-generated audio for Wan 3.0
+  // (off = reference audio or no audio only)
+  const wanAllowGenerated = configs.fal_wan_reference_allow_generated_audio !== 'false';
+  // render-scope mirror of the MiniMax-H3 driving-audio decision (the generate
+  // function recomputes it from the same inputs)
+  const isMinimaxRender = isTaskRelay && model?.value === 'MiniMax-H3';
+  const minimaxFamilyAudio = isMinimaxRender && configs.minimax_h3_reference_audio_enabled !== 'false' ? familyRefAudio : '';
+  // TEMP DEBUG (remove after testing): request-payload viewer state
+  const [debugOpen, setDebugOpen] = useState(false);
+  const [debugPayload, setDebugPayload] = useState('');
   const effectivePrompt = (configs[`viral_family_prompt_${family}`] as string | undefined)?.trim() || template.prompt;
-  const refPrompt = `${effectivePrompt} The reference video defines the choreography, camera work, scene layout and crowd energy only. Replace every person in the reference video with the person or people from the reference image(s), preserving their facial identity, hairstyle and outfit exactly.`;
+  // prompt is sent to the model VERBATIM — no hidden suffixes are appended.
+  // The admin-configured family prompt (or the user's own edit) is the whole
+  // instruction; casting/motion guidance belongs in the admin prompt itself.
   const maxSlots = template.slots ?? 2;
   const defaultImages = template.images ? [...template.images] : [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
   const [images, setImages] = useState<(string | null)[]>(defaultImages);
@@ -240,46 +252,47 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     try {
       const resolved = await Promise.all(input.map((v) => ensureUploadable(v!)));
       setProgress(18); setStage('pending');
-      // task-relay models: the template video serves as the motion reference —
-      // admin can disable it via task_relay_include_template_video (then only
-      // photos + prompt drive the generation). Omni caps reference clips at 10s
-      // so it used to get the 10s preview cut — but the 12ai Omni channel
-      // rejects ANY video reference (verified 2026-10: even clean clips fail
-      // with "invalid argument"), so Omni always runs photo-only.
-      const includeTemplateVideo = configs.task_relay_include_template_video !== 'false';
+      // task-relay models: the family's admin-configured reference video
+      // (业务素材) is the single motion-reference source — configured means
+      // passed, missing means photos + prompt only (no built-in fallback).
+      // Omni caps reference clips at 10s, but the 12ai Omni channel rejects
+      // ANY video reference (verified 2026-10: even clean clips fail with
+      // "invalid argument"), so Omni always runs photo-only.
       // fal reference models (Kling / Wan) use exactly one motion video: the
       // family's admin-configured reference video (validated above), and
       // replace the people with the user photos.
-      const falRefVideoInput = [familyRefVideo];
-      const motionClause = isFalRef || isFalWan
-        ? ''
-        : !isTaskRelay
-          ? ''
-          : isOmni || !includeTemplateVideo
-            ? ' Cast the person(s) from the reference images as the performers, preserving their facial identity, hairstyle and outfit exactly.'
-            : ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.';
-      const videoInput = isFalRef || isFalWan
-        ? falRefVideoInput
-        : isTaskRelay && !isOmni && includeTemplateVideo
-          ? [familyRefVideo || `${window.location.origin}/templates/reference/${template.id}.mp4`]
-          : [];
-      // MiniMax-H3 driving audio: admin-uploaded reference audio in the panel
-      // (task_relay_minimax_audio) rides along as audio_references; other
-      // models reject audio input so it is attached only for MiniMax-H3.
-      const isMinimax = isTaskRelay && model!.value === 'MiniMax-H3';
-      const audioRef = isMinimax ? String(configs.task_relay_minimax_audio || '').trim() : '';
-      const scene = isFalRef || isFalWan ? 'video-to-video' : 'image-to-video';
-      const options: Record<string, unknown> = isFalRef
-        ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, keep_audio: keepAudio }
-        : isFalWan
-          ? { image_input: resolved, video_input: videoInput, ...(familyRefAudio ? { audio_input: [familyRefAudio] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution, audio: keepAudio }
-          : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
-      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify({ mediaType: 'video', scene, provider: model.provider, model: model.value, prompt: ((isFalRef || isFalWan) ? refPrompt : prompt) + motionClause, options }) });
+      const body = buildPayload(resolved);
+      if (!body) throw new Error('No model selected');
+      const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
       setTask({ id: payload.data.id, start: Date.now() });
       void creditsRef.current();
     } catch (e) { setError(e instanceof Error ? e.message : 'Generation failed'); setBusy(false); setStage(null); setProgress(0); lock.current = false; }
+  }
+  // TEMP DEBUG (remove after testing): builds the exact body posted to
+  // /api/ai/generate. generate() calls it with the uploaded image URLs; the
+  // debug panel calls it with the pre-upload image paths — everything else
+  // (prompt, reference video/audio, flags) is byte-identical to the request.
+  function buildPayload(resolved: string[]) {
+    if (!model) return null;
+    const videoInput = isFalRef || isFalWan
+      ? [familyRefVideo]
+      : isTaskRelay && !isOmni && familyRefVideo
+        ? [familyRefVideo]
+        : [];
+    const isMinimax = isTaskRelay && model.value === 'MiniMax-H3';
+    const audioRef = isMinimax && configs.minimax_h3_reference_audio_enabled !== 'false' ? familyRefAudio : '';
+    const scene = isFalRef || isFalWan ? 'video-to-video' : 'image-to-video';
+    // Wan 3.0 audio: when the admin switch forbids generated audio and the
+    // family has no reference audio, the audio flag is forced off.
+    const wanAudioOn = familyRefAudio ? keepAudio : wanAllowGenerated && keepAudio;
+    const options: Record<string, unknown> = isFalRef
+      ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, keep_audio: keepAudio }
+      : isFalWan
+        ? { image_input: resolved, video_input: videoInput, ...(familyRefAudio ? { audio_input: [familyRefAudio] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution, audio: wanAudioOn }
+        : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
+    return { mediaType: 'video', scene, provider: model.provider, model: model.value, prompt, options };
   }
   async function download() {
     setDownloading(true);
@@ -300,10 +313,13 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {isOmni && <p className="notice">{text('This model generates from your photos and the prompt only (no video reference). Movie-still photos with celebrity faces may be rejected — upload your own photos for best results.', '该模型仅根据你上传的照片和提示词生成（不使用视频参考）。含名人面孔的影视画面照片可能被拒绝，建议上传你自己的照片。')}</p>}
     {isFalRef && <p className="notice">{text('Kling O3 Pro Reference uses the template reference video as the motion/camera guide, replaces the people with your photos, and keeps the original audio by default. Output resolution follows the reference video.', 'Kling O3 Pro Reference 会以模板参考视频为动作/运镜参考，用你上传的照片替换其中人物，默认保留参考视频原声；输出分辨率跟随参考视频。')}</p>}
     {isFalWan && <p className="notice">{text('Wan 3.0 Reference uses the template reference video as the motion/camera guide and replaces the people with your photos. Resolution and duration are selectable; billing counts reference video seconds in addition to output seconds.', 'Wan 3.0 Reference 会以模板参考视频为动作/运镜参考，用你上传的照片替换其中人物。分辨率和时长可选；计费包含参考视频秒数与输出秒数。')}</p>}
-    {(isFalRef || isFalWan) && <div className="param-row"><div className="seg" aria-label={text('Audio', '音频')}><button type="button" aria-pressed={keepAudio} className={keepAudio ? 'sel' : ''} onClick={() => setKeepAudio((v) => !v)}>{keepAudio ? (isFalWan ? (familyRefAudio ? text('Use reference audio', '使用参考音频') : text('Generate audio', '生成音频')) : text('Keep original audio', '保留参考视频原声')) : text('No audio', '不带原声')}</button></div></div>}
-    {isTaskRelay && !isOmni && configs.task_relay_include_template_video !== 'false' && <p className="notice">{text('This model uses the template video above as the motion reference and your photos as the cast.', '该模型会自动把上方模板视频作为动作参考，配合你上传的照片生成。')}</p>}
+    {(isFalRef || (isFalWan && (familyRefAudio || wanAllowGenerated))) && <div className="param-row"><div className="seg" aria-label={text('Audio', '音频')}><button type="button" aria-pressed={keepAudio} className={keepAudio ? 'sel' : ''} onClick={() => setKeepAudio((v) => !v)}>{keepAudio ? (isFalWan ? (familyRefAudio ? text('Use reference audio', '使用参考音频') : text('Generate audio', '生成音频')) : text('Keep original audio', '保留参考视频原声')) : text('No audio', '不带原声')}</button></div></div>}
+    {isTaskRelay && !isOmni && familyRefVideo && <p className="notice">{text('This model uses the configured reference video as the motion reference and your photos as the cast.', '该模型会自动把该系列配置的参考视频作为动作参考，配合你上传的照片生成。')}</p>}
+    {isMinimaxRender && <p className="notice">{text(minimaxFamilyAudio ? 'This model uses the family reference audio as the driving audio for lipsync and voice style.' : 'No reference audio configured for this family — the model will generate its own audio.', minimaxFamilyAudio ? '该模型会把此系列的参考音频作为 driving audio，驱动角色口型与声音风格。' : '该系列尚未上传参考音频——模型将自行生成音频。')}</p>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v === 'adaptive' ? text('auto', '自动') : v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={!isTaskRelay && v === '1080p' && unsupported1080} title={!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
     <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>
+    <div className="result-actions"><button type="button" className="btn btn-outline" style={{ fontSize: 12, opacity: .7 }} onClick={() => { if (debugOpen) { setDebugOpen(false); return; } setDebugPayload(JSON.stringify(buildPayload(images.slice(0, maxSlots).filter(Boolean) as string[]), null, 2)); setDebugOpen(true); }}>{text('Debug: request payload', '调试：查看 Request 参数')}</button></div>
+    {debugOpen && <pre style={{ maxHeight: 260, overflow: 'auto', fontSize: 11, lineHeight: 1.5, background: 'rgba(127,127,127,.12)', padding: '8px 10px', borderRadius: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all', textAlign: 'left', margin: 0 }}>{debugPayload}</pre>}
     </div></div></DialogContent></Dialog>;
 }

@@ -23,7 +23,9 @@ export async function POST(request: Request) {
       throw new Error('prompt or options is required');
     }
 
-    const configs = await getAllConfigs();
+    // fresh read: model gating, whitelist and billing keys must reflect admin
+    // changes immediately (unstable_cache is per-isolate on Cloudflare)
+    const configs = await getAllConfigs(true);
     const aiService = await getAIService(configs);
     if (provider === 'media-relay') {
       if (mediaType !== AIMediaType.IMAGE && mediaType !== AIMediaType.VIDEO) {
@@ -119,10 +121,11 @@ export async function POST(request: Request) {
       options = {
         image_input: images,
         // gemini-omni upstream rejects ANY video reference (verified 2026-10:
-        // even clean self-produced clips fail with 400 invalid argument), and
-        // task_relay_include_template_video=false disables motion reference
-        // entirely (photos + prompt only) — drop the videos in both cases
-        ...(!isOmniModel && configs.task_relay_include_template_video !== 'false' && Array.isArray(videos) && videos.length ? { video_input: videos } : {}),
+        // even clean self-produced clips fail with 400 invalid argument) —
+        // drop the videos for Omni; other task-relay models receive whatever
+        // the client sent (the client only includes the family reference
+        // video when the admin configured one in 业务素材)
+        ...(!isOmniModel && Array.isArray(videos) && videos.length ? { video_input: videos } : {}),
         ...(isMinimaxModel && Array.isArray(audios) && audios.length ? { audio_input: audios } : {}),
         duration: options?.duration,
         aspect_ratio: options?.aspect_ratio,

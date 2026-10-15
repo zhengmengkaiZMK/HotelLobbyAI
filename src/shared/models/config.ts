@@ -71,29 +71,31 @@ export async function addConfig(newConfig: NewConfig) {
   return result;
 }
 
-export const getConfigs = unstable_cache(
-  async (): Promise<Configs> => {
-    const configs: Record<string, string> = {};
+async function loadConfigsFromDb(): Promise<Configs> {
+  const configs: Record<string, string> = {};
 
-    // D1 is only available inside Cloudflare Workers runtime (not during build)
-    if (envConfigs.database_provider === 'd1' && !isCloudflareWorker) {
-      return configs;
-    }
-    if (!envConfigs.database_url && envConfigs.database_provider !== 'd1') {
-      return configs;
-    }
-
-    const result = await db().select().from(config);
-    if (!result) {
-      return configs;
-    }
-
-    for (const config of result) {
-      configs[config.name] = config.value ?? '';
-    }
-
+  // D1 is only available inside Cloudflare Workers runtime (not during build)
+  if (envConfigs.database_provider === 'd1' && !isCloudflareWorker) {
     return configs;
-  },
+  }
+  if (!envConfigs.database_url && envConfigs.database_provider !== 'd1') {
+    return configs;
+  }
+
+  const result = await db().select().from(config);
+  if (!result) {
+    return configs;
+  }
+
+  for (const config of result) {
+    configs[config.name] = config.value ?? '';
+  }
+
+  return configs;
+}
+
+export const getConfigs = unstable_cache(
+  loadConfigsFromDb,
   ['configs'],
   {
     revalidate: 3600,
@@ -101,14 +103,23 @@ export const getConfigs = unstable_cache(
   }
 );
 
-export async function getAllConfigs(): Promise<Configs> {
+// Cache-free read. unstable_cache is per-isolate on Cloudflare Workers, and
+// revalidateTag() from saveConfigs() cannot reach other isolates — after an
+// admin save, isolates that already cached the old snapshot keep serving it
+// for up to revalidate (3600s). User-critical paths (public get-configs,
+// generation, admin settings) must therefore read the DB directly.
+export async function getConfigsFresh(): Promise<Configs> {
+  return loadConfigsFromDb();
+}
+
+export async function getAllConfigs(fresh = false): Promise<Configs> {
   let dbConfigs: Configs = {};
 
   // only get configs from db in server side
   const hasDb = envConfigs.database_url || (envConfigs.database_provider === 'd1' && isCloudflareWorker);
   if (typeof window === 'undefined' && hasDb) {
     try {
-      dbConfigs = await getConfigs();
+      dbConfigs = fresh ? await getConfigsFresh() : await getConfigs();
     } catch (e) {
       console.log(`get configs from db failed:`, e);
       dbConfigs = {};
@@ -134,8 +145,8 @@ export async function getAllConfigs(): Promise<Configs> {
   return configs;
 }
 
-export async function getPublicConfigs(): Promise<Configs> {
-  let allConfigs = await getAllConfigs();
+export async function getPublicConfigs(fresh = false): Promise<Configs> {
+  let allConfigs = await getAllConfigs(fresh);
 
   const publicConfigs: Record<string, string> = {};
 

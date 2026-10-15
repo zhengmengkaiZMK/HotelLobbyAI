@@ -4,7 +4,7 @@ import { PERMISSIONS, requireAllPermissions } from '@/core/rbac';
 import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { FormCard } from '@/shared/blocks/form';
 import { getChatModels, parseModelList } from '@/shared/lib/ai-models';
-import { getConfigs, saveConfigs } from '@/shared/models/config';
+import { getConfigsFresh, saveConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 import {
   getSettingGroups,
@@ -29,7 +29,9 @@ export default async function SettingsPage({
     locale,
   });
 
-  const configs = await getConfigs();
+  // fresh read: the admin must see (and re-save) current values, never a
+  // stale isolate cache snapshot
+  const configs = await getConfigsFresh();
 
   const settingGroups = await getSettingGroups();
   const settings = await getSettings();
@@ -66,7 +68,7 @@ export default async function SettingsPage({
     }
     const mediaRelayKeys = allowedNames.filter((name) => name.startsWith('media_relay_'));
     if (mediaRelayKeys.some((name) => name in updates)) {
-      const merged = { ...await getConfigs(), ...updates };
+      const merged = { ...await getConfigsFresh(), ...updates };
       const assertUrl = (url: string) => {
         const parsed = new URL(url);
         if (parsed.protocol !== 'https:' || parsed.username || parsed.password || parsed.search || parsed.hash) {
