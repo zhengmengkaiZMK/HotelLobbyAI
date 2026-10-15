@@ -295,6 +295,13 @@ export async function getSettingGroups() {
       tab: 'ai',
     },
     {
+      name: 'dev_debug',
+      title: '开发者调试 / Developer Debug',
+      description:
+        '临时调试功能开关。开启后前端会显示对应的调试入口，测试完成后建议关闭。',
+      tab: 'ai',
+    },
+    {
       name: 'adsense',
       title: t('groups.adsense'),
       description: 'custom your adsense settings',
@@ -1206,6 +1213,15 @@ export async function getSettings() {
       tip: '用户打开生成弹窗时默认选中的模型。若所选模型不在上方「可用模型」勾选清单里，则回退为第一个可用模型。',
     },
     {
+      name: 'debug_show_request_payload',
+      title: '显示生成弹窗调试按钮 / Show Debug Button in Generation Dialog',
+      type: 'switch',
+      value: 'false',
+      group: 'dev_debug',
+      tab: 'ai',
+      tip: '开启后，前端视频生成弹窗底部会显示「调试：查看 Request 参数」按钮，点击可查看将发送给模型的完整请求体。关闭即隐藏，不影响生成功能。测试完成后请关闭。',
+    },
+    {
       name: 'replicate_api_token',
       title: 'Replicate API Token',
       type: 'password',
@@ -1484,6 +1500,7 @@ export const publicSettingNames = [
   'viral_family_models_burning_bridges',
   'viral_family_default_model_hotel',
   'viral_family_default_model_burning_bridges',
+  'debug_show_request_payload',
   'fal_kling_reference_enabled',
   'fal_kling_reference_model',
   'fal_kling_reference_title',
