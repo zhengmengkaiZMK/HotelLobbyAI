@@ -27,10 +27,18 @@ export function getVideoGenerationCost(
   return Number.isSafeInteger(configured) && configured > 0 ? configured : VIDEO_COST_DEFAULTS[key];
 }
 
+/**
+ * Credit table shown on the homepage / pricing page. Computed with the Wan
+ * 3.0 Reference billing formula (the model users actually pay for): unit
+ * price from `fal_wan_reference_credits_per_second_{480p|720p|1080p}` plus
+ * the configured reference-video input seconds — identical to what the
+ * generation dialog charges, so the displayed table never drifts from real
+ * billing when the admin edits per-second rates in the panel.
+ */
 export function getVideoCostTable(configs?: Record<string, unknown>) {
   return (['480p', '720p', '1080p'] as const).map((resolution) => ({
     resolution,
-    costs: ([8, 12, 15] as const).map((duration) => ({ duration, credits: getVideoGenerationCost(resolution, duration, configs) })),
+    costs: ([8, 12, 15] as const).map((duration) => ({ duration, credits: getFalWanReferenceVideoCost(resolution, duration, configs) })),
   }));
 }
 

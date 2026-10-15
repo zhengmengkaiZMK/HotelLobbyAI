@@ -24,7 +24,7 @@ export default async function HomePage({ params }: { params: Promise<{ locale: s
   setRequestLocale(locale);
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs());
+  const videoCosts = getVideoCostTable(await getAllConfigs(true)); // fresh read: price edits take effect immediately
 
   const appUrl = envConfigs.app_url;
   const starterM = plans.find((p) => p.product_id === 'starter-monthly');

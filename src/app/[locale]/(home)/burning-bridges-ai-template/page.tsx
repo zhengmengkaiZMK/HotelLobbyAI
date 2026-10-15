@@ -76,7 +76,7 @@ export default async function BurningBridgesAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs());
+  const videoCosts = getVideoCostTable(await getAllConfigs(true)); // fresh read: price edits take effect immediately
   const faq = BB_FAQ[zh ? 'zh' : 'en'];
 
   const faqJsonLd = {

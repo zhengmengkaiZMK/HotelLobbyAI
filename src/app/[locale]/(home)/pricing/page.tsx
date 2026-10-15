@@ -62,7 +62,7 @@ export default async function PricingPage({
   setRequestLocale(locale);
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs());
+  const videoCosts = getVideoCostTable(await getAllConfigs(true)); // fresh read: price edits take effect immediately
 
   // credit top-ups are exclusive to subscribers — only render the
   // top-up section for users with an active subscription
