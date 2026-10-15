@@ -12,7 +12,7 @@ import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, get
 
 export async function POST(request: Request) {
   try {
-    let { provider, mediaType, model, prompt, options, scene } =
+    let { provider, mediaType, model, prompt, options, scene, family } =
       await request.json();
 
     if (!provider || !mediaType || !model) {
@@ -27,6 +27,24 @@ export async function POST(request: Request) {
     // changes immediately (unstable_cache is per-isolate on Cloudflare)
     const configs = await getAllConfigs(true);
     const aiService = await getAIService(configs);
+    // per-family model gating (server-side enforcement of the admin
+    // multi-select in 业务素材): when the family has a non-empty checked list,
+    // the requested model must be in it — blocks bypassing the dialog filter.
+    // Unset/empty list = allow all (same fallback as the dialog).
+    const familyId = typeof family === 'string' && /^[a-z0-9_]{1,64}$/.test(family) ? family : '';
+    if (familyId) {
+      let familyAllowed: string[] = [];
+      const allowedRaw = configs[`viral_family_models_${familyId}`];
+      if (allowedRaw) {
+        try {
+          const parsed = JSON.parse(allowedRaw);
+          if (Array.isArray(parsed)) familyAllowed = parsed.filter((x: unknown) => typeof x === 'string');
+        } catch { /* malformed list → treat as unset */ }
+      }
+      if (familyAllowed.length > 0 && !familyAllowed.includes(model)) {
+        throw new Error('model is not allowed for this template family');
+      }
+    }
     if (provider === 'media-relay') {
       if (mediaType !== AIMediaType.IMAGE && mediaType !== AIMediaType.VIDEO) {
         throw new Error('unsupported relay media type');

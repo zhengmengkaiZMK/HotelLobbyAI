@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { PERMISSIONS, requireAllPermissions } from '@/core/rbac';
 import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { FormCard } from '@/shared/blocks/form';
-import { getChatModels, parseModelList } from '@/shared/lib/ai-models';
+import { getChatModels, parseModelList, getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel } from '@/shared/lib/ai-models';
 import { getConfigsFresh, saveConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 import {
@@ -35,6 +35,27 @@ export default async function SettingsPage({
 
   const settingGroups = await getSettingGroups();
   const settings = await getSettings();
+
+  // per-family model gating: the checkbox (可用模型) and select (默认模型)
+  // options are the currently connected video models, mirroring the generator
+  // dialog's list order (relay → task-relay → Kling Reference → Wan Reference)
+  const videoModelOptions = [
+    ...getRelayModels(configs, 'video'),
+    ...getTaskRelayModels(configs, 'video'),
+    ...(getFalReferenceModel(configs) ? [getFalReferenceModel(configs)!] : []),
+    ...(getFalWanReferenceModel(configs) ? [getFalWanReferenceModel(configs)!] : []),
+  ].map((m) => ({ title: m.label, value: m.value }));
+  const familyModelSettingNames = new Set([
+    'viral_family_models_hotel',
+    'viral_family_models_burning_bridges',
+    'viral_family_default_model_hotel',
+    'viral_family_default_model_burning_bridges',
+  ]);
+  for (const setting of settings) {
+    if (familyModelSettingNames.has(setting.name)) {
+      setting.options = videoModelOptions;
+    }
+  }
 
   const t = await getTranslations('admin.settings');
 

@@ -37,13 +37,31 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const falWanList = falWanModel ? [falWanModel] : [];
   const relayList = configs.media_relay_enabled === 'true' ? relay : [];
   const taskRelayList = configs.task_relay_enabled === 'true' ? taskRelay : [];
+  // per-family model gating: the admin multi-select (viral_family_models_*)
+  // stores a JSON array of model values; only checked models show in the
+  // dialog and are accepted by the generate route. Empty/unset → show all
+  // (compatibility fallback for families the admin has not configured yet).
+  const family = template.id.startsWith('party-') ? 'burning_bridges' : 'hotel';
+  const familyAllowedModels: string[] = (() => {
+    const raw = (configs[`viral_family_models_${family}`] as string | undefined)?.trim();
+    if (!raw) return [];
+    try { const v = JSON.parse(raw); return Array.isArray(v) ? v.filter((x: unknown) => typeof x === 'string') : []; } catch { return []; }
+  })();
+  const familyDefaultModel = (configs[`viral_family_default_model_${family}`] as string | undefined)?.trim() || '';
   const models = relayList.length || taskRelayList.length || falRefList.length || falWanList.length ? [...relayList, ...taskRelayList, ...falRefList, ...falWanList] : defaults;
+  // family gating: only admin-checked models are selectable for this family;
+  // if the checked list no longer intersects the connected models (e.g. a
+  // relay source was disabled after checking), fall back to the full list so
+  // the dialog stays usable — the generate route still enforces the list
+  const gatedModels = models.filter((m) => familyAllowedModels.includes(m.value));
+  const allowedModels = gatedModels.length ? gatedModels : models;
   const [selected, setSelected] = useState('');
-  const selectedModel = models.find((m) => `${m.provider}:${m.value}` === selected);
+  const selectedModel = allowedModels.find((m) => `${m.provider}:${m.value}` === selected);
   const model = selectedModel
-    ?? (preferModel ? models.find((m) => m.value.toLowerCase() === preferModel.toLowerCase()) : undefined)
-    ?? models.find((m) => m.value === 'grok-imagine-video-1.5')
-    ?? models[0];
+    ?? (preferModel ? allowedModels.find((m) => m.value.toLowerCase() === preferModel.toLowerCase()) : undefined)
+    ?? (familyDefaultModel ? allowedModels.find((m) => m.value === familyDefaultModel) : undefined)
+    ?? allowedModels.find((m) => m.value === 'grok-imagine-video-1.5')
+    ?? allowedModels[0];
   const unsupported1080 = model?.value === 'grok-imagine-video-1.5';
   const single = model?.provider === 'media-relay' && model.value !== 'grok-imagine-video-1.5';
   const isTaskRelay = model?.provider === 'task-relay';
@@ -70,8 +88,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const defaultKeepAudio = configs.fal_kling_reference_keep_audio !== 'false';
   const [keepAudio, setKeepAudio] = useState(defaultKeepAudio);
   // family-level admin config: all templates of a family share one prompt and
-  // one reference video (hotel lobby family vs burning bridges family)
-  const family = template.id.startsWith('party-') ? 'burning_bridges' : 'hotel';
+  // one reference video (hotel lobby family vs burning bridges family);
+  // `family` and the model-gating parse live above (before the model list)
   const familyRefVideo = (configs[`viral_family_reference_video_${family}`] as string | undefined)?.trim() || '';
   const familyRefAudio = (configs[`viral_family_reference_audio_${family}`] as string | undefined)?.trim() || '';
   // admin switch: allow the user to pick model-generated audio for Wan 3.0
@@ -292,7 +310,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       : isFalWan
         ? { image_input: resolved, video_input: videoInput, ...(familyRefAudio ? { audio_input: [familyRefAudio] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution, audio: wanAudioOn }
         : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
-    return { mediaType: 'video', scene, provider: model.provider, model: model.value, prompt, options };
+    return { mediaType: 'video', scene, provider: model.provider, model: model.value, prompt, options, family };
   }
   async function download() {
     setDownloading(true);
@@ -317,7 +335,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {isTaskRelay && !isOmni && familyRefVideo && <p className="notice">{text('This model uses the configured reference video as the motion reference and your photos as the cast.', '该模型会自动把该系列配置的参考视频作为动作参考，配合你上传的照片生成。')}</p>}
     {isMinimaxRender && <p className="notice">{text(minimaxFamilyAudio ? 'This model uses the family reference audio as the driving audio for lipsync and voice style.' : 'No reference audio configured for this family — the model will generate its own audio.', minimaxFamilyAudio ? '该模型会把此系列的参考音频作为 driving audio，驱动角色口型与声音风格。' : '该系列尚未上传参考音频——模型将自行生成音频。')}</p>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v === 'adaptive' ? text('auto', '自动') : v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => <button key={v} disabled={!isTaskRelay && v === '1080p' && unsupported1080} title={!isTaskRelay && v === '1080p' && unsupported1080 ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>)}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
-    <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{models.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
+    <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{allowedModels.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details></fieldset>
     <button className="btn-gen" disabled={busy || isCheckSign || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{isCheckSign ? text('Checking account…', '登录状态检查中…') : busy ? text('Generating…', '生成中…') : text('Generate', '立即生成')}</button>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{label}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/subscribe">{text('Get credits', '购买积分')}</Link></div>
     <div className="result-actions"><button type="button" className="btn btn-outline" style={{ fontSize: 12, opacity: .7 }} onClick={() => { if (debugOpen) { setDebugOpen(false); return; } setDebugPayload(JSON.stringify(buildPayload(images.slice(0, maxSlots).filter(Boolean) as string[]), null, 2)); setDebugOpen(true); }}>{text('Debug: request payload', '调试：查看 Request 参数')}</button></div>
     {debugOpen && <pre style={{ maxHeight: 260, overflow: 'auto', fontSize: 11, lineHeight: 1.5, background: 'rgba(127,127,127,.12)', padding: '8px 10px', borderRadius: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all', textAlign: 'left', margin: 0 }}>{debugPayload}</pre>}
