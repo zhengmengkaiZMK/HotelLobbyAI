@@ -59,9 +59,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const ratioOptions = isFalRef ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
   const defaultKeepAudio = configs.fal_kling_reference_keep_audio !== 'false';
   const [keepAudio, setKeepAudio] = useState(defaultKeepAudio);
-  const effectivePrompt = (configs[`viral_template_prompt_${template.id}`] as string | undefined)?.trim() || template.prompt;
-  const klingPrompt = (configs[`viral_template_kling_prompt_${template.id}`] as string | undefined)?.trim()
-    || `${effectivePrompt} The reference video defines the choreography, camera work, scene layout and crowd energy only. Replace every person in the reference video with the person or people from the reference image(s), preserving their facial identity, hairstyle and outfit exactly.`;
+  // family-level admin config: all templates of a family share one prompt and
+  // one reference video (hotel lobby family vs burning bridges family)
+  const family = template.id.startsWith('party-') ? 'burning_bridges' : 'hotel';
+  const familyRefVideo = (configs[`viral_family_reference_video_${family}`] as string | undefined)?.trim() || '';
+  const effectivePrompt = (configs[`viral_family_prompt_${family}`] as string | undefined)?.trim() || template.prompt;
+  const klingPrompt = `${effectivePrompt} The reference video defines the choreography, camera work, scene layout and crowd energy only. Replace every person in the reference video with the person or people from the reference image(s), preserving their facial identity, hairstyle and outfit exactly.`;
   const maxSlots = template.slots ?? 2;
   const defaultImages = template.images ? [...template.images] : [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
   const [images, setImages] = useState<(string | null)[]>(defaultImages);
@@ -212,9 +215,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     const usable = images.slice(0, maxSlots);
     const input = single ? usable.slice(0, 1) : usable;
     if (input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
-    // 2b) Kling reference: the template's admin-configured reference video is
+    // 2b) Kling reference: the family's admin-configured reference video is
     // required — never fall back to a built-in clip silently
-    if (isFalRef && !(typeof configs[`viral_template_reference_video_${template.id}`] === 'string' && (configs[`viral_template_reference_video_${template.id}`] as string).trim())) {
+    if (isFalRef && !familyRefVideo) {
       setError(text('This template has no reference video configured yet. Please try again later.', '该模板尚未配置参考视频，请稍后再试。'));
       return;
     }
@@ -231,11 +234,10 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       // rejects ANY video reference (verified 2026-10: even clean clips fail
       // with "invalid argument"), so Omni always runs photo-only.
       const includeTemplateVideo = configs.task_relay_include_template_video !== 'false';
-      // Kling O3 Pro Reference uses exactly one motion video: the
-      // admin-configured per-template reference video (validated above), and
-      // replaces the people with the user photos.
-      const falRefVideo = configs[`viral_template_reference_video_${template.id}`];
-      const falRefVideoInput = [(falRefVideo as string).trim()];
+      // Kling O3 Pro Reference uses exactly one motion video: the family's
+      // admin-configured reference video (validated above), and replaces the
+      // people with the user photos.
+      const falRefVideoInput = [familyRefVideo];
       const motionClause = isFalRef
         ? ''
         : !isTaskRelay
@@ -245,7 +247,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
             : ' The reference video defines the choreography, camera work, crowd energy and scene layout only. Replace every person in the reference video with the person(s) from the reference images, preserving their facial identity, hairstyle and outfit exactly.';
       const videoInput = isFalRef
         ? falRefVideoInput
-        : isTaskRelay && !isOmni && includeTemplateVideo ? [`${window.location.origin}/templates/reference/${template.id}.mp4`] : [];
+        : isTaskRelay && !isOmni && includeTemplateVideo
+          ? [familyRefVideo || `${window.location.origin}/templates/reference/${template.id}.mp4`]
+          : [];
       // MiniMax-H3 driving audio: admin-uploaded reference audio in the panel
       // (task_relay_minimax_audio) rides along as audio_references; other
       // models reject audio input so it is attached only for MiniMax-H3.
