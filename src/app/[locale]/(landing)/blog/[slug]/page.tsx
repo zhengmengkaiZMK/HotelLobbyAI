@@ -1,8 +1,8 @@
+import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
 import { envConfigs } from '@/config';
-import { Empty } from '@/shared/blocks/common';
 import { getPost } from '@/shared/models/post';
 import { buildHowToJsonLd } from '@/shared/lib/howto-schema';
 import { DynamicPage } from '@/shared/types/blocks/landing';
@@ -24,13 +24,7 @@ export async function generateMetadata({
 
   const post = await getPost({ slug, locale });
   if (!post) {
-    return {
-      title: `${slug} | ${t('title')}`,
-      description: t('description'),
-      alternates: {
-        canonical: canonicalUrl,
-      },
-    };
+    notFound();
   }
 
   const ogImage = post.image ? `${envConfigs.app_url}${post.image}` : undefined;
@@ -75,7 +69,7 @@ export default async function BlogDetailPage({
   const post = await getPost({ slug, locale });
 
   if (!post) {
-    return <Empty message={`Post not found`} />;
+    notFound();
   }
 
   // Article JSON-LD for search engines and AI answer engines (SEO + GEO)

@@ -17,7 +17,6 @@ const staticRoutes = [
   { path: '/ai-image-generator', priority: 0.6, changeFrequency: 'weekly' as const },
   { path: '/ai-music-generator', priority: 0.6, changeFrequency: 'weekly' as const },
   { path: '/blog', priority: 0.7, changeFrequency: 'daily' as const },
-  { path: '/showcases', priority: 0.5, changeFrequency: 'weekly' as const },
   { path: '/updates', priority: 0.5, changeFrequency: 'weekly' as const },
   { path: '/docs', priority: 0.4, changeFrequency: 'monthly' as const },
 ];
