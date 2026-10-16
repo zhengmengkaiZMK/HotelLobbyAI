@@ -67,7 +67,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const isTaskRelay = model?.provider === 'task-relay';
   // fal Kling O3 Pro Reference: template motion video + user photos, billed per second
   const isFalRef = model?.provider === 'fal' && !!falRefModel && model.value === falRefModel.value;
-  // fal Wan 3.0 Reference: same family behavior, plus resolution tiers and 2-30s durations
+  // fal Wan 3.0 Reference: same family behavior, plus resolution tiers.
+  // Upstream allows 2-30s; the dialog hides 20s and 30s until we turn them back on.
   const isFalWan = model?.provider === 'fal' && !!falWanModel && model.value === falWanModel.value;
   // gemini-omni-1.1-flash: 3-10s, 360p/720p/1080p, reference clips capped at 10s
   const isOmni = isTaskRelay && !!model && model.value.toLowerCase().startsWith('gemini-omni');
@@ -81,7 +82,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         : isOmni
           ? ['360p', '720p', '1080p']
           : model!.value.toLowerCase() === 'minimax-h3' ? ['768P', '2K'] : ['720p'];
-  const durationOptions = isFalRef ? [3, 5, 8, 10, 12, 15] : isFalWan ? [5, 10, 15, 20, 30] : isOmni ? [4, 6, 8, 10] : [8, 12, 15];
+  const durationOptions = (isFalRef ? [3, 5, 8, 10, 12, 15] : isFalWan ? [5, 10, 15, 20, 30] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]).filter((seconds) => seconds <= 15);
   // Omni only supports 16:9 / 9:16 / auto; Kling reference adds auto + 1:1;
   // Wan reference uses "adaptive" (shown as auto) + fixed ratios
   const ratioOptions = isFalWan ? ['adaptive', '16:9', '9:16', '1:1'] : isFalRef ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];

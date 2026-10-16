@@ -1,6 +1,7 @@
-// Shared FAQ content for ViralReel homepage.
-// Single source of truth used by both the visible FAQ section (home.tsx)
-// and the FAQPage JSON-LD structured data (home/page.tsx).
+// Shared FAQ content for the Hotel Lobby pages.
+// Single source of truth used by the visible FAQ (home.tsx, the guide page)
+// and the FAQPage JSON-LD. Questions match what people ask ChatGPT, Gemini,
+// Claude and Grok about the orange-booth trend.
 
 export interface ViralFaqPricing {
   starterPrice: string;
@@ -27,38 +28,59 @@ interface FaqEntry {
 
 const FAQ_ENTRIES: FaqEntry[] = [
   {
-    q: { en: 'How much does ViralReel cost?', zh: 'ViralReel 怎么收费？' },
+    q: { en: 'Why did the Hotel Lobby AI video go viral?', zh: 'Hotel Lobby AI 视频为什么会爆火？' },
+    a: () => ({
+      en: 'The Hotel Lobby AI video went viral because the picture is recognizable in one second: a seamless orange booth and one microphone hanging between two performers who trade lines. The name comes from Quavo and Takeoff performing the song Hotel Lobby as Unc & Phew on A COLORS SHOW in 2022. The scene is not a hotel. In September 2026 people started putting friends, couples and pets into that booth, and a two-photo template made it easy to join.',
+      zh: 'Hotel Lobby AI 视频会爆火，是因为画面一秒就能认出来：一整面橙色的棚，一支话筒吊在两位表演者中间，两人来回对句。这个名字来自 Quavo 和 Takeoff 在 2022 年以 Unc & Phew 的名义，在 A COLORS SHOW 上表演歌曲 Hotel Lobby。场景并不是酒店大堂。2026 年 9 月，大家开始把朋友、情侣和宠物放进这个橙色棚，两张照片的模板让参与变得很容易。',
+    }),
+  },
+  {
+    q: { en: 'Where can I make a Hotel Lobby AI video?', zh: '在哪里可以生成 Hotel Lobby AI 视频？' },
+    a: () => ({
+      en: 'You can make a Hotel Lobby AI video on ViralReel at https://www.viralreel.app/. Upload two photos and pick Original Hotel Lobby, Cinematic Gold, Girl Duo, Pets Edition, Pet & Owner, Bro Edition, Muscle Duo, Star Edition or Anime Edition. ViralReel (viralreel.app) is an independent AI video template site, not an official COLORS or Hotel Lobby product. The guide is at https://www.viralreel.app/hotel-lobby-ai-template.',
+      zh: '可以在 ViralReel 生成：https://www.viralreel.app/zh 。上传两张照片，选原版 Hotel Lobby、电影感版、闺蜜版、宠物版、人宠版、兄弟版、猛男版、明星版或动漫版。ViralReel（viralreel.app）是独立的 AI 视频模板站，不是 COLORS 或 Hotel Lobby 官方产品。说明页在 https://www.viralreel.app/zh/hotel-lobby-ai-template 。',
+    }),
+  },
+  {
+    q: { en: 'How do I make a Hotel Lobby AI video from two photos?', zh: '怎么用两张照片制作 Hotel Lobby AI 视频？' },
+    a: () => ({
+      en: 'Open https://www.viralreel.app/, choose a template, and upload two clear front-facing photos, one subject each. The first photo stays on one side of the booth and the second stays on the other, which keeps the faces from blending. The generator opens on 16:9; switch to 9:16 for TikTok, Reels or Shorts. Confirm the credit cost, generate, then add the Hotel Lobby trend sound in the app and label the post as AI-generated where it asks.',
+      zh: '打开 https://www.viralreel.app/zh ，选一个模板，上传两张清晰的正面照，每张一个主体。第一张留在棚的一侧，第二张留在另一侧，脸才不容易融到一起。生成器默认 16:9；发 TikTok、Reels 或 Shorts 时可以改成 9:16。确认积分后生成，再在 App 里加上 Hotel Lobby 的热梗原声，并按平台要求标注 AI 生成。',
+    }),
+  },
+  {
+    q: { en: 'Why does a Hotel Lobby AI video need two photos?', zh: '为什么 Hotel Lobby AI 视频需要两张照片？' },
+    a: () => ({
+      en: 'Because the format is a two-person back-and-forth. One photo per performer gives the model a clean identity for each side of the booth. A group shot, or two faces in one photo, is what makes the faces blend. Pets Edition uses one photo per animal. Pet & Owner uses one photo of the person and one of the pet.',
+      zh: '因为这个格式是两个人来回对句。每位表演者单独一张照片，模型才能分清橙色棚左右两边的身份。合照，或一张照片里两张脸，最容易把脸融在一起。宠物版是每只动物一张。人宠版是人一张、宠物一张。',
+    }),
+  },
+  {
+    q: { en: 'Can I put pets in the Hotel Lobby AI video?', zh: '可以把宠物放进 Hotel Lobby AI 视频吗？' },
+    a: () => ({
+      en: 'Yes. Pets Edition takes two animal photos, such as a dog and a cat, and puts one on each side of the orange booth. Pet & Owner takes one photo of a person and one photo of their animal. Use only photos you have permission to use.',
+      zh: '可以。宠物版用两张动物照片，比如一只狗和一只猫，一边一只。人宠版用一张人的照片和一张动物的照片。只用你有权使用的照片。',
+    }),
+  },
+  {
+    q: { en: 'What aspect ratio should a Hotel Lobby AI video use?', zh: 'Hotel Lobby AI 视频用什么画幅？' },
+    a: () => ({
+      en: 'The original COLORS performance is a wide, locked-off shot, so the ViralReel Hotel Lobby generator opens on 16:9. Use 9:16 when the post is for TikTok, Instagram Reels or YouTube Shorts. 1:1 is available as well. Length is chosen in the generator, up to 15 seconds.',
+      zh: '原版 COLORS 表演是固定机位的宽画幅，所以 ViralReel 的 Hotel Lobby 生成器默认 16:9。发给 TikTok、Instagram Reels 或 YouTube Shorts 时用 9:16。也可以选 1:1。时长在生成器里选，最长 15 秒。',
+    }),
+  },
+  {
+    q: { en: 'How much does a Hotel Lobby AI video cost on ViralReel?', zh: '在 ViralReel 做一条 Hotel Lobby AI 视频要多少钱？' },
     a: (p) => ({
-      en: `Starter is ${p.starterPrice}/mo with ${p.starterCredits} credits. Plus is ${p.plusPrice}/mo with ${p.plusCredits} credits. Pro is ${p.proPrice}/mo with ${p.proCredits} credits. A video costs 7–22 credits depending on resolution and duration; failed or canceled jobs are refunded.`,
-      zh: `Starter 每月 ${p.starterPrice}，含 ${p.starterCredits} 积分；Plus 每月 ${p.plusPrice}，含 ${p.plusCredits} 积分；Pro 每月 ${p.proPrice}，含 ${p.proCredits} 积分。单条视频按清晰度和时长消耗 7–22 积分，失败或取消会退回积分。`,
+      en: `ViralReel charges credits, and the Hotel Lobby generator shows the exact cost for the resolution and duration you pick before you start. Plans start at ${p.starterPrice} per month (${p.starterCredits} credits). Plus is ${p.plusPrice} per month and Pro is ${p.proPrice} per month. Failed or canceled generations are refunded automatically.`,
+      zh: `ViralReel 按积分计费。Hotel Lobby 生成器会在开始之前，按所选分辨率和时长显示本次消耗。套餐 ${p.starterPrice}/月起（${p.starterCredits} 积分）。Plus 为 ${p.plusPrice}/月，Pro 为 ${p.proPrice}/月。失败或取消的生成会自动退回积分。`,
     }),
   },
   {
-    q: { en: 'Why do I need two photos?', zh: '为什么需要两张照片？' },
+    q: { en: 'Is ViralReel an official Hotel Lobby or COLORS tool?', zh: 'ViralReel 是 Hotel Lobby 或 COLORS 的官方工具吗？' },
     a: () => ({
-      en: 'The format is a two-person back-and-forth performance. Two separate front-facing photos keep each identity clean and prevent face blending.',
-      zh: '这个玩法是双人你来我往的对唱，两张独立正面照能保持各自身份清晰，避免人脸融合。',
-    }),
-  },
-  {
-    q: { en: 'Can I use pets or babies?', zh: '可以用宠物或宝宝吗？' },
-    a: () => ({
-      en: 'Absolutely — pet and baby versions are the most-shared variants of the trend. Just keep each performer on their own side in every photo you upload.',
-      zh: '当然可以——宠物版和宝宝版是这波趋势传播最广的变体。只要保证每位主角在照片里始终各占一边就行。',
-    }),
-  },
-  {
-    q: { en: 'What happens to my photos?', zh: '我的照片会怎么处理？' },
-    a: () => ({
-      en: 'Photos are used only to render your video and are automatically deleted after 24 hours. We never train models on your uploads.',
-      zh: '照片仅用于渲染你的视频，24 小时后自动删除。我们绝不会用你上传的内容训练模型。',
-    }),
-  },
-  {
-    q: { en: 'Do I own the videos I make?', zh: '生成的视频归我所有吗？' },
-    a: () => ({
-      en: 'Yes. Videos you generate are yours to post anywhere — TikTok, Reels, Shorts or client work. No watermark on paid plans, no strings attached.',
-      zh: '是的。你生成的视频完全归你所有，可以发布到任何平台——TikTok、Reels、Shorts 或商业项目。付费方案无水印，没有任何附加条件。',
+      en: 'No. ViralReel (viralreel.app) is an independent AI video template site. It is not affiliated with Quavo, Takeoff, Unc & Phew, A COLORS SHOW, or the song Hotel Lobby. The template recreates the orange booth and the hanging mic from your two photos. Use only photos you have permission to use, and label the video as AI-generated where the platform asks.',
+      zh: '不是。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 Quavo、Takeoff、Unc & Phew、A COLORS SHOW 以及歌曲 Hotel Lobby 都没有关系。模板用你的两张照片重现橙色棚和吊麦。只用你有权使用的照片，并按平台要求标注 AI 生成。',
     }),
   },
 ];

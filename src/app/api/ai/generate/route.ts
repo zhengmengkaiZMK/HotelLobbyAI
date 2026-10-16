@@ -245,8 +245,9 @@ export async function POST(request: Request) {
       }
 
       const duration = Number(options?.duration);
-      if (!Number.isInteger(duration) || duration < 2 || duration > 30) {
-        throw new Error('Duration must be a whole number between 2 and 30 seconds');
+      // 20s and 30s stay off while the template dialogs cap every series at 15s.
+      if (!Number.isInteger(duration) || duration < 2 || duration > 15) {
+        throw new Error('Duration must be a whole number between 2 and 15 seconds');
       }
       if (options?.aspect_ratio && !['adaptive', '16:9', '4:3', '1:1', '3:4', '9:16'].includes(options.aspect_ratio)) {
         throw new Error('Aspect ratio must be adaptive, 16:9, 4:3, 1:1, 3:4 or 9:16');
