@@ -10,6 +10,7 @@ const staticRoutes = [
   { path: '/hotel-lobby-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/ozil-ai-goal-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/ai-video-generator', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/pricing', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/subscribe', priority: 0.8, changeFrequency: 'weekly' as const },

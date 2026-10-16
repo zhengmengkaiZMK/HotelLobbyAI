@@ -49,9 +49,11 @@ export default async function SettingsPage({
     'viral_family_models_hotel',
     'viral_family_models_burning_bridges',
     'viral_family_models_bulin_47',
+    'viral_family_models_ozil_goal',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
+    'viral_family_default_model_ozil_goal',
   ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {
