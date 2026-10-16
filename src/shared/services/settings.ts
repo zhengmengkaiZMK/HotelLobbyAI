@@ -1154,7 +1154,7 @@ export async function getSettings() {
       title: 'Ozil Goal 系列提示词',
       type: 'textarea',
       attributes: { rows: 4 },
-      tip: 'Ozil Goal 系列模板（夜场原版/训练背心/公园西装/马甲进球/怪兽进球）生成视频时统一使用的提示词，适用于包括 Kling 在内的所有模型。留空时各模板使用内置默认提示词。',
+      tip: 'Ozil Goal 系列模板（夜场原版/训练背心/公园西装/马甲进球/卫衣进球/怪兽进球）生成视频时统一使用的提示词，适用于包括 Kling 在内的所有模型。留空时各模板使用内置默认提示词。',
       group: 'viral_templates',
       tab: 'ai',
     },

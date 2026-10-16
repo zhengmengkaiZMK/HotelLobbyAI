@@ -51,6 +51,16 @@ export const ozilGoalTemplates = [
       'A vertical broadcast clip of a night football match under floodlights. The reference subject wears a cream shirt and a brown waistcoat, runs onto a loose ball, chips it over a diving goalkeeper in white, lets the ball drop while two defenders slide and miss, then walks the ball into the empty net. Preserve the reference subject\'s face and appearance exactly. Side camera, stadium crowd, vertical framing, not a cinematic advertisement. Plain clothes, no crest, no sponsor text.',
   },
   {
+    id: 'ozil-hoodie',
+    family,
+    name: ['Hoodie Finish', '卫衣进球版'],
+    colors: ['#e5e7eb', '#1f2937'],
+    slots: 1,
+    images: [null, null],
+    prompt:
+      'A vertical broadcast clip of a night football match under floodlights, on a green pitch with a packed stand behind. The reference subject wears a plain grey hoodie and dark jeans, runs onto a loose ball, chips it over a diving goalkeeper in a plain white kit, lets the ball drop while two defenders slide and miss, then walks the ball into the empty net. Preserve the reference subject\'s face and appearance exactly. Side camera, stadium crowd, vertical framing, not a cinematic advertisement. Plain clothes, no crest, no name, no sponsor text.',
+  },
+  {
     id: 'ozil-creature',
     family,
     name: ['Creature Goal', '怪兽进球版'],

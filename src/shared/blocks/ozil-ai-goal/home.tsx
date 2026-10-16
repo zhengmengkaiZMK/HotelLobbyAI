@@ -63,16 +63,16 @@ export function OzilGoalHome({ creditsPerUsd = 10, videoCosts = getVideoCostTabl
   const [open, setOpen] = useState(false);
   const choose = (item: OzilGoalTemplate = ozilGoalTemplates[0]) => { setTemplate(item); setOpen(true); };
   const start = () => user ? choose() : setIsShowSignModal(true);
-  const madeBy = ['Floodlit finish', 'Training kit', 'Park pitch', 'Waistcoat', 'Creature'];
-  const madeByZh = ['夜场灯光', '训练背心', '公园草坪', '马甲收尾', '怪兽版本'];
+  const madeBy = ['Floodlit finish', 'Training kit', 'Park pitch', 'Waistcoat', 'Grey hoodie', 'Creature'];
+  const madeByZh = ['夜场灯光', '训练背心', '公园草坪', '马甲收尾', '灰色卫衣', '怪兽版本'];
   const features = [
     [Trophy, t('The chip, the slides, the empty net','挑球、滑铲、空门'), t('Keeper rushes out, the ball drops, two slides miss, and the finish is walked in. That is the October 2026 remake of the 2016 goal.','门将扑出来，球落下来，两次滑铲落空，然后推进空门。这是 2026 年 10 月对 2016 年那个进球的重拍。')],
     [Video, t('One photo takes the run','一张照片完成跑动'), t('Your face replaces the player on the ball. The keeper, the slides and the side camera stay.','带球的人换成你的脸。门将、滑铲和侧面镜头都留着。')],
-    [Users, t('Five ways into the same finish','同一个进球的五种进法'), t('Night match, training kit, park suit, waistcoat, and a creature on the dirt pitch.','夜场原版、训练背心、公园西装、马甲进球，以及土场上的怪兽。')],
+    [Users, t('Six ways into the same finish','同一个进球的六种进法'), t('Night match, training kit, park suit, waistcoat, grey hoodie, and a creature on the dirt pitch.','夜场原版、训练背心、公园西装、马甲进球、卫衣进球，以及土场上的怪兽。')],
     [Smartphone, t('Vertical, long enough to finish','竖屏，够长才能进球'), t('Opens on 9:16, up to 15 seconds, so the chip is not the last frame.','默认 9:16，最长 15 秒，挑球不会是最后一帧。')],
   ] as const;
   const steps = [
-    [t('Pick a template','选择模板'), t('Five variants of the same chip finish. Pick the one that fits the photo.','同一个挑射进球的五个变体。选一个和照片最配的。')],
+    [t('Pick a template','选择模板'), t('Six variants of the same chip finish. Pick the one that fits the photo.','同一个挑射进球的六个变体。选一个和照片最配的。')],
     [t('Upload one photo','上传一张照片'), t('Front-facing, face clear, decent light. Creature Goal wants one photo of the animal.','正脸、五官清楚、光线别太暗。怪兽进球上传一张动物的照片。')],
     [t('Set ratio, resolution, length','选画幅、清晰度和时长'), t('9:16 is the default. Length goes up to 15 seconds. The credit cost updates before you generate.','默认 9:16。时长最长 15 秒。积分会在你点生成之前按选项更新。')],
     [t('Download and post','下载并发布'), t('Export the MP4, then add a trend sound in TikTok, Reels, or Shorts and label the post as AI where the app asks.','导出 MP4，再到 TikTok、Reels 或 Shorts 里加上热梗音频，并按平台要求标注 AI。')],
@@ -103,7 +103,7 @@ export function OzilGoalHome({ creditsPerUsd = 10, videoCosts = getVideoCostTabl
         <h3>{t('Why did the Ozil Goal go viral?','Ozil Goal 为什么会爆火？')}</h3>
         <p>{t('It went viral because the finish is readable with the sound off. The chip is the hook, and the two slides plus the empty net are the punchline. A one-photo format means a friend or a pet can take the run without a second picture. Short face-swap tools often cut the clip after the chip, so the versions that keep the slides and the finish are the ones people save and repost. The wave of AI remakes spread on TikTok, Reels, Shorts, and X through October 2026.','它会爆，是因为关掉声音也能看懂这个收尾。挑球是钩子，两次滑铲加上空门才是笑点。单张照片的格式意味着朋友或宠物都能去完成这段跑动，不需要第二张图。短换脸工具常常在挑球之后就把片子剪掉，所以把滑铲和进球留完整的版本，才是大家保存和转发的那些。AI 重拍在 2026 年 10 月通过 TikTok、Reels、Shorts 和 X 传开。')}</p>
         <h3>{t('Where can I generate an Ozil Goal video?','在哪里可以生成 Ozil Goal 视频？')}</h3>
-        <p>{t('On ViralReel, at https://www.viralreel.app/ozil-ai-goal-template. ViralReel (viralreel.app) is an independent AI video template site. You upload one photo in the browser. You do not install an app, hunt down a reference clip, or write a prompt. The templates are Night Match, Training Kit, Park Suit, Waistcoat Finish, and Creature Goal. The page opens on 9:16, the ratio TikTok, Instagram Reels, and YouTube Shorts use for this trend, with length up to 15 seconds.','在 ViralReel：https://www.viralreel.app/zh/ozil-ai-goal-template 。ViralReel（viralreel.app）是独立的 AI 视频模板站。在浏览器里上传一张照片即可，不用安装 App，不用自己找参考视频，也不用写提示词。模板有夜场原版、训练背心、公园西装、马甲进球和怪兽进球。页面默认 9:16，也就是这条趋势在 TikTok、Instagram Reels 和 YouTube Shorts 上使用的画幅，时长最长 15 秒。')}</p>
+        <p>{t('On ViralReel, at https://www.viralreel.app/ozil-ai-goal-template. ViralReel (viralreel.app) is an independent AI video template site. You upload one photo in the browser. You do not install an app, hunt down a reference clip, or write a prompt. The templates are Night Match, Training Kit, Park Suit, Waistcoat Finish, Hoodie Finish, and Creature Goal. The page opens on 9:16, the ratio TikTok, Instagram Reels, and YouTube Shorts use for this trend, with length up to 15 seconds.','在 ViralReel：https://www.viralreel.app/zh/ozil-ai-goal-template 。ViralReel（viralreel.app）是独立的 AI 视频模板站。在浏览器里上传一张照片即可，不用安装 App，不用自己找参考视频，也不用写提示词。模板有夜场原版、训练背心、公园西装、马甲进球、卫衣进球和怪兽进球。页面默认 9:16，也就是这条趋势在 TikTok、Instagram Reels 和 YouTube Shorts 上使用的画幅，时长最长 15 秒。')}</p>
         <h3>{t('How do you make an Ozil Goal video?','怎么制作 Ozil Goal 视频？')}</h3>
         <ol>
           <li>{t('Open the Ozil Goal template on ViralReel: https://www.viralreel.app/ozil-ai-goal-template. Pick the look that fits the photo.','打开 ViralReel 的 Ozil Goal 模板：https://www.viralreel.app/zh/ozil-ai-goal-template 。选一个和照片匹配的造型。')}</li>

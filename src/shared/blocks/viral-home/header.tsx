@@ -10,15 +10,16 @@ import { SignUser } from '@/shared/blocks/sign/sign-user';
 import { Brand } from './footer';
 import './home.css';
 
-// Shared site header for all ViralReel pages: the four top-level destinations.
+// Shared site header for all ViralReel pages.
 // onStart opens the page's own generator dialog (each page passes its own).
 export function ViralHeader({ onStart }: { onStart: () => void }) {
   const zh = useLocale().startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
   const nav: [string, string][] = [
-    ['/', t('Hotel Lobby Generator', 'Hotel Lobby 生成器')],
-    ['/burning-bridges-ai-template', t('Burning Bridges Generator', 'Burning Bridges 生成器')],
+    ['/ozil-ai-goal-template', t('Ozil Goal', 'Ozil Goal')],
     ['/bulin-47-ai-template', t('Bulin 47', 'Bulin 47')],
+    ['/burning-bridges-ai-template', t('Burning Bridges', 'Burning Bridges')],
+    ['/', t('Hotel Lobby', 'Hotel Lobby')],
     ['/pricing', t('Pricing', '定价')],
     ['/blog', t('Blog', '博客')],
   ];

@@ -13,14 +13,14 @@ const META = {
   en: {
     title: 'Ozil Goal template – Make the Viral Chip-and-Finish Video',
     description:
-      'Turn one photo into the viral Ozil Goal: chip over a diving keeper, two slides that miss, then walk the ball into an empty net. Night, training kit, park suit, waistcoat and creature templates. Vertical video, up to 15 seconds.',
+      'Turn one photo into the viral Ozil Goal: chip over a diving keeper, two slides that miss, then walk the ball into an empty net. Night, training kit, park suit, waistcoat, hoodie and creature templates. Vertical video, up to 15 seconds.',
     keywords:
       'Ozil Goal, Ozil Goal video, Ozil Goal template, ozil chip goal, ai football goal from photo',
   },
   zh: {
     title: 'Ozil Goal 模板：一张照片变成挑射空门爆火视频',
     description:
-      '把一张照片放进 Ozil Goal 玩法：门将扑出、挑射、两次滑铲落空、空门推进。夜场、训练背心、公园西装、马甲和怪兽五个模板，竖屏，最长 15 秒。',
+      '把一张照片放进 Ozil Goal 玩法：门将扑出、挑射、两次滑铲落空、空门推进。夜场、训练背心、公园西装、马甲、卫衣和怪兽六个模板，竖屏，最长 15 秒。',
     keywords:
       'Ozil Goal, Ozil Goal 视频, Ozil Goal 模板, 挑射空门 ai 视频, 照片生成足球进球视频',
   },
