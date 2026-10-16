@@ -26,4 +26,9 @@ export interface TemplateDef {
   prompt: string;
   slots?: 1 | 2;
   images?: readonly (string | null)[];
+  /**
+   * Admin config family (`viral_family_*_{family}`).
+   * Omitted templates stay on the historical rule: `party-*` → burning_bridges, everything else → hotel.
+   */
+  family?: string;
 }

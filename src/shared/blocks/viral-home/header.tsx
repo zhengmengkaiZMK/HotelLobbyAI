@@ -18,6 +18,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
   const nav: [string, string][] = [
     ['/', t('Hotel Lobby Generator', 'Hotel Lobby 生成器')],
     ['/burning-bridges-ai-template', t('Burning Bridges Generator', 'Burning Bridges 生成器')],
+    ['/bulin-47-ai-template', t('Bulin 47', 'Bulin 47')],
     ['/pricing', t('Pricing', '定价')],
     ['/blog', t('Blog', '博客')],
   ];

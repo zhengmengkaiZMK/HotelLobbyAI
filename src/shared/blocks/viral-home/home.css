@@ -14,7 +14,7 @@
 .viral-home .brand i{font-style:normal;color:#ea580c}
 .viral-home .menu,.viral-home .right{display:flex;align-items:center;gap:4px}
 .viral-home .right{gap:16px}
-.viral-home .menu a{font-size:14px;color:#71717a;padding:6px 16px;border-radius:6px;transition:.15s}
+.viral-home .menu a{font-size:14px;color:#71717a;padding:6px 10px;border-radius:6px;transition:.15s;white-space:nowrap}
 .viral-home .menu a:hover{background:#f4f4f5;color:#09090b}
 .viral-home .signin [data-slot=button]{background:transparent;color:#71717a;box-shadow:none;border:0;margin:0}
 .viral-home .btn,.viral-dialog .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;border-radius:8px;font-size:14px;font-weight:500;height:40px;padding:0 20px;text-decoration:none;cursor:pointer;border:0;transition:.15s}

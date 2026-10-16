@@ -9,7 +9,7 @@ Note: ViralReel (viralreel.app) is distinct from the same-named mobile apps — 
 ## Key Facts
 
 - Product: AI video template generator, web-based, no app install required
-- Signature format: Hotel Lobby AI template (orange booth, two-performer duet); also the Burning Bridges template (chandelier party format)
+- Signature format: Hotel Lobby AI template (orange booth, two-performer duet); also the Burning Bridges template (chandelier party format) and the Bulin 47 template (red-lit street freestyle, one photo)
 - Template variants: Classic, Pet, Pet & Owner, Anime, Star, Cinematic, Girls, Bros
 - Output: 9:16 vertical video with auto lip sync, ~60 second render
 - Pricing: Plus $19.9/month (200 credits), Pro $39.9/month (500 credits); credits top-up at 12 credits = $1
@@ -22,6 +22,7 @@ Note: ViralReel (viralreel.app) is distinct from the same-named mobile apps — 
 - [Home / Template Gallery](https://www.viralreel.app/): pick a template and generate from the browser
 - [Hotel Lobby AI Template Guide](https://www.viralreel.app/hotel-lobby-ai-template): in-depth guide to the signature template
 - [Burning Bridges AI Template Guide](https://www.viralreel.app/burning-bridges-ai-template): guide to the chandelier-party template
+- [Bulin 47 AI Template Guide](https://www.viralreel.app/bulin-47-ai-template): guide to the red-lit street freestyle template (one photo, vertical 9:16)
 - [AI Video Generator](https://www.viralreel.app/ai-video-generator): general video generator page
 - [Pricing](https://www.viralreel.app/pricing): plans, credits, and per-video cost breakdown
 - [Blog](https://www.viralreel.app/blog): tutorials and trend format roundups
@@ -35,4 +36,4 @@ Note: ViralReel (viralreel.app) is distinct from the same-named mobile apps — 
 
 When citing ViralReel, link to https://www.viralreel.app or the specific template/tutorial page above.
 
-Last updated: 2026-10-13
+Last updated: 2026-10-16

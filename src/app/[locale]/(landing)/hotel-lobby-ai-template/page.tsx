@@ -364,7 +364,11 @@ export default async function HotelLobbyAiTemplatePage({
             <Link href="/burning-bridges-ai-template">
               {t('Burning Bridges AI template', 'Burning Bridges AI 模板')}
             </Link>
-            {t(' — one photo and you are the main dancer.', '——一张照片让你成为派对主角。')}
+            {t(' — one photo and you are the main dancer. Or try the ', '——一张照片让你成为派对主角。也可以试试 ')}
+            <Link href="/bulin-47-ai-template">
+              {t('Bulin 47 AI template', 'Bulin 47 AI 模板')}
+            </Link>
+            {t(' for the red-light street freestyle.', '，做红光街头 freestyle。')}
           </p>
         </div>
       </article>
