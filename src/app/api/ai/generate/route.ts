@@ -313,9 +313,9 @@ export async function POST(request: Request) {
         options = { ...options, resolution: options?.resolution ?? '720p', duration: Number(options?.duration ?? 8) };
       } else if (scene === 'video-to-video') {
         // Kling O3 Pro Reference bills per output second (admin-configured
-        // credits/s); Wan 3.0 Reference bills per second by resolution tier
-        // including input reference video seconds; other video-to-video
-        // models keep the flat price
+        // credits/s); Wan 3.0 Reference also bills per output second by
+        // resolution tier (the reference video is not charged to users);
+        // other video-to-video models keep the flat price
         const isFalReference =
           provider === 'fal' &&
           model === (configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL);

@@ -291,7 +291,7 @@ export async function getSettingGroups() {
       name: 'wan_business',
       title: 'Wan 3.0 Reference（开放/展示/计费）',
       description:
-        'Wan 3.0 视频转视频模型的业务配置：启用开关、前端显示名称、参考视频时长与三档分辨率积分单价。模型 endpoint ID 见「模型接入」标签页。',
+        'Wan 3.0 视频转视频模型的业务配置：启用开关、前端显示名称与三档分辨率每秒积分单价。计费只按输出秒数，参考视频不计费。模型 endpoint ID 见「模型接入」标签页。',
       tab: 'ai',
     },
     {
@@ -1341,16 +1341,6 @@ export async function getSettings() {
       tip: '开启时前端用户可在「使用参考音频 / 不带原声」外选择「生成音频」（系列未上传参考音频时默认生成音频）；关闭时只能使用系列参考音频或不带原声，不再提供模型生成音频选项。',
     },
     {
-      name: 'fal_wan_reference_input_seconds',
-      title: '参考视频总时长（秒）/ Reference Video Seconds',
-      type: 'text',
-      value: '5',
-      placeholder: '5',
-      group: 'wan_business',
-      tab: 'ai',
-      tip: 'Wan 3.0 会把参考视频的秒数也计入计费（输入秒数 + 输出秒数）。请填写你上传的系列参考视频的实际总时长（向上取整），用于准确计费。',
-    },
-    {
       name: 'fal_wan_reference_credits_per_second_480p',
       title: '480p 每秒积分 / Credits Per Second (480p)',
       type: 'text',
@@ -1510,7 +1500,6 @@ export const publicSettingNames = [
   'fal_wan_reference_model',
   'fal_wan_reference_title',
   'fal_wan_reference_allow_generated_audio',
-  'fal_wan_reference_input_seconds',
   'fal_wan_reference_credits_per_second_480p',
   'fal_wan_reference_credits_per_second_720p',
   'fal_wan_reference_credits_per_second_1080p',

@@ -83,14 +83,13 @@ export function getFalReferenceVideoCost(
 }
 
 /**
- * Per-second billing for the fal.ai Wan 3.0 Reference-to-Video model. The
- * upstream price is $0.05/s at 480p, $0.10/s at 720p and $0.20/s at 1080p —
- * at the default 12 credits/USD rate that is 0.6 / 1.2 / 2.4 credits/s.
- * Upstream bills input reference video seconds IN ADDITION to output
- * seconds, so the total is (duration + inputSeconds) × unit price. Admins
- * can override the per-second credits via
- * `fal_wan_reference_credits_per_second_{480p|720p|1080p}` and set the
- * configured reference video length via `fal_wan_reference_input_seconds`.
+ * Per-second billing for the fal.ai Wan 3.0 Reference-to-Video model.
+ * Billed by OUTPUT seconds only — the reference video is not charged to
+ * users (the upstream input-second cost is absorbed by the admin, who
+ * prices it into the per-second rates). Defaults are $0.05/s at 480p,
+ * $0.10/s at 720p and $0.20/s at 1080p — at the default 12 credits/USD
+ * rate that is 0.6 / 1.2 / 2.4 credits/s. Admins can override the
+ * per-second credits via `fal_wan_reference_credits_per_second_{480p|720p|1080p}`.
  * Durations follow the upstream schema: whole seconds from 2 to 30.
  */
 export const FAL_WAN_REFERENCE_VIDEO_MODEL = 'alibaba/wan-3.0/reference-to-video';
@@ -104,9 +103,7 @@ export function getFalWanReferenceVideoCost(
   const r = ['480p', '720p', '1080p'].includes(resolution || '') ? resolution! : '720p';
   const d = Number(duration);
   if (!Number.isInteger(d) || d < 2 || d > 30) throw new Error('Unsupported video duration');
-  const inputConfigured = Number(configs?.['fal_wan_reference_input_seconds']);
-  const inputSeconds = Number.isFinite(inputConfigured) && inputConfigured > 0 ? inputConfigured : 5;
   const rateConfigured = Number(configs?.[`fal_wan_reference_credits_per_second_${r}`]);
   const unitPrice = Number.isFinite(rateConfigured) && rateConfigured > 0 ? rateConfigured : FAL_WAN_REFERENCE_RATES[r];
-  return Math.max(1, Math.ceil(unitPrice * (d + inputSeconds)));
+  return Math.max(1, Math.ceil(unitPrice * d));
 }
