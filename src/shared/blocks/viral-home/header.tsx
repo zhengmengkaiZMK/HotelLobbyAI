@@ -16,6 +16,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
   const zh = useLocale().startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
   const nav: [string, string][] = [
+    ['/cat-clapping-ai-template', t('Cat Clapping', 'Cat Clapping')],
     ['/ozil-ai-goal-template', t('Ozil Goal', 'Ozil Goal')],
     ['/bulin-47-ai-template', t('Bulin 47', 'Bulin 47')],
     ['/burning-bridges-ai-template', t('Burning Bridges', 'Burning Bridges')],
