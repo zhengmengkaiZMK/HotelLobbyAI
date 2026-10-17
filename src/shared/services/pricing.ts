@@ -7,6 +7,19 @@ export const CREDITS_TOPUP_PRODUCT_ID = 'credits_topup';
 
 export const DEFAULT_CREDITS_PER_USD = 10;
 
+// One-time credit packs sold on the pricing page. Separate from the
+// subscriber-only `credits_topup` custom amount.
+export const CREDIT_PACK_PRODUCT_IDS = [
+  'credits-once-starter',
+  'credits-once-popular',
+  'credits-once-creator',
+  'credits-once-max',
+] as const;
+
+export function isCreditPackProduct(productId: string) {
+  return (CREDIT_PACK_PRODUCT_IDS as readonly string[]).includes(productId);
+}
+
 // plan settings editable in the admin backend (tab: payment, group: pricing)
 export const PLAN_SETTING_NAMES = [
   'starter-monthly',
@@ -15,6 +28,7 @@ export const PLAN_SETTING_NAMES = [
   'starter-yearly',
   'plus-yearly',
   'pro-yearly',
+  ...CREDIT_PACK_PRODUCT_IDS,
 ] as const;
 
 export function planSettingName(productId: string, field: 'amount' | 'price' | 'credits') {
@@ -53,7 +67,8 @@ export async function getPricingPlans(locale: string): Promise<PricingItem[]> {
   const items = t.raw('page.sections.pricing.items') as PricingItem[];
   if (!Array.isArray(items)) return [];
 
-  const configs = await getAllConfigs();
+  // Fresh read so an admin price/credit edit is what checkout charges.
+  const configs = await getAllConfigs(true);
   return items.map((item) => applyPlanOverrides(item, configs));
 }
 

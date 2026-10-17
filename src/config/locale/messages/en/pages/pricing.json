@@ -20,6 +20,10 @@
             "name": "yearly",
             "title": "Annually",
             "label": "save 20%"
+          },
+          {
+            "name": "once",
+            "title": "Pay Once"
           }
         ],
         "items": [
@@ -210,6 +214,131 @@
             "valid_days": 365,
             "group": "yearly",
             "plan_name": "Pro"
+          },
+          {
+            "title": "Starter",
+            "description": "A one-time pack of credits. Buy only what you need.",
+            "features_title": "Includes",
+            "features": [
+              "90 credits, one-time (≈ 9 videos)",
+              "All templates included",
+              "720p export, watermark-free",
+              "Standard rendering queue",
+              "Instant credit top-ups whenever you need"
+            ],
+            "interval": "one-time",
+            "amount": 990,
+            "currency": "USD",
+            "price": "$9.9",
+            "original_price": "",
+            "unit": " once",
+            "is_featured": false,
+            "tip": "One-time payment. Credits never expire.",
+            "button": {
+              "title": "Buy Starter",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-starter",
+            "product_name": "ViralReel Starter Credits",
+            "credits": 90,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Starter"
+          },
+          {
+            "title": "Popular",
+            "description": "The one-time pack most people start with.",
+            "label": "Most popular",
+            "features_title": "Includes",
+            "features": [
+              "180 credits, one-time (≈ 18 videos)",
+              "All templates included",
+              "720p export, watermark-free",
+              "Standard rendering queue",
+              "Instant credit top-ups whenever you need"
+            ],
+            "interval": "one-time",
+            "amount": 1990,
+            "currency": "USD",
+            "price": "$19.9",
+            "original_price": "",
+            "unit": " once",
+            "is_featured": true,
+            "tip": "One-time payment. Credits never expire.",
+            "button": {
+              "title": "Buy Popular",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-popular",
+            "product_name": "ViralReel Popular Credits",
+            "credits": 180,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Popular"
+          },
+          {
+            "title": "Creator",
+            "description": "A larger one-time pack for regular posting.",
+            "features_title": "Includes",
+            "features": [
+              "480 credits, one-time (≈ 48 videos)",
+              "All templates included",
+              "1080p export, watermark-free",
+              "Priority queue — skip the line",
+              "Instant credit top-ups whenever you need"
+            ],
+            "interval": "one-time",
+            "amount": 3990,
+            "currency": "USD",
+            "price": "$39.9",
+            "original_price": "",
+            "unit": " once",
+            "is_featured": false,
+            "tip": "One-time payment. Credits never expire.",
+            "button": {
+              "title": "Buy Creator",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-creator",
+            "product_name": "ViralReel Creator Credits",
+            "credits": 480,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Creator"
+          },
+          {
+            "title": "Max",
+            "description": "The biggest one-time pack, for heavy creation.",
+            "features_title": "Includes",
+            "features": [
+              "950 credits, one-time (≈ 95 videos)",
+              "All templates included",
+              "1080p export, watermark-free",
+              "Priority queue — skip the line",
+              "Instant credit top-ups whenever you need"
+            ],
+            "interval": "one-time",
+            "amount": 6990,
+            "currency": "USD",
+            "price": "$69.9",
+            "original_price": "",
+            "unit": " once",
+            "is_featured": false,
+            "tip": "One-time payment. Credits never expire.",
+            "button": {
+              "title": "Buy Max",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-max",
+            "product_name": "ViralReel Max Credits",
+            "credits": 950,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Max"
           }
         ]
       }

@@ -23,8 +23,8 @@ export function ViralPricingPage({ plans, creditsPerUsd = 10, videoCosts, hasSub
   return <div className="viral-home">
     <ViralHeader onStart={() => router.push('/')}/>
     <main>
-      <section className="hero"><div className="container"><div className="hero-badge"><span>#pricing</span><span className="bar"/><b>{t(`${creditsPerUsd} credits = $1`, `${creditsPerUsd} 积分 = 1 美元`)}</b></div><h1>{t('Simple pricing. ', '定价简单，')}<span className="hl">{t('Scale when you go viral.', '爆火了再扩量。')}</span></h1><p className="lead">{t('Subscribe for monthly credits or top up on demand — every plan makes the full template library.', '订阅获取每月积分，或按需加购——所有套餐均可使用全部模板。')}</p></div></section>
-      <PricingSection plans={plans} creditsPerUsd={creditsPerUsd} videoCosts={videoCosts}/>
+      <section className="hero"><div className="container"><div className="hero-badge"><span>#pricing</span><span className="bar"/><b>{t(`${creditsPerUsd} credits = $1`, `${creditsPerUsd} 积分 = 1 美元`)}</b></div><h1>{t('Simple pricing. ', '定价简单，')}<span className="hl">{t('Scale when you go viral.', '爆火了再扩量。')}</span></h1><p className="lead">{t('Buy credits once, or subscribe monthly or yearly — every plan makes the full template library.', '一次性购买积分，或按月、按年订阅——所有套餐均可使用全部模板。')}</p></div></section>
+      <PricingSection plans={plans} creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} enablePayOnce/>
       {hasSubscription && (
         <section className="sec sec-alt" id="credits">
           <div className="container">

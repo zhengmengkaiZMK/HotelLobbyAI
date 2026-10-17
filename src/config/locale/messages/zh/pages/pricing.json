@@ -20,6 +20,10 @@
             "name": "yearly",
             "title": "年付",
             "label": "省 20%"
+          },
+          {
+            "name": "once",
+            "title": "一次性"
           }
         ],
         "items": [
@@ -210,6 +214,131 @@
             "valid_days": 365,
             "group": "yearly",
             "plan_name": "Pro"
+          },
+          {
+            "title": "Starter",
+            "description": "一次性积分包，需要多少买多少。",
+            "features_title": "包含",
+            "features": [
+              "一次性 90 积分（约 9 条视频）",
+              "全部模板可用",
+              "720p 导出，无水印",
+              "标准渲染队列",
+              "积分不够可随时加购"
+            ],
+            "interval": "one-time",
+            "amount": 990,
+            "currency": "USD",
+            "price": "$9.9",
+            "original_price": "",
+            "unit": " 一次性",
+            "is_featured": false,
+            "tip": "一次性付款，积分不过期。",
+            "button": {
+              "title": "购买 Starter",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-starter",
+            "product_name": "ViralReel Starter 积分",
+            "credits": 90,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Starter"
+          },
+          {
+            "title": "Popular",
+            "description": "最多人选择的一次性积分包。",
+            "label": "最受欢迎",
+            "features_title": "包含",
+            "features": [
+              "一次性 180 积分（约 18 条视频）",
+              "全部模板可用",
+              "720p 导出，无水印",
+              "标准渲染队列",
+              "积分不够可随时加购"
+            ],
+            "interval": "one-time",
+            "amount": 1990,
+            "currency": "USD",
+            "price": "$19.9",
+            "original_price": "",
+            "unit": " 一次性",
+            "is_featured": true,
+            "tip": "一次性付款，积分不过期。",
+            "button": {
+              "title": "购买 Popular",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-popular",
+            "product_name": "ViralReel Popular 积分",
+            "credits": 180,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Popular"
+          },
+          {
+            "title": "Creator",
+            "description": "适合经常发布的一次性积分包。",
+            "features_title": "包含",
+            "features": [
+              "一次性 480 积分（约 48 条视频）",
+              "全部模板可用",
+              "1080p 导出，无水印",
+              "优先渲染队列——不用排队",
+              "积分不够可随时加购"
+            ],
+            "interval": "one-time",
+            "amount": 3990,
+            "currency": "USD",
+            "price": "$39.9",
+            "original_price": "",
+            "unit": " 一次性",
+            "is_featured": false,
+            "tip": "一次性付款，积分不过期。",
+            "button": {
+              "title": "购买 Creator",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-creator",
+            "product_name": "ViralReel Creator 积分",
+            "credits": 480,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Creator"
+          },
+          {
+            "title": "Max",
+            "description": "最大的一次性积分包，适合大量创作。",
+            "features_title": "包含",
+            "features": [
+              "一次性 950 积分（约 95 条视频）",
+              "全部模板可用",
+              "1080p 导出，无水印",
+              "优先渲染队列——不用排队",
+              "积分不够可随时加购"
+            ],
+            "interval": "one-time",
+            "amount": 6990,
+            "currency": "USD",
+            "price": "$69.9",
+            "original_price": "",
+            "unit": " 一次性",
+            "is_featured": false,
+            "tip": "一次性付款，积分不过期。",
+            "button": {
+              "title": "购买 Max",
+              "url": "",
+              "icon": "RiFlashlightFill"
+            },
+            "product_id": "credits-once-max",
+            "product_name": "ViralReel Max 积分",
+            "credits": 950,
+            "valid_days": 0,
+            "group": "once",
+            "plan_name": "Max"
           }
         ]
       }

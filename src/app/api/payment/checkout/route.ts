@@ -19,6 +19,7 @@ import {
   CREDITS_TOPUP_PRODUCT_ID,
   getCreditsPerUsd,
   getPricingPlans,
+  isCreditPackProduct,
 } from '@/shared/services/pricing';
 import { getPaymentService } from '@/shared/services/payment';
 import { PricingItem, PricingCurrency } from '@/shared/types/blocks/pricing';
@@ -246,7 +247,9 @@ export async function POST(req: Request) {
         ...(metadata || {}),
       },
       successUrl: `${configs.app_url}/api/payment/callback?order_no=${orderNo}`,
-      cancelUrl: `${callbackBaseUrl}/subscribe`,
+      cancelUrl: isCreditPackProduct(product_id)
+        ? `${callbackBaseUrl}/pricing`
+        : `${callbackBaseUrl}/subscribe`,
     };
 
     // checkout with predefined product
