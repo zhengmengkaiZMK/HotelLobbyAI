@@ -82,7 +82,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         : isOmni
           ? ['360p', '720p', '1080p']
           : model!.value.toLowerCase() === 'minimax-h3' ? ['768P', '2K'] : ['720p'];
-  const durationOptions = (isFalRef ? [3, 5, 8, 10, 12, 15] : isFalWan ? [5, 10, 15, 20, 30] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]).filter((seconds) => seconds <= 15);
+  const durationOptions = family === 'cat_clapping'
+    ? [4, 6]
+    : (isFalRef ? [3, 5, 8, 10, 12, 15] : isFalWan ? [5, 10, 15, 20, 30] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]).filter((seconds) => seconds <= 15);
   // Omni only supports 16:9 / 9:16 / auto; Kling reference adds auto + 1:1;
   // Wan reference uses "adaptive" (shown as auto) + fixed ratios
   const ratioOptions = isFalWan ? ['adaptive', '16:9', '9:16', '1:1'] : isFalRef ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
@@ -117,7 +119,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const prompt = allowPromptEdit && promptDraft.trim() ? promptDraft.trim() : effectivePrompt;
   const [ratio, setRatio] = useState(family === 'bulin_47' || family === 'ozil_goal' || family === 'cat_clapping' ? '9:16' : '16:9');
   const [resolution, setResolution] = useState('720p');
-  const [duration, setDuration] = useState(8);
+  const [duration, setDuration] = useState(family === 'cat_clapping' ? 4 : 8);
   // transient-safe values: while switching models the state may briefly hold the
   // previous model's tier (the reset effects run after render) — cost functions
   // throw on invalid tiers, so always compute from clamped values, never in-render raw state

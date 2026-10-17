@@ -21,7 +21,13 @@ export function getVideoGenerationCost(
   const r = resolution === undefined ? '720p' : resolution;
   if (!['480p', '720p', '1080p'].includes(r)) throw new Error('Unsupported video resolution');
   const d = duration === undefined ? 8 : Number(duration);
-  if (d !== 8 && d !== 12 && d !== 15) throw new Error('Unsupported video duration');
+  if (d !== 4 && d !== 6 && d !== 8 && d !== 12 && d !== 15) throw new Error('Unsupported video duration');
+  // Cat Clapping only offers 4s and 6s. Those short clips bill from the
+  // 8-second unit price so they stay on the same credit scale.
+  if (d === 4 || d === 6) {
+    const base = getVideoGenerationCost(r, 8, configs);
+    return Math.max(1, Math.ceil((base / 8) * d));
+  }
   const key = `${r}:${d}` as keyof typeof VIDEO_COST_DEFAULTS;
   const configured = Number(configs?.[`video_cost_${r}_${d}`]);
   return Number.isSafeInteger(configured) && configured > 0 ? configured : VIDEO_COST_DEFAULTS[key];

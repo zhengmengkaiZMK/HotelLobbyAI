@@ -31,6 +31,15 @@ export const catClappingTemplates = [
     images: [null, null],
     prompt,
   },
+  {
+    id: 'cat-black',
+    family,
+    name: ['Black Cat', '黑猫鼓掌'],
+    colors: ['#e7e5e4', '#18181b'],
+    slots: 2,
+    images: [null, null],
+    prompt,
+  },
 ] as const satisfies readonly TemplateDef[];
 
 export type CatClappingTemplate = (typeof catClappingTemplates)[number];

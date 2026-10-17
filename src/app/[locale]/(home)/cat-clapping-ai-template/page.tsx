@@ -13,14 +13,14 @@ const META = {
   en: {
     title: 'Cat Clapping template – Make the Viral Clapping Cat Video',
     description:
-      'Turn a person photo and a cat photo into the viral Cat Clapping meme: the cat sits up, claps, and brings a paw to its mouth. Orange tabby and tuxedo templates. Vertical video, up to 15 seconds.',
+      'Turn a person photo and a cat photo into the viral Cat Clapping meme: the cat sits up, claps, and brings a paw to its mouth. Orange tabby, tuxedo, and black cat templates. Vertical video, 4 or 6 seconds.',
     keywords:
       'Cat Clapping, Black Cat Clapping, clapping cat meme, cat clapping video, AI cat clap from photo',
   },
   zh: {
     title: 'Cat Clapping 模板：两张照片变成鼓掌猫爆火视频',
     description:
-      '把一张人的照片和一张猫的照片放进 Cat Clapping：猫坐起来、鼓掌、爪子捂嘴。橘猫和黑白猫两个模板，竖屏，最长 15 秒。',
+      '把一张人的照片和一张猫的照片放进 Cat Clapping：猫坐起来、鼓掌、爪子捂嘴。橘猫、黑白猫和黑猫三个模板，竖屏，4 秒或 6 秒。',
     keywords:
       'Cat Clapping, Black Cat Clapping, 鼓掌猫, 猫鼓掌视频, 照片生成鼓掌猫',
   },
