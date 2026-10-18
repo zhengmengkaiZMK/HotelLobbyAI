@@ -27,7 +27,17 @@ export const bulin47Templates = [
     slots: 1,
     images: [null, null],
     prompt:
-      'A handheld phone video at night outside a restaurant entrance washed in red LED light. In the center, the reference subject dressed in a dark suit, dress shirt and tie freestyles with confident hand gestures toward a portable speaker, then looks straight into the camera. A man in the foreground holds the big speaker on his shoulder and films. A small crowd behind films on their phones and reacts. Preserve the reference subject\'s face and appearance exactly. Shaky close phone-camera feel, slight noise, vertical framing, not cinematic.',
+      'A handheld phone video at night outside a restaurant entrance washed in red LED light. In the center, the reference subject in an olive military dress jacket, with shoulder boards and medal ribbons, freestyles with open-hand gestures toward a portable speaker, then looks into the camera. A man in the foreground holds the speaker and films. A small crowd behind films on their phones and reacts. Preserve the reference subject\'s face and appearance exactly. Shaky close phone-camera feel, slight noise, vertical framing, not cinematic.',
+  },
+  {
+    id: 'bulin-leopard',
+    family,
+    name: ['Leopard Print', '豹纹版'],
+    colors: ['#fde68a', '#92400e'],
+    slots: 1,
+    images: [null, null],
+    prompt:
+      'A handheld phone video at night outside a restaurant entrance washed in red LED light. In the center, the reference subject in a leopard-print dress freestyles with sharp hand gestures toward a portable speaker, one arm lifting, then turns toward the crowd. A man in the foreground holds the big speaker and films. People around them film on their phones. Preserve the reference subject\'s face and appearance exactly. Shaky close phone-camera feel, slight noise, vertical framing, not cinematic.',
   },
   {
     id: 'bulin-night',

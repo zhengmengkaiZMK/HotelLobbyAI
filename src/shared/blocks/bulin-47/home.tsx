@@ -64,15 +64,15 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
   const [open, setOpen] = useState(false);
   const choose = (item: BulinTemplate = bulin47Templates[0]) => { setTemplate(item); setOpen(true); };
   const start = () => user ? choose() : setIsShowSignModal(true);
-  const madeBy = ['4.7M plays', '6.1M plays', '3.4M plays', '2.8M plays', '5.2M plays'];
+  const madeBy = ['4.7M plays', '6.1M plays', '4.4M plays', '3.4M plays', '2.8M plays', '5.2M plays'];
   const features = [
     [Mic, t('The red-light freestyle','红光街头说唱'), t('Restaurant entrance, portable speaker on a shoulder, phones in the crowd — the October 2026 clip, staged for your photo.','餐厅门口、肩上音箱、人群举着手机——2026 年 10 月那条视频的场景，已经按你的照片搭好。')],
     [Video, t('One photo, you freestyle','一张照片，你来接'), t('Your face replaces the person in the middle. The speaker, the crowd and the handheld camera stay.','中间的人换成你的脸。音箱、围观的人和手持镜头都留着。')],
-    [Users, t('Five ways into the same clip','同一条片子的五种进法'), t('Street, suit, night crowd, sharp vest, and a pet in the freestyle spot.','街头原版、西装、夜场人群、马甲绅士，以及把宠物放进说唱位。')],
+    [Users, t('Six ways into the same clip','同一条片子的六种进法'), t('Street, suit, leopard print, night crowd, sharp vest, and a pet in the freestyle spot.','街头原版、西装、豹纹、夜场人群、马甲绅士，以及把宠物放进说唱位。')],
     [Smartphone, t('Vertical, ready to post','竖屏，拿去就能发'), t('Opens on 9:16. Add the trend sound in TikTok or Reels so the post sits with the rest of the format.','默认 9:16。发到 TikTok 或 Reels 时加上热梗原声，帖子才会进同一条趋势。')],
   ] as const;
   const steps = [
-    [t('Pick a template','选择模板'), t('Five variants of the same red-lit freestyle. Pick the one that fits the photo.','同一条红光 freestyle 的五个变体。选一个和照片最配的。')],
+    [t('Pick a template','选择模板'), t('Six variants of the same red-lit freestyle. Pick the one that fits the photo.','同一条红光 freestyle 的六个变体。选一个和照片最配的。')],
     [t('Upload one photo','上传一张照片'), t('Front-facing, face clear, decent light. The pet template wants one photo of the animal.','正脸、五官清楚、光线别太暗。宠物版上传一张动物的照片。')],
     [t('Set ratio, resolution, length','选画幅、清晰度和时长'), t('9:16 is the default. The credit cost updates before you generate.','默认 9:16。积分会在你点生成之前按选项更新。')],
     [t('Download and post','下载并发布'), t('Export the MP4, then add the Bulin 47 trend audio in TikTok or Reels.','导出 MP4，再到 TikTok 或 Reels 里加上 Bulin 47 的热梗音频。')],
@@ -108,7 +108,7 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
         <h3>{t('Why did the Bulin 47 video go viral?','Bulin 47 这条视频为什么会爆火？')}</h3>
         <p>{t('It went viral because the moment was unplanned and the frame is recognizable in one second. Kevin Wai brings the speaker, Bulin 47 freestyles instead of walking inside, and phones come up in the crowd. Reports put the clip above 50 million views across TikTok and Instagram within days. It is also a one-person format, so a friend, a parent, or a pet can take the spot in the middle without a second photo. A few days later Bulin 47 and Kevin Wai released the song Dame Hombro, which kept the name searchable after the clip peaked. AI remakes started around 6 October 2026: the same red light, the same speaker, the same crowd, and a different person in the middle.','它会爆，是因为这一下没有排练，而且画面一秒就能认出来。Kevin Wai 把音箱递过来，Bulin 47 没有走进餐厅，而是当场 freestyle，人群里的手机举了起来。几天内，TikTok 和 Instagram 上的播放量据报道超过 5000 万。它还是单人格式，朋友、父母或宠物都能站到中间，不需要第二张照片。几天后，Bulin 47 和 Kevin Wai 发布了歌曲 Dame Hombro，原片过了峰值之后，这个名字仍然能被搜到。AI 重拍从 2026 年 10 月 6 日左右开始：红光、音箱、人群留着，中间换成另一个人。')}</p>
         <h3>{t('Where can I generate a Bulin 47 AI video?','在哪里可以生成 Bulin 47 AI 视频？')}</h3>
-        <p>{t('On ViralReel, at https://www.viralreel.app/bulin-47-ai-template. ViralReel (viralreel.app) is an independent AI video template site. You upload one photo in the browser. You do not install an app, hunt down a reference clip, or write a prompt. The Bulin 47 templates are Street Freestyle, Suit Edition, Night Crowd, Sharp Vest, and Pet Freestyle. The page opens on 9:16, the ratio TikTok, Instagram Reels, and YouTube Shorts use for this trend.','在 ViralReel：https://www.viralreel.app/zh/bulin-47-ai-template 。ViralReel（viralreel.app）是独立的 AI 视频模板站。在浏览器里上传一张照片即可，不用安装 App，不用自己找参考视频，也不用写提示词。Bulin 47 的模板有街头原版、西装、夜场人群、马甲绅士和宠物说唱。页面默认 9:16，也就是这条趋势在 TikTok、Instagram Reels 和 YouTube Shorts 上使用的画幅。')}</p>
+        <p>{t('On ViralReel, at https://www.viralreel.app/bulin-47-ai-template. ViralReel (viralreel.app) is an independent AI video template site. You upload one photo in the browser. You do not install an app, hunt down a reference clip, or write a prompt. The Bulin 47 templates are Street Freestyle, Suit Edition, Leopard Print, Night Crowd, Sharp Vest, and Pet Freestyle. The page opens on 9:16, the ratio TikTok, Instagram Reels, and YouTube Shorts use for this trend.','在 ViralReel：https://www.viralreel.app/zh/bulin-47-ai-template 。ViralReel（viralreel.app）是独立的 AI 视频模板站。在浏览器里上传一张照片即可，不用安装 App，不用自己找参考视频，也不用写提示词。Bulin 47 的模板有街头原版、西装、豹纹、夜场人群、马甲绅士和宠物说唱。页面默认 9:16，也就是这条趋势在 TikTok、Instagram Reels 和 YouTube Shorts 上使用的画幅。')}</p>
         <h3>{t('How do you make a Bulin 47 AI video?','怎么制作 Bulin 47 AI 视频？')}</h3>
         <ol>
           <li>{t('Open the Bulin 47 template on ViralReel: https://www.viralreel.app/bulin-47-ai-template. Pick the look that fits the photo.','打开 ViralReel 的 Bulin 47 模板：https://www.viralreel.app/zh/bulin-47-ai-template 。选一个和照片匹配的造型。')}</li>

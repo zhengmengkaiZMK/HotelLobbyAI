@@ -1265,7 +1265,7 @@ export async function getSettings() {
       title: 'Bulin 47 系列提示词',
       type: 'textarea',
       attributes: { rows: 4 },
-      tip: 'Bulin 47 系列模板（街头原版/西装/夜场人群/马甲绅士/宠物说唱）生成视频时统一使用的提示词，适用于包括 Kling 在内的所有模型。留空时各模板使用内置默认提示词。',
+      tip: 'Bulin 47 系列模板（街头原版/西装/豹纹/夜场人群/马甲绅士/宠物说唱）生成视频时统一使用的提示词，适用于包括 Kling 在内的所有模型。留空时各模板使用内置默认提示词。',
       group: 'viral_templates',
       tab: 'ai',
     },
