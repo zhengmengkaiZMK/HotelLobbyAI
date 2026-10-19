@@ -22,11 +22,11 @@ import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
 import { VIRAL_REVIEWS } from '@/shared/lib/reviews';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
+  maxVideoLine,
   planFeatureLines,
   usdFromCredits,
   videoCreditCost,
   videoYieldFromCredits,
-  videoYieldLines,
 } from '@/shared/lib/video-yield';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
@@ -199,6 +199,9 @@ export function ViralHub({
   const zh = useLocale().startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
   const [vibe, setVibe] = useState<TrendingVibeId | 'all'>('all');
+  const [billing, setBilling] = useState<'one-time' | 'month' | 'year'>(
+    'one-time'
+  );
   const cards =
     vibe === 'all'
       ? TRENDING_TEMPLATES
@@ -280,11 +283,49 @@ export function ViralHub({
       credits: CANONICAL_PRICING.proCredits,
       interval: 'month',
     },
+    {
+      product_id: 'sub-yearly-starter',
+      title: 'Starter',
+      price: '$94.9',
+      currency: 'USD',
+      amount: 9490,
+      unit: zh ? ' /年' : ' /yr',
+      credits: 1080,
+      interval: 'year',
+    },
+    {
+      product_id: 'sub-yearly-plus',
+      title: 'Plus',
+      price: '$189',
+      currency: 'USD',
+      amount: 18900,
+      unit: zh ? ' /年' : ' /yr',
+      credits: 2400,
+      interval: 'year',
+    },
+    {
+      product_id: 'sub-yearly-pro',
+      title: 'Pro',
+      price: '$379',
+      currency: 'USD',
+      amount: 37900,
+      unit: zh ? ' /年' : ' /yr',
+      credits: 6000,
+      interval: 'year',
+      is_featured: true,
+    },
   ];
   const liveSubs = plans.filter(
     (plan) => plan.interval === 'month' || plan.interval === 'year'
   );
-  const subs = liveSubs.length > 0 ? liveSubs : fallbackSubs;
+  const subCardsFor = (interval: 'month' | 'year') => {
+    const live = liveSubs.filter((plan) => plan.interval === interval);
+    return live.length > 0
+      ? live
+      : fallbackSubs.filter((plan) => plan.interval === interval);
+  };
+  const pricingCards =
+    billing === 'one-time' ? packs : subCardsFor(billing);
   const baselineCost = videoCreditCost(videoCosts, '720p', 8);
   const baselineUsd = usdFromCredits(baselineCost, creditsPerUsd);
   const faq = getHubFaqPairs(zh, { videoCosts, creditsPerUsd });
@@ -579,11 +620,37 @@ export function ViralHub({
                 )}
               </p>
             </div>
-            <div className="price-grid cols-4">
-              {packs.map((plan) => {
+            <div className="bill-toggle with-once" role="tablist">
+              <button
+                type="button"
+                className={billing === 'one-time' ? 'on' : ''}
+                aria-pressed={billing === 'one-time'}
+                onClick={() => setBilling('one-time')}
+              >
+                {t('Pay Once', '一次性')}
+              </button>
+              <button
+                type="button"
+                className={billing === 'month' ? 'on' : ''}
+                aria-pressed={billing === 'month'}
+                onClick={() => setBilling('month')}
+              >
+                {t('Monthly', '月付')}
+              </button>
+              <button
+                type="button"
+                className={billing === 'year' ? 'on' : ''}
+                aria-pressed={billing === 'year'}
+                onClick={() => setBilling('year')}
+              >
+                {t('Yearly', '年付')} <span className="save">−20%</span>
+              </button>
+            </div>
+            <div className={billing === 'one-time' ? 'price-grid cols-4' : 'price-grid'}>
+              {pricingCards.map((plan) => {
                 const credits = plan.credits || 0;
-                const yieldLines = videoYieldLines(credits, videoCosts, zh);
                 const featured = !!plan.is_featured;
+                const isPack = plan.interval === 'one-time';
                 return (
                   <article
                     className={`pcard ${featured ? 'pro' : ''}`}
@@ -603,67 +670,27 @@ export function ViralHub({
                         `${credits.toLocaleString()} 积分`
                       )}
                     </span>
-                    {yieldLines.map((line) => (
-                      <p className="quiet" key={line}>
-                        {line}
+                    {isPack ? (
+                      <p className="quiet">
+                        {maxVideoLine(credits, videoCosts, zh)}
                       </p>
-                    ))}
-                    <Link
-                      className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
-                      href="/pricing"
-                    >
-                      {t('See this pack', '查看这个积分包')}
-                      <ArrowRight size={16} />
-                    </Link>
-                  </article>
-                );
-              })}
-            </div>
-            <div className="sec-head sub-plan-head">
-              <h3>{t('Subscription plans', '订阅套餐')}</h3>
-              <p className="sub">
-                {t(
-                  'Credits refresh every billing cycle. Cancel any time from billing.',
-                  '积分按账单周期刷新，可随时在账单页取消。'
-                )}
-              </p>
-            </div>
-            <div className="price-grid">
-              {subs.map((plan) => {
-                const credits = plan.credits || 0;
-                const featured = !!plan.is_featured;
-                return (
-                  <article
-                    className={`pcard ${featured ? 'pro' : ''}`}
-                    key={plan.product_id || plan.title}
-                  >
-                    {featured && (
-                      <span className="tag">{t('Most popular', '最受欢迎')}</span>
+                    ) : (
+                      <ul>
+                        {planFeatureLines(plan, videoCosts, zh).map((line) => (
+                          <li key={line}>
+                            <Check size={16} className="ok" />
+                            {line}
+                          </li>
+                        ))}
+                      </ul>
                     )}
-                    <h3>{plan.title}</h3>
-                    <div className="price">
-                      {plan.price}
-                      <small>{plan.unit}</small>
-                    </div>
-                    <span className="anchor">
-                      {t(
-                        `${credits.toLocaleString()} credits`,
-                        `${credits.toLocaleString()} 积分`
-                      )}
-                    </span>
-                    <ul>
-                      {planFeatureLines(plan, videoCosts, zh).map((line) => (
-                        <li key={line}>
-                          <Check size={16} className="ok" />
-                          {line}
-                        </li>
-                      ))}
-                    </ul>
                     <Link
                       className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
-                      href="/subscribe"
+                      href={isPack ? '/pricing' : '/subscribe'}
                     >
-                      {t(`Get ${plan.title}`, `订阅 ${plan.title}`)}
+                      {isPack
+                        ? t('See this pack', '查看这个积分包')
+                        : t(`Get ${plan.title}`, `订阅 ${plan.title}`)}
                       <ArrowRight size={16} />
                     </Link>
                   </article>

@@ -80,28 +80,23 @@ export function usdFromCredits(credits: number, creditsPerUsd: number): string {
   return `$${usd.toFixed(2)}`;
 }
 
-function approxCount(count: number, zh: boolean): string {
-  if (count < 1) return zh ? '不足 1 条' : 'fewer than 1';
-  return formatCreditCount(count);
-}
-
 /**
- * One "≈ N videos" line per resolution/duration cell of the cost table,
- * so each combination is described on its own line.
+ * Single "up to N videos" line, counted at the cheapest tier of the cost
+ * table (the combo that yields the most clips).
  */
-export function videoYieldLines(credits: number, table: VideoCostTable, zh: boolean): string[] {
-  const lines: string[] = [];
-  for (const row of table) {
-    for (const cell of row.costs) {
-      const count = approxCount(videosAtCost(credits, cell.credits), zh);
-      lines.push(
-        zh
-          ? `${row.resolution} / ${cell.duration} 秒约 ${count} 条`
-          : `≈ ${count} videos at ${row.resolution} / ${cell.duration}s`
-      );
-    }
+export function maxVideoLine(credits: number, table: VideoCostTable, zh: boolean): string {
+  const cheapest = Math.min(
+    ...table.flatMap((row) => row.costs.map((cell) => cell.credits))
+  );
+  const count = videosAtCost(credits, cheapest);
+  if (zh) {
+    return count < 1
+      ? '最多可制作不足 1 条视频'
+      : `最多可制作约 ${formatCreditCount(count)} 条视频`;
   }
-  return lines;
+  return count < 1
+    ? 'Up to fewer than 1 video'
+    : `Up to ${formatCreditCount(count)} videos`;
 }
 
 const PRIORITY_PRODUCTS = new Set([
@@ -139,7 +134,7 @@ export function planFeatureLines(
   const priority = PRIORITY_PRODUCTS.has(item.product_id || '');
   const lines = [
     creditGrantLine(credits, item.interval, zh),
-    ...videoYieldLines(credits, table, zh),
+    maxVideoLine(credits, table, zh),
     zh ? '全部模板可用' : 'All templates included',
     zh ? '支持 720p 和 1080p 导出，无水印' : '720p and 1080p export, watermark-free',
     priority
