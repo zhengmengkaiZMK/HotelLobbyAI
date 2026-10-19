@@ -7,11 +7,11 @@
  */
 
 export const TRENDING_VIBES = [
-  { id: 'pets', label: ['Pets', '宠物'] },
   { id: 'couples', label: ['Couples & friends', '情侣与朋友'] },
   { id: 'meme', label: ['Meme & characters', '梗与角色'] },
   { id: 'dance', label: ['Dance & music', '舞蹈与音乐'] },
   { id: 'classic', label: ['Classic', '经典'] },
+  { id: 'pets', label: ['Pets', '宠物'] },
 ] as const;
 
 export type TrendingVibeId = (typeof TRENDING_VIBES)[number]['id'];
