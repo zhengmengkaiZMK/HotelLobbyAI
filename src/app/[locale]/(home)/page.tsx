@@ -3,6 +3,8 @@ import { setRequestLocale } from 'next-intl/server';
 import { envConfigs } from '@/config';
 import { ViralHub } from '@/shared/blocks/viral-home/hub';
 import { buildHubFaqJsonLd } from '@/shared/lib/hub-faq';
+import { getAllConfigs } from '@/shared/models/config';
+import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
   buildOfferExtrasJsonLd,
   buildProductImageUrls,
@@ -83,8 +85,10 @@ export default async function HomePage({
   setRequestLocale(locale);
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
+  const videoCosts = getVideoCostTable(await getAllConfigs(true));
   const appUrl = envConfigs.app_url;
-  const faqJsonLd = buildHubFaqJsonLd();
+  const zh = locale === 'zh';
+  const faqJsonLd = buildHubFaqJsonLd(zh, { videoCosts, creditsPerUsd });
 
   const jsonLd = {
     '@context': 'https://schema.org',
@@ -181,7 +185,7 @@ export default async function HomePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
       />
-      <ViralHub plans={plans} creditsPerUsd={creditsPerUsd} />
+      <ViralHub plans={plans} creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>
   );
 }

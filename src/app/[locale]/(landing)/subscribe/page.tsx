@@ -4,6 +4,8 @@ import { envConfigs } from '@/config';
 
 import { SubscribeView } from '@/shared/blocks/viral-home/subscribe';
 import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
+import { getAllConfigs } from '@/shared/models/config';
+import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
   buildAggregateRatingJsonLd,
   buildReviewsJsonLd,
@@ -83,6 +85,7 @@ export default async function SubscribePage({
 
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
+  const videoCosts = getVideoCostTable(await getAllConfigs(true));
 
   // credit top-ups require an active subscription
   const user = await getUserInfo();
@@ -143,7 +146,12 @@ export default async function SubscribePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(jsonLd) }}
       />
-      <SubscribeView plans={plans} creditsPerUsd={creditsPerUsd} hasSubscription={!!currentSubscription} />
+      <SubscribeView
+        plans={plans}
+        creditsPerUsd={creditsPerUsd}
+        videoCosts={videoCosts}
+        hasSubscription={!!currentSubscription}
+      />
     </>
   );
 }
