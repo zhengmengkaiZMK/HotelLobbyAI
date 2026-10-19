@@ -19,7 +19,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
     ['/ozil-ai-goal-template', t('Ozil Goal', 'Ozil Goal')],
     ['/bulin-47-ai-template', t('Bulin 47', 'Bulin 47')],
     ['/burning-bridges-ai-template', t('Burning Bridges', 'Burning Bridges')],
-    ['/', t('Hotel Lobby', 'Hotel Lobby')],
+    ['/hotel-lobby-ai-template', t('Hotel Lobby', 'Hotel Lobby')],
     ['/pricing', t('Pricing', '定价')],
     ['/blog', t('Blog', '博客')],
   ];
