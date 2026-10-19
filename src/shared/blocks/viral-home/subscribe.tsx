@@ -11,6 +11,8 @@ import { Link } from '@/core/i18n/navigation';
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
 import { getSubscribeFaq } from '@/shared/lib/pricing-copy';
+import { getVideoCostTable } from '@/shared/lib/video-cost';
+import { planFeatureLines } from '@/shared/lib/video-yield';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 import './home.css';
 
@@ -18,10 +20,12 @@ export function SubscribeView({
   plans,
   creditsPerUsd = 12,
   hasSubscription = false,
+  videoCosts = getVideoCostTable(),
 }: {
   plans: PricingItem[];
   creditsPerUsd?: number;
   hasSubscription?: boolean;
+  videoCosts?: ReturnType<typeof getVideoCostTable>;
 }) {
   const locale = useLocale();
   const zh = locale === 'zh';
@@ -141,10 +145,10 @@ export function SubscribeView({
                   {item.original_price && <span className="anchor was">{item.original_price}</span>}
                   <span className="anchor">{item.description}</span>
                   <ul>
-                    {item.features?.map((f) => (
+                    {planFeatureLines(item, videoCosts, zh).map((f) => (
                       <li key={f}>
                         <Check size={16} className="ok" />
-                        {t(f, zh ? PLAN_FEATURES_ZH[f] || f : f)}
+                        {f}
                       </li>
                     ))}
                   </ul>
@@ -221,16 +225,3 @@ export function SubscribeView({
     </div>
   );
 }
-
-const PLAN_FEATURES_ZH: Record<string, string> = {
-  '200 credits every month (≈ 20 videos)': '每月 200 积分（约 20 条视频）',
-  '500 credits every month (≈ 50 videos)': '每月 500 积分（约 50 条视频）',
-  '2,400 credits per year (≈ 240 videos)': '每年 2,400 积分（约 240 条视频）',
-  '6,000 credits per year (≈ 600 videos)': '每年 6,000 积分（约 600 条视频）',
-  'All templates included': '包含全部模板',
-  '720p export, watermark-free': '720p 导出，无水印',
-  '1080p export, watermark-free': '1080p 导出，无水印',
-  'Standard rendering queue': '标准渲染队列',
-  'Priority queue — skip the line': '优先生成队列，免排队',
-  'Instant credit top-ups whenever you need': '积分不够可随时加购',
-};
