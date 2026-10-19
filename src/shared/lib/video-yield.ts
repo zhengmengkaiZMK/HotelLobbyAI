@@ -85,31 +85,23 @@ function approxCount(count: number, zh: boolean): string {
   return formatCreditCount(count);
 }
 
-export function baselineVideoLine(credits: number, table: VideoCostTable, zh: boolean): string {
-  const yieldInfo = videoYieldFromCredits(credits, table);
-  const count = approxCount(yieldInfo.atBaseline, zh);
-  const each = formatCreditCount(yieldInfo.baselineCost);
-  if (zh) {
-    return yieldInfo.atBaseline < 1
-      ? `720p / 8 秒不足 1 条（每条 ${each} 积分）`
-      : `720p / 8 秒约 ${count} 条（每条 ${each} 积分）`;
+/**
+ * One "≈ N videos" line per resolution/duration cell of the cost table,
+ * so each combination is described on its own line.
+ */
+export function videoYieldLines(credits: number, table: VideoCostTable, zh: boolean): string[] {
+  const lines: string[] = [];
+  for (const row of table) {
+    for (const cell of row.costs) {
+      const count = approxCount(videosAtCost(credits, cell.credits), zh);
+      lines.push(
+        zh
+          ? `${row.resolution} / ${cell.duration} 秒约 ${count} 条`
+          : `≈ ${count} videos at ${row.resolution} / ${cell.duration}s`
+      );
+    }
   }
-  return yieldInfo.atBaseline < 1
-    ? `fewer than 1 video at 720p / 8s (${each} credits each)`
-    : `≈ ${count} videos at 720p / 8s (${each} credits each)`;
-}
-
-export function videoRangeLine(credits: number, table: VideoCostTable, zh: boolean): string | null {
-  const yieldInfo = videoYieldFromCredits(credits, table);
-  const low = Math.min(yieldInfo.atPriciest, yieldInfo.atCheapest);
-  const high = Math.max(yieldInfo.atPriciest, yieldInfo.atCheapest);
-  if (high <= 0 || low === high) return null;
-  const cheap = formatCreditCount(yieldInfo.cheapCost);
-  const expensive = formatCreditCount(yieldInfo.expensiveCost);
-  if (zh) {
-    return `按积分表大约 ${formatCreditCount(low)}–${formatCreditCount(high)} 条：1080p / 15 秒 ${expensive} 积分，480p / 8 秒 ${cheap} 积分。`;
-  }
-  return `About ${formatCreditCount(low)}–${formatCreditCount(high)} videos across the table (1080p / 15s is ${expensive} credits; 480p / 8s is ${cheap} credits).`;
+  return lines;
 }
 
 const PRIORITY_PRODUCTS = new Set([
@@ -122,21 +114,19 @@ const PRIORITY_PRODUCTS = new Set([
 function creditGrantLine(
   credits: number,
   interval: string | undefined,
-  table: VideoCostTable,
   zh: boolean
 ): string {
   const amount = formatCreditCount(credits);
-  const approx = baselineVideoLine(credits, table, zh);
   if (zh) {
-    if (interval === 'one-time') return `一次性 ${amount} 积分，${approx}`;
-    if (interval === 'year') return `每年 ${amount} 积分，${approx}`;
-    if (interval === 'month') return `每月 ${amount} 积分，${approx}`;
-    return `${amount} 积分，${approx}`;
+    if (interval === 'one-time') return `一次性 ${amount} 积分`;
+    if (interval === 'year') return `每年 ${amount} 积分`;
+    if (interval === 'month') return `每月 ${amount} 积分`;
+    return `${amount} 积分`;
   }
-  if (interval === 'one-time') return `${amount} credits, one-time — ${approx}`;
-  if (interval === 'year') return `${amount} credits per year — ${approx}`;
-  if (interval === 'month') return `${amount} credits every month — ${approx}`;
-  return `${amount} credits — ${approx}`;
+  if (interval === 'one-time') return `${amount} credits, one-time`;
+  if (interval === 'year') return `${amount} credits per year`;
+  if (interval === 'month') return `${amount} credits every month`;
+  return `${amount} credits`;
 }
 
 /** Feature bullets shared by pack, monthly, and yearly cards. */
@@ -147,10 +137,9 @@ export function planFeatureLines(
 ): string[] {
   const credits = item.credits || 0;
   const priority = PRIORITY_PRODUCTS.has(item.product_id || '');
-  const range = videoRangeLine(credits, table, zh);
   const lines = [
-    creditGrantLine(credits, item.interval, table, zh),
-    ...(range ? [range] : []),
+    creditGrantLine(credits, item.interval, zh),
+    ...videoYieldLines(credits, table, zh),
     zh ? '全部模板可用' : 'All templates included',
     zh ? '支持 720p 和 1080p 导出，无水印' : '720p and 1080p export, watermark-free',
     priority

@@ -7,7 +7,7 @@ import {
   type CSSProperties,
   type ReactNode,
 } from 'react';
-import { ArrowRight, Flame, Sparkles, Users, Video } from 'lucide-react';
+import { ArrowRight, Check, Flame, Sparkles, Users, Video } from 'lucide-react';
 import { useLocale } from 'next-intl';
 
 import { Link } from '@/core/i18n/navigation';
@@ -22,11 +22,11 @@ import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
 import { VIRAL_REVIEWS } from '@/shared/lib/reviews';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
-  baselineVideoLine,
+  planFeatureLines,
   usdFromCredits,
   videoCreditCost,
-  videoRangeLine,
   videoYieldFromCredits,
+  videoYieldLines,
 } from '@/shared/lib/video-yield';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
@@ -248,6 +248,43 @@ export function ViralHub({
   ];
   const livePacks = plans.filter((plan) => plan.interval === 'one-time');
   const packs = livePacks.length > 0 ? livePacks : fallbackPacks;
+  const fallbackSubs: PricingItem[] = [
+    {
+      product_id: 'sub-monthly-starter',
+      title: 'Starter',
+      price: CANONICAL_PRICING.monthlyStarterPrice,
+      currency: 'USD',
+      amount: 990,
+      unit: zh ? ' /月' : ' /mo',
+      credits: CANONICAL_PRICING.monthlyStarterCredits,
+      interval: 'month',
+    },
+    {
+      product_id: 'sub-monthly-plus',
+      title: 'Plus',
+      price: CANONICAL_PRICING.plusPrice,
+      currency: 'USD',
+      amount: 1990,
+      unit: zh ? ' /月' : ' /mo',
+      credits: CANONICAL_PRICING.plusCredits,
+      interval: 'month',
+      is_featured: true,
+    },
+    {
+      product_id: 'sub-monthly-pro',
+      title: 'Pro',
+      price: CANONICAL_PRICING.proPrice,
+      currency: 'USD',
+      amount: 3990,
+      unit: zh ? ' /月' : ' /mo',
+      credits: CANONICAL_PRICING.proCredits,
+      interval: 'month',
+    },
+  ];
+  const liveSubs = plans.filter(
+    (plan) => plan.interval === 'month' || plan.interval === 'year'
+  );
+  const subs = liveSubs.length > 0 ? liveSubs : fallbackSubs;
   const baselineCost = videoCreditCost(videoCosts, '720p', 8);
   const baselineUsd = usdFromCredits(baselineCost, creditsPerUsd);
   const faq = getHubFaqPairs(zh, { videoCosts, creditsPerUsd });
@@ -533,19 +570,19 @@ export function ViralHub({
             <div className="sec-head">
               <p className="kick">{t('Pricing', '定价')}</p>
               <h2>
-                {t('One-time credit packs', '一次性积分包')}
+                {t('Flexible plans', '灵活的套餐选择')}
               </h2>
               <p className="sub">
                 {t(
-                  'Buy credits once. Monthly and yearly plans are on the same Pricing page if you would rather subscribe. Every pack supports 720p and 1080p.',
-                  '一次性购买积分。如果更想订阅，月付和年付也在同一个定价页。每个积分包都支持 720p 和 1080p。'
+                  'One-time credit packs or subscription plans — choose whatever fits your needs.',
+                  '提供一次性购买积分和订阅套餐方式，根据你的需要自由选择。'
                 )}
               </p>
             </div>
             <div className="price-grid cols-4">
               {packs.map((plan) => {
                 const credits = plan.credits || 0;
-                const range = videoRangeLine(credits, videoCosts, zh);
+                const yieldLines = videoYieldLines(credits, videoCosts, zh);
                 const featured = !!plan.is_featured;
                 return (
                   <article
@@ -566,15 +603,67 @@ export function ViralHub({
                         `${credits.toLocaleString()} 积分`
                       )}
                     </span>
-                    <p className="quiet">
-                      {baselineVideoLine(credits, videoCosts, zh)}
-                    </p>
-                    {range && <p className="quiet">{range}</p>}
+                    {yieldLines.map((line) => (
+                      <p className="quiet" key={line}>
+                        {line}
+                      </p>
+                    ))}
                     <Link
                       className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
                       href="/pricing"
                     >
                       {t('See this pack', '查看这个积分包')}
+                      <ArrowRight size={16} />
+                    </Link>
+                  </article>
+                );
+              })}
+            </div>
+            <div className="sec-head sub-plan-head">
+              <h3>{t('Subscription plans', '订阅套餐')}</h3>
+              <p className="sub">
+                {t(
+                  'Credits refresh every billing cycle. Cancel any time from billing.',
+                  '积分按账单周期刷新，可随时在账单页取消。'
+                )}
+              </p>
+            </div>
+            <div className="price-grid">
+              {subs.map((plan) => {
+                const credits = plan.credits || 0;
+                const featured = !!plan.is_featured;
+                return (
+                  <article
+                    className={`pcard ${featured ? 'pro' : ''}`}
+                    key={plan.product_id || plan.title}
+                  >
+                    {featured && (
+                      <span className="tag">{t('Most popular', '最受欢迎')}</span>
+                    )}
+                    <h3>{plan.title}</h3>
+                    <div className="price">
+                      {plan.price}
+                      <small>{plan.unit}</small>
+                    </div>
+                    <span className="anchor">
+                      {t(
+                        `${credits.toLocaleString()} credits`,
+                        `${credits.toLocaleString()} 积分`
+                      )}
+                    </span>
+                    <ul>
+                      {planFeatureLines(plan, videoCosts, zh).map((line) => (
+                        <li key={line}>
+                          <Check size={16} className="ok" />
+                          {line}
+                        </li>
+                      ))}
+                    </ul>
+                    <Link
+                      className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
+                      href="/subscribe"
+                    >
+                      {t(`Get ${plan.title}`, `订阅 ${plan.title}`)}
                       <ArrowRight size={16} />
                     </Link>
                   </article>
@@ -711,18 +800,6 @@ export function ViralHub({
                         '以 Higgsfield 自己的定价为准。积分因模型而异。这里不引用。'
                       )}
                     </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">{t('If a render fails', '渲染失败时')}</th>
-                    <td className="us">
-                      {t(
-                        'The credits for that job are returned to your balance.',
-                        '这次任务的积分退回余额。'
-                      )}
-                    </td>
-                    <td>{t('Not stated here.', '这里不代述。')}</td>
-                    <td>{t('Not stated here.', '这里不代述。')}</td>
-                    <td>{t('Not stated here.', '这里不代述。')}</td>
                   </tr>
                 </tbody>
               </table>

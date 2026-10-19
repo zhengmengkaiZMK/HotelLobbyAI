@@ -121,6 +121,8 @@
 .viral-home .bill-toggle button.on{background:#fff;color:#09090b;box-shadow:0 1px 3px #09090b1a}
 .viral-home .bill-toggle .save{color:#ea580c;font-size:12px;font-weight:600;margin-left:4px}
 .viral-home .price-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1080px;margin:auto}
+.viral-home .sub-plan-head{margin-top:56px}
+.viral-home .sub-plan-head h3{font-size:24px}
 .viral-home .price-grid.cols-4{grid-template-columns:repeat(4,1fr);max-width:none;gap:16px;padding-top:16px}
 .viral-home .price-grid.cols-4 .pcard{padding:24px 18px}
 .viral-home .price-grid.cols-4 .price{font-size:32px}
