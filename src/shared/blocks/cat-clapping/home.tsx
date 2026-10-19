@@ -9,6 +9,7 @@ import { Link } from '@/core/i18n/navigation';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
+import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { useAppContext } from '@/shared/contexts/app';
 import { catClappingTemplates, type CatClappingTemplate } from './templates';
@@ -54,7 +55,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function CatClappingHome({ creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function CatClappingHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
@@ -78,13 +79,18 @@ export function CatClappingHome({ creditsPerUsd = 10, videoCosts = getVideoCostT
     [t('Download and post','下载并发布'), t('Export the MP4, then add a trend sound in TikTok, Reels, or Shorts and label the post as AI where the app asks.','导出 MP4，再到 TikTok、Reels 或 Shorts 里加上热梗音频，并按平台要求标注 AI。')],
   ];
   const faq = CAT_CLAPPING_FAQ[zh ? 'zh' : 'en'];
+  const howToJsonLd = buildHowToJsonLdFromSteps({
+    name: t('How to make a Cat Clapping video', '如何制作 Cat Clapping 视频'),
+    description: t('From two photos to a vertical clip in about a minute — no app, no green screen.', '两张照片到一条竖屏视频大约一分钟——不用装 App，不用绿幕。'),
+    steps: steps.map(([name, text]) => ({ name, text })),
+  });
   const reviews = [
     [t('Mina C.','Mina C.'), t('“Put my orange cat on the tile and posted it the same night. The paw over the mouth is the part people replay.”','“把我家橘猫放到地砖上，当晚就发出去了。大家反复看的是爪子捂嘴那一下。”'), t('@minacats · 88K followers','@minacats · 8.8 万粉丝'), '/avatars/review-1.jpg'],
     [t('Andre P.','Andre P.'), t('“I needed the clap without hunting for a green-screen file. Two photos, one from me, one of the cat.”','“我要的是鼓掌，不想再去找绿幕素材。两张照片，一张我的，一张猫的。”'), t('Runs @petreactiondaily','运营 @petreactiondaily'), '/avatars/review-2.jpg'],
     [t('Hana S.','Hana S.'), t('“The tuxedo one reads on a phone. I left it on 9:16 and dropped it into Reels with a trend sound.”','“黑白猫那条在手机上看得清。我保持 9:16，配上热梗原声发到了 Reels。”'), t('@hanaposts · 64K followers','@hanaposts · 6.4 万粉丝'), '/avatars/review-3.jpg'],
     [t('Chris L.','Chris L.'), t('“I am not an editor. The cat sits up and claps. That is the whole joke, and it stayed in frame.”','“我不会剪辑。猫坐起来鼓掌，笑点就这一下，而且一直在画面里。”'), t('@chrislate · 41K followers','@chrislate · 4.1 万粉丝'), '/avatars/review-4.jpg'],
   ] as const;
-  return <div className="viral-home">
+  return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
     <main>
       <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>Cat Clapping is trending</span><span className="bar"/><b>Sep 2026</b></div><h1>{t('Make the viral ', '60 秒做出爆火的 ')}<span className="hl">Cat Clapping</span>{t(' video in 60 seconds', ' 视频')}</h1><p className="lead">{t('Upload a photo of you and a photo of your cat. The cat sits up, claps, and brings a paw to its mouth.', '上传一张你的照片和一张猫的照片。猫坐起来，鼓掌，再把爪子放到嘴边。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div><div className="hero-proof"><div className="avatars" aria-hidden="true"><span/><span/><span/><span/></div><span><b>25 Sep 2026</b> {t('the clap people are still remaking', '大家还在重做的那段鼓掌')}</span></div></div></section>

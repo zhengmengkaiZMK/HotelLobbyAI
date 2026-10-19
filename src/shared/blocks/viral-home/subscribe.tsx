@@ -10,12 +10,13 @@ import { TopupCard } from '@/shared/blocks/viral-home/topup';
 import { Link } from '@/core/i18n/navigation';
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
+import { getSubscribeFaq } from '@/shared/lib/pricing-copy';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 import './home.css';
 
 export function SubscribeView({
   plans,
-  creditsPerUsd = 10,
+  creditsPerUsd = 12,
   hasSubscription = false,
 }: {
   plans: PricingItem[];
@@ -82,36 +83,7 @@ export function SubscribeView({
     }
   }
 
-  const faq: [string, string][] = [
-    [
-      t('Can I cancel any time?', '可以随时取消吗？'),
-      t(
-        'Yes. Cancel in one click from your billing page — you keep access until the end of the current period.',
-        '可以。在账单页一键取消，当前周期结束前仍可继续使用。'
-      ),
-    ],
-    [
-      t('What happens to unused credits?', '没用完的积分怎么办？'),
-      t(
-        `Monthly credits refresh with each billing cycle, and you can top up extra credits any time at ${creditsPerUsd} credits = $1.`,
-        `每月积分随账单周期刷新，也可以随时加购——${creditsPerUsd} 积分 = 1 美元。`
-      ),
-    ],
-    [
-      t('Do you offer a free trial?', '有免费试用吗？'),
-      t(
-        'Every new account starts with free credits — enough to render your first Hotel Lobby AI template video before you pay a cent.',
-        '每个新账号都赠送免费积分——不花一分钱就能先做出第一条 Hotel Lobby AI 模板视频。'
-      ),
-    ],
-    [
-      t('Do I own the videos I make?', '生成的视频归我所有吗？'),
-      t(
-        'Yes. Videos you generate are yours to post anywhere — paid plans are watermark-free with no strings attached.',
-        '是的。生成的视频完全归你，可发布到任何平台——付费方案无水印、无附加条件。'
-      ),
-    ],
-  ];
+  const faq = getSubscribeFaq(zh, creditsPerUsd);
 
   return (
     <div className="viral-home">
@@ -124,8 +96,8 @@ export function SubscribeView({
             </h1>
             <p className="sub">
               {t(
-                'One subscription, unlimited trend-chasing. Every plan includes all Hotel Lobby AI templates, auto lip-sync and watermark-free export.',
-                '一次订阅，随时追热梗。所有套餐均包含全部 Hotel Lobby AI 模板、自动口型同步和无水印导出。'
+                'One subscription, unlimited trend-chasing. Every plan includes the ViralReel template library, auto lip-sync and watermark-free export.',
+                '一次订阅，随时追热梗。所有套餐均包含全部 ViralReel 模板、自动口型同步和无水印导出。'
               )}
             </p>
             <p className="sub-rating" aria-label="5 out of 5 stars">
@@ -190,9 +162,10 @@ export function SubscribeView({
             </div>
             <p className="sub-note">
               {t(
-                `10 credits per video · top up any time at ${creditsPerUsd} credits = $1 · cancel any time`,
-                `每条视频 10 积分 · 随时加购（${creditsPerUsd} 积分 = 1 美元）· 随时取消`
-              )}
+                `Credit cost depends on resolution and duration — see Pricing. Top up any time at ${creditsPerUsd} credits = $1. Cancel any time.`,
+                `积分随清晰度和时长变化，详见定价页。随时加购（${creditsPerUsd} 积分 = 1 美元）。随时取消。`
+              )}{' '}
+              <Link href="/pricing">{t('One-time packs', '一次性积分包')}</Link>
             </p>
           </div>
         </section>
@@ -234,8 +207,8 @@ export function SubscribeView({
             <h2>{t('Ready to go viral?', '准备爆火了吗？')}</h2>
             <p>
               {t(
-                'Subscribe, upload two photos and make your first Hotel Lobby video in 60 seconds.',
-                '订阅后上传两张照片，60 秒做出你的第一条 Hotel Lobby 视频。'
+                'Subscribe, upload your photos, and make your first ViralReel template video in about a minute.',
+                '订阅后上传照片，大约一分钟做出你的第一条 ViralReel 模板视频。'
               )}
             </p>
             <Link className="btn btn-primary btn-lg" href="/">

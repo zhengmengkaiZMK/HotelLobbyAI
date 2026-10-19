@@ -141,15 +141,29 @@ export default async function HomePage({
         ],
         image: buildProductImageUrls(appUrl),
         ...(plans.length > 0 && {
-          offers: plans.slice(0, 5).map((p) => ({
-            '@type': 'Offer',
-            name: p.product_name || 'ViralReel Plan',
-            price: (p.amount / 100).toFixed(2),
-            priceCurrency: p.currency || 'USD',
-            availability: 'https://schema.org/InStock',
-            url: `${appUrl}/pricing`,
-            ...buildOfferExtrasJsonLd(),
-          })),
+          offers: plans
+            .filter(
+              (p) =>
+                p.interval === 'one-time' ||
+                p.interval === 'month' ||
+                p.interval === 'year'
+            )
+            .map((p) => ({
+              '@type': 'Offer',
+              name: p.product_name || 'ViralReel Plan',
+              price: (p.amount / 100).toFixed(2),
+              priceCurrency: p.currency || 'USD',
+              availability: 'https://schema.org/InStock',
+              url:
+                p.interval === 'one-time'
+                  ? `${appUrl}/pricing`
+                  : `${appUrl}/subscribe`,
+              description:
+                p.interval === 'one-time'
+                  ? `${p.credits} credits, one-time`
+                  : `${p.credits} credits per ${p.interval}`,
+              ...buildOfferExtrasJsonLd(),
+            })),
         }),
         aggregateRating: buildAggregateRatingJsonLd(),
         review: buildReviewsJsonLd(),

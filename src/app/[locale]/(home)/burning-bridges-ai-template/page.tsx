@@ -2,6 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { BurningBridgesHome } from '@/shared/blocks/burning-bridges/home';
+import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
@@ -94,6 +95,14 @@ export default async function BurningBridgesAiTemplatePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
+          appUrl: envConfigs.app_url,
+          pageUrl: zh ? `${envConfigs.app_url}/zh/burning-bridges-ai-template` : `${envConfigs.app_url}/burning-bridges-ai-template`,
+          description: META[zh ? 'zh' : 'en'].description,
+        })) }}
       />
       <BurningBridgesHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>

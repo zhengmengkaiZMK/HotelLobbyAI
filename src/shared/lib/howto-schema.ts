@@ -42,7 +42,88 @@ const HOW_TO_STEP_SOURCES: Record<
       text: 'Download and post the clip natively to TikTok, Reels, and Shorts with the trending sound.',
     },
   ],
+  'how-to-make-bulin-47-ai-video': [
+    {
+      name: 'Pick a template version',
+      text: 'Open the Bulin 47 template on ViralReel and choose Street Freestyle, Suit Edition, Night Crowd, Sharp Vest, or Pet Freestyle.',
+    },
+    {
+      name: 'Upload one front-facing photo',
+      text: 'Use one clear, front-facing photo. Pet Freestyle uses one photo of the animal. Skip sunglasses, group shots, and heavy filters.',
+    },
+    {
+      name: 'Set ratio, resolution, and length',
+      text: 'Keep the aspect ratio on 9:16, choose the resolution and length, and check the credit cost shown before you generate.',
+    },
+    {
+      name: 'Generate, download, and post',
+      text: 'Generate and download the MP4 in about a minute. In TikTok, Reels, or Shorts, add the Bulin 47 or Dame Hombro trend sound and turn on the AI label where the app asks.',
+    },
+  ],
+  'how-to-make-ozil-goal-ai-video': [
+    {
+      name: 'Pick a template variant',
+      text: 'Open the Ozil Goal template on ViralReel and pick the look that fits the photo, including Night Match, a suit, or Creature Goal.',
+    },
+    {
+      name: 'Upload one front-facing photo',
+      text: 'Upload one clear, front-facing photo of one person. Creature Goal uses one photo of the animal. Skip sunglasses, group shots, and heavy filters.',
+    },
+    {
+      name: 'Set 9:16 and length',
+      text: 'Leave the ratio on 9:16 and set the length up to 15 seconds so the chip, the slides, and the empty net all fit. Confirm the credit cost before you generate.',
+    },
+    {
+      name: 'Generate, download, and post',
+      text: 'Download the MP4 in about a minute. Add a trend sound in TikTok, Reels, or Shorts and label the post as AI-generated where the platform asks.',
+    },
+  ],
+  'how-to-make-cat-clapping-ai-video': [
+    {
+      name: 'Pick a cat template',
+      text: 'Open the Cat Clapping template and pick Orange Tabby, Tuxedo Clap, or Black Cat.',
+    },
+    {
+      name: 'Upload two photos',
+      text: 'Upload a clear photo of the person, then a clear photo of the cat. The cat’s face and front paws should be visible. Skip sunglasses, group shots, and heavy filters.',
+    },
+    {
+      name: 'Set ratio, resolution, and length',
+      text: 'Leave the ratio on 9:16. Set the resolution and a length of 4 or 6 seconds. The credit cost updates before you generate.',
+    },
+    {
+      name: 'Download and post',
+      text: 'Download the MP4. In TikTok, Reels, or Shorts, add a trend sound and turn on the AI label where the app asks.',
+    },
+  ],
 };
+
+export function buildHowToJsonLdFromSteps({
+  name,
+  description,
+  url,
+  steps,
+}: {
+  name: string;
+  description?: string;
+  url?: string;
+  steps: { name: string; text: string }[];
+}) {
+  if (!steps.length) return null;
+  return {
+    '@context': 'https://schema.org',
+    '@type': 'HowTo',
+    name,
+    description,
+    url,
+    totalTime: 'PT5M',
+    step: steps.map((s) => ({
+      '@type': 'HowToStep',
+      name: s.name,
+      text: s.text,
+    })),
+  };
+}
 
 export function buildHowToJsonLd({
   slug,

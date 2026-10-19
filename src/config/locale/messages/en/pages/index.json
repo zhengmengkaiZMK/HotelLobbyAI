@@ -389,8 +389,8 @@
         "description": "Start from here, ship with ShipAny.",
         "buttons": [
           {
-            "title": "Get ShipAny",
-            "url": "https://shipany.ai",
+            "title": "See pricing",
+            "url": "/pricing",
             "target": "_blank",
             "icon": "Zap"
           },

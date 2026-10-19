@@ -5,6 +5,7 @@ import { Bulin47Home } from '@/shared/blocks/bulin-47/home';
 import { BULIN_FAQ } from '@/shared/blocks/bulin-47/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
+import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 
 export const dynamic = 'force-dynamic';
@@ -94,6 +95,14 @@ export default async function Bulin47AiTemplatePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
+          appUrl: envConfigs.app_url,
+          pageUrl: zh ? `${envConfigs.app_url}/zh/bulin-47-ai-template` : `${envConfigs.app_url}/bulin-47-ai-template`,
+          description: META[zh ? 'zh' : 'en'].description,
+        })) }}
       />
       <Bulin47Home creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>

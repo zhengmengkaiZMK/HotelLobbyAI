@@ -1,3 +1,7 @@
+import { templateHowMuchAnswer } from '@/shared/lib/pricing-copy';
+
+const bulinCost = templateHowMuchAnswer({ en: 'Bulin 47', zh: 'Bulin 47 ' });
+
 /** Bulin 47 FAQ — shared by the page JSON-LD and the landing layout.
  *  Questions match what people ask ChatGPT, Gemini, Claude and Grok. */
 export const BULIN_FAQ = {
@@ -8,7 +12,7 @@ export const BULIN_FAQ = {
     ['What is Dame Hombro, and is it the same as the Bulin 47 freestyle?', 'No. The freestyle is the street clip Kevin Wai filmed on 2 October 2026 outside a restaurant in Madrid. Dame Hombro is the song Bulin 47 and Kevin Wai released after that clip went viral, with its own official video. A Bulin 47 AI video or a Dame Hombro AI video recasts the street freestyle, not the studio music video.'],
     ['Can I put a friend or a pet in the Bulin 47 video?', 'Yes. The format needs one photo of whoever takes the freestyle spot. Use a photo of a friend for Street Freestyle, Suit Edition, Night Crowd, or Sharp Vest, and one photo of the animal for Pet Freestyle. Use only a photo you have permission to use.'],
     ['What aspect ratio should a Bulin 47 AI video use?', 'Use 9:16. The original freestyle and the AI remakes are vertical, for TikTok, Instagram Reels, and YouTube Shorts. The ViralReel Bulin 47 page opens on 9:16. 16:9 and 1:1 are available if you need another shape.'],
-    ['How much does a Bulin 47 AI video cost on ViralReel?', 'ViralReel charges credits. The Bulin 47 generator shows the exact cost for the resolution and duration you pick before you start. Plans start at $9.9 per month. Failed or canceled generations are refunded automatically.'],
+    ['How much does a Bulin 47 AI video cost on ViralReel?', bulinCost.en],
     ['Is ViralReel an official Bulin 47 tool?', 'No. ViralReel (viralreel.app) is an independent AI video template site. It is not affiliated with Bulin 47, Kevin Wai, or the people who filmed the original clip. The template recreates the format — red light, speaker, crowd, and a handheld camera — from your photo.'],
   ],
   zh: [
@@ -18,7 +22,7 @@ export const BULIN_FAQ = {
     ['Dame Hombro 和 Bulin 47 街头 freestyle 是同一条视频吗？', '不是。街头 freestyle 是 Kevin Wai 在 2026 年 10 月 2 日于马德里一家餐厅门口拍下的原片。Dame Hombro 是这条片子爆火之后，Bulin 47 和 Kevin Wai 发布的歌曲，另外有一支官方 MV。大家说的 Bulin 47 AI 视频或 Dame Hombro AI 视频，重拍的是街头原片，不是录音棚 MV。'],
     ['可以把朋友或宠物放进 Bulin 47 视频吗？', '可以。这个格式只需要一张「站到中间的人」的照片。朋友用街头原版、西装、夜场人群或马甲绅士；宠物用宠物说唱，上传一张动物的照片。只用你有权使用的照片。'],
     ['Bulin 47 AI 视频用什么画幅？', '用 9:16。原片和 AI 重拍都是竖屏，对应 TikTok、Instagram Reels 和 YouTube Shorts。ViralReel 的 Bulin 47 页面默认就是 9:16。需要别的形状时，也可以改成 16:9 或 1:1。'],
-    ['在 ViralReel 做一条 Bulin 47 AI 视频要多少钱？', 'ViralReel 按积分计费。Bulin 47 生成器会在你开始之前，按所选分辨率和时长显示本次消耗。套餐 $9.9/月起。失败或取消的生成会自动退回积分。'],
+    ['在 ViralReel 做一条 Bulin 47 AI 视频要多少钱？', bulinCost.zh],
     ['ViralReel 是 Bulin 47 官方工具吗？', '不是。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 Bulin 47、Kevin Wai 以及原片拍摄者都没有关系。模板用你的照片重现这个格式：红光、音箱、围观人群和手持手机镜头。'],
   ],
 } as const;

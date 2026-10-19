@@ -180,7 +180,7 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
 
 export function ViralHub({
   plans,
-  creditsPerUsd = 10,
+  creditsPerUsd = 12,
 }: {
   plans: PricingItem[];
   creditsPerUsd?: number;
@@ -502,8 +502,8 @@ export function ViralHub({
               </h2>
               <p className="sub">
                 {t(
-                  'Plans below are monthly starting points. The full credit table, yearly billing, and one-time packs are on the pricing page.',
-                  '下面是月付起步价格。完整积分表、年付和一次性加购在定价页。'
+                  'Cards below are monthly plans. Monthly billing is on Subscribe. One-time credit packs and the credit table are on Pricing.',
+                  '下面是月付套餐。月付在订阅页。一次性积分包和积分对照表在定价页。'
                 )}
               </p>
             </div>
@@ -525,8 +525,12 @@ export function ViralHub({
               ))}
             </div>
             <div className="hub-cta">
-              <Link className="btn btn-primary btn-lg" href="/pricing">
-                {t('See pricing', '查看定价')}
+              <Link className="btn btn-primary btn-lg" href="/subscribe">
+                {t('Monthly plans', '月付套餐')}
+                <ArrowRight size={16} />
+              </Link>
+              <Link className="btn btn-outline btn-lg" href="/pricing">
+                {t('One-time packs', '一次性积分包')}
                 <ArrowRight size={16} />
               </Link>
             </div>

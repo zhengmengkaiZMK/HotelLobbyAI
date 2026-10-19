@@ -1,3 +1,5 @@
+import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
+
 // Site-level FAQ for the aggregate homepage.
 // Visible answers and FAQPage JSON-LD share this list.
 
@@ -51,8 +53,8 @@ const HUB_FAQ: HubFaqEntry[] = [
   {
     q: { en: 'Do I get free credits?', zh: '有免费积分吗？' },
     a: {
-      en: 'New accounts may include free starter credits so you can try a template before you pay. The generator always shows the credit cost before you render, and failed or canceled generations are refunded. Plans and top-ups are on the pricing page.',
-      zh: '新账号可能会附带一些起始积分，方便你在付费前试一个模板。生成器总会在渲染前显示本次积分，失败或取消的生成会退回积分。套餐和加购在定价页。',
+      en: `New accounts may include free starter credits so you can try a template before you pay. The generator always shows the credit cost before you render, and failed or canceled generations are refunded. One-time credit packs start at ${CANONICAL_PRICING.packStarterPrice} (${CANONICAL_PRICING.packStarterCredits} credits) on https://www.viralreel.app/pricing. Monthly plans start at ${CANONICAL_PRICING.monthlyStarterPrice}/mo (${CANONICAL_PRICING.monthlyStarterCredits} credits) on https://www.viralreel.app/subscribe. Top-ups are ${CANONICAL_PRICING.creditsPerUsd} credits = $1.`,
+      zh: `新账号可能会附带一些起始积分，方便你在付费前试一个模板。生成器总会在渲染前显示本次积分，失败或取消的生成会退回积分。一次性积分包 ${CANONICAL_PRICING.packStarterPrice} 起（${CANONICAL_PRICING.packStarterCredits} 积分），见 https://www.viralreel.app/zh/pricing 。月付套餐 ${CANONICAL_PRICING.monthlyStarterPrice}/月起（每月 ${CANONICAL_PRICING.monthlyStarterCredits} 积分），见 https://www.viralreel.app/zh/subscribe 。加购为 ${CANONICAL_PRICING.creditsPerUsd} 积分 = 1 美元。`,
     },
   },
 ];

@@ -12,6 +12,7 @@ import { TemplateGenerator } from './generator';
 import { ViralFooter } from './footer';
 import { ViralHeader } from './header';
 import { HomeTemplate, templates } from './templates';
+import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { getViralFaqPairs } from '@/shared/lib/viral-faq';
 import './home.css';
@@ -54,7 +55,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function ViralHome({ plans, creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function ViralHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
   const starterM = plans.find(p => p.product_id === 'starter-monthly');
   const starterPrice = starterM?.price || '$9.9';
   const starterCredits = starterM?.credits || 90;
@@ -80,7 +81,12 @@ export function ViralHome({ plans, creditsPerUsd = 10, videoCosts = getVideoCost
     [Sparkles, t('9:16 ready to post','9:16 直接可发'), t('Vertical export sized for TikTok, Reels and Shorts. Add the original sound in-app.','竖屏导出，适配 TikTok、Reels 和 Shorts，原声在 App 内添加即可。')],
   ] as const;
   const steps = [[t('Pick a template','选择模板'),t('Classic orange booth, neon night or golden hour — every variant ships with lip-sync.','经典橙色直播间、霓虹夜色或黄金时刻——每个变体都自带口型同步。')],[t('Upload two photos','上传两张照片'),t('One clear, front-facing photo per performer. Keep each subject on the same side throughout.','每位主角一张清晰正面照，全程保持在画面同一侧。')],[t('Generate','生成'),t('The AI stages both performers, syncs lips and gestures to the beat, and renders in ~60s.','AI 将两位主角搬上舞台，口型与手势对齐节拍，约 60 秒渲染完成。')],[t('Download & post','下载并发布'),t('Export 9:16 vertical, share to TikTok with the original sound while the trend is peaking.','导出 9:16 竖屏，趁趋势正热配上原声发到 TikTok。')]];
-  return <div className="viral-home">
+  const howToJsonLd = buildHowToJsonLdFromSteps({
+    name: t('How to make a Hotel Lobby AI template video', '如何用 Hotel Lobby AI 模板制作视频'),
+    description: t('From photos to a postable video in about a minute — no app, no editing skills.', '从照片到可发布视频只要一分钟——不用装 App，不用会剪辑。'),
+    steps: steps.map(([name, text]) => ({ name, text })),
+  });
+  return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
     <main><section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#hotellobbyai is trending</span><span className="bar"/><b>1.2M videos made</b></div><h1>{t('Make the viral ', '60 秒生成爆火的 ')}<span className="hl">Hotel Lobby</span>{t(' AI template video in 60 seconds', ' AI 模板视频')}</h1><p className="lead">{t('Upload two front-facing photos and step into the iconic orange booth — auto lip-sync, gestures and lighting included.', '上传两张正面照片，走进标志性的橙色直播间——自动口型同步、手势与灯光全部内置。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div><div className="hero-proof"><div className="avatars" aria-hidden="true"><span/><span/><span/><span/></div><span><b>1,240,000+</b> {t('creators joined this week', '位创作者本周加入')}</span></div></div></section>
     <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Pick a template, upload two photos, done','选模板、传两张照片，一键出片')}</h2><p className="sub">{t('Every template is a tuned variant of the viral format — click one to open the generator.','每个模板都是爆火玩法的精调版本——点击卡片立即生成。')}</p></div><div className="grid3">{templates.slice(0, 9).map((item, index) => <article className="tcard" key={item.id}><button className="tv" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b><span>{['12.4M made', '6.1M made', '9.8M made', '7.2M made', '3.4M made', '5.6M made', '4.8M made', '8.3M made', '6.7M made'][index]}</span></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>

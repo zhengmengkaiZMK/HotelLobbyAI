@@ -15,7 +15,7 @@ const PRIORITY_PACKS = new Set(['credits-once-creator', 'credits-once-max']);
 // Pricing section shared by the homepage and the standalone /pricing page.
 // Homepage keeps the monthly/yearly cards. The pricing page also offers
 // one-time credit packs (Pay Once), which is the default tab there.
-export function PricingSection({ plans, creditsPerUsd = 10, videoCosts, enablePayOnce = false }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts: ReturnType<typeof import('@/shared/lib/video-cost').getVideoCostTable>; enablePayOnce?: boolean }) {
+export function PricingSection({ plans, creditsPerUsd = 12, videoCosts, enablePayOnce = false }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts: ReturnType<typeof import('@/shared/lib/video-cost').getVideoCostTable>; enablePayOnce?: boolean }) {
   const { user, configs, setIsShowSignModal, setIsShowPaymentModal } = useAppContext();
   const [group, setGroup] = useState(enablePayOnce ? 'one-time' : 'month');
   const [payment, setPayment] = useState<PricingItem | null>(null);

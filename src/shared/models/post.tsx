@@ -159,6 +159,31 @@ const GAME_CONTENT_KEYWORDS = [
   '手游',
 ];
 
+const JUNK_BLOG_MARKERS = ['dressmaker'];
+
+/** Off-topic posts that should not be listed, indexed, or returned by slug. */
+export function isJunkBlogPost(post: {
+  title?: string | null;
+  slug?: string | null;
+  url?: string | null;
+}): boolean {
+  const text = [post.title, post.slug, post.url].filter(Boolean).join(' ').toLowerCase();
+  return JUNK_BLOG_MARKERS.some((marker) => text.includes(marker));
+}
+
+export function isHiddenFromBlog(post: {
+  title?: string | null;
+  slug?: string | null;
+  url?: string | null;
+  categories?:
+    | string[]
+    | string
+    | { title?: string; slug?: string }[]
+    | null;
+}): boolean {
+  return isGameContent(post) || isJunkBlogPost(post);
+}
+
 export function isGameContent(post: {
   title?: string | null;
   slug?: string | null;
@@ -233,7 +258,7 @@ export async function getPost({
       };
 
       // hide game-type content
-      if (isGameContent({ title: post.title, slug: post.slug, categories: postData.categories })) {
+      if (isHiddenFromBlog({ title: post.title, slug: post.slug, categories: postData.categories })) {
         return null;
       }
 
@@ -247,7 +272,7 @@ export async function getPost({
   const localPost = await getLocalPost({ slug, locale, postPrefix });
 
   // hide game-type content (detail pages should 404/empty like the list)
-  if (localPost && isGameContent(localPost)) {
+  if (localPost && isHiddenFromBlog(localPost)) {
     return null;
   }
 
@@ -483,7 +508,7 @@ export async function getRemotePostsAndCategories({
             .split(',')
             .map((id) => categoryIdTitles.get(id.trim()))
             .filter(Boolean) as string[];
-          return !isGameContent({
+          return !isHiddenFromBlog({
             title: post.title,
             slug: post.slug,
             categories: categoryTitles,
@@ -519,7 +544,7 @@ export async function getRemotePostsAndCategories({
   }
 
   // filter out game-type content and game categories
-  const visibleDbPosts = dbPostsList.filter((post) => !isGameContent(post));
+  const visibleDbPosts = dbPostsList.filter((post) => !isHiddenFromBlog(post));
   const visibleDbCategories = dbCategoriesList.filter(
     (category) =>
       !isGameContent({ title: category.title, slug: category.slug })
@@ -607,7 +632,7 @@ export async function getLocalPostsAndCategories({
 
   // filter out game-type content
   const visibleLocalPosts = localPostsList.filter(
-    (post) => !isGameContent(post)
+    (post) => !isHiddenFromBlog(post)
   );
 
   return {

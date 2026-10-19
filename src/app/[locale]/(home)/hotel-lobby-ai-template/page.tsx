@@ -2,6 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { ViralHome } from '@/shared/blocks/viral-home/home';
+import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildViralFaqJsonLd } from '@/shared/lib/viral-faq';
 import { getAllConfigs } from '@/shared/models/config';
@@ -83,6 +84,10 @@ export default async function HotelLobbyAiTemplatePage({
   const starterM = plans.find((p) => p.product_id === 'starter-monthly');
   const plusM = plans.find((p) => p.product_id === 'plus-monthly');
   const proM = plans.find((p) => p.product_id === 'pro-monthly');
+  const zh = locale === 'zh';
+  const pageUrl = zh
+    ? `${envConfigs.app_url}/zh/hotel-lobby-ai-template`
+    : `${envConfigs.app_url}/hotel-lobby-ai-template`;
   const faqJsonLd = buildViralFaqJsonLd({
     starterPrice: starterM?.price || '$9.9',
     starterCredits: starterM?.credits || 90,
@@ -97,6 +102,18 @@ export default async function HotelLobbyAiTemplatePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{
+          __html: JSON.stringify(
+            buildTemplateSoftwareJsonLd({
+              appUrl: envConfigs.app_url,
+              pageUrl,
+              description: META[zh ? 'zh' : 'en'].description,
+            })
+          ),
+        }}
       />
       <ViralHome
         plans={plans}
