@@ -7,10 +7,6 @@ import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
-  buildAggregateRatingJsonLd,
-  buildReviewsJsonLd,
-} from '@/shared/lib/reviews';
-import {
   buildOfferExtrasJsonLd,
   buildProductImageUrls,
 } from '@/shared/lib/product-schema';
@@ -112,8 +108,6 @@ export default async function SubscribePage({
           : 'ViralReel AI video template subscription: Starter, Plus, and Pro, monthly or yearly. One-time credit packs are on the pricing page.',
         brand: { '@type': 'Brand', name: 'ViralReel' },
         image: buildProductImageUrls(appUrl),
-        aggregateRating: buildAggregateRatingJsonLd(),
-        review: buildReviewsJsonLd(),
         ...(plans.some((p) => p.interval === 'month' || p.interval === 'year') && {
           offers: plans
             .filter((p) => p.interval === 'month' || p.interval === 'year')

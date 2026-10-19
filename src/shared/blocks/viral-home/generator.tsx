@@ -8,6 +8,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/
 import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
 import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel } from '@/shared/lib/ai-models';
+import { track } from '@/shared/lib/analytics';
 import { TemplateDef } from './templates';
 import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost } from '@/shared/lib/video-cost';
 
@@ -198,6 +199,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         if (data.status === 'success') {
           const video = [...urls(data.taskInfo), ...urls(data.taskResult)][0];
           if (!video) throw new Error(text('No video returned.', '模型没有返回视频。'));
+          track('render_success', {
+            template: family,
+            model: model?.value,
+            credits: costCredits,
+            render_seconds: Math.round((Date.now() - task.start) / 1000),
+          });
           setProgress(100); setStage(null);
           setResult(video); setTask(null); setBusy(false); lock.current = false;
           void creditsRef.current();
@@ -206,6 +213,10 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         timer = setTimeout(poll, 15000);
       } catch (e) {
         if (cancelled) return;
+        track('render_failed', {
+          template: family,
+          reason: (e instanceof Error ? e.message : 'query failed').slice(0, 120),
+        });
         setError(e instanceof Error ? e.message : 'Query failed'); setTask(null); setBusy(false); setStage(null); setProgress(0); lock.current = false;
         void creditsRef.current();
       }
@@ -215,7 +226,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   }, [task, zh]);
   async function upload(file: File | undefined, index: number) {
     if (!file) return;
-    if (!user) { onOpenChange(false); setIsShowSignModal(true); return; }
+    if (!user) { track('signup_wall', { template: family, surface: 'upload' }); onOpenChange(false); setIsShowSignModal(true); return; }
     if (!['image/jpeg', 'image/png', 'image/webp'].includes(file.type) || file.size > 10 * 1024 * 1024) {
       setError(text('Use a JPG, PNG or WebP image under 10 MB.', '请上传 10 MB 以内的 JPG、PNG 或 WebP 图片。')); return;
     }
@@ -227,6 +238,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       if (!response.ok || payload.code !== 0 || !payload.data?.urls?.[0]) throw new Error(payload.message || 'Upload failed');
       setImages((s) => s.map((v, i) => i === index ? payload.data.urls[0] : v));
       setCustom((s) => s.map((v, i) => i === index ? true : v));
+      track('upload_photo', { template: family, slot: index + 1 });
     } catch (e) { setError(e instanceof Error ? e.message : 'Upload failed'); }
     finally { setUploading((s) => s.map((v, i) => i === index ? false : v)); }
   }
@@ -245,10 +257,15 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   }
   async function generate() {
     // 1) must be signed in — reuse the framework sign modal
-    if (!user) { onOpenChange(false); setIsShowSignModal(true); return; }
+    if (!user) { track('signup_wall', { template: family, surface: 'generator' }); onOpenChange(false); setIsShowSignModal(true); return; }
     if (lock.current || !model) return;
     // 2) credits / plan check — not enough: send the user to the pricing page
     if ((user.credits?.remainingCredits ?? 0) < costCredits) {
+      track('insufficient_credits', {
+        template: family,
+        cost_credits: costCredits,
+        balance: user.credits?.remainingCredits ?? 0,
+      });
       setError(text('Insufficient credits. Taking you to the pricing page…', '积分不足，正在前往购买页…'));
       setTimeout(() => router.push('/subscribe'), 1200);
       return;
@@ -283,6 +300,13 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       const response = await fetch('/api/ai/generate', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.id) throw new Error(payload.message || 'Generation failed');
+      track('generate_submit', {
+        template: family,
+        model: model.value,
+        resolution: activeResolution,
+        duration: activeDuration,
+        credits: costCredits,
+      });
       setTask({ id: payload.data.id, start: Date.now() });
       void creditsRef.current();
     } catch (e) { setError(e instanceof Error ? e.message : 'Generation failed'); setBusy(false); setStage(null); setProgress(0); lock.current = false; }

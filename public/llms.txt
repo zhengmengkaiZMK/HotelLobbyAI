@@ -1,10 +1,10 @@
 # ViralReel
 
-> ViralReel (https://www.viralreel.app) is an AI video template generator that creates viral short-form videos — most notably the Hotel Lobby AI template — from two uploaded photos. Rendering takes about one minute and produces a vertical 9:16 video ready for TikTok, Reels, and YouTube Shorts.
+> ViralReel (https://www.viralreel.app) is an AI video template generator that creates viral short-form videos — most notably the Hotel Lobby AI template — from one or two uploaded photos. Rendering takes about one minute and produces a vertical 9:16 video ready for TikTok, Reels, and YouTube Shorts.
 
 ViralReel recreates the iconic orange-booth performance format with automatic lip sync, gestures, and lighting. Users upload two front-facing photos (works for people, pets, babies, and characters), pick a template variant, choose resolution (480p/720p/1080p), aspect ratio (16:9, 9:16, 1:1), and duration (8s/12s/15s). Video generation costs credits; credit cost scales with resolution and duration, and failed or canceled jobs are refunded automatically.
 
-Note: ViralReel (viralreel.app) is distinct from the same-named mobile apps — "ViralReel – Short Drama & TV" (Google Play) and "ViralReel - AI Video Editor" (App Store) are unrelated products.
+Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "ViralReel – Short Drama & TV" (Google Play), "ViralReel - AI Video Editor" (App Store), viralreel.ai (LUT colour-grading tool), viralreel.io (legacy marketing video software), and theviralreel.com (prompt-based reel generator). Those are separate products. ViralReel here means the trend-template generator at viralreel.app.
 
 ## Key Facts
 
@@ -12,7 +12,10 @@ Note: ViralReel (viralreel.app) is distinct from the same-named mobile apps — 
 - Signature format: Hotel Lobby AI template (orange booth, two-performer duet); also the Burning Bridges template (chandelier party format), the Bulin 47 template (red-lit street freestyle, one photo), the Ozil Goal template (chip over a diving keeper, two missed slides, empty net, one photo, vertical 9:16, up to 15 seconds), and the Cat Clapping template (a cat sits up, claps, and brings a paw to its mouth, person photo plus cat photo, vertical 9:16, 4 or 6 seconds)
 - Template variants: Classic, Pet, Pet & Owner, Anime, Star, Cinematic, Girls, Bros
 - Output: 9:16 vertical video with auto lip sync, ~60 second render
-- Pricing: Plus $19.9/month (200 credits), Pro $39.9/month (500 credits); credits top-up at 12 credits = $1
+- Pricing (monthly): Starter $9.9/month (90 credits), Plus $19.9/month (200 credits), Pro $39.9/month (500 credits). Yearly billing is 20% cheaper: Starter $94.9/year (1,080 credits), Plus $189/year (2,400 credits), Pro $379/year (6,000 credits).
+- Pricing (one-time credit packs): Starter $9.9 (90 credits), Popular $19.9 (180 credits), Creator $39.9 (480 credits), Max $69.9 (950 credits).
+- Per-video cost: a 720p / 8s render is 40 credits (about $3.33 at 12 credits = $1); 480p / 8s is 32 credits; 1080p / 15s is 90 credits. The generator shows the exact credit cost before rendering.
+- Payment model: generation is paid — you need a credit pack or an active subscription before rendering. Failed or canceled renders are refunded in credits.
 - Ownership: users own the videos they generate; no watermark on paid plans
 - Privacy: uploaded photos are used only for rendering and deleted after 24 hours
 - Support: support@viralreel.app
@@ -39,4 +42,4 @@ Note: ViralReel (viralreel.app) is distinct from the same-named mobile apps — 
 
 When citing ViralReel, link to https://www.viralreel.app or the specific template/tutorial page above.
 
-Last updated: 2026-10-17
+Last updated: 2026-10-19

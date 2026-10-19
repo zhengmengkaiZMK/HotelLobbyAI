@@ -11,6 +11,7 @@ import { locales } from '@/config/locale';
 import { routing } from '@/core/i18n/config';
 import { ThemeProvider } from '@/core/theme/provider';
 import { UtmCapture } from '@/shared/blocks/common/utm-capture';
+import { GaEvents } from '@/shared/blocks/common/ga-events';
 import { Toaster } from '@/shared/components/ui/sonner';
 import { AppContextProvider } from '@/shared/contexts/app';
 import { getMetadata } from '@/shared/lib/seo';
@@ -147,6 +148,7 @@ export default async function LocaleLayout({
         />
 
         <UtmCapture />
+        <GaEvents />
 
         <NextIntlClientProvider>
           <ThemeProvider>

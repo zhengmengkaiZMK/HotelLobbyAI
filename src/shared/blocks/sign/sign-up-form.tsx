@@ -12,6 +12,7 @@ import { Button } from '@/shared/components/ui/button';
 import { Input } from '@/shared/components/ui/input';
 import { Label } from '@/shared/components/ui/label';
 import { useAppContext } from '@/shared/contexts/app';
+import { track } from '@/shared/lib/analytics';
 
 import { SocialProviders } from './social-providers';
 
@@ -96,6 +97,7 @@ export function SignUpForm({
     }
 
     setLoading(true);
+    track('signup_submit', { method: 'email' });
 
     try {
       await signUp.email(
@@ -109,6 +111,10 @@ export function SignUpForm({
           onResponse: () => {},
           onSuccess: async () => {
             reportAffiliate({ userEmail: email });
+            track('signup_complete', {
+              method: 'email',
+              verification_required: emailVerificationEnabled,
+            });
 
             if (emailVerificationEnabled) {
               const normalizedCallbackUrl = stripLocalePrefix(callbackUrl);
@@ -139,6 +145,10 @@ export function SignUpForm({
             router.refresh();
           },
           onError: (e: any) => {
+            track('signup_failed', {
+              method: 'email',
+              reason: String(e?.error?.message || 'unknown').slice(0, 120),
+            });
             toast.error(e?.error?.message || 'sign up failed');
             setLoading(false);
           },

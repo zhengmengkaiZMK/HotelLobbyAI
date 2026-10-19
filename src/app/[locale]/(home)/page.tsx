@@ -10,10 +10,6 @@ import {
   buildProductImageUrls,
 } from '@/shared/lib/product-schema';
 import {
-  buildAggregateRatingJsonLd,
-  buildReviewsJsonLd,
-} from '@/shared/lib/reviews';
-import {
   getCreditsPerUsdFromConfigs,
   getPricingPlans,
 } from '@/shared/services/pricing';
@@ -169,8 +165,6 @@ export default async function HomePage({
               ...buildOfferExtrasJsonLd(),
             })),
         }),
-        aggregateRating: buildAggregateRatingJsonLd(),
-        review: buildReviewsJsonLd(),
       },
     ],
   };

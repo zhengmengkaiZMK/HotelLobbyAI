@@ -26,6 +26,7 @@ import {
 import { Tabs, TabsList, TabsTrigger } from '@/shared/components/ui/tabs';
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
+import { track } from '@/shared/lib/analytics';
 import { cn } from '@/shared/lib/utils';
 import { Subscription } from '@/shared/models/subscription';
 import {
@@ -257,6 +258,7 @@ export function Pricing({
   ) => {
     try {
       if (!user) {
+        track('signup_wall', { surface: 'checkout', plan: item.product_id });
         setIsShowSignModal(true);
         return;
       }
@@ -306,6 +308,15 @@ export function Pricing({
         throw new Error('checkout url not found');
       }
 
+      track('begin_checkout', {
+        plan: item.product_id,
+        plan_name: item.title,
+        value: (item.amount || 0) / 100,
+        currency: item.currency || 'USD',
+        credits: item.credits,
+        interval: item.interval,
+        payment_provider: paymentProvider || '',
+      });
       window.location.href = checkoutUrl;
     } catch (e: any) {
       console.log('checkout failed: ', e);

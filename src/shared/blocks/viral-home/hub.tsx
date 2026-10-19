@@ -18,8 +18,8 @@ import {
   type TrendingVibeId,
 } from '@/config/trending-templates';
 import { getHubFaqPairs } from '@/shared/lib/hub-faq';
+import { track } from '@/shared/lib/analytics';
 import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
-import { VIRAL_REVIEWS } from '@/shared/lib/reviews';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
   maxVideoLine,
@@ -34,15 +34,6 @@ import { ViralFooter } from './footer';
 import { ViralHeader } from './header';
 
 import './home.css';
-
-const REVIEW_META = [
-  ['@jakemakes · 412K followers', '/avatars/review-1.jpg'],
-  ['Runs @dailydoseofmemes', '/avatars/review-2.jpg'],
-  ['@tompetsdaily · 208K followers', '/avatars/review-3.jpg'],
-  ['@liam.plays · 96K followers', '/avatars/review-4.jpg'],
-  ['@emmadaybyday · 340K followers', '/avatars/review-5.jpg'],
-  ['@marcusmakes · 155K followers', '/avatars/review-6.jpg'],
-] as const;
 
 function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' }) {
   const paths: Record<string, ReactNode> = {
@@ -175,7 +166,16 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
       </div>
       <p className="tpitch">{pitch}</p>
       {item.href ? (
-        <Link className="use" href={item.href}>
+        <Link
+          className="use"
+          href={item.href}
+          onClick={() =>
+            track('click_template_card', {
+              template: item.id,
+              surface: 'home_grid',
+            })
+          }
+        >
           {t('Make this', '做这个')}
         </Link>
       ) : (
@@ -395,13 +395,6 @@ export function ViralHub({
       ),
     ],
   ];
-  const quotes = VIRAL_REVIEWS.map((review, index) => ({
-    name: review.name,
-    body: review.body,
-    handle: REVIEW_META[index]?.[0] || '',
-    img: REVIEW_META[index]?.[1] || '',
-  }));
-
   return (
     <div className="viral-home">
       <ViralHeader onStart={scrollToTrends} />
@@ -558,55 +551,7 @@ export function ViralHub({
           </div>
         </section>
 
-        <section className="sec">
-          <div className="container">
-            <div className="sec-head">
-              <p className="kick">{t('Testimonials', '用户评价')}</p>
-              <h2>
-                {t(
-                  'Creators already posting with these templates',
-                  '创作者已经在用这些模板发视频'
-                )}
-              </h2>
-              <p className="sub">
-                {t(
-                  'A few notes from people who tried a template and posted the result.',
-                  '几位试过模板并发布成片的用户留言。'
-                )}
-              </p>
-            </div>
-            <div className="quote-viewport">
-              <div className="quote-grid">
-                {[...quotes, ...quotes].map((quote, index) => (
-                  <article
-                    className="qcard"
-                    key={`${quote.name}-${index}`}
-                    aria-hidden={index >= quotes.length || undefined}
-                  >
-                    <div className="stars">★★★★★</div>
-                    <p>{`“${quote.body}”`}</p>
-                    <div className="who">
-                      <span
-                        className="av"
-                        style={
-                          quote.img
-                            ? { backgroundImage: `url(${quote.img})` }
-                            : undefined
-                        }
-                      />
-                      <div>
-                        <b>{quote.name}</b>
-                        <span>{quote.handle}</span>
-                      </div>
-                    </div>
-                  </article>
-                ))}
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <section className="sec sec-alt" id="pricing">
+        <section className="sec" id="pricing">
           <div className="container">
             <div className="sec-head">
               <p className="kick">{t('Pricing', '定价')}</p>
