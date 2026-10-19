@@ -1,4 +1,4 @@
-import { getTranslations, setRequestLocale } from 'next-intl/server';
+import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 
@@ -14,7 +14,7 @@ import {
 } from '@/shared/lib/product-schema';
 import { getCurrentSubscription } from '@/shared/models/subscription';
 import { getUserInfo } from '@/shared/models/user';
-import { PricingItem } from '@/shared/types/blocks/pricing';
+import { getSubscribeFaq } from '@/shared/lib/pricing-copy';
 
 export const dynamic = 'force-dynamic';
 
@@ -22,16 +22,16 @@ const META = {
   en: {
     title: 'Subscribe to ViralReel – AI Video Template Plans & Pricing',
     description:
-      'ViralReel subscription plans: Plus $19.9/mo and Pro $39.9/mo. All Hotel Lobby AI templates included, auto lip-sync, watermark-free export. Cancel any time.',
+      'ViralReel monthly plans: Starter $9.9/mo (90 credits), Plus $19.9/mo (200 credits), and Pro $39.9/mo (500 credits). All ViralReel AI video templates included. Cancel any time. One-time credit packs start at $9.9 on the pricing page.',
     keywords:
-      'viralreel subscription, hotel lobby ai template pricing, ai video generator plans, ai video subscription',
+      'viralreel subscription, viralreel monthly plans, ai video template pricing, ai video generator plans',
   },
   zh: {
     title: '订阅 ViralReel – AI 视频模板套餐与价格',
     description:
-      'ViralReel 订阅套餐：Plus 每月 $19.9、Pro 每月 $39.9。包含全部 Hotel Lobby AI 模板、自动口型同步、无水印导出，可随时取消。',
+      'ViralReel 月付套餐：Starter 每月 $9.9（90 积分）、Plus 每月 $19.9（200 积分）、Pro 每月 $39.9（500 积分）。包含全部 ViralReel AI 视频模板，可随时取消。一次性积分包 $9.9 起，见定价页。',
     keywords:
-      'viralreel 订阅, hotel lobby ai template 价格, ai 视频生成器套餐, ai 视频订阅',
+      'viralreel 订阅, viralreel 月付套餐, ai 视频模板价格, ai 视频生成器套餐',
   },
 } as const;
 
@@ -81,7 +81,6 @@ export default async function SubscribePage({
   const m = META[zh ? 'zh' : 'en'];
   const appUrl = envConfigs.app_url;
 
-  const t = await getTranslations('pages.pricing');
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
 
@@ -106,48 +105,34 @@ export default async function SubscribePage({
         '@id': `${appUrl}/subscribe#product`,
         name: 'ViralReel Subscription',
         description: zh
-          ? 'ViralReel AI 视频模板订阅：Plus 与 Pro 套餐，月付或年付。'
-          : 'ViralReel AI video template subscription: Plus and Pro plans, monthly or yearly.',
+          ? 'ViralReel AI 视频模板订阅：Starter、Plus 与 Pro，月付或年付。一次性积分包在定价页。'
+          : 'ViralReel AI video template subscription: Starter, Plus, and Pro, monthly or yearly. One-time credit packs are on the pricing page.',
         brand: { '@type': 'Brand', name: 'ViralReel' },
         image: buildProductImageUrls(appUrl),
         aggregateRating: buildAggregateRatingJsonLd(),
         review: buildReviewsJsonLd(),
-        ...(plans.length > 0 && {
-          offers: plans.slice(0, 5).map((p) => ({
-            '@type': 'Offer',
-            name: `${p.title} ${p.interval === 'year' ? 'Yearly' : 'Monthly'}`,
-            price: (p.amount / 100).toFixed(2),
-            priceCurrency: p.currency || 'USD',
-            availability: 'https://schema.org/InStock',
-            url: `${appUrl}/subscribe`,
-            ...buildOfferExtrasJsonLd(),
-          })),
+        ...(plans.some((p) => p.interval === 'month' || p.interval === 'year') && {
+          offers: plans
+            .filter((p) => p.interval === 'month' || p.interval === 'year')
+            .map((p) => ({
+              '@type': 'Offer',
+              name: `${p.title} ${p.interval === 'year' ? 'Yearly' : 'Monthly'}`,
+              price: (p.amount / 100).toFixed(2),
+              priceCurrency: p.currency || 'USD',
+              availability: 'https://schema.org/InStock',
+              url: `${appUrl}/subscribe`,
+              description: `${p.credits || 0} credits per ${p.interval === 'year' ? 'year' : 'month'}`,
+              ...buildOfferExtrasJsonLd(),
+            })),
         }),
       },
       {
         '@type': 'FAQPage',
-        mainEntity: [
-          {
-            '@type': 'Question',
-            name: zh ? '可以随时取消吗？' : 'Can I cancel any time?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: zh
-                ? '可以。在账单页一键取消，当前周期结束前仍可继续使用。'
-                : 'Yes. Cancel in one click from your billing page — you keep access until the end of the current period.',
-            },
-          },
-          {
-            '@type': 'Question',
-            name: zh ? '生成的视频归我所有吗？' : 'Do I own the videos I make?',
-            acceptedAnswer: {
-              '@type': 'Answer',
-              text: zh
-                ? '是的。生成的视频完全归你，可发布到任何平台——付费方案无水印、无附加条件。'
-                : 'Yes. Videos you generate are yours to post anywhere — paid plans are watermark-free with no strings attached.',
-            },
-          },
-        ],
+        mainEntity: getSubscribeFaq(zh, creditsPerUsd).map(([question, answer]) => ({
+          '@type': 'Question',
+          name: question,
+          acceptedAnswer: { '@type': 'Answer', text: answer },
+        })),
       },
     ],
   };

@@ -3,6 +3,8 @@ import { Link } from '@/core/i18n/navigation';
 import { ArrowRight } from 'lucide-react';
 
 import { envConfigs } from '@/config';
+import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
+import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getViralFaqPairs } from '@/shared/lib/viral-faq';
 
 import './hotel-lobby-ai-template.css';
@@ -88,10 +90,38 @@ export default async function HotelLobbyAiTemplatePage({
       acceptedAnswer: { '@type': 'Answer', text: answer },
     })),
   };
+  const pageUrl = zh
+    ? `${envConfigs.app_url}/zh/hotel-lobby-ai-template`
+    : `${envConfigs.app_url}/hotel-lobby-ai-template`;
+  const howToJsonLd = buildHowToJsonLdFromSteps({
+    name: t('How do you make a Hotel Lobby AI video?', '怎么制作 Hotel Lobby AI 视频？'),
+    description: META[zh ? 'zh' : 'en'].description,
+    url: pageUrl,
+    steps: zh
+      ? [
+          { name: '打开模板', text: '打开 ViralReel：https://www.viralreel.app/zh ，选一个和这两张照片匹配的模板。' },
+          { name: '上传两张照片', text: '上传两张清晰的正面照，每张一个主体。光线均匀，不要戴墨镜，不要用合照。第一张留在棚的一侧，第二张留在另一侧，脸才不容易融到一起。' },
+          { name: '选择画幅和时长', text: '选好画幅、分辨率和时长。生成前会显示本次积分。时长最长 15 秒。' },
+          { name: '下载并发布', text: '下载 MP4。在 TikTok、Reels 或 Shorts 里加上 Hotel Lobby 的热梗原声，帖子才会进同一条趋势；平台要求标注 AI 生成时，按要求打开。' },
+        ]
+      : [
+          { name: 'Open a template', text: 'Open ViralReel at https://www.viralreel.app/ and pick the template that fits the two photos.' },
+          { name: 'Upload two photos', text: 'Upload two clear, front-facing photos, one subject each. Even light, no sunglasses, no group shots. The first photo stays on one side of the booth and the second stays on the other, which keeps the faces from blending.' },
+          { name: 'Choose ratio and length', text: 'Choose the ratio, resolution and length. The credit cost is shown before you generate. Length goes up to 15 seconds.' },
+          { name: 'Download and post', text: 'Download the MP4. In TikTok, Reels or Shorts, add the Hotel Lobby trend sound so the post joins the same format, and turn on the AI label where the platform asks.' },
+        ],
+  });
+  const appJsonLd = buildTemplateSoftwareJsonLd({
+    appUrl: envConfigs.app_url,
+    pageUrl,
+    description: META[zh ? 'zh' : 'en'].description,
+  });
 
   return (
     <div className="hlg">
       <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }} />
+      {howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
+      <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(appJsonLd) }} />
       <article className="container">
         <p className="hlg-kick">{t('Guide', '指南')}</p>
         <h1>

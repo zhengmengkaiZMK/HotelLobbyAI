@@ -10,6 +10,7 @@ import { useAppContext } from '@/shared/contexts/app';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
+import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { burningBridgesTemplates, type BBTemplate } from './templates';
 import { BB_FAQ } from './faq';
@@ -53,7 +54,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function BurningBridgesHome({ creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function BurningBridgesHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
@@ -72,7 +73,12 @@ export function BurningBridgesHome({ creditsPerUsd = 10, videoCosts = getVideoCo
   const steps = [[t('Pick a template','选择模板'),t('Six tuned variants of the same viral party scene — pick the one that fits your photo.','同一爆火派现场的六个精调变体——选一个最适合你照片的。')],[t('Upload one photo','上传一张照片'),t('A clear front-facing shot works best. The Dance Duo template takes two, one per dancer.','清晰正脸照效果最好。双人共舞模板需两张，每位舞者一张。')],[t('Set ratio, resolution, length','选画幅、清晰度和时长'),t('16:9 matches the original party. Switch to 9:16 for TikTok, Reels and Shorts. The credit cost updates before you generate.','16:9 对应原片的宽画幅。发 TikTok、Reels 和 Shorts 时改成 9:16。积分会在生成前更新。')],[t('Download & post','下载并发布'),t('Export and add the original Burning Bridges audio in TikTok or Reels so the algorithm groups you with the trend.','导出后在 TikTok 或 Reels 添加 Burning Bridges 原声，让算法把你归入同款热点。')]];
   const faq = BB_FAQ[zh ? 'zh' : 'en'];
   const reviews = [[t('Jake M.','Jake M.'),'“Put myself into the office party and it hit 500k views the same night. My coworkers lost it when they recognized the meeting room.”','@jakemakes · 412K followers','/avatars/review-1.jpg'],[t('Sofia R.','Sofia R.'),'“I batch-made 10 party videos for our meme page in one sitting. One photo, one click, done — the crowd energy is unreal.”','Runs @dailydoseofmemes','/avatars/review-2.jpg'],[t('Tom K.','Tom K.'),'“Made my cat the main dancer at the party. No editing, no app, works on my phone browser. Posted 6 in a row, all took off.”','@tompetsdaily · 208K followers','/avatars/review-3.jpg'],[t('Liam P.','Liam P.'),'“Our whole office did the Burning Bridges trend after the holiday party. The render queue is fast enough that we posted everything same-day.”','@liam.plays · 96K followers','/avatars/review-4.jpg'],[t('Emma L.','Emma L.'),'“I am not a video editor at all. Uploaded one photo, picked Fantasy Queen, and the thing basically edited itself. 900K views and counting.”','@emmadaybyday · 340K followers','/avatars/review-5.jpg'],[t('Marcus J.','Marcus J.'),'“16:9 from the start matches the party. I was not cropping a vertical render just to post the widescreen version.”','@marcusmakes · 155K followers','/avatars/review-6.jpg']] as const;
-  return <div className="viral-home">
+  const howToJsonLd = buildHowToJsonLdFromSteps({
+    name: t('How to make a Burning Bridges AI video', '如何制作 Burning Bridges AI 视频'),
+    description: t('From one photo to a postable video in about a minute — no app, no editing skills.', '从一张照片到可发布视频只要一分钟——不用装 App，不用会剪辑。'),
+    steps: steps.map(([name, text]) => ({ name, text })),
+  });
+  return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
     <main><section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#burningbridges is trending</span><span className="bar"/><b>890K videos made</b></div><h1>{t('Become the main dancer in the viral ', '60 秒成为爆火的 ')}<span className="hl">Burning Bridges</span>{t(' party video in 60 seconds', ' 派对舞王')}</h1><p className="lead">{t('Upload one front-facing photo and drop yourself into the packed party — you dance in the center while the crowd cheers around you.', '上传一张正面照片，直接跳进沸腾的派对现场——你在中央领舞，周围人群为你喝彩。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div><div className="hero-proof"><div className="avatars" aria-hidden="true"><span/><span/><span/><span/></div><span><b>890,000+</b> {t('creators joined this week', '位创作者本周加入')}</span></div></div></section>
     <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Pick a party, upload one photo, done','选一个派对场景、传一张照片，一键出片')}</h2><p className="sub">{t('Every template is a tuned variant of the same viral scene — click one to open the generator.','每个模板都是同一爆火场景的精调版本——点击卡片打开生成器。')}</p></div><div className="grid3">{burningBridgesTemplates.map((item, index) => <article className="tcard" key={item.id}><button className="tv" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b><span>{madeBy[index]}</span></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>

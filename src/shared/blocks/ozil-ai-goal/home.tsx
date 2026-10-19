@@ -9,6 +9,7 @@ import { Link } from '@/core/i18n/navigation';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
+import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { useAppContext } from '@/shared/contexts/app';
 import { ozilGoalTemplates, type OzilGoalTemplate } from './templates';
@@ -54,7 +55,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function OzilGoalHome({ creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function OzilGoalHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
@@ -78,6 +79,11 @@ export function OzilGoalHome({ creditsPerUsd = 10, videoCosts = getVideoCostTabl
     [t('Download and post','下载并发布'), t('Export the MP4, then add a trend sound in TikTok, Reels, or Shorts and label the post as AI where the app asks.','导出 MP4，再到 TikTok、Reels 或 Shorts 里加上热梗音频，并按平台要求标注 AI。')],
   ];
   const faq = OZIL_FAQ[zh ? 'zh' : 'en'];
+  const howToJsonLd = buildHowToJsonLdFromSteps({
+    name: t('How to make an Ozil Goal video', '如何制作 Ozil Goal 视频'),
+    description: t('From one photo to a vertical clip in about a minute — no app, no editor.', '一张照片到一条竖屏视频大约一分钟——不用装 App，不用会剪辑。'),
+    steps: steps.map(([name, text]) => ({ name, text })),
+  });
   const reviews = [
     [t('Jake M.','Jake M.'),'“Put my own face on the night finish and posted it the same evening. The two slides are what make people stop.”','@jakemakes · 412K followers','/avatars/review-1.jpg'],
     [t('Sofia R.','Sofia R.'),'“I needed five versions for the meme page. One photo each, same goal, different clothes. The queue kept up.”','Runs @dailydoseofmemes','/avatars/review-2.jpg'],
@@ -86,7 +92,7 @@ export function OzilGoalHome({ creditsPerUsd = 10, videoCosts = getVideoCostTabl
     [t('Emma L.','Emma L.'),'“I am not a video editor. Uploaded one photo, picked Night Match, and it looked like a phone clip of a match instead of an ad.”','@emmadaybyday · 340K followers','/avatars/review-5.jpg'],
     [t('Marcus J.','Marcus J.'),'“15 seconds is the part that matters. A five-second face-swap ends before the ball goes in.”','@marcusmakes · 155K followers','/avatars/review-6.jpg'],
   ] as const;
-  return <div className="viral-home">
+  return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
     <main>
       <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>Ozil Goal is trending</span><span className="bar"/><b>2016 finish</b></div><h1>{t('Score the viral ', '60 秒打进爆火的 ')}<span className="hl">Ozil Goal</span>{t(' in 60 seconds', '')}</h1><p className="lead">{t('Upload one front-facing photo and take the run: chip over the diving keeper, two slides that miss, then walk the ball into the empty net.', '上传一张正面照，完成这段跑动：挑过扑出来的门将，两次滑铲落空，然后把球推进空门。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div><div className="hero-proof"><div className="avatars" aria-hidden="true"><span/><span/><span/><span/></div><span><b>1 Nov 2016</b> {t('the finish people still remake', '大家还在重拍的那个进球')}</span></div></div></section>

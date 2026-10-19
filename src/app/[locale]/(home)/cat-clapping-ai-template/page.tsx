@@ -5,6 +5,7 @@ import { CatClappingHome } from '@/shared/blocks/cat-clapping/home';
 import { CAT_CLAPPING_FAQ } from '@/shared/blocks/cat-clapping/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
+import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 
 export const dynamic = 'force-dynamic';
@@ -94,6 +95,14 @@ export default async function CatClappingAiTemplatePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
+          appUrl: envConfigs.app_url,
+          pageUrl: zh ? `${envConfigs.app_url}/zh/cat-clapping-ai-template` : `${envConfigs.app_url}/cat-clapping-ai-template`,
+          description: META[zh ? 'zh' : 'en'].description,
+        })) }}
       />
       <CatClappingHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>

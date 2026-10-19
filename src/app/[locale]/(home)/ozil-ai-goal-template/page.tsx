@@ -5,6 +5,7 @@ import { OzilGoalHome } from '@/shared/blocks/ozil-ai-goal/home';
 import { OZIL_FAQ } from '@/shared/blocks/ozil-ai-goal/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
+import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 
 export const dynamic = 'force-dynamic';
@@ -94,6 +95,14 @@ export default async function OzilAiGoalTemplatePage({
       <script
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(faqJsonLd) }}
+      />
+      <script
+        type="application/ld+json"
+        dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
+          appUrl: envConfigs.app_url,
+          pageUrl: zh ? `${envConfigs.app_url}/zh/ozil-ai-goal-template` : `${envConfigs.app_url}/ozil-ai-goal-template`,
+          description: META[zh ? 'zh' : 'en'].description,
+        })) }}
       />
       <OzilGoalHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
     </>

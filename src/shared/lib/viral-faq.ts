@@ -1,16 +1,11 @@
+import { templateHowMuchAnswer, type MonthlyPricing } from '@/shared/lib/pricing-copy';
+
 // Shared FAQ content for the Hotel Lobby pages.
 // Single source of truth used by the visible FAQ (home.tsx, the guide page)
 // and the FAQPage JSON-LD. Questions match what people ask ChatGPT, Gemini,
 // Claude and Grok about the orange-booth trend.
 
-export interface ViralFaqPricing {
-  starterPrice: string;
-  starterCredits: number;
-  plusPrice: string;
-  plusCredits: number;
-  proPrice: string;
-  proCredits: number;
-}
+export type ViralFaqPricing = MonthlyPricing;
 
 const defaultPricing: ViralFaqPricing = {
   starterPrice: '$9.9',
@@ -71,10 +66,11 @@ const FAQ_ENTRIES: FaqEntry[] = [
   },
   {
     q: { en: 'How much does a Hotel Lobby AI video cost on ViralReel?', zh: '在 ViralReel 做一条 Hotel Lobby AI 视频要多少钱？' },
-    a: (p) => ({
-      en: `ViralReel charges credits, and the Hotel Lobby generator shows the exact cost for the resolution and duration you pick before you start. Plans start at ${p.starterPrice} per month (${p.starterCredits} credits). Plus is ${p.plusPrice} per month and Pro is ${p.proPrice} per month. Failed or canceled generations are refunded automatically.`,
-      zh: `ViralReel 按积分计费。Hotel Lobby 生成器会在开始之前，按所选分辨率和时长显示本次消耗。套餐 ${p.starterPrice}/月起（${p.starterCredits} 积分）。Plus 为 ${p.plusPrice}/月，Pro 为 ${p.proPrice}/月。失败或取消的生成会自动退回积分。`,
-    }),
+    a: (p) =>
+      templateHowMuchAnswer(
+        { en: 'Hotel Lobby', zh: 'Hotel Lobby ' },
+        p
+      ),
   },
   {
     q: { en: 'Is ViralReel an official Hotel Lobby or COLORS tool?', zh: 'ViralReel 是 Hotel Lobby 或 COLORS 的官方工具吗？' },

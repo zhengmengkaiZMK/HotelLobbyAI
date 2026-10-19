@@ -54,7 +54,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function ViralHome({ plans, creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function ViralHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { plans: PricingItem[]; creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
   const starterM = plans.find(p => p.product_id === 'starter-monthly');
   const starterPrice = starterM?.price || '$9.9';
   const starterCredits = starterM?.credits || 90;

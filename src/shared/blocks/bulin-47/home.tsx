@@ -9,6 +9,7 @@ import { Link } from '@/core/i18n/navigation';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
+import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { useAppContext } from '@/shared/contexts/app';
 import { bulin47Templates, type BulinTemplate } from './templates';
@@ -54,7 +55,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function Bulin47Home({ creditsPerUsd = 10, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
@@ -77,6 +78,11 @@ export function Bulin47Home({ creditsPerUsd = 10, videoCosts = getVideoCostTable
     [t('Download and post','下载并发布'), t('Export the MP4, then add the Bulin 47 trend audio in TikTok or Reels.','导出 MP4，再到 TikTok 或 Reels 里加上 Bulin 47 的热梗音频。')],
   ];
   const faq = BULIN_FAQ[zh ? 'zh' : 'en'];
+  const howToJsonLd = buildHowToJsonLdFromSteps({
+    name: t('How to make a Bulin 47 AI video', '如何制作 Bulin 47 AI 视频'),
+    description: t('From one photo to a vertical clip in about a minute — no app, no editor.', '一张照片到一条竖屏视频大约一分钟——不用装 App，不用会剪辑。'),
+    steps: steps.map(([name, text]) => ({ name, text })),
+  });
   const reviews = [
     [t('Jake M.','Jake M.'),'“Dropped my own face into the red-light freestyle and posted it the same night. The speaker and the crowd are what make people stop.”','@jakemakes · 412K followers','/avatars/review-1.jpg'],
     [t('Sofia R.','Sofia R.'),'“I needed five versions for the meme page. One photo each, same scene, different outfits. The queue kept up.”','Runs @dailydoseofmemes','/avatars/review-2.jpg'],
@@ -85,7 +91,7 @@ export function Bulin47Home({ creditsPerUsd = 10, videoCosts = getVideoCostTable
     [t('Emma L.','Emma L.'),'“I am not a video editor. Uploaded one photo, picked Street Freestyle, and it looked like a phone video instead of an ad.”','@emmadaybyday · 340K followers','/avatars/review-5.jpg'],
     [t('Marcus J.','Marcus J.'),'“9:16 from the start is the part that matters. I was not fighting a landscape render just to post a Short.”','@marcusmakes · 155K followers','/avatars/review-6.jpg'],
   ] as const;
-  return <div className="viral-home">
+  return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
     <main>
       <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#bulin47 is trending</span><span className="bar"/><b>50M+ views</b></div><h1>{t('Step into the viral ', '60 秒进入爆火的 ')}<span className="hl">Bulin 47</span>{t(' freestyle in 60 seconds', ' 街头 freestyle')}</h1><p className="lead">{t('Upload one front-facing photo and take the spot in the red-lit freestyle — the speaker, the crowd and the phone camera stay.', '上传一张正面照，站进红光下的 freestyle——音箱、人群和手机镜头都留在原位。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div><div className="hero-proof"><div className="avatars" aria-hidden="true"><span/><span/><span/><span/></div><span><b>50,000,000+</b> {t('views on the original trend', '次原趋势播放')}</span></div></div></section>

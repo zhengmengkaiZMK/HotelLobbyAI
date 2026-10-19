@@ -2,7 +2,13 @@ import type { MetadataRoute } from 'next';
 
 import { envConfigs } from '@/config';
 import { defaultLocale, locales } from '@/config/locale';
-import { getPostsAndCategories } from '@/shared/models/post';
+import { getPostsAndCategories, isHiddenFromBlog } from '@/shared/models/post';
+
+function safeLastModified(value: string | Date | null | undefined, fallback: Date): Date {
+  if (!value) return fallback;
+  const date = value instanceof Date ? value : new Date(value);
+  return Number.isNaN(date.getTime()) ? fallback : date;
+}
 
 // indexable landing routes (privacy/terms are disallowed in robots.ts)
 const staticRoutes = [
@@ -27,20 +33,26 @@ function localePath(locale: string, path: string): string {
   return `${envConfigs.app_url}${prefix}${path === '/' ? '' : path}`;
 }
 
-export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
-  const now = new Date();
+function staticEntries(now: Date): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
-
   for (const locale of locales) {
     for (const route of staticRoutes) {
+      const url = localePath(locale, route.path);
+      if (!url.startsWith('http')) continue;
       entries.push({
-        url: localePath(locale, route.path),
+        url,
         lastModified: now,
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
     }
   }
+  return entries;
+}
+
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  const now = new Date();
+  const entries = staticEntries(now);
 
   // blog posts from local mdx + remote db (db may be unavailable outside worker runtime)
   for (const locale of locales) {
@@ -48,9 +60,12 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       const { posts } = await getPostsAndCategories({ locale, page: 1, limit: 500 });
       for (const post of posts) {
         if (!post.url) continue;
+        if (isHiddenFromBlog(post)) continue;
+        const url = localePath(locale, post.url);
+        if (!url.startsWith('http')) continue;
         entries.push({
-          url: localePath(locale, post.url),
-          lastModified: post.created_at ? new Date(post.created_at) : now,
+          url,
+          lastModified: safeLastModified(post.created_at, now),
           changeFrequency: 'weekly',
           priority: 0.6,
         });
@@ -60,5 +75,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return entries;
+  return entries.length > 0 ? entries : staticEntries(now);
 }

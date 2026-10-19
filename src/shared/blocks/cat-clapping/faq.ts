@@ -1,3 +1,7 @@
+import { templateHowMuchAnswer } from '@/shared/lib/pricing-copy';
+
+const catCost = templateHowMuchAnswer({ en: 'Cat Clapping', zh: 'Cat Clapping ' });
+
 /** Cat Clapping FAQ — shared by the page JSON-LD and the landing layout.
  *  Questions match what people ask ChatGPT, Gemini, Claude and Grok. */
 export const CAT_CLAPPING_FAQ = {
@@ -8,7 +12,7 @@ export const CAT_CLAPPING_FAQ = {
     ['Is Cat Clapping a CapCut green screen of the original cat?', 'The version that spread on TikTok is often a green-screen cutout of the original AI cat. A Cat Clapping template on ViralReel is a new clip: your cat sits up, claps its own paws, and brings a paw to its mouth, with you in the foreground. It is not a paste of the September 2026 cat, and it is not footage of a trained pet.'],
     ['Does my cat have to be black?', 'No. Orange Tabby, Tuxedo Clap, and Black Cat use whatever cat is in the photo. The original meme is a black cat because that silhouette reads on a phone, but the joke is the clap and the paw over the mouth. Use a photo you have permission to use, of your own cat or a cat whose owner agreed.'],
     ['What aspect ratio and length should a Cat Clapping video use?', 'Use 9:16, and choose 4 or 6 seconds. The meme is a short vertical clap for TikTok, Instagram Reels, and YouTube Shorts. The ViralReel page opens on 9:16 with those two lengths. 16:9 and 1:1 are available if you need another shape.'],
-    ['How much does a Cat Clapping video cost on ViralReel?', 'ViralReel charges credits. The Cat Clapping generator shows the exact cost for the resolution and duration you pick before you start. Plans start at $9.9 per month. Failed or canceled generations are refunded automatically.'],
+    ['How much does a Cat Clapping video cost on ViralReel?', catCost.en],
     ['Is ViralReel the official Cat Clapping or Peep account?', 'No. ViralReel (viralreel.app) is an independent AI video template site. It is not affiliated with Aleksandr Kim, the Instagram account @merkurianin, the cat called Peep, TikTok, Instagram, or YouTube. The template recreates the clap from your photos.'],
   ],
   zh: [
@@ -18,7 +22,7 @@ export const CAT_CLAPPING_FAQ = {
     ['Cat Clapping 是把原片那只猫做进 CapCut 绿幕吗？', 'TikTok 上传开的版本，常常是把原片那只 AI 猫抠成绿幕。ViralReel 的 Cat Clapping 是一条新片子：你的猫坐起来，用自己的爪子鼓掌，再把一只爪子放到嘴边，你在画面前景里。它不是 2026 年 9 月那只猫的贴图，也不是训练出来的宠物实拍。'],
     ['猫必须是黑猫吗？', '不用。橘猫鼓掌、黑白猫鼓掌和黑猫鼓掌都按照片里的猫来。原梗是黑猫，是因为这个剪影在手机上好认，但笑点是鼓掌和捂嘴。只用你有权使用的照片：你自己的猫，或主人同意出镜的猫。'],
     ['Cat Clapping 用什么画幅和时长？', '用 9:16，时长选 4 秒或 6 秒。这个梗很短，对应 TikTok、Instagram Reels 和 YouTube Shorts。ViralReel 的页面默认 9:16，时长也只有这两档。需要别的形状时，也可以改成 16:9 或 1:1。'],
-    ['在 ViralReel 做一条 Cat Clapping 要多少钱？', 'ViralReel 按积分计费。Cat Clapping 生成器会在你开始之前，按所选分辨率和时长显示本次消耗。套餐 $9.9/月起。失败或取消的生成会自动退回积分。'],
+    ['在 ViralReel 做一条 Cat Clapping 要多少钱？', catCost.zh],
     ['ViralReel 是 Cat Clapping 或 Peep 的官方账号吗？', '不是。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 Aleksandr Kim、Instagram 账号 @merkurianin、被称为 Peep 的那只猫，以及 TikTok、Instagram、YouTube 都没有关系。模板用你的照片重做这段鼓掌。'],
   ],
 } as const;

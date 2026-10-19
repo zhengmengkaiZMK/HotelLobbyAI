@@ -388,8 +388,8 @@
         "description": "从这里出发，用 ShipAny 极速交付。",
         "buttons": [
           {
-            "title": "获取 ShipAny",
-            "url": "https://shipany.ai",
+            "title": "查看价格",
+            "url": "/pricing",
             "target": "_blank",
             "icon": "Zap"
           },
