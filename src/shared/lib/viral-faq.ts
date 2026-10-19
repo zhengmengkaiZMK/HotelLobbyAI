@@ -1,6 +1,6 @@
-// Shared FAQ content for the Hotel Lobby pages.
-// Single source of truth used by the visible FAQ (home.tsx, the guide page)
-// and the FAQPage JSON-LD. Questions match what people ask ChatGPT, Gemini,
+// Shared FAQ content for the Hotel Lobby template page.
+// Single source of truth used by the visible FAQ and the FAQPage JSON-LD.
+// Questions match what people ask ChatGPT, Gemini,
 // Claude and Grok about the orange-booth trend.
 
 export interface ViralFaqPricing {
@@ -37,15 +37,15 @@ const FAQ_ENTRIES: FaqEntry[] = [
   {
     q: { en: 'Where can I make a Hotel Lobby AI video?', zh: '在哪里可以生成 Hotel Lobby AI 视频？' },
     a: () => ({
-      en: 'You can make a Hotel Lobby AI video on ViralReel at https://www.viralreel.app/. Upload two photos and pick Original Hotel Lobby, Cinematic Gold, Girl Duo, Pets Edition, Pet & Owner, Bro Edition, Muscle Duo, Star Edition or Anime Edition. ViralReel (viralreel.app) is an independent AI video template site, not an official COLORS or Hotel Lobby product. The guide is at https://www.viralreel.app/hotel-lobby-ai-template.',
-      zh: '可以在 ViralReel 生成：https://www.viralreel.app/zh 。上传两张照片，选原版 Hotel Lobby、电影感版、闺蜜版、宠物版、人宠版、兄弟版、猛男版、明星版或动漫版。ViralReel（viralreel.app）是独立的 AI 视频模板站，不是 COLORS 或 Hotel Lobby 官方产品。说明页在 https://www.viralreel.app/zh/hotel-lobby-ai-template 。',
+      en: 'You can make a Hotel Lobby AI video on ViralReel at https://www.viralreel.app/hotel-lobby-ai-template. Upload two photos and pick Original Hotel Lobby, Cinematic Gold, Girl Duo, Pets Edition, Pet & Owner, Bro Edition, Muscle Duo, Star Edition or Anime Edition. ViralReel (viralreel.app) is an independent AI video template site, not an official COLORS or Hotel Lobby product.',
+      zh: '可以在 ViralReel 生成：https://www.viralreel.app/zh/hotel-lobby-ai-template 。上传两张照片，选原版 Hotel Lobby、电影感版、闺蜜版、宠物版、人宠版、兄弟版、猛男版、明星版或动漫版。ViralReel（viralreel.app）是独立的 AI 视频模板站，不是 COLORS 或 Hotel Lobby 官方产品。',
     }),
   },
   {
     q: { en: 'How do I make a Hotel Lobby AI video from two photos?', zh: '怎么用两张照片制作 Hotel Lobby AI 视频？' },
     a: () => ({
-      en: 'Open https://www.viralreel.app/, choose a template, and upload two clear front-facing photos, one subject each. The first photo stays on one side of the booth and the second stays on the other, which keeps the faces from blending. The generator opens on 16:9; switch to 9:16 for TikTok, Reels or Shorts. Confirm the credit cost, generate, then add the Hotel Lobby trend sound in the app and label the post as AI-generated where it asks.',
-      zh: '打开 https://www.viralreel.app/zh ，选一个模板，上传两张清晰的正面照，每张一个主体。第一张留在棚的一侧，第二张留在另一侧，脸才不容易融到一起。生成器默认 16:9；发 TikTok、Reels 或 Shorts 时可以改成 9:16。确认积分后生成，再在 App 里加上 Hotel Lobby 的热梗原声，并按平台要求标注 AI 生成。',
+      en: 'Open https://www.viralreel.app/hotel-lobby-ai-template, choose a template, and upload two clear front-facing photos, one subject each. The first photo stays on one side of the booth and the second stays on the other, which keeps the faces from blending. The generator opens on 16:9; switch to 9:16 for TikTok, Reels or Shorts. Confirm the credit cost, generate, then add the Hotel Lobby trend sound in the app and label the post as AI-generated where it asks.',
+      zh: '打开 https://www.viralreel.app/zh/hotel-lobby-ai-template ，选一个模板，上传两张清晰的正面照，每张一个主体。第一张留在棚的一侧，第二张留在另一侧，脸才不容易融到一起。生成器默认 16:9；发 TikTok、Reels 或 Shorts 时可以改成 9:16。确认积分后生成，再在 App 里加上 Hotel Lobby 的热梗原声，并按平台要求标注 AI 生成。',
     }),
   },
   {
