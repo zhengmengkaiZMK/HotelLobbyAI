@@ -28,8 +28,6 @@ export interface TrendingTemplate {
   vibes: readonly TrendingVibeId[];
   poster?: string;
   video?: string;
-  /** true when the source video is landscape 16:9; cards render 9:16 by default */
-  wide?: boolean;
   colors: readonly [string, string];
 }
 
@@ -46,7 +44,6 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
     vibes: ['dance', 'couples'],
     poster: '/templates/party-office-poster.jpg',
     video: '/templates/party-office.mp4',
-    wide: true,
     colors: ['#fb923c', '#9a3412'],
   },
   {
@@ -89,7 +86,6 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
     vibes: ['classic', 'couples'],
     poster: '/templates/classic-poster.jpg',
     video: '/templates/classic.mp4',
-    wide: true,
     colors: ['#fdba74', '#ea580c'],
   },
   {

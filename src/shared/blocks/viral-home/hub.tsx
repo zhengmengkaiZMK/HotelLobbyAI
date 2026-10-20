@@ -145,15 +145,14 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
     '--g1': item.colors[0],
     '--g2': item.colors[1],
   } as CSSProperties;
-  // Media box matches the source video's orientation (9:16 portrait by
-  // default, 16:9 when `wide`), so object-fit shows the full frame instead
-  // of cropping portrait videos into a wide strip.
-  const tvClass = item.wide ? 'tv tv-wide' : 'tv tv-full';
+  // Every card uses the same 9:16 media box so the grid stays aligned;
+  // landscape videos letterbox centered on the template gradient instead
+  // of being cropped.
   return (
     <article className={item.href ? 'tcard' : 'tcard is-soon'}>
       {item.href ? (
         <Link
-          className={tvClass}
+          className="tv tv-full"
           href={item.href}
           aria-label={`${t('Make', '制作')} ${name}`}
           style={style}
@@ -161,7 +160,7 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
           {media}
         </Link>
       ) : (
-        <div className={tvClass} style={style}>
+        <div className="tv tv-full" style={style}>
           {media}
         </div>
       )}
