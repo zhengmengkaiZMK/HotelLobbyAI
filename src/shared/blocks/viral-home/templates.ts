@@ -26,6 +26,8 @@ export interface TemplateDef {
   prompt: string;
   slots?: 1 | 2;
   images?: readonly (string | null)[];
+  /** Optional public preview video. null explicitly disables the default path when no media is available. */
+  previewVideo?: string | null;
   /**
    * Admin config family (`viral_family_*_{family}`).
    * Omitted templates stay on the historical rule: `party-*` → burning_bridges, everything else → hotel.

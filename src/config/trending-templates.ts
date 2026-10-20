@@ -63,11 +63,14 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
     id: 'hit-the-road-dude',
     name: ['Hit the Road Dude', 'Hit the Road Dude'],
-    pitch: ['This template is not live yet.', '这个模板还没上线。'],
+    pitch: [
+      'One photo takes the driver seat in a fictional roadside exchange.',
+      '一张照片坐进司机位，演一段虚构的路边争执。',
+    ],
     href: null,
     badge: 'soon',
     vibes: ['meme'],
-    colors: ['#a1a1aa', '#3f3f46'],
+    colors: ['#fbbf24', '#78350f'],
   },
   {
     id: 'hotel-lobby',
