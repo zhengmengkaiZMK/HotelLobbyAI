@@ -67,9 +67,11 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
       'One photo takes the driver seat in a fictional roadside exchange.',
       '一张照片坐进司机位，演一段虚构的路边争执。',
     ],
-    href: null,
-    badge: 'soon',
+    href: '/hit-the-road-dude-ai-template',
+    badge: 'hot',
     vibes: ['meme'],
+    poster: '/templates/hit-road-state-property-poster.jpg',
+    video: '/templates/hit-road-state-property.mp4',
     colors: ['#fbbf24', '#78350f'],
   },
   {

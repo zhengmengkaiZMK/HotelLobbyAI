@@ -18,6 +18,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
   const nav: [string, string][] = [
     ['/ozil-ai-goal-template', t('Ozil Goal', 'Ozil Goal')],
     ['/bulin-47-ai-template', t('Bulin 47', 'Bulin 47')],
+    ['/hit-the-road-dude-ai-template', t('Hit the Road Dude', 'Hit the Road Dude')],
     ['/burning-bridges-ai-template', t('Burning Bridges', 'Burning Bridges')],
     ['/hotel-lobby-ai-template', t('Hotel Lobby', 'Hotel Lobby')],
     ['/pricing', t('Pricing', '定价')],

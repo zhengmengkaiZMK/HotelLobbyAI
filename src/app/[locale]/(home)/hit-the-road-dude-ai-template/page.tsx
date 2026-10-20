@@ -12,14 +12,14 @@ export const dynamic = 'force-dynamic';
 
 const META = {
   en: {
-    title: 'Hit the Road Dude AI Template – Roadside Driver Reaction Video',
-    description: 'Put your photo in a fictional roadside driver-reaction video. Choose State Property, Driver Reaction, or Private Property and create a 9:16 AI clip from one photo.',
-    keywords: 'hit the road dude ai template, hit the road dude ai video, state property ai video, lock em up ai meme, roadside driver reaction video',
+    title: 'Hit the Road Dude AI Template – State Property Meme Video Generator',
+    description: 'Turn one photo into the viral Hit the Road Dude reaction — the white-pickup “State?” private-property meme. Choose State Property, Driver Reaction, or Private Property and make a 9:16 AI clip in the browser.',
+    keywords: 'hit the road dude ai video, hit the road dude ai template, state property meme ai, private property meme generator, lock em up meme, state this meme, white pickup meme, photo to video meme template',
   },
   zh: {
-    title: 'Hit the Road Dude AI 模板：一张照片生成路边司机反应视频',
-    description: '用一张照片制作虚构的路边司机反应视频。选择州有土地版、司机反应版或私人领地版，默认生成 9:16 竖屏短片。',
-    keywords: 'hit the road dude ai 模板, hit the road dude ai 视频, state property 视频, lock em up 短视频, 路边司机反应视频',
+    title: 'Hit the Road Dude AI 模板：一张照片生成 State Property 皮卡司机反应视频',
+    description: '用一张照片重现白色皮卡“State?”私人领地梗：州有土地版、司机反应版或私人领地版，浏览器里直接生成 9:16 竖屏 AI 短视频。',
+    keywords: 'hit the road dude ai 模板, hit the road dude ai 视频, state property 梗, private property 梗, lock em up 梗, 皮卡司机反应 ai 视频, 照片生成视频模板',
   },
 } as const;
 
@@ -37,8 +37,19 @@ export async function generateMetadata({ params }: { params: Promise<{ locale: s
       canonical,
       languages: { en: enUrl, zh: zhUrl, 'x-default': enUrl },
     },
-    openGraph: { type: 'website' as const, url: canonical, title: m.title, description: m.description },
-    twitter: { card: 'summary' as const, title: m.title, description: m.description },
+    openGraph: {
+      type: 'website' as const,
+      url: canonical,
+      title: m.title,
+      description: m.description,
+      images: [`${envConfigs.app_url}/templates/hit-the-road-dude-og.jpg`],
+    },
+    twitter: {
+      card: 'summary_large_image' as const,
+      title: m.title,
+      description: m.description,
+      images: [`${envConfigs.app_url}/templates/hit-the-road-dude-og.jpg`],
+    },
   };
 }
 

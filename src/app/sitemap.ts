@@ -16,6 +16,7 @@ const staticRoutes = [
   { path: '/hotel-lobby-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/hit-the-road-dude-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/ozil-ai-goal-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/cat-clapping-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/ai-video-generator', priority: 0.9, changeFrequency: 'weekly' as const },
