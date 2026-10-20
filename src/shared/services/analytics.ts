@@ -28,12 +28,13 @@ export function getAnalyticsManagerWithConfigs(configs: Configs) {
     );
   }
 
-  // plausible
-  if (configs.plausible_domain && configs.plausible_src) {
+  // plausible (new per-account pa-XXXX.js snippet; only the script src is
+  // required — the domain is baked into the script URL)
+  if (configs.plausible_src) {
     analytics.addProvider(
       new PlausibleAnalyticsProvider({
-        domain: configs.plausible_domain,
         src: configs.plausible_src,
+        domain: configs.plausible_domain,
       })
     );
   }

@@ -8,12 +8,19 @@ import { AnalyticsConfigs, AnalyticsProvider } from '.';
  * @docs https://plausible.io/docs/integration-guides
  */
 export interface PlausibleAnalyticsConfigs extends AnalyticsConfigs {
-  domain: string; // data domain
-  src: string; // script src
+  /** Per-account script URL, e.g. https://plausible.io/js/pa-XXXX.js */
+  src: string;
+  /** Legacy field (old data-domain format); unused by the current snippet */
+  domain?: string;
 }
 
 /**
- * Plausible provider
+ * Plausible provider (new script format)
+ *
+ * Plausible's current snippet loads a per-account `pa-XXXX.js` script and
+ * then calls `plausible.init()` — without the init call nothing is tracked.
+ * The domain is baked into the pa-XXXX.js URL, so no data-domain attribute
+ * is needed.
  * @website https://plausible.io/
  */
 export class PlausibleAnalyticsProvider implements AnalyticsProvider {
@@ -28,22 +35,21 @@ export class PlausibleAnalyticsProvider implements AnalyticsProvider {
   getHeadScripts(): ReactNode {
     return (
       <>
-        {/* Plausible Analytics */}
         <Script
-          id={this.name}
+          id={`${this.name}-script`}
+          src={this.configs.src}
+          strategy="afterInteractive"
+          async
+        />
+        <Script
+          id={`${this.name}-init`}
           strategy="afterInteractive"
           dangerouslySetInnerHTML={{
             __html: `
-              window.plausible = window.plausible || function() { (window.plausible.q = window.plausible.q || []).push(arguments) }
+                window.plausible=window.plausible||function(){(plausible.q=plausible.q||[]).push(arguments)},plausible.init=plausible.init||function(i){plausible.o=i||{}};
+                plausible.init();
             `,
           }}
-        />
-        <Script
-          data-domain={this.configs.domain}
-          src={this.configs.src}
-          strategy="afterInteractive"
-          defer
-          async
         />
       </>
     );

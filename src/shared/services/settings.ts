@@ -1013,7 +1013,7 @@ export async function getSettings() {
     },
     {
       name: 'plausible_domain',
-      title: 'Plausible Domain',
+      title: 'Plausible Domain（旧版字段，可留空）',
       type: 'text',
       placeholder: 'shipany.site',
       group: 'plausible',
@@ -1023,7 +1023,7 @@ export async function getSettings() {
       name: 'plausible_src',
       title: 'Plausible Script Src',
       type: 'url',
-      placeholder: 'https://plausible.io/js/script.js',
+      placeholder: 'https://plausible.io/js/pa-XXXX.js',
       group: 'plausible',
       tab: 'analytics',
     },
