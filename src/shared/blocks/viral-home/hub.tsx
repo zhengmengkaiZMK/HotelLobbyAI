@@ -145,11 +145,15 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
     '--g1': item.colors[0],
     '--g2': item.colors[1],
   } as CSSProperties;
+  // Media box matches the source video's orientation (9:16 portrait by
+  // default, 16:9 when `wide`), so object-fit shows the full frame instead
+  // of cropping portrait videos into a wide strip.
+  const tvClass = item.wide ? 'tv tv-wide' : 'tv tv-full';
   return (
     <article className={item.href ? 'tcard' : 'tcard is-soon'}>
       {item.href ? (
         <Link
-          className="tv"
+          className={tvClass}
           href={item.href}
           aria-label={`${t('Make', '制作')} ${name}`}
           style={style}
@@ -157,7 +161,7 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
           {media}
         </Link>
       ) : (
-        <div className="tv" style={style}>
+        <div className={tvClass} style={style}>
           {media}
         </div>
       )}

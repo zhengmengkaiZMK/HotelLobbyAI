@@ -66,6 +66,24 @@ export function buildOfferExtrasJsonLd() {
         '@type': 'DefinedRegion',
         addressCountry: 'US',
       },
+      // Digital delivery: credits land in the account immediately after
+      // checkout. Google Merchant Listings requires deliveryTime alongside
+      // shippingRate/shippingDestination — 0-day handling, 0-1 day transit.
+      deliveryTime: {
+        '@type': 'DeliveryTime',
+        handlingTime: {
+          '@type': 'QuantitativeValue',
+          minValue: 0,
+          maxValue: 0,
+          unitCode: 'DAY',
+        },
+        transitTime: {
+          '@type': 'QuantitativeValue',
+          minValue: 0,
+          maxValue: 1,
+          unitCode: 'DAY',
+        },
+      },
     },
     hasMerchantReturnPolicy: {
       '@type': 'MerchantReturnPolicy',
