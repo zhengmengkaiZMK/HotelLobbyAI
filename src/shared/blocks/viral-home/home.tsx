@@ -7,7 +7,6 @@ import { ArrowRight, Flame, Maximize, Mic, Play, Sparkles, Users, Video, Volume2
 import { useLocale } from 'next-intl';
 import { track } from '@/shared/lib/analytics';
 import { Link } from '@/core/i18n/navigation';
-import { useAppContext } from '@/shared/contexts/app';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 import { TemplateGenerator } from './generator';
 import { ViralFooter } from './footer';
@@ -70,11 +69,10 @@ export function ViralHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCost
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
   useEffect(() => { track('view_template', { template: 'hotel_lobby' }); }, []);
-  const { user, setIsShowSignModal } = useAppContext();
   const [template, setTemplate] = useState<HomeTemplate>(templates[0]);
-  const [open, setOpen] = useState(false);
-  const choose = (item: HomeTemplate = templates[0]) => { track('click_generate', { template: 'hotel_lobby', variant: item.id }); setTemplate(item); setOpen(true); };
-  const start = () => { if (!user) { track('signup_wall', { template: 'hotel_lobby', surface: 'template_hero' }); setIsShowSignModal(true); return; } choose(); };
+  const focusGenerator = () => { document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  const choose = (item: HomeTemplate = templates[0]) => { track('click_generate', { template: 'hotel_lobby', variant: item.id }); setTemplate(item); focusGenerator(); };
+  const start = () => focusGenerator();
   const faq = getViralFaqPairs(zh, { starterPrice, starterCredits, plusPrice, plusCredits, proPrice, proCredits });
   const features = [
     [Mic, t('Iconic orange booth','标志性橙色直播间'), t('1:1 recreation of the viral COLORS-style stage, tuned lighting and framing baked in.','1:1 复刻爆火的 COLORS 风舞台，灯光与构图已预先调好。')],
@@ -90,7 +88,7 @@ export function ViralHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCost
   });
   return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
-    <main><section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#hotellobbyai is trending</span></div><h1>{t('Make the viral ', '60 秒生成爆火的 ')}<span className="hl">Hotel Lobby</span>{t(' AI template video in 60 seconds', ' AI 模板视频')}</h1><p className="lead">{t('Upload two front-facing photos and step into the iconic orange booth — auto lip-sync, gestures and lighting included.', '上传两张正面照片，走进标志性的橙色直播间——自动口型同步、手势与灯光全部内置。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div></div></section>
+    <main><section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#hotellobbyai is trending</span></div><h1>{t('Make the viral ', '60 秒生成爆火的 ')}<span className="hl">Hotel Lobby</span>{t(' AI template video in 60 seconds', ' AI 模板视频')}</h1><TemplateGenerator key={template.id} template={template} open embedded onOpenChange={() => {}}/></div></section>
     <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Pick a template, upload two photos, done','选模板、传两张照片，一键出片')}</h2><p className="sub">{t('Every template is a tuned variant of the viral format — click one to open the generator.','每个模板都是爆火玩法的精调版本——点击卡片立即生成。')}</p></div><div className="grid3">{templates.slice(0, 9).map((item, index) => <article className="tcard" key={item.id}><button className="tv" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>
     <div className="logos"><p className="lbl">{t('Creators are posting ViralReel videos on','创作者们正在这些平台发布 ViralReel 视频')}</p><div className="row"><span className="soc tiktok"><PlatformIcon type="tiktok"/>TikTok</span><span className="soc youtube"><PlatformIcon type="youtube"/>YouTube Shorts</span><span className="soc instagram"><PlatformIcon type="instagram"/>Instagram Reels</span><span className="soc x"><PlatformIcon type="x"/>X / Twitter</span><span className="soc reddit"><PlatformIcon type="reddit"/>Reddit</span></div></div>
     <section className="stats"><div className="container stats-grid"><div><div className="statnum">60<em>s</em></div><p>{t('Average render time','平均渲染时长')}</p></div><div><div className="statnum">9:16</div><p>{t('Vertical export for TikTok, Reels and Shorts','竖屏导出，适配 TikTok、Reels、Shorts')}</p></div><div><div className="statnum">{Math.min(...videoCosts.flatMap(row => row.costs.map(item => item.credits)))}<em className="wide-em">{t(' credits / video from', ' 积分 / 条起')}</em></div><p>{t(`Top-ups available · ${creditsPerUsd} credits = $1`,`随时可加购 · ${creditsPerUsd} 积分 = 1 美元`)}</p></div></div></section>
@@ -117,8 +115,7 @@ export function ViralHome({ plans, creditsPerUsd = 12, videoCosts = getVideoCost
       <p className="guide-more">{t('Prefer another trend? Try the ','想做别的趋势？试试 ')}<Link href="/burning-bridges-ai-template">{t('Burning Bridges AI template','Burning Bridges AI 模板')}</Link>{t(' or the ','，或者 ')}<Link href="/bulin-47-ai-template">{t('Bulin 47 AI template','Bulin 47 AI 模板')}</Link>{t('.','。')}</p>
     </div></section>
     <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about the Hotel Lobby AI video','关于 Hotel Lobby AI 视频的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
-    <section className="final-cta sec-alt"><div className="container"><h2>{t('Make your first Hotel Lobby AI template video','用 Hotel Lobby AI 模板做出你的第一条视频')}</h2><p>{t('Two photos in, a 9:16 video out — about a minute.','两张照片进去，约一分钟导出 9:16 竖屏。')}</p><button className="btn btn-primary btn-lg" onClick={() => choose()}>{t('Upload 2 photos — start now','上传 2 张照片，立即开始')}<ArrowRight size={16}/></button></div></section></main>
+    <section className="final-cta sec-alt"><div className="container"><h2>{t('Make your first Hotel Lobby AI template video','用 Hotel Lobby AI 模板做出你的第一条视频')}</h2><p>{t('Two photos in, a 9:16 video out — about a minute.','两张照片进去，约一分钟导出 9:16 竖屏。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 2 photos — start now','上传 2 张照片，立即开始')}<ArrowRight size={16}/></button></div></section></main>
     <ViralFooter/>
-    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen}/>
   </div>;
 }

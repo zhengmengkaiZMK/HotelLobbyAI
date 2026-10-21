@@ -7,7 +7,6 @@ import { ArrowRight, Flame, Maximize, Mic, PartyPopper, Play, Users, Video, Volu
 import { useLocale } from 'next-intl';
 import { track } from '@/shared/lib/analytics';
 import { Link } from '@/core/i18n/navigation';
-import { useAppContext } from '@/shared/contexts/app';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
@@ -60,11 +59,10 @@ export function BurningBridgesHome({ creditsPerUsd = 12, videoCosts = getVideoCo
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
   useEffect(() => { track('view_template', { template: 'burning_bridges' }); }, []);
-  const { user, setIsShowSignModal } = useAppContext();
   const [template, setTemplate] = useState<BBTemplate>(burningBridgesTemplates[0]);
-  const [open, setOpen] = useState(false);
-  const choose = (item: BBTemplate = burningBridgesTemplates[0]) => { track('click_generate', { template: 'burning_bridges', variant: item.id }); setTemplate(item); setOpen(true); };
-  const start = () => { if (!user) { track('signup_wall', { template: 'burning_bridges', surface: 'template_hero' }); setIsShowSignModal(true); return; } choose(); };
+  const focusGenerator = () => { document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  const choose = (item: BBTemplate = burningBridgesTemplates[0]) => { track('click_generate', { template: 'burning_bridges', variant: item.id }); setTemplate(item); focusGenerator(); };
+  const start = () => focusGenerator();
   const features = [
     [PartyPopper, t('The viral party scene','爆火派对名场面'), t('The chandelier, the metal cup, the roaring crowd — the exact format everyone is posting, staged for you.','水晶吊灯、金属杯、沸腾人群——人人都在发的那个格式，场景已经为你搭好。')],
     [Video, t('One photo, you dance','一张照片，你来跳'), t('Your face replaces the main dancer; the crowd, lighting and moves are generated around it.','你的照片替换领舞主角，人群、灯光和舞步围绕照片自动生成。')],
@@ -80,7 +78,7 @@ export function BurningBridgesHome({ creditsPerUsd = 12, videoCosts = getVideoCo
   });
   return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
-    <main><section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#burningbridges is trending</span></div><h1>{t('Become the main dancer in the viral ', '60 秒成为爆火的 ')}<span className="hl">Burning Bridges</span>{t(' party video in 60 seconds', ' 派对舞王')}</h1><p className="lead">{t('Upload one front-facing photo and drop yourself into the packed party — you dance in the center while the crowd cheers around you.', '上传一张正面照片，直接跳进沸腾的派对现场——你在中央领舞，周围人群为你喝彩。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div></div></section>
+    <main><section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#burningbridges is trending</span></div><h1>{t('Become the main dancer in the viral ', '60 秒成为爆火的 ')}<span className="hl">Burning Bridges</span>{t(' party video in 60 seconds', ' 派对舞王')}</h1><TemplateGenerator key={template.id} template={template} open embedded onOpenChange={() => {}} preferModel="MiniMax-H3"/></div></section>
     <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Pick a party, upload one photo, done','选一个派对场景、传一张照片，一键出片')}</h2><p className="sub">{t('Every template is a tuned variant of the same viral scene — click one to open the generator.','每个模板都是同一爆火场景的精调版本——点击卡片打开生成器。')}</p></div><div className="grid3">{burningBridgesTemplates.map((item, index) => <article className="tcard" key={item.id}><button className="tv" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>
     <div className="logos"><p className="lbl">{t('Creators are posting ViralReel videos on','创作者们正在这些平台发布 ViralReel 视频')}</p><div className="row"><span className="soc tiktok"><PlatformIcon type="tiktok"/>TikTok</span><span className="soc youtube"><PlatformIcon type="youtube"/>YouTube Shorts</span><span className="soc instagram"><PlatformIcon type="instagram"/>Instagram Reels</span><span className="soc x"><PlatformIcon type="x"/>X / Twitter</span><span className="soc reddit"><PlatformIcon type="reddit"/>Reddit</span></div></div>
     <section className="stats"><div className="container stats-grid"><div><div className="statnum">60<em>s</em></div><p>{t('Average render time','平均渲染时长')}</p></div><div><div className="statnum">9:16</div><p>{t('Vertical export for TikTok, Reels and Shorts','竖屏导出，适配 TikTok、Reels、Shorts')}</p></div><div><div className="statnum">{Math.min(...videoCosts.flatMap(row => row.costs.map(item => item.credits)))}<em className="wide-em">{t(' credits / video from', ' 积分 / 条起')}</em></div><p>{t(`Top-ups available · ${creditsPerUsd} credits = $1`,`随时可加购 · ${creditsPerUsd} 积分 = 1 美元`)}</p></div></div></section>
@@ -106,8 +104,7 @@ export function BurningBridgesHome({ creditsPerUsd = 12, videoCosts = getVideoCo
       <p className="guide-more"><Link href="/bulin-47-ai-template">{t('Want the street freestyle? See the Bulin 47 AI template','想玩街头 freestyle？看 Bulin 47 AI 模板')} →</Link></p>
     </div></section>
     <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about the Burning Bridges AI video','关于 Burning Bridges AI 视频的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
-    <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to become the main dancer?','准备好成为派对主角了吗？')}</h2><p>{t('Upload one photo, pick a party, and drop yourself in while the trend is still climbing.','上传一张照片，选好派对场景，趁趋势还在上升期直接跳进现场。')}</p><button className="btn btn-primary btn-lg" onClick={() => choose()}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section></main>
+    <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to become the main dancer?','准备好成为派对主角了吗？')}</h2><p>{t('Upload one photo, pick a party, and drop yourself in while the trend is still climbing.','上传一张照片，选好派对场景，趁趋势还在上升期直接跳进现场。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section></main>
     <ViralFooter/>
-    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} preferModel="MiniMax-H3"/>
   </div>;
 }

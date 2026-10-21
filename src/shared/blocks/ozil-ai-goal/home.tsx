@@ -12,7 +12,6 @@ import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
-import { useAppContext } from '@/shared/contexts/app';
 import { ozilGoalTemplates, type OzilGoalTemplate } from './templates';
 import { OZIL_FAQ } from './faq';
 import '@/shared/blocks/viral-home/home.css';
@@ -61,11 +60,10 @@ export function OzilGoalHome({ creditsPerUsd = 12, videoCosts = getVideoCostTabl
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
   useEffect(() => { track('view_template', { template: 'ozil_goal' }); }, []);
-  const { user, setIsShowSignModal } = useAppContext();
   const [template, setTemplate] = useState<OzilGoalTemplate>(ozilGoalTemplates[0]);
-  const [open, setOpen] = useState(false);
-  const choose = (item: OzilGoalTemplate = ozilGoalTemplates[0]) => { track('click_generate', { template: 'ozil_goal', variant: item.id }); setTemplate(item); setOpen(true); };
-  const start = () => { if (!user) { track('signup_wall', { template: 'ozil_goal', surface: 'template_hero' }); setIsShowSignModal(true); return; } choose(); };
+  const focusGenerator = () => { document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  const choose = (item: OzilGoalTemplate = ozilGoalTemplates[0]) => { track('click_generate', { template: 'ozil_goal', variant: item.id }); setTemplate(item); focusGenerator(); };
+  const start = () => focusGenerator();
   const madeBy = ['Floodlit finish', 'Training kit', 'Park pitch', 'Waistcoat', 'Grey hoodie', 'Creature'];
   const madeByZh = ['夜场灯光', '训练背心', '公园草坪', '马甲收尾', '灰色卫衣', '怪兽版本'];
   const features = [
@@ -89,7 +87,7 @@ export function OzilGoalHome({ creditsPerUsd = 12, videoCosts = getVideoCostTabl
     return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
     <main>
-      <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>Ozil Goal is trending</span></div><h1>{t('Score the viral ', '60 秒打进爆火的 ')}<span className="hl">Ozil Goal</span>{t(' in 60 seconds', '')}</h1><p className="lead">{t('Upload one front-facing photo and take the run: chip over the diving keeper, two slides that miss, then walk the ball into the empty net.', '上传一张正面照，完成这段跑动：挑过扑出来的门将，两次滑铲落空，然后把球推进空门。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div></div></section>
+      <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>Ozil Goal is trending</span></div><h1>{t('Score the viral ', '60 秒打进爆火的 ')}<span className="hl">Ozil Goal</span>{t(' in 60 seconds', '')}</h1><TemplateGenerator key={template.id} template={template} open embedded onOpenChange={() => {}} preferModel="MiniMax-H3"/></div></section>
       <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Pick a look, upload one photo, done','选一个造型、传一张照片，一键出片')}</h2><p className="sub">{t('Every card is the same finish with a different cast. Click one to open the generator.','每张卡片都是同一个进球，换的是完成跑动的人。点击卡片打开生成器。')}</p></div><div className="grid3">{ozilGoalTemplates.map((item, index) => <article className="tcard" key={item.id}><button className="tv tv-full" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b><span>{zh ? madeByZh[index] : madeBy[index]}</span></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>
       <div className="logos"><p className="lbl">{t('Creators are posting ViralReel videos on','创作者们正在这些平台发布 ViralReel 视频')}</p><div className="row"><span className="soc tiktok"><PlatformIcon type="tiktok"/>TikTok</span><span className="soc youtube"><PlatformIcon type="youtube"/>YouTube Shorts</span><span className="soc instagram"><PlatformIcon type="instagram"/>Instagram Reels</span><span className="soc x"><PlatformIcon type="x"/>X / Twitter</span><span className="soc reddit"><PlatformIcon type="reddit"/>Reddit</span></div></div>
       <section className="stats"><div className="container stats-grid"><div><div className="statnum">60<em>s</em></div><p>{t('Average render time','平均渲染时长')}</p></div><div><div className="statnum">9:16</div><p>{t('Vertical export for TikTok, Reels and Shorts','竖屏导出，适配 TikTok、Reels、Shorts')}</p></div><div><div className="statnum">{Math.min(...videoCosts.flatMap(row => row.costs.map(item => item.credits)))}<em className="wide-em">{t(' credits / video from', ' 积分 / 条起')}</em></div><p>{t(`Top-ups available · ${creditsPerUsd} credits = $1`,`随时可加购 · ${creditsPerUsd} 积分 = 1 美元`)}</p></div></div></section>
@@ -116,9 +114,8 @@ export function OzilGoalHome({ creditsPerUsd = 12, videoCosts = getVideoCostTabl
         <p className="guide-more"><Link href="/bulin-47-ai-template">{t('Want the street freestyle? See the Bulin 47 AI template','想玩街头 freestyle？看 Bulin 47 AI 模板')} →</Link></p>
       </div></section>
       <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about the Ozil Goal','关于 Ozil Goal 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
-      <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to take the run?','准备好去完成这段跑动了吗？')}</h2><p>{t('Upload one photo and join the finish while the clip is still moving.','上传一张照片，趁这条片子还在传的时候进这个进球。')}</p><button className="btn btn-primary btn-lg" onClick={() => choose()}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section>
+      <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to take the run?','准备好去完成这段跑动了吗？')}</h2><p>{t('Upload one photo and join the finish while the clip is still moving.','上传一张照片，趁这条片子还在传的时候进这个进球。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section>
     </main>
     <ViralFooter/>
-    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} preferModel="MiniMax-H3"/>
   </div>;
 }

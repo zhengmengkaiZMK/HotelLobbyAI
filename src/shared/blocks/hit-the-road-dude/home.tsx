@@ -7,7 +7,6 @@ import { ArrowRight, Car, Hand, Smartphone, Video, Volume2, VolumeX } from 'luci
 import { useLocale } from 'next-intl';
 import { Link } from '@/core/i18n/navigation';
 import { track } from '@/shared/lib/analytics';
-import { useAppContext } from '@/shared/contexts/app';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
@@ -62,25 +61,19 @@ export function HitTheRoadDudeHome({
   const locale = useLocale();
   const zh = locale.startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
-  const { user, setIsShowSignModal } = useAppContext();
   const [template, setTemplate] = useState<HitTheRoadDudeTemplate>(hitTheRoadDudeTemplates[0]);
-  const [open, setOpen] = useState(false);
   useEffect(() => {
     track('view_template', { template: 'hit_the_road_dude' });
   }, []);
+  const focusGenerator = () => {
+    document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  };
   const choose = (item: HitTheRoadDudeTemplate = hitTheRoadDudeTemplates[0]) => {
     track('click_generate', { template: 'hit_the_road_dude', variant: item.id });
     setTemplate(item);
-    setOpen(true);
+    focusGenerator();
   };
-  const start = () => {
-    if (!user) {
-      track('signup_wall', { template: 'hit_the_road_dude', surface: 'template_hero' });
-      setIsShowSignModal(true);
-      return;
-    }
-    choose();
-  };
+  const start = () => focusGenerator();
   const features = [
     [Car, t('Driver-first roadside scene', '司机视角的路边场景'), t('The driver stays in the car while the camera remains outside.', '司机留在车里，镜头保持在车外。')],
     [Hand, t('Argument energy, no exact words', '有争执感，但不编造台词'), t('Gestures and reactions carry the meme timing without claiming a transcript.', '用比画和反应完成梗感，不声称复刻任何逐字对话。')],
@@ -100,7 +93,7 @@ export function HitTheRoadDudeHome({
       {howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
       <ViralHeader onStart={start} />
       <main>
-        <section className="hero"><div className="container"><div className="hero-badge"><Car size={16} /><span>{t('Hit the Road Dude on ViralReel', 'ViralReel 上的 Hit the Road Dude')}</span></div><h1>{t('Hit the Road Dude AI video', 'Hit the Road Dude AI 视频')}<span className="hl">{t(' on ViralReel', '，就在 ViralReel')}</span></h1><p className="lead">{t('Upload one photo and ViralReel stages the white-pickup private-property meme: a fictional roadside clip with the “hit the road dude” dismissal. Download the MP4, then add the trend sound and the AI label on the platform.', '上传一张照片，ViralReel 搭出白色皮卡私人领地梗：一条虚构的路边短片，带上 “hit the road dude” 那句驱赶。下载 MP4 后，在平台里加上热梗原声和 AI 标注。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16} /></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div></div></section>
+        <section className="hero"><div className="container"><div className="hero-badge"><Car size={16} /><span>{t('Hit the Road Dude on ViralReel', 'ViralReel 上的 Hit the Road Dude')}</span></div><h1>{t('Hit the Road Dude AI video', 'Hit the Road Dude AI 视频')}<span className="hl">{t(' on ViralReel', '，就在 ViralReel')}</span></h1><TemplateGenerator key={template.id} template={template} open embedded onOpenChange={() => {}} /></div></section>
         <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates', '模板')}</p><h2>{t('Pick the roadside setup', '选择路边场景')}</h2><p className="sub">{t('Every version uses one photo and keeps the driver as the visual subject. Card videos are authorized reference clips of the format, not AI outputs.', '每个版本都只用一张照片，并保留司机作为画面主体。卡片视频是该格式的授权参考片段，不是 AI 生成结果。')}</p></div><div className="grid3">{hitTheRoadDudeTemplates.map((item, index) => <article className="tcard" key={item.id}><button className="tv tv-full" aria-label={`${t('Use', '使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo item={item} zh={zh}/>{index === 0 && <span className="hot">HOT</span>}</button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b></div><button className="use" onClick={() => choose(item)}>{t('Generate', '立即生成')}</button></article>)}</div></div></section>
         <section className="stats"><div className="container stats-grid"><div><div className="statnum">1</div><p>{t('Photo needed', '仅需一张照片')}</p></div><div><div className="statnum">9:16</div><p>{t('Vertical by default', '默认竖屏画幅')}</p></div><div><div className="statnum">{Math.min(...videoCosts.flatMap((row) => row.costs.map((item) => item.credits)))}<em className="wide-em">{t(' credits / video from', ' 积分 / 条起')}</em></div><p>{t(`Top-ups available · ${creditsPerUsd} credits = $1`, `随时可加购 · ${creditsPerUsd} 积分 = 1 美元`)}</p></div></div></section>
         <section className="sec sec-alt" id="what"><div className="container"><div className="sec-head"><p className="kick">{t('What is this format?', '这是什么形式？')}</p><h2>{t('A simple car-window reaction shot', '简单的车窗反应镜头')}</h2><p className="sub">{t('The recognizable ingredients are a stopped car, a person outside the window, gestures toward the roadside, and a dry driver reaction.', '核心元素是停靠的车辆、车窗外的人、指向路边的比画，以及司机的冷面反应。')}</p></div><div className="grid4">{features.map(([Icon, title, desc]) => <div className="feat" key={title}><div className="ic"><Icon size={20} /></div><h3>{title}</h3><p>{desc}</p></div>)}</div></div></section>
@@ -122,10 +115,9 @@ export function HitTheRoadDudeHome({
           <h3>{t('Does this reuse the original video or sound?', '会直接使用原视频或原声吗？')}</h3><p>{t('No original footage or audio is bundled with these templates. A site administrator may configure a separately licensed reference video or audio for compatible models. The result does not promise the original voice or an exact spoken line. Review it before posting and use photos you have permission to upload.', '模板没有内置原片画面或原声。站点管理员可为兼容模型另行配置已获授权的参考视频或音频。生成结果不保证原声或逐字台词。发布前请检查成片，也只上传有权使用的照片。')}</p><p className="guide-more"><Link href="/cat-clapping-ai-template">{t('Want the pet version of another meme? See Cat Clapping', '想玩另一个梗的宠物版？看 Cat Clapping')}</Link> · <a href="https://meme.com/memes/hit-the-road-dude" target="_blank" rel="noopener noreferrer">{t('Read more about the meme format', '了解这个视频梗的背景')} ↗</a></p></div></section>
         <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ', '常见问题')}</p><h2>{t('Frequently asked questions', '常见问题')}</h2></div><div className="faq-list">{faq.map(([question, answer], i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div><p className="guide-more"><Link href="/bulin-47-ai-template">{t('Want another meme format? See Bulin 47', '想做另一种梗视频？看看 Bulin 47')}</Link> →</p></div></section>
         <section className="sec" id="related"><div className="container"><div className="sec-head"><p className="kick">{t('Related', '相关')}</p><h2>{t('Hit the Road Dude guides on ViralReel', 'ViralReel 上的 Hit the Road Dude 指南')}</h2></div><HitTheRoadLinkCluster zh={zh} currentPath="/hit-the-road-dude-ai-template" /></div></section>
-        <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to stage the roadside reaction?', '准备好拍出路边反应了吗？')}</h2><p>{t('Upload one photo and keep the scene fictional and clearly labeled as AI.', '上传一张照片，保持场景虚构，并按平台要求标注 AI。')}</p><button className="btn btn-primary btn-lg" onClick={() => choose()}>{t('Upload 1 photo — start now', '上传 1 张照片，立即开始')}<ArrowRight size={16} /></button></div></section>
+        <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to stage the roadside reaction?', '准备好拍出路边反应了吗？')}</h2><p>{t('Upload one photo and keep the scene fictional and clearly labeled as AI.', '上传一张照片，保持场景虚构，并按平台要求标注 AI。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 1 photo — start now', '上传 1 张照片，立即开始')}<ArrowRight size={16} /></button></div></section>
       </main>
       <ViralFooter />
-      <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} />
     </div>
   );
 }

@@ -9,8 +9,12 @@ import {
 } from 'react';
 import { ArrowRight, Check, Flame, Sparkles, Users, Video } from 'lucide-react';
 import { useLocale } from 'next-intl';
+import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
+import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
+import { useAppContext } from '@/shared/contexts/app';
+import { getCookie } from '@/shared/lib/cookie';
 import {
   TRENDING_TEMPLATES,
   TRENDING_VIBES,
@@ -21,13 +25,7 @@ import { getHubFaqPairs } from '@/shared/lib/hub-faq';
 import { track } from '@/shared/lib/analytics';
 import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
-import {
-  maxVideoLine,
-  planFeatureLines,
-  usdFromCredits,
-  videoCreditCost,
-  videoYieldFromCredits,
-} from '@/shared/lib/video-yield';
+import { maxVideoLine, planFeatureLines } from '@/shared/lib/video-yield';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
 import { ViralFooter } from './footer';
@@ -199,12 +197,17 @@ export function ViralHub({
   creditsPerUsd?: number;
   videoCosts?: ReturnType<typeof getVideoCostTable>;
 }) {
-  const zh = useLocale().startsWith('zh');
+  const locale = useLocale();
+  const zh = locale.startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
+  const { user, configs, setIsShowSignModal, setIsShowPaymentModal } =
+    useAppContext();
   const [vibe, setVibe] = useState<TrendingVibeId | 'all'>('all');
   const [billing, setBilling] = useState<'one-time' | 'month' | 'year'>(
     'one-time'
   );
+  const [payment, setPayment] = useState<PricingItem | null>(null);
+  const [loading, setLoading] = useState(false);
   const cards =
     vibe === 'all'
       ? TRENDING_TEMPLATES
@@ -329,8 +332,57 @@ export function ViralHub({
   };
   const pricingCards =
     billing === 'one-time' ? packs : subCardsFor(billing);
-  const baselineCost = videoCreditCost(videoCosts, '720p', 8);
-  const baselineUsd = usdFromCredits(baselineCost, creditsPerUsd);
+
+  async function checkout(item: PricingItem, provider?: string) {
+    if (!user) {
+      setIsShowSignModal(true);
+      return;
+    }
+    setLoading(true);
+    try {
+      const metadata: Record<string, string> = {};
+      if (configs.affonso_enabled === 'true')
+        metadata.affonso_referral = getCookie('affonso_referral') || '';
+      if (configs.promotekit_enabled === 'true')
+        metadata.promotekit_referral = getCookie('promotekit_referral') || '';
+      const response = await fetch('/api/payment/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          product_id: item.product_id,
+          currency: item.currency,
+          locale,
+          payment_provider: provider || '',
+          metadata,
+        }),
+      });
+      const payload = await response.json();
+      if (!response.ok || payload.code !== 0 || !payload.data?.checkoutUrl) {
+        throw new Error(payload.message || t('Checkout failed', '创建支付失败'));
+      }
+      window.location.assign(payload.data.checkoutUrl);
+    } catch (e) {
+      toast.error(
+        e instanceof Error ? e.message : t('Checkout failed', '创建支付失败')
+      );
+    } finally {
+      setLoading(false);
+    }
+  }
+
+  function buy(item: PricingItem) {
+    if (!user) {
+      setIsShowSignModal(true);
+      return;
+    }
+    if (configs.select_payment_enabled === 'true') {
+      setPayment(item);
+      setIsShowPaymentModal(true);
+    } else {
+      void checkout(item, configs.default_payment_provider);
+    }
+  }
+
   const faq = getHubFaqPairs(zh, { videoCosts, creditsPerUsd });
   const scrollToTrends = () =>
     document.getElementById('trending')?.scrollIntoView({ behavior: 'smooth' });
@@ -632,160 +684,29 @@ export function ViralHub({
                         ))}
                       </ul>
                     )}
-                    <Link
-                      className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
-                      href={isPack ? '/pricing' : '/subscribe'}
-                    >
-                      {isPack
-                        ? t('See this pack', '查看这个积分包')
-                        : t(`Get ${plan.title}`, `订阅 ${plan.title}`)}
-                      <ArrowRight size={16} />
-                    </Link>
+                    {isPack ? (
+                      <button
+                        type="button"
+                        disabled={loading}
+                        className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
+                        onClick={() => buy(plan)}
+                      >
+                        {t('Buy now', '立即购买')}
+                        <ArrowRight size={16} />
+                      </button>
+                    ) : (
+                      <Link
+                        className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
+                        href="/subscribe"
+                      >
+                        {t(`Get ${plan.title}`, `订阅 ${plan.title}`)}
+                        <ArrowRight size={16} />
+                      </Link>
+                    )}
                   </article>
                 );
               })}
             </div>
-            <div className="hub-cta">
-              <Link className="btn btn-primary btn-lg" href="/pricing">
-                {t('View credit packs', '查看积分包')}
-                <ArrowRight size={16} />
-              </Link>
-              <Link className="btn btn-outline btn-lg" href="/pricing">
-                {t('Open pricing', '打开定价页')}
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-          </div>
-        </section>
-
-        <section className="sec" id="compare">
-          <div className="container">
-            <div className="sec-head">
-              <p className="kick">{t('Comparison', '对比')}</p>
-              <h2>
-                {t(
-                  'Remaking a trend vs starting from a prompt',
-                  '重拍一条趋势，和从提示词做起'
-                )}
-              </h2>
-              <p className="sub">
-                {t(
-                  'Kling (可灵), Medio.ai, and Higgsfield are general AI video tools. ViralReel is a template for a format people already recognize. Competitor prices are not quoted here.',
-                  '可灵、Medio.ai 和 Higgsfield 是通用 AI 视频工具。ViralReel 是一个别人已经认得出来的格式模板。这里不引用竞品价格。'
-                )}
-              </p>
-            </div>
-            <div className="compare-wrap">
-              <table className="compare">
-                <caption className="sr-only">
-                  {t(
-                    'ViralReel compared with Kling, Medio.ai, and Higgsfield for remaking trend videos',
-                    'ViralReel 与可灵、Medio.ai、Higgsfield 在重拍趋势视频上的对比'
-                  )}
-                </caption>
-                <thead>
-                  <tr>
-                    <th scope="col">{t('For a trend remake', '做趋势重拍时')}</th>
-                    <th scope="col" className="us">
-                      ViralReel
-                    </th>
-                    <th scope="col">Kling (可灵)</th>
-                    <th scope="col">Medio.ai</th>
-                    <th scope="col">Higgsfield</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr>
-                    <th scope="row">{t('Starting point', '从哪里开始')}</th>
-                    <td className="us">
-                      {t(
-                        'Pick a trending template and upload photos. The set, motion, and framing are already the format.',
-                        '选一个正在流行的模板，上传照片。布景、动作和构图已经是这个格式。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'A general video model. You describe the shot, or start from an image, and the model makes a new clip.',
-                        '通用视频模型。你描述镜头，或从一张图开始，模型另做一条新片子。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'A separate AI video product. This page does not describe its feature list.',
-                        '另一款 AI 视频产品。本页不描述它的功能清单。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'A multi-model studio. You choose a model and write or generate a prompt. Effect presets still follow that prompt.',
-                        '多模型工作室。你选一个模型，再写或生成提示词。效果预设仍然跟着这条提示词走。'
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">{t('Prompt work', '提示词')}</th>
-                    <td className="us">
-                      {t(
-                        'None for a template remake. You are not prompt-engineering the trend.',
-                        '模板重拍不需要。你不用为这条趋势写提示词。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'Required if the clip has to match a specific trend.',
-                        '如果片子必须对上某一条趋势，就需要自己写。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'Not verified here. Check that product for how a clip is specified.',
-                        '这里未核实。一条片子怎么指定，以该产品为准。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'Required. A preset does not replace the prompt for a named trend.',
-                        '需要。预设不能代替某一条具名趋势的提示词。'
-                      )}
-                    </td>
-                  </tr>
-                  <tr>
-                    <th scope="row">{t('Cost of one clip', '一条片子的成本')}</th>
-                    <td className="us">
-                      {t(
-                        `${baselineCost} credits at 720p / 8s (${baselineUsd} at ${creditsPerUsd} credits = $1). A ${CANONICAL_PRICING.packStarterPrice} Starter pack (${CANONICAL_PRICING.packStarterCredits} credits) covers about ${videoYieldFromCredits(CANONICAL_PRICING.packStarterCredits, videoCosts).atBaseline} of those clips. The generator shows the exact cost first.`,
-                        `720p / 8 秒 ${baselineCost} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${baselineUsd}）。${CANONICAL_PRICING.packStarterPrice} 的 Starter 积分包（${CANONICAL_PRICING.packStarterCredits} 积分）大约够 ${videoYieldFromCredits(CANONICAL_PRICING.packStarterCredits, videoCosts).atBaseline} 条。生成器会先显示本次消耗。`
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'See Kling’s own pricing. Not quoted here.',
-                        '以可灵自己的定价为准。这里不引用。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'See Medio.ai’s own pricing. Not quoted here.',
-                        '以 Medio.ai 自己的定价为准。这里不引用。'
-                      )}
-                    </td>
-                    <td>
-                      {t(
-                        'See Higgsfield’s own pricing. Credits vary by model. Not quoted here.',
-                        '以 Higgsfield 自己的定价为准。积分因模型而异。这里不引用。'
-                      )}
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-              <p className="compare-note">
-              {t(
-                `A 720p / 8s remake is ${baselineCost} credits on our table (${baselineUsd} at ${creditsPerUsd} credits = $1). That is the per-clip price. Kling, Medio.ai, and Higgsfield prices are not quoted here.`,
-                `按我们的积分表，720p / 8 秒一条是 ${baselineCost} 积分（${creditsPerUsd} 积分 = 1 美元，约 ${baselineUsd}）。这就是单条成本。这里不引用可灵、Medio.ai 和 Higgsfield 的价格。`
-              )}{' '}
-              <Link href="/pricing">{t('Credit table', '积分对照表')}</Link>
-            </p>
           </div>
         </section>
 
@@ -828,6 +749,11 @@ export function ViralHub({
         </section>
       </main>
       <ViralFooter />
+      <PaymentModal
+        isLoading={loading}
+        pricingItem={payment}
+        onCheckout={checkout}
+      />
     </div>
   );
 }

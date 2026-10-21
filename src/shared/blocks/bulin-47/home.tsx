@@ -12,7 +12,6 @@ import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
-import { useAppContext } from '@/shared/contexts/app';
 import { bulin47Templates, type BulinTemplate } from './templates';
 import { BULIN_FAQ } from './faq';
 import '@/shared/blocks/viral-home/home.css';
@@ -61,11 +60,10 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
   useEffect(() => { track('view_template', { template: 'bulin_47' }); }, []);
-  const { user, setIsShowSignModal } = useAppContext();
   const [template, setTemplate] = useState<BulinTemplate>(bulin47Templates[0]);
-  const [open, setOpen] = useState(false);
-  const choose = (item: BulinTemplate = bulin47Templates[0]) => { track('click_generate', { template: 'bulin_47', variant: item.id }); setTemplate(item); setOpen(true); };
-  const start = () => { if (!user) { track('signup_wall', { template: 'bulin_47', surface: 'template_hero' }); setIsShowSignModal(true); return; } choose(); };
+  const focusGenerator = () => { document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
+  const choose = (item: BulinTemplate = bulin47Templates[0]) => { track('click_generate', { template: 'bulin_47', variant: item.id }); setTemplate(item); focusGenerator(); };
+  const start = () => focusGenerator();
   const features = [
     [Mic, t('The red-light freestyle','红光街头说唱'), t('Restaurant entrance, portable speaker on a shoulder, phones in the crowd — the October 2026 clip, staged for your photo.','餐厅门口、肩上音箱、人群举着手机——2026 年 10 月那条视频的场景，已经按你的照片搭好。')],
     [Video, t('One photo, you freestyle','一张照片，你来接'), t('Your face replaces the person in the middle. The speaker, the crowd and the handheld camera stay.','中间的人换成你的脸。音箱、围观的人和手持镜头都留着。')],
@@ -87,7 +85,7 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
     return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
     <ViralHeader onStart={start}/>
     <main>
-      <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#bulin47 is trending</span></div><h1>{t('Step into the viral ', '60 秒进入爆火的 ')}<span className="hl">Bulin 47</span>{t(' freestyle in 60 seconds', ' 街头 freestyle')}</h1><p className="lead">{t('Upload one front-facing photo and take the spot in the red-lit freestyle — the speaker, the crowd and the phone camera stay.', '上传一张正面照，站进红光下的 freestyle——音箱、人群和手机镜头都留在原位。')}</p><div className="hero-cta"><button className="btn btn-primary btn-lg" onClick={start}>{user ? t('Create Now', '立即创作') : t('Get Started', '立即开始')}<ArrowRight size={16}/></button><a className="btn btn-outline btn-lg" href="#templates">{t('See templates', '浏览模板')}</a></div></div></section>
+      <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#bulin47 is trending</span></div><h1>{t('Step into the viral ', '60 秒进入爆火的 ')}<span className="hl">Bulin 47</span>{t(' freestyle in 60 seconds', ' 街头 freestyle')}</h1><TemplateGenerator key={template.id} template={template} open embedded onOpenChange={() => {}} preferModel="MiniMax-H3"/></div></section>
       <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Pick a look, upload one photo, done','选一个造型、传一张照片，一键出片')}</h2><p className="sub">{t('Every card is the same freestyle with a different cast. Click one to open the generator.','每张卡片都是同一条 freestyle，换的是中间的人。点击卡片打开生成器。')}</p></div><div className="grid3">{bulin47Templates.map((item, index) => <article className="tcard" key={item.id}><button className="tv tv-full" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>
       <div className="logos"><p className="lbl">{t('Creators are posting ViralReel videos on','创作者们正在这些平台发布 ViralReel 视频')}</p><div className="row"><span className="soc tiktok"><PlatformIcon type="tiktok"/>TikTok</span><span className="soc youtube"><PlatformIcon type="youtube"/>YouTube Shorts</span><span className="soc instagram"><PlatformIcon type="instagram"/>Instagram Reels</span><span className="soc x"><PlatformIcon type="x"/>X / Twitter</span><span className="soc reddit"><PlatformIcon type="reddit"/>Reddit</span></div></div>
       <section className="stats"><div className="container stats-grid"><div><div className="statnum">60<em>s</em></div><p>{t('Average render time','平均渲染时长')}</p></div><div><div className="statnum">9:16</div><p>{t('Vertical export for TikTok, Reels and Shorts','竖屏导出，适配 TikTok、Reels、Shorts')}</p></div><div><div className="statnum">{Math.min(...videoCosts.flatMap(row => row.costs.map(item => item.credits)))}<em className="wide-em">{t(' credits / video from', ' 积分 / 条起')}</em></div><p>{t(`Top-ups available · ${creditsPerUsd} credits = $1`,`随时可加购 · ${creditsPerUsd} 积分 = 1 美元`)}</p></div></div></section>
@@ -114,9 +112,8 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
         <p className="guide-more"><Link href="/burning-bridges-ai-template">{t('Want the party-dance format? See the Burning Bridges AI template','想玩派对舞？看 Burning Bridges AI 模板')} →</Link></p>
       </div></section>
       <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about Bulin 47','关于 Bulin 47 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
-      <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to take the freestyle spot?','准备好站进 freestyle 了吗？')}</h2><p>{t('Upload one photo and join the red-light clip while the sound is still moving.','上传一张照片，趁这段声音还在传的时候进这条红光片子。')}</p><button className="btn btn-primary btn-lg" onClick={() => choose()}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section>
+      <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to take the freestyle spot?','准备好站进 freestyle 了吗？')}</h2><p>{t('Upload one photo and join the red-light clip while the sound is still moving.','上传一张照片，趁这段声音还在传的时候进这条红光片子。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section>
     </main>
     <ViralFooter/>
-    <TemplateGenerator key={template.id} template={template} open={open} onOpenChange={setOpen} preferModel="MiniMax-H3"/>
   </div>;
 }
