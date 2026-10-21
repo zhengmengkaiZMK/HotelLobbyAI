@@ -1,3 +1,5 @@
+import { HIT_THE_ROAD_HOW_TO_STEPS } from '@/shared/blocks/hit-the-road-dude/steps';
+
 const HOW_TO_STEP_SOURCES: Record<
   string,
   { name: string; text: string }[]
@@ -78,6 +80,10 @@ const HOW_TO_STEP_SOURCES: Record<
       text: 'Download the MP4 in about a minute. Add a trend sound in TikTok, Reels, or Shorts and label the post as AI-generated where the platform asks.',
     },
   ],
+  'how-to-make-hit-the-road-dude-ai-video': HIT_THE_ROAD_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
   'how-to-make-cat-clapping-ai-video': [
     {
       name: 'Pick a cat template',
