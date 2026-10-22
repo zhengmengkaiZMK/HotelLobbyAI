@@ -251,6 +251,23 @@
 @media(max-width:1100px){.viral-home .price-grid.cols-4{grid-template-columns:repeat(2,1fr)}}
 @media(max-width:900px){.viral-home .cluster{grid-template-columns:1fr}.viral-home .grid4,.viral-home .grid4s{grid-template-columns:repeat(2,1fr)}.viral-home .stats-grid>div{max-width:50%}.viral-home .grid3{grid-template-columns:repeat(2,1fr)}.viral-home .price-grid,.viral-home .price-grid.cols-4{grid-template-columns:1fr}.viral-home .hero h1{font-size:36px}.viral-home .menu{display:none}.viral-home .mobile-menu{display:block}.viral-home .mobile-menu summary{list-style:none;cursor:pointer}.viral-home .mobile-menu nav{position:absolute;top:80px;left:16px;right:16px;display:flex;flex-direction:column;background:#fff;padding:16px;border:1px solid #e4e4e7;border-radius:12px;box-shadow:0 10px 30px #0001}.viral-home .mobile-menu a{padding:10px;color:#09090b}.viral-dialog .gen-modal{grid-template-columns:1fr}.viral-dialog .gp-video{min-height:260px}.viral-dialog .gp-stage{min-height:220px}}
 @media(max-width:600px){.viral-home .grid3{grid-template-columns:1fr}.viral-home .container{padding:0 20px}.viral-home .right{gap:8px}.viral-home .nav{gap:8px}.viral-home .nav .start-button{display:none}.viral-home .hero{padding-top:64px}.viral-home .hero-badge{font-size:12px}.viral-home .sec-head h2{font-size:28px}.viral-home .fgrid{grid-template-columns:1fr 1fr;gap:24px}.viral-home .fgrid>div:first-child{grid-column:1/-1}.viral-home .stats-grid h3{font-size:28px}.viral-home .hero-proof{font-size:12px}.viral-home .logos .row{gap:18px}.viral-dialog{width:calc(100% - 24px)!important;padding:20px!important}.viral-dialog .seg button{padding:6px 10px}.viral-home .final-cta h2{font-size:30px}}
+/* --- mobile-only generator form refinement (≤600px, PC untouched) --- */
+@media(max-width:600px){
+.viral-dialog .g-label{font-size:13.5px;margin-bottom:8px}
+.viral-dialog .up-row{grid-template-columns:1fr;gap:10px;margin-bottom:14px}
+.viral-dialog .up-card{display:flex;align-items:center;gap:12px;text-align:left;padding:8px 12px 8px 8px}
+.viral-dialog .up-ph{width:64px;height:64px;flex:0 0 auto;margin:0;border-radius:10px}
+.viral-dialog .up-card .up-txt{display:flex;flex-direction:column;gap:2px;min-width:0}
+.viral-dialog .up-card b{font-size:13.5px}
+.viral-dialog .up-card small{font-size:11.5px;line-height:1.4}
+.viral-dialog .param-row{display:grid;grid-template-columns:1fr;gap:8px;margin-bottom:12px}
+.viral-dialog .seg{display:grid;grid-auto-flow:column;grid-auto-columns:1fr;width:100%;padding:4px;gap:4px}
+.viral-dialog .seg button{width:100%;padding:8px 4px;font-size:13px;text-align:center}
+.viral-dialog .advanced{margin-bottom:12px}
+.viral-dialog .advanced summary{padding:6px 0;margin-bottom:6px}
+.viral-dialog .btn-gen{height:46px;font-size:15px;border-radius:11px}
+.viral-dialog .credits{margin-top:10px}
+}
 .viral-home .compare-wrap{overflow-x:auto;border:1px solid #e4e4e7;border-radius:12px;background:#fff}
 .viral-home .compare{width:100%;border-collapse:collapse;min-width:760px;font-size:14px;line-height:1.5}
 .viral-home .compare th,.viral-home .compare td{text-align:left;padding:14px 16px;border-bottom:1px solid #f4f4f5;vertical-align:top}

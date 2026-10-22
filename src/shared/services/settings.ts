@@ -1509,6 +1509,15 @@ export async function getSettings() {
       tip: '用户打开生成弹窗时默认选中的模型。若所选模型不在上方「可用模型」勾选清单里，则回退为第一个可用模型。',
     },
     {
+      name: 'viral_show_model_selector',
+      title: '显示模型选择器 / Show Model Selector in Generation Dialog',
+      type: 'switch',
+      value: 'true',
+      group: 'viral_templates',
+      tab: 'ai',
+      tip: '开启后，前端生成弹窗显示「模型」折叠选择器，用户可自行切换模型；关闭即隐藏，隐藏时仍使用默认模型 / 各系列默认模型配置，不影响生成功能。',
+    },
+    {
       name: 'debug_show_request_payload',
       title: '显示生成弹窗调试按钮 / Show Debug Button in Generation Dialog',
       type: 'switch',
@@ -1807,6 +1816,7 @@ export const publicSettingNames = [
   'viral_family_models_cat_clapping',
   'viral_family_default_model_cat_clapping',
   'debug_show_request_payload',
+  'viral_show_model_selector',
   'fal_kling_reference_enabled',
   'fal_kling_reference_model',
   'fal_kling_reference_title',
