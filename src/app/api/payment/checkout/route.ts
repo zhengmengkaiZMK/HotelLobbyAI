@@ -22,12 +22,24 @@ import {
   isCreditPackProduct,
 } from '@/shared/services/pricing';
 import { getPaymentService } from '@/shared/services/payment';
+import {
+  sanitizeReturnPath,
+  toAbsoluteAppUrl,
+  withCheckoutFlag,
+} from '@/shared/lib/safe-return-url';
 import { PricingItem, PricingCurrency } from '@/shared/types/blocks/pricing';
 
 export async function POST(req: Request) {
   try {
-    const { product_id, currency, locale, payment_provider, metadata, amount_usd } =
-      await req.json();
+    const {
+      product_id,
+      currency,
+      locale,
+      payment_provider,
+      metadata,
+      amount_usd,
+      return_url,
+    } = await req.json();
     if (!product_id) {
       return respErr('product_id is required');
     }
@@ -227,8 +239,16 @@ export async function POST(req: Request) {
       callbackBaseUrl += `/${locale}`;
     }
 
-    const callbackUrl =
-      paymentType === PaymentType.SUBSCRIPTION
+    const safeReturnPath = sanitizeReturnPath(return_url);
+    const returnPageUrl = safeReturnPath
+      ? toAbsoluteAppUrl(configs.app_url, safeReturnPath)
+      : '';
+    const callbackUrl = returnPageUrl
+      ? toAbsoluteAppUrl(
+          configs.app_url,
+          withCheckoutFlag(safeReturnPath as string, 'success')
+        )
+      : paymentType === PaymentType.SUBSCRIPTION
         ? `${callbackBaseUrl}/settings/billing`
         : `${callbackBaseUrl}/settings/payments`;
 
@@ -247,9 +267,11 @@ export async function POST(req: Request) {
         ...(metadata || {}),
       },
       successUrl: `${configs.app_url}/api/payment/callback?order_no=${orderNo}`,
-      cancelUrl: isCreditPackProduct(product_id)
-        ? `${callbackBaseUrl}/pricing`
-        : `${callbackBaseUrl}/subscribe`,
+      cancelUrl: returnPageUrl
+        ? returnPageUrl
+        : isCreditPackProduct(product_id)
+          ? `${callbackBaseUrl}/pricing`
+          : `${callbackBaseUrl}/subscribe`,
     };
 
     // checkout with predefined product

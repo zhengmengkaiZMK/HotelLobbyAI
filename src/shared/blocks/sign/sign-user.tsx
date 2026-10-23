@@ -6,7 +6,8 @@ import { Coins, LayoutDashboard, Loader2, LogOut, User } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
 import { authClient, signOut, useSession } from '@/core/auth/client';
-import { Link, useRouter } from '@/core/i18n/navigation';
+import { Link, usePathname, useRouter } from '@/core/i18n/navigation';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
 import {
   Avatar,
   AvatarFallback,
@@ -33,6 +34,12 @@ function extractSessionUser(data: any): UserType | null {
   return u && typeof u === 'object' ? (u as UserType) : null;
 }
 
+function isAuthPath(path: string) {
+  return /\/(sign-in|sign-up|verify-email|auth-popup|auth-callback|no-permission)(\/|$)/.test(
+    path
+  );
+}
+
 export function SignUser({
   isScrolled,
   signButtonSize = 'sm',
@@ -44,6 +51,8 @@ export function SignUser({
 }) {
   const t = useTranslations('common.sign');
   const router = useRouter();
+  const pathname = usePathname();
+  const isMobile = useIsMobile();
 
   const [mounted, setMounted] = useState(false);
   useEffect(() => {
@@ -73,6 +82,7 @@ export function SignUser({
 
   // one tap initialized
   const oneTapInitialized = useRef(false);
+  const mobileLoginPrompted = useRef(false);
 
   useEffect(() => {
     fetchConfigs();
@@ -83,8 +93,27 @@ export function SignUser({
     setIsCheckSign(isPending);
   }, [isPending]);
 
-  // show one tap if not initialized
+  // Mobile browsers rarely show One Tap. Prompt login on first visit instead.
   useEffect(() => {
+    if (!mounted || !isMobile || isPending) return;
+    if (session || user || mobileLoginPrompted.current) return;
+    if (isAuthPath(pathname)) return;
+    mobileLoginPrompted.current = true;
+    setIsShowSignModal(true);
+  }, [
+    mounted,
+    isMobile,
+    isPending,
+    session,
+    user,
+    pathname,
+    setIsShowSignModal,
+  ]);
+
+  // show one tap if not initialized — desktop only, so it does not stack
+  // with the mobile login drawer
+  useEffect(() => {
+    if (isMobile) return;
     if (
       configs &&
       configs.google_client_id &&
@@ -96,7 +125,7 @@ export function SignUser({
       oneTapInitialized.current = true;
       showOneTap(configs);
     }
-  }, [configs, session, isPending]);
+  }, [configs, session, isPending, isMobile]);
 
   // set user
   useEffect(() => {
@@ -259,7 +288,7 @@ export function SignUser({
           >
             <span>{t('sign_in_title')}</span>
           </Button>
-          <SignModal />
+          <SignModal callbackUrl={pathname || '/'} />
         </div>
       )}
     </>

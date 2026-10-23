@@ -7,9 +7,11 @@ import { Link, useRouter } from '@/core/i18n/navigation';
 import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/components/ui/dialog';
 import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
+import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel } from '@/shared/lib/ai-models';
 import { track } from '@/shared/lib/analytics';
 import { TemplateDef } from './templates';
+import { StarterPackDialog } from './starter-pack-dialog';
 import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost } from '@/shared/lib/video-cost';
 
 const defaults = [
@@ -30,6 +32,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const text = (en: string, cn: string) => zh ? cn : en;
   const { user, configs, setIsShowSignModal, fetchUserCredits, isCheckSign } = useAppContext();
   const router = useRouter();
+  const isMobile = useIsMobile();
+  const [showStarterPack, setShowStarterPack] = useState(false);
   // The embedded form is in the server HTML. AUTH_SECRET exists only on the
   // server, so isCheckSign starts true there and false in the browser. Hold
   // the account-check label until after mount so both renders match.
@@ -119,6 +123,35 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const defaultImages = template.images ? [...template.images] : [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
   const [images, setImages] = useState<(string | null)[]>(defaultImages);
   const [custom, setCustom] = useState([false, false]);
+  const imageCacheKey = `viral-gen-images:${template.id}`;
+  useEffect(() => {
+    try {
+      const raw = sessionStorage.getItem(imageCacheKey);
+      if (!raw) return;
+      const saved = JSON.parse(raw) as { images?: (string | null)[]; custom?: boolean[] };
+      if (Array.isArray(saved.images) && saved.images.some(Boolean)) {
+        setImages(saved.images);
+        if (Array.isArray(saved.custom)) setCustom(saved.custom);
+      }
+    } catch {
+      // ignore restore errors
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [template.id]);
+  useEffect(() => {
+    if (!custom.some(Boolean)) return;
+    try {
+      sessionStorage.setItem(imageCacheKey, JSON.stringify({ images, custom }));
+    } catch {
+      // ignore quota errors
+    }
+  }, [images, custom, imageCacheKey]);
+  useEffect(() => {
+    if (typeof window === 'undefined') return;
+    if (new URLSearchParams(window.location.search).get('checkout') !== 'success') return;
+    void fetchUserCredits();
+    document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }, [fetchUserCredits]);
   const [uploading, setUploading] = useState([false, false]);
   const [promptDraft, setPromptDraft] = useState('');
   // keep the editable prompt in sync with the template / config override
@@ -274,7 +307,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         template: family,
         cost_credits: costCredits,
         balance: user.credits?.remainingCredits ?? 0,
+        surface: isMobile ? 'mobile_pack' : 'pricing',
       });
+      if (isMobile) {
+        setShowStarterPack(true);
+        return;
+      }
       setError(text('Insufficient credits. Taking you to the pricing page…', '积分不足，正在前往购买页…'));
       setTimeout(() => router.push('/subscribe'), 1200);
       return;
@@ -370,6 +408,14 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {configs.debug_show_request_payload === 'true' && <div className="result-actions"><button type="button" className="btn btn-outline" style={{ fontSize: 12, opacity: .7 }} onClick={() => { if (debugOpen) { setDebugOpen(false); return; } setDebugPayload(JSON.stringify(buildPayload(images.slice(0, maxSlots).filter(Boolean) as string[]), null, 2)); setDebugOpen(true); }}>{text('Debug: request payload', '调试：查看 Request 参数')}</button></div>}
     {configs.debug_show_request_payload === 'true' && debugOpen && <pre style={{ maxHeight: 260, overflow: 'auto', fontSize: 11, lineHeight: 1.5, background: 'rgba(127,127,127,.12)', padding: '8px 10px', borderRadius: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all', textAlign: 'left', margin: 0 }}>{debugPayload}</pre>}
     </div></div>;
-  if (embedded) return <div id="generator" className="viral-dialog viral-embed">{panel}</div>;
-  return <Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="viral-dialog"><DialogDescription className="sr-only">{text('Create a video from your reference photos', '上传参考照片生成视频')}</DialogDescription>{panel}</DialogContent></Dialog>;
+  const starter = (
+    <StarterPackDialog
+      open={showStarterPack}
+      onOpenChange={setShowStarterPack}
+      costCredits={costCredits}
+      balance={user?.credits?.remainingCredits ?? 0}
+    />
+  );
+  if (embedded) return <><div id="generator" className="viral-dialog viral-embed">{panel}</div>{starter}</>;
+  return <><Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="viral-dialog"><DialogDescription className="sr-only">{text('Create a video from your reference photos', '上传参考照片生成视频')}</DialogDescription>{panel}</DialogContent></Dialog>{starter}</>;
 }
