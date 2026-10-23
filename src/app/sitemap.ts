@@ -17,6 +17,8 @@ const staticRoutes = [
   { path: '/hotel-lobby-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/pedra-do-sal-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/bby-wow-ai-dance-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/hit-the-road-dude-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...HIT_THE_ROAD_LONG_TAIL_ROUTES,
   { path: '/ozil-ai-goal-template', priority: 0.9, changeFrequency: 'weekly' as const },

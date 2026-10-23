@@ -18,6 +18,8 @@ import { Brand } from './footer';
 import './home.css';
 
 const TRENDING_NAV_ORDER = [
+  'pedra-do-sal',
+  'bby-wow',
   'ozil-goal',
   'bulin-47',
   'hit-the-road-dude',

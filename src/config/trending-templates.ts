@@ -33,6 +33,34 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'pedra-do-sal',
+    name: ['Pedra do Sal', 'Pedra do Sal'],
+    pitch: [
+      'One photo joins the plaza crowd for the Pedra do Sal charme dance.',
+      '一张照片走进广场人群，跳起 Pedra do Sal 的 charme 舞。',
+    ],
+    href: '/pedra-do-sal-ai-template',
+    badge: 'hot',
+    vibes: ['dance', 'meme'],
+    poster: '/templates/pedra-party-poster.jpg',
+    video: '/templates/pedra-party.mp4',
+    colors: ['#f9a8d4', '#9d174d'],
+  },
+  {
+    id: 'bby-wow',
+    name: ['Bby Wow', 'Bby Wow'],
+    pitch: [
+      'One photo takes the bite, the stare, and the bby wow dance.',
+      '一张照片完成咬面包、瞪镜头和 bby wow 舞步。',
+    ],
+    href: '/bby-wow-ai-dance-template',
+    badge: 'hot',
+    vibes: ['dance', 'meme'],
+    poster: '/templates/bbywow-white-poster.jpg',
+    video: '/templates/bbywow-white.mp4',
+    colors: ['#fecdd3', '#9f1239'],
+  },
+  {
     id: 'burning-bridges',
     name: ['Burning Bridges', 'Burning Bridges'],
     pitch: [
