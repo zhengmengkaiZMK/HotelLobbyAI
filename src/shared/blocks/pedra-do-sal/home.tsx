@@ -13,6 +13,7 @@ import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { getPedraDoSalFaq } from './faq';
+import { PedraLinkCluster } from './link-cluster';
 import { PEDRA_HOW_TO_STEPS } from './steps';
 import { pedraDoSalTemplates, type PedraTemplate } from './templates';
 import '@/shared/blocks/viral-home/home.css';
@@ -105,6 +106,7 @@ export function PedraDoSalHome({ creditsPerUsd = 12, videoCosts = getVideoCostTa
         <p className="guide-more"><Link href="/bby-wow-ai-dance-template">{t('Want the bread-bite party? See Bby Wow','想做咬面包派对？看 Bby Wow')}</Link> · <Link href="/bulin-47-ai-template">{t('Want the street-freestyle format? See Bulin 47','想玩街头 freestyle？看 Bulin 47')}</Link> · <Link href="/hit-the-road-dude-ai-template">{t('Hit the Road Dude','Hit the Road Dude')}</Link></p>
       </div></section>
       <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about Pedra do Sal','关于 Pedra do Sal 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div><p className="guide-more"><Link href="/blog/why-pedra-do-sal-ai-videos-went-viral">{t('Full how-to','完整教程')}</Link> · <Link href="/pricing">{t('Pricing','定价')}</Link> · <Link href="/">{t('Homepage','首页')}</Link> · <Link href="/bby-wow-ai-dance-template">{t('Bby Wow','Bby Wow')}</Link></p></div></section>
+      <section className="sec" id="related"><div className="container"><div className="sec-head"><p className="kick">{t('Related','相关')}</p><h2>{t('Pedra do Sal guides on ViralReel','ViralReel 上的 Pedra do Sal 指南')}</h2></div><PedraLinkCluster zh={zh} currentPath="/pedra-do-sal-ai-template" /></div></section>
       <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to take the dancer\'s spot?','准备好站进人群中央了吗？')}</h2><p>{t('Upload one photo and join the night-square groove while the sound is still moving.','上传一张照片，趁这段声音还在传的时候进这条夜场广场片子。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section>
     </main>
     <ViralFooter/>
