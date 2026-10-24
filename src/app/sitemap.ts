@@ -3,6 +3,7 @@ import type { MetadataRoute } from 'next';
 import { envConfigs } from '@/config';
 import { defaultLocale, locales } from '@/config/locale';
 import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
+import { BULIN_LONG_TAIL_ROUTES } from '@/shared/blocks/bulin-47/long-tails';
 import { HIT_THE_ROAD_LONG_TAIL_ROUTES } from '@/shared/blocks/hit-the-road-dude/long-tails';
 import { PEDRA_LONG_TAIL_ROUTES } from '@/shared/blocks/pedra-do-sal/long-tails';
 import { getPostsAndCategories, isHiddenFromBlog } from '@/shared/models/post';
@@ -19,6 +20,7 @@ const staticRoutes = [
   { path: '/hotel-lobby-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...BULIN_LONG_TAIL_ROUTES,
   { path: '/pedra-do-sal-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...PEDRA_LONG_TAIL_ROUTES,
   { path: '/bby-wow-ai-dance-template', priority: 0.9, changeFrequency: 'weekly' as const },

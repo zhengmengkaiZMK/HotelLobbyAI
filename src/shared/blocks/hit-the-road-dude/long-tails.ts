@@ -22,7 +22,12 @@ export const HIT_THE_ROAD_TEMPLATE_PATH = '/hit-the-road-dude-ai-template';
 export const HIT_THE_ROAD_POSTS = {
   howTo: '/blog/how-to-make-hit-the-road-dude-ai-video',
   explainer: '/blog/hit-the-road-dude-meme-and-original',
+  aliases: '/blog/state-property-vs-hit-the-road-dude',
 } as const;
+
+function absoluteUrl(zh: boolean, path: string) {
+  return zh ? `https://www.viralreel.app/zh${path}` : `https://www.viralreel.app${path}`;
+}
 
 type Copy = { en: string; zh: string };
 
@@ -571,6 +576,294 @@ export const HIT_THE_ROAD_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  {
+    keyword: 'state property meme ai',
+    slug: 'state-property-meme-ai',
+    title: {
+      en: 'State Property Meme AI – Same Clip as Hit the Road Dude',
+      zh: 'State Property Meme AI：和 Hit the Road Dude 是同一条片子',
+    },
+    description: {
+      en: 'state property meme ai is the same white-pickup exchange as Hit the Road Dude. ViralReel makes a fictional remake from one photo at the Hit the Road Dude template. It is not an official page.',
+      zh: 'state property meme ai 和 Hit the Road Dude 是同一段白色皮卡对话。ViralReel 在 Hit the Road Dude 模板里用一张照片做虚构重拍。这不是官方页面。',
+    },
+    h1: { en: 'State Property meme AI', zh: 'State Property meme AI' },
+    lead: {
+      en: 'State Property and Hit the Road Dude are the same white-pickup exchange. ViralReel remakes that beat from one photo. The remake is fictional, and ViralReel is not official.',
+      zh: 'State Property 和 Hit the Road Dude 是同一段白色皮卡对话。ViralReel 用一张照片重拍这个节奏。重拍是虚构的，ViralReel 也不是官方。',
+    },
+    guideTitle: {
+      en: 'State Property is Hit the Road Dude',
+      zh: 'State Property 就是 Hit the Road Dude',
+    },
+    body: {
+      en: [
+        'State Property meme AI is not a second meme. It is the white pickup stopped on private-looking land: a visitor says he thought the fishing spot was public, the driver freezes on “State?”, then tells him to hit the road. Private Property and Lock ’Em Up are other names for the same short video.',
+        'Make the fictional remake at https://www.viralreel.app/hit-the-road-dude-ai-template. One photo you have permission to use becomes the driver. ViralReel does not host the original TikTok, does not license the audio, and is not the official account of the meme.',
+      ],
+      zh: [
+        'State Property meme AI 不是第二条梗。它就是停在看起来像私人领地上的白色皮卡：来访者说以为钓鱼的地方是公共土地，司机在 “State?” 上愣住，然后让他上路离开。Private Property 和 Lock ’Em Up 是同一条短视频的其他叫法。',
+        '在 https://www.viralreel.app/zh/hit-the-road-dude-ai-template 做虚构重拍。一张你有权使用的照片变成司机。ViralReel 不托管原始 TikTok，不授权音频，也不是这个梗的官方账号。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is the State Property meme the same as Hit the Road Dude?', zh: 'State Property 梗和 Hit the Road Dude 是同一个吗？' },
+        a: {
+          en: 'Yes. State Property, Private Property, and Hit the Road Dude name the same pickup-truck exchange. Lock ’Em Up is a later line in that clip.',
+          zh: '是。State Property、Private Property 和 Hit the Road Dude 指的是同一段皮卡对话。Lock ’Em Up 是这条片子更靠后的一句。',
+        },
+      },
+      {
+        q: { en: 'Where do I make the AI version?', zh: 'AI 版本在哪里做？' },
+        a: {
+          en: 'On ViralReel at https://www.viralreel.app/hit-the-road-dude-ai-template. The result is a fictional remake, not the original footage.',
+          zh: '在 ViralReel：https://www.viralreel.app/zh/hit-the-road-dude-ai-template 。结果是虚构重拍，不是原片。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'state property ai video',
+    slug: 'state-property-ai-video',
+    title: {
+      en: 'State Property AI Video – Hit the Road Dude on ViralReel',
+      zh: 'State Property AI 视频：ViralReel 上的 Hit the Road Dude',
+    },
+    description: {
+      en: 'state property ai video: ViralReel turns one photo into a fictional white-pickup clip. It is the same exchange as Hit the Road Dude. Download the MP4, then add the trend sound on TikTok, Reels, or Shorts.',
+      zh: 'state property ai video：ViralReel 用一张照片做成虚构的白色皮卡短片。它和 Hit the Road Dude 是同一段对话。下载 MP4 后，在 TikTok、Reels 或 Shorts 加上热梗原声。',
+    },
+    h1: { en: 'State Property AI video', zh: 'State Property AI 视频' },
+    lead: {
+      en: 'A State Property AI video is a Hit the Road Dude remake. ViralReel makes that fictional white-pickup clip from one photo.',
+      zh: 'State Property AI 视频就是 Hit the Road Dude 的重拍。ViralReel 用一张照片做这条虚构的白色皮卡短片。',
+    },
+    guideTitle: {
+      en: 'How to make a State Property AI video',
+      zh: '如何制作 State Property AI 视频',
+    },
+    body: {
+      en: [
+        'People searching state property ai video want the pickup-truck meme with a new face in the driver seat. That meme is also called Hit the Road Dude. The line “State?” is the driver’s stunned reaction before “hit the road dude.”',
+        'Open https://www.viralreel.app/hit-the-road-dude-ai-template. State Property, Driver Reaction, and Private Property on that page are three setups of the same beat. The download is an MP4 of a new fictional scene. ViralReel is not official and does not license the original audio.',
+      ],
+      zh: [
+        '搜 state property ai video 的人，想要的是司机位换成一张新脸的皮卡梗。这个梗也叫 Hit the Road Dude。“State?” 是司机在 “hit the road dude” 之前那一下难以置信的反应。',
+        '打开 https://www.viralreel.app/zh/hit-the-road-dude-ai-template 。页面上的州有土地、司机反应和私人领地是同一节奏的三种搭法。下载的是一条新虚构场景的 MP4。ViralReel 不是官方，也不授权原声。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'What is a State Property AI video?', zh: 'State Property AI 视频是什么？' },
+        a: {
+          en: 'It is a fictional remake of the white-pickup exchange, made on ViralReel from one photo. The same clip is Hit the Road Dude.',
+          zh: '它是白色皮卡那段对话的虚构重拍，在 ViralReel 用一张照片做成。同一条片子就是 Hit the Road Dude。',
+        },
+      },
+      {
+        q: { en: 'Do I need the original video?', zh: '需要原视频吗？' },
+        a: {
+          en: 'No. One photo is enough. ViralReel does not host the original TikTok.',
+          zh: '不需要。一张照片就够。ViralReel 不托管原始 TikTok。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'private property meme ai',
+    slug: 'private-property-meme-ai',
+    title: {
+      en: 'Private Property Meme AI – Same as Hit the Road Dude',
+      zh: 'Private Property Meme AI：和 Hit the Road Dude 是同一个',
+    },
+    description: {
+      en: 'private property meme ai is the same white-pickup exchange as Hit the Road Dude and State Property. ViralReel makes a fictional one-photo remake. It is not official.',
+      zh: 'private property meme ai 和 Hit the Road Dude、State Property 是同一段白色皮卡对话。ViralReel 用一张照片做虚构重拍。它不是官方。',
+    },
+    h1: { en: 'Private Property meme AI', zh: 'Private Property meme AI' },
+    lead: {
+      en: 'Private Property, State Property, and Hit the Road Dude are one meme. ViralReel remakes the white-pickup exchange from one photo.',
+      zh: 'Private Property、State Property 和 Hit the Road Dude 是同一个梗。ViralReel 用一张照片重拍这段白色皮卡对话。',
+    },
+    guideTitle: {
+      en: 'Private Property is the same pickup exchange',
+      zh: 'Private Property 就是同一段皮卡对话',
+    },
+    body: {
+      en: [
+        'The private property meme is the visitor’s claim that he thought the fishing spot was public land, and the driver’s refusal. Captions say “private property,” “state property,” or “hit the road dude.” They point at one short video.',
+        'The fictional remake is at https://www.viralreel.app/hit-the-road-dude-ai-template. Upload one photo you have permission to use. Do not present the result as a recording of the original driver. ViralReel does not license the trend audio.',
+      ],
+      zh: [
+        'Private property 梗是来访者说以为钓鱼的地方是公共土地，以及司机的拒绝。标题会写成 “private property”、“state property” 或 “hit the road dude”。它们指的是同一条短视频。',
+        '虚构重拍在 https://www.viralreel.app/zh/hit-the-road-dude-ai-template 。上传一张你有权使用的照片。不要把结果发成原司机的录像。ViralReel 不授权热梗音频。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is Private Property a different meme?', zh: 'Private Property 是另一个梗吗？' },
+        a: {
+          en: 'No. It is the same white-pickup exchange as Hit the Road Dude and State Property.',
+          zh: '不是。它和 Hit the Road Dude、State Property 是同一段白色皮卡对话。',
+        },
+      },
+      {
+        q: { en: 'Which ViralReel template is it?', zh: '用 ViralReel 的哪个模板？' },
+        a: {
+          en: 'The Hit the Road Dude template at https://www.viralreel.app/hit-the-road-dude-ai-template. Private Property is one of the setups on that page.',
+          zh: 'Hit the Road Dude 模板：https://www.viralreel.app/zh/hit-the-road-dude-ai-template 。私人领地是那个页面上的一种搭法。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'lock em up meme',
+    slug: 'lock-em-up-meme',
+    title: {
+      en: 'Lock ’Em Up Meme – Later Line, Same Pickup Clip',
+      zh: 'Lock ’Em Up Meme：同一条皮卡片子里更靠后的一句',
+    },
+    description: {
+      en: 'lock em up meme is a later line in the same white-pickup clip as Hit the Road Dude and State Property. ViralReel makes a fictional remake from one photo. It is not official.',
+      zh: 'lock em up meme 是 Hit the Road Dude 和 State Property 那条白色皮卡片子里更靠后的一句。ViralReel 用一张照片做虚构重拍。它不是官方。',
+    },
+    h1: { en: 'Lock ’Em Up meme', zh: 'Lock ’Em Up meme' },
+    lead: {
+      en: 'Lock ’Em Up is a later line in the Hit the Road Dude clip, not a separate meme. ViralReel remakes that white-pickup exchange from one photo.',
+      zh: 'Lock ’Em Up 是 Hit the Road Dude 片子里更靠后的一句，不是另一个梗。ViralReel 用一张照片重拍这段白色皮卡对话。',
+    },
+    guideTitle: {
+      en: 'Lock ’Em Up is the same clip',
+      zh: 'Lock ’Em Up 是同一条片子',
+    },
+    body: {
+      en: [
+        'Lock ’Em Up comes from a later part of the original pickup-truck video. The exchange people remake still starts with the private-land claim, the stunned “State?”, and the flat “hit the road dude.” State Property and Private Property are the other names.',
+        'ViralReel does not promise that spoken line in the render. The template at https://www.viralreel.app/hit-the-road-dude-ai-template stages a fictional roadside scene from one photo. Add the trend sound on TikTok, Reels, or Shorts if the post needs it. ViralReel does not license that audio.',
+      ],
+      zh: [
+        'Lock ’Em Up 出自原皮卡视频更靠后的部分。大家重拍的对话仍然从私人领地的说法、难以置信的 “State?”，以及平淡的 “hit the road dude” 开始。State Property 和 Private Property 是其他叫法。',
+        'ViralReel 不保证成片里会说出这句台词。https://www.viralreel.app/zh/hit-the-road-dude-ai-template 的模板用一张照片搭建虚构的路边场景。如果帖子需要热梗原声，在 TikTok、Reels 或 Shorts 里另加。ViralReel 不授权这段音频。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is Lock ’Em Up its own meme?', zh: 'Lock ’Em Up 是独立的梗吗？' },
+        a: {
+          en: 'It is a later line in the same clip as Hit the Road Dude, State Property, and Private Property. AI searches use the names together.',
+          zh: '它是 Hit the Road Dude、State Property 和 Private Property 同一条片子里更靠后的一句。搜 AI 二创时这些名字是一起用的。',
+        },
+      },
+      {
+        q: { en: 'Will the AI say “lock ’em up”?', zh: 'AI 会说出 “lock ’em up” 吗？' },
+        a: {
+          en: 'Not guaranteed. ViralReel stages the roadside picture from one photo and does not license the original audio or an exact spoken line.',
+          zh: '不保证。ViralReel 用一张照片搭建路边画面，不授权原声，也不保证逐字台词。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'state property hit the road dude',
+    slug: 'state-property-hit-the-road-dude',
+    title: {
+      en: 'State Property and Hit the Road Dude – One Meme',
+      zh: 'State Property 和 Hit the Road Dude：同一个梗',
+    },
+    description: {
+      en: 'state property hit the road dude: these names are the same white-pickup exchange. ViralReel makes the fictional AI remake from one photo. It is not the official clip.',
+      zh: 'state property hit the road dude：这两个名字是同一段白色皮卡对话。ViralReel 用一张照片做虚构 AI 重拍。它不是官方原片。',
+    },
+    h1: { en: 'State Property Hit the Road Dude', zh: 'State Property Hit the Road Dude' },
+    lead: {
+      en: 'State Property and Hit the Road Dude are two names for one white-pickup exchange. ViralReel’s template makes a fictional remake from one photo.',
+      zh: 'State Property 和 Hit the Road Dude 是同一段白色皮卡对话的两个名字。ViralReel 的模板用一张照片做虚构重拍。',
+    },
+    guideTitle: {
+      en: 'Same exchange, two search phrases',
+      zh: '同一段对话，两种搜法',
+    },
+    body: {
+      en: [
+        'If you searched both names, you are on the right meme. The driver hears “I thought it was public,” repeats “State?”, and dismisses the visitor with “hit the road dude.” Private Property and Lock ’Em Up belong to that same clip.',
+        'The place to make a version is https://www.viralreel.app/hit-the-road-dude-ai-template. One photo, a fictional 9:16 MP4, then the trend sound and the AI label on the app you post to. ViralReel is not official.',
+      ],
+      zh: [
+        '如果你两个名字一起搜，找的就是这个梗。司机听到“我以为是公共的”，重复 “State?”，再用 “hit the road dude” 把来访者送走。Private Property 和 Lock ’Em Up 都属于同一条片子。',
+        '做自己版本的地方是 https://www.viralreel.app/zh/hit-the-road-dude-ai-template 。一张照片、一条虚构的 9:16 MP4，然后在发布的应用里加热梗原声和 AI 标注。ViralReel 不是官方。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Are State Property and Hit the Road Dude the same?', zh: 'State Property 和 Hit the Road Dude 是同一个吗？' },
+        a: {
+          en: 'Yes. They are names for the same white-pickup exchange. ViralReel uses one template for both searches.',
+          zh: '是。它们是同一段白色皮卡对话的不同叫法。ViralReel 用一个模板覆盖这两种搜索。',
+        },
+      },
+      {
+        q: { en: 'Which page do I open?', zh: '我该打开哪一页？' },
+        a: {
+          en: 'https://www.viralreel.app/hit-the-road-dude-ai-template. That is the generator. This page only explains the alias.',
+          zh: 'https://www.viralreel.app/zh/hit-the-road-dude-ai-template 。那是生成器。这一页只解释别名。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'this is private property ai',
+    slug: 'this-is-private-property-ai',
+    title: {
+      en: 'This Is Private Property AI – Hit the Road Dude Remake',
+      zh: 'This Is Private Property AI：Hit the Road Dude 重拍',
+    },
+    description: {
+      en: 'this is private property ai is the spoken claim in the Hit the Road Dude / State Property pickup clip. ViralReel makes a fictional remake from one photo. It is not official.',
+      zh: 'this is private property ai 是 Hit the Road Dude / State Property 皮卡片子里的那句说法。ViralReel 用一张照片做虚构重拍。它不是官方。',
+    },
+    h1: { en: 'This is private property AI', zh: 'This is private property AI' },
+    lead: {
+      en: '“This is private property” is a line from the same white-pickup exchange as Hit the Road Dude. ViralReel remakes that scene from one photo and does not promise the exact words.',
+      zh: '“This is private property” 是 Hit the Road Dude 同一段白色皮卡对话里的一句。ViralReel 用一张照片重拍这个场景，并且不保证逐字台词。',
+    },
+    guideTitle: {
+      en: 'The private-property line is the same meme',
+      zh: '这句私人领地台词就是这个梗',
+    },
+    body: {
+      en: [
+        '“This is private property” is how some captions quote the roadside argument. The visitor thought the fishing spot was public. The driver treats it as private, pauses on “State?”, and tells him to hit the road. State Property, Private Property, and Hit the Road Dude are that one clip.',
+        'Make a fictional version at https://www.viralreel.app/hit-the-road-dude-ai-template. The generator does not guarantee the original voice or that exact sentence “this is private property” or “lock ’em up.” Review the MP4 before you post, and add any trend sound on the platform. ViralReel is not the official meme page.',
+      ],
+      zh: [
+        '“This is private property” 是一些标题对那段路边争执的引用。来访者以为钓鱼的地方是公共的。司机把它当成私人领地，在 “State?” 上停顿，然后让对方上路离开。State Property、Private Property 和 Hit the Road Dude 就是这一条片子。',
+        '在 https://www.viralreel.app/zh/hit-the-road-dude-ai-template 做虚构版本。生成器不保证原声，也不保证这句原话。发布前先看 MP4，热梗原声在平台上另加。ViralReel 不是这个梗的官方页面。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is “this is private property” a different AI meme?', zh: '“this is private property” 是另一个 AI 梗吗？' },
+        a: {
+          en: 'No. It is a quoted line from the Hit the Road Dude / State Property pickup exchange.',
+          zh: '不是。它是 Hit the Road Dude / State Property 皮卡对话里被引用的一句。',
+        },
+      },
+      {
+        q: { en: 'Will my clip say that sentence?', zh: '我的片子会说出这句吗？' },
+        a: {
+          en: 'Not guaranteed. ViralReel stages the picture from one photo. Exact dialogue and the original voice are not promised.',
+          zh: '不保证。ViralReel 用一张照片搭建画面。逐字台词和原声都不承诺。',
+        },
+      },
+    ],
+  },
 ];
 
 export function getHitTheRoadLongTail(slug: string) {
@@ -588,8 +881,10 @@ export function buildLongTailFaq(
 ): [string, string][] {
   const lang = zh ? 'zh' : 'en';
   const own = entry.faq.map((item) => [item.q[lang], item.a[lang]] as [string, string]);
+  const template = absoluteUrl(zh, HIT_THE_ROAD_TEMPLATE_PATH);
   const shared: [string, string][] = zh
     ? [
+        ['在哪里制作？', `在 ViralReel 制作：${template} 。上传一张你有权使用的照片，生成虚构的白色皮卡短片，下载 MP4。State Property、Private Property 和 Lock ’Em Up 是同一段对话的其他叫法。ViralReel 不授权原声。`],
         ['需要几张照片？', hitTheRoadPhotoAnswer(true)],
         ['要多少积分？', hitTheRoadCostAnswer(true, ctx)],
         ['付费导出有水印吗？', hitTheRoadWatermarkAnswer(true)],
@@ -597,6 +892,7 @@ export function buildLongTailFaq(
         ['这是官方页面吗？', hitTheRoadOfficialAnswer(true)],
       ]
     : [
+        ['Where do I make it?', `Make it on ViralReel at ${template}. Upload one photo you have permission to use, generate a fictional white-pickup clip, and download the MP4. State Property, Private Property, and Lock ’Em Up are other names for the same exchange. ViralReel does not license the original audio.`],
         ['How many photos do I need?', hitTheRoadPhotoAnswer(false)],
         ['How many credits does it cost?', hitTheRoadCostAnswer(false, ctx)],
         ['Are paid exports watermark-free?', hitTheRoadWatermarkAnswer(false)],
@@ -636,10 +932,23 @@ export function hitTheRoadLinkGroups(zh: boolean): HitTheRoadLinkGroup[] {
       ],
     },
     {
+      title: zh ? '同一个梗的其他叫法' : 'Same clip, other names',
+      links: [
+        { href: '/state-property-meme-ai', label: 'State Property meme AI' },
+        { href: '/state-property-ai-video', label: 'State Property AI video' },
+        { href: '/state-property-hit-the-road-dude', label: 'State Property Hit the Road Dude' },
+        { href: '/private-property-meme-ai', label: 'Private Property meme AI' },
+        { href: '/this-is-private-property-ai', label: 'This is private property AI' },
+        { href: '/lock-em-up-meme', label: 'Lock ’Em Up meme' },
+      ],
+    },
+    {
       title: zh ? '指南' : 'Guides',
       links: [
         { href: HIT_THE_ROAD_POSTS.howTo, label: zh ? '如何制作 Hit the Road Dude AI 视频' : 'How to make a Hit the Road Dude AI video' },
         { href: HIT_THE_ROAD_POSTS.explainer, label: zh ? '梗、原片和歌' : 'Meme, original, and the song' },
+        { href: HIT_THE_ROAD_POSTS.aliases, label: zh ? 'State Property 和 Hit the Road Dude' : 'State Property vs Hit the Road Dude' },
+        { href: '/bulin-47-ai-template', label: 'Bulin 47' },
       ],
     },
   ];

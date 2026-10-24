@@ -1,4 +1,5 @@
 import { BBY_HOW_TO_STEPS } from '@/shared/blocks/bby-wow/steps';
+import { BULIN_HOW_TO_STEPS } from '@/shared/blocks/bulin-47/steps';
 import { HIT_THE_ROAD_HOW_TO_STEPS } from '@/shared/blocks/hit-the-road-dude/steps';
 import { PEDRA_HOW_TO_STEPS } from '@/shared/blocks/pedra-do-sal/steps';
 
@@ -46,24 +47,10 @@ const HOW_TO_STEP_SOURCES: Record<
       text: 'Download and post the clip natively to TikTok, Reels, and Shorts with the trending sound.',
     },
   ],
-  'how-to-make-bulin-47-ai-video': [
-    {
-      name: 'Pick a template version',
-      text: 'Open the Bulin 47 template on ViralReel and choose Street Freestyle, Suit Edition, Night Crowd, Sharp Vest, or Pet Freestyle.',
-    },
-    {
-      name: 'Upload one front-facing photo',
-      text: 'Use one clear, front-facing photo. Pet Freestyle uses one photo of the animal. Skip sunglasses, group shots, and heavy filters.',
-    },
-    {
-      name: 'Set ratio, resolution, and length',
-      text: 'Keep the aspect ratio on 9:16, choose the resolution and length, and check the credit cost shown before you generate.',
-    },
-    {
-      name: 'Generate, download, and post',
-      text: 'Generate and download the MP4 in about a minute. In TikTok, Reels, or Shorts, add the Bulin 47 or Dame Hombro trend sound and turn on the AI label where the app asks.',
-    },
-  ],
+  'how-to-make-bulin-47-ai-video': BULIN_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
   'how-to-make-ozil-goal-ai-video': [
     {
       name: 'Pick a template variant',
