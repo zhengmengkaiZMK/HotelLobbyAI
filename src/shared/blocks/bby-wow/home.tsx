@@ -13,6 +13,7 @@ import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { getBbyWowFaq } from './faq';
+import { BbyLinkCluster } from './link-cluster';
 import { BBY_HOW_TO_STEPS } from './steps';
 import { bbyWowTemplates, type BbyWowTemplate } from './templates';
 import '@/shared/blocks/viral-home/home.css';
@@ -105,6 +106,7 @@ export function BbyWowHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable(
         <p className="guide-more"><Link href="/pedra-do-sal-ai-template">{t('Want the Rio night square? See Pedra do Sal','想做里约夜场广场？看 Pedra do Sal')}</Link> · <Link href="/burning-bridges-ai-template">{t('Want the other party format? See Burning Bridges','想做另一场派对？看 Burning Bridges')}</Link> · <Link href="/hit-the-road-dude-ai-template">{t('Hit the Road Dude','Hit the Road Dude')}</Link></p>
       </div></section>
       <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about Bby Wow','关于 Bby Wow 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div><p className="guide-more"><Link href="/blog/how-to-make-bby-wow-ai-dance-video">{t('Full how-to','完整教程')}</Link> · <Link href="/pricing">{t('Pricing','定价')}</Link> · <Link href="/">{t('Homepage','首页')}</Link> · <Link href="/pedra-do-sal-ai-template">{t('Pedra do Sal','Pedra do Sal')}</Link></p></div></section>
+      <section className="sec" id="related"><div className="container"><div className="sec-head"><p className="kick">{t('Related','相关')}</p><h2>{t('Bby Wow guides on ViralReel','ViralReel 上的 Bby Wow 指南')}</h2></div><BbyLinkCluster zh={zh} currentPath="/bby-wow-ai-dance-template" /></div></section>
       <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to take the bread bite?','准备好来咬这一口了吗？')}</h2><p>{t('Upload one photo and join the party clip while the sound is still moving.','上传一张照片，趁这段声音还在传的时候进这条派对片子。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section>
     </main>
     <ViralFooter/>

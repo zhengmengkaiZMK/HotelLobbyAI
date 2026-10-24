@@ -2,7 +2,9 @@ import type { MetadataRoute } from 'next';
 
 import { envConfigs } from '@/config';
 import { defaultLocale, locales } from '@/config/locale';
+import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
 import { HIT_THE_ROAD_LONG_TAIL_ROUTES } from '@/shared/blocks/hit-the-road-dude/long-tails';
+import { PEDRA_LONG_TAIL_ROUTES } from '@/shared/blocks/pedra-do-sal/long-tails';
 import { getPostsAndCategories, isHiddenFromBlog } from '@/shared/models/post';
 
 function safeLastModified(value: string | Date | null | undefined, fallback: Date): Date {
@@ -18,7 +20,9 @@ const staticRoutes = [
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/pedra-do-sal-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...PEDRA_LONG_TAIL_ROUTES,
   { path: '/bby-wow-ai-dance-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...BBY_LONG_TAIL_ROUTES,
   { path: '/hit-the-road-dude-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...HIT_THE_ROAD_LONG_TAIL_ROUTES,
   { path: '/ozil-ai-goal-template', priority: 0.9, changeFrequency: 'weekly' as const },
