@@ -34,7 +34,17 @@ const nextConfig = {
     ],
   },
   async redirects() {
-    return [];
+    const aliases = [
+      ['/bulin47', '/bulin-47-ai-template'],
+      ['/bulin47-ai-template', '/bulin-47-ai-template'],
+      ['/bulin-47', '/bulin-47-ai-template'],
+      ['/dame-hombro', '/dame-hombro-ai'],
+      ['/state-property-meme', '/state-property-meme-ai'],
+    ];
+    return aliases.flatMap(([source, destination]) => [
+      { source, destination, permanent: true },
+      { source: `/zh${source}`, destination: `/zh${destination}`, permanent: true },
+    ]);
   },
   async headers() {
     return [

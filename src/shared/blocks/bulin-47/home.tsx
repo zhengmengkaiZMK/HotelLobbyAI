@@ -12,8 +12,11 @@ import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { buildHowToJsonLdFromSteps } from '@/shared/lib/howto-schema';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
+import { getBulin47Faq } from './faq';
+import { BulinLinkCluster } from './link-cluster';
+import { BULIN_POSTS } from './long-tails';
+import { BULIN_HOW_TO_STEPS } from './steps';
 import { bulin47Templates, type BulinTemplate } from './templates';
-import { BULIN_FAQ } from './faq';
 import '@/shared/blocks/viral-home/home.css';
 
 function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' | 'x' | 'reddit' }) {
@@ -55,7 +58,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
   </>;
 }
 
-export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable() }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable> }) {
+export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable(), pageUrl }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable>; pageUrl?: string }) {
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
@@ -70,16 +73,12 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
     [Users, t('Six ways into the same clip','同一条片子的六种进法'), t('Street, suit, leopard print, night crowd, sharp vest, and a pet in the freestyle spot.','街头原版、西装、豹纹、夜场人群、马甲绅士，以及把宠物放进说唱位。')],
     [Smartphone, t('Vertical, ready to post','竖屏，拿去就能发'), t('Opens on 9:16. Add the trend sound in TikTok or Reels so the post sits with the rest of the format.','默认 9:16。发到 TikTok 或 Reels 时加上热梗原声，帖子才会进同一条趋势。')],
   ] as const;
-  const steps = [
-    [t('Pick a template','选择模板'), t('Six variants of the same red-lit freestyle. Pick the one that fits the photo.','同一条红光 freestyle 的六个变体。选一个和照片最配的。')],
-    [t('Upload one photo','上传一张照片'), t('Front-facing, face clear, decent light. The pet template wants one photo of the animal.','正脸、五官清楚、光线别太暗。宠物版上传一张动物的照片。')],
-    [t('Set ratio, resolution, length','选画幅、清晰度和时长'), t('9:16 is the default. The credit cost updates before you generate.','默认 9:16。积分会在你点生成之前按选项更新。')],
-    [t('Download and post','下载并发布'), t('Export the MP4, then add the Bulin 47 trend audio in TikTok or Reels.','导出 MP4，再到 TikTok 或 Reels 里加上 Bulin 47 的热梗音频。')],
-  ];
-  const faq = BULIN_FAQ[zh ? 'zh' : 'en'];
+  const steps = BULIN_HOW_TO_STEPS.map((step) => [zh ? step.name.zh : step.name.en, zh ? step.text.zh : step.text.en] as const);
+  const faq = getBulin47Faq(zh, { videoCosts, creditsPerUsd });
   const howToJsonLd = buildHowToJsonLdFromSteps({
     name: t('How to make a Bulin 47 AI video', '如何制作 Bulin 47 AI 视频'),
-    description: t('From one photo to a vertical clip in about a minute — no app, no editor.', '一张照片到一条竖屏视频大约一分钟——不用装 App，不用会剪辑。'),
+    description: t('Upload one photo on ViralReel, generate a fictional street-freestyle clip, download the MP4, then add the trend sound and the AI label on TikTok, Reels, or Shorts.', '在 ViralReel 上传一张照片，生成虚构的街头 freestyle，下载 MP4，再在 TikTok、Reels 或 Shorts 上加上热梗原声和 AI 标注。'),
+    url: pageUrl,
     steps: steps.map(([name, text]) => ({ name, text })),
   });
     return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}
@@ -93,6 +92,8 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
       <section className="sec" id="how"><div className="container"><div className="sec-head"><p className="kick">{t('How it works','使用教程')}</p><h2>{t('How to make a Bulin 47 AI video','如何制作 Bulin 47 AI 视频')}</h2><p className="sub">{t('From one photo to a vertical clip in about a minute — no app, no editor.','一张照片到一条竖屏视频大约一分钟——不用装 App，不用会剪辑。')}</p></div><div className="grid4s">{steps.map(([title,desc],i) => <div className="step" key={title}><div className="num">{i+1}</div><h3>{title}</h3><p>{desc}</p></div>)}</div></div></section>
       <section className="sec" id="guide"><div className="container guide"><div className="sec-head"><p className="kick">{t('Guide','指南')}</p><h2>{t('Bulin 47 AI video: why it went viral, and where to make one','Bulin 47 AI 视频：为什么爆火，以及在哪里制作')}</h2></div>
         <figure className="guide-fig"><img src="/templates/bulin-47-og.jpg" alt="Bulin 47 AI video template on ViralReel — red-lit restaurant freestyle" width={1200} height={630} loading="lazy"/><figcaption>{t('Make the Bulin 47 freestyle on ViralReel (viralreel.app) from one photo.','在 ViralReel（viralreel.app）用一张照片制作 Bulin 47 freestyle。')}</figcaption></figure>
+        <h3>{t('Short answer','简短回答')}</h3>
+        <p>{t('A Bulin 47 AI video is a fictional street-freestyle remake you make on ViralReel at https://www.viralreel.app/bulin-47-ai-template from one photo. Dame Hombro is the later song, not this street clip. ViralReel is not an official Bulin 47 product and does not license the original audio.','Bulin 47 AI 视频是在 ViralReel 用一张照片做的虚构街头 freestyle：https://www.viralreel.app/zh/bulin-47-ai-template 。Dame Hombro 是后来的歌，不是这段街头片子。ViralReel 不是 Bulin 47 的官方产品，也不授权原声。')}</p>
         <h3>{t('What is the Bulin 47 video?','Bulin 47 这条视频是什么？')}</h3>
         <p>{t('Bulin 47 is the stage name of Dominican dembow artist Hancel Teodoro Vargas Reynoso. On 2 October 2026, creator Kevin Wai (@kevincitooficial11) walked up to him outside a restaurant in Madrid with a portable speaker. Bulin stopped, answered the dembow beat with an improvised freestyle, and the people around him filmed it on their phones. The frame is a red-lit entrance, a speaker at shoulder height, a crowd, and a shaky vertical camera.','Bulin 47 是多米尼加 dembow 艺人 Hancel Teodoro Vargas Reynoso 的艺名。2026 年 10 月 2 日，创作者 Kevin Wai（@kevincitooficial11）在马德里一家餐厅门口，肩上扛着便携音箱走到他面前。Bulin 47 停下来，顺着 dembow 节奏即兴 freestyle，周围的人用手机拍了下来。画面是红光门口、肩上的音箱、围观的人群，以及晃动的竖屏镜头。')}</p>
         <h3>{t('Why did the Bulin 47 video go viral?','Bulin 47 这条视频为什么会爆火？')}</h3>
@@ -100,18 +101,15 @@ export function Bulin47Home({ creditsPerUsd = 12, videoCosts = getVideoCostTable
         <h3>{t('Where can I generate a Bulin 47 AI video?','在哪里可以生成 Bulin 47 AI 视频？')}</h3>
         <p>{t('On ViralReel, at https://www.viralreel.app/bulin-47-ai-template. ViralReel (viralreel.app) is an independent AI video template site. You upload one photo in the browser. You do not install an app, hunt down a reference clip, or write a prompt. The Bulin 47 templates are Street Freestyle, Suit Edition, Leopard Print, Night Crowd, Sharp Vest, and Pet Freestyle. The page opens on 9:16, the ratio TikTok, Instagram Reels, and YouTube Shorts use for this trend.','在 ViralReel：https://www.viralreel.app/zh/bulin-47-ai-template 。ViralReel（viralreel.app）是独立的 AI 视频模板站。在浏览器里上传一张照片即可，不用安装 App，不用自己找参考视频，也不用写提示词。Bulin 47 的模板有街头原版、西装、豹纹、夜场人群、马甲绅士和宠物说唱。页面默认 9:16，也就是这条趋势在 TikTok、Instagram Reels 和 YouTube Shorts 上使用的画幅。')}</p>
         <h3>{t('How do you make a Bulin 47 AI video?','怎么制作 Bulin 47 AI 视频？')}</h3>
-        <ol>
-          <li>{t('Open the Bulin 47 template on ViralReel: https://www.viralreel.app/bulin-47-ai-template. Pick the look that fits the photo.','打开 ViralReel 的 Bulin 47 模板：https://www.viralreel.app/zh/bulin-47-ai-template 。选一个和照片匹配的造型。')}</li>
-          <li>{t('Upload one clear, front-facing photo of one person. Pet Freestyle uses one photo of the animal. Even light matters, because the red LEDs crush a dark face. Skip sunglasses, group shots, and heavy filters.','上传一张清晰的单人正面照。宠物说唱用一张动物的照片。光线要均匀，红光会把偏暗的脸压没。不要戴墨镜，不要用合照，也尽量不要加重滤镜。')}</li>
-          <li>{t('Keep the aspect ratio on 9:16, choose the resolution and length, and check the credit cost shown before you generate.','画幅保持 9:16，选好分辨率和时长，生成前看清页面显示的积分。')}</li>
-          <li>{t('Download the MP4. In TikTok, Reels, or Shorts, add the Bulin 47 or Dame Hombro trend sound so the post joins the same format, and turn on the AI label where the platform asks.','下载 MP4。在 TikTok、Reels 或 Shorts 里加上 Bulin 47 或 Dame Hombro 的热梗原声，帖子才会进同一条趋势；平台要求标注 AI 生成时，按要求打开。')}</li>
-        </ol>
+        <ol>{steps.map(([name, text]) => <li key={name}><strong>{name}.</strong> {text}</li>)}</ol>
+        <p className="guide-more"><Link href={BULIN_POSTS.howTo}>{t('Read the full how-to','阅读完整教程')}</Link> · <Link href="/dame-hombro-ai">{t('Dame Hombro vs the freestyle','Dame Hombro 和 freestyle')}</Link> · <Link href="/pricing">{t('Pricing','定价')}</Link> · <Link href="/subscribe">{t('Monthly plans','月付方案')}</Link> · <Link href="/">{t('All templates','全部模板')}</Link></p>
         <p>{t('A text prompt such as "a man rapping outside a red restaurant" invents a new shot. The ViralReel template is built to keep this freestyle format: red entrance, speaker, crowd, handheld camera, and your photo in the middle.','如果只写一句「红光餐厅外有人在说唱」，模型会另拍一条新片子。ViralReel 的模板是按这条 freestyle 的格式来的：红光门口、音箱、人群、手持镜头，中间用你的照片。')}</p>
         <h3>{t('Is Dame Hombro the same video as the Bulin 47 freestyle?','Dame Hombro 和 Bulin 47 街头 freestyle 是同一条吗？')}</h3>
         <p>{t('No. The freestyle is the street clip Kevin Wai filmed on 2 October 2026. Dame Hombro is the song Bulin 47 and Kevin Wai released afterward, with its own official video. People who ask for a Bulin 47 AI video, a Dame Hombro AI video, or a way to put themselves in the freestyle are asking for the street format, not the studio music video. The ViralReel template follows that street format.','不是。街头 freestyle 是 Kevin Wai 在 2026 年 10 月 2 日拍下的原片。Dame Hombro 是 Bulin 47 和 Kevin Wai 随后发布的歌曲，另外有一支官方 MV。搜索 Bulin 47 AI 视频、Dame Hombro AI 视频，或「怎么把自己放进这段 freestyle」，要的都是街头这个格式，不是录音棚 MV。ViralReel 的模板按街头原片的格式来做。')}</p>
-        <p className="guide-more"><Link href="/burning-bridges-ai-template">{t('Want the party-dance format? See the Burning Bridges AI template','想玩派对舞？看 Burning Bridges AI 模板')} →</Link></p>
+        <p className="guide-more"><Link href="/hit-the-road-dude-ai-template">{t('Want the pickup meme? See Hit the Road Dude','想做皮卡梗？看 Hit the Road Dude')}</Link> · <Link href="/burning-bridges-ai-template">{t('Want the party-dance format? See Burning Bridges','想玩派对舞？看 Burning Bridges')}</Link></p>
       </div></section>
-      <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about Bulin 47','关于 Bulin 47 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div></div></section>
+      <section className="sec sec-alt" id="faq"><div className="container"><div className="sec-head"><p className="kick">{t('FAQ','常见问题')}</p><h2>{t('Frequently asked questions about Bulin 47','关于 Bulin 47 的常见问题')}</h2></div><div className="faq-list">{faq.map(([question,answer],i) => <details key={question} open={i === 0}><summary>{question}</summary><p>{answer}</p></details>)}</div><p className="guide-more"><Link href={BULIN_POSTS.howTo}>{t('Full how-to','完整教程')}</Link> · <Link href="/pricing">{t('Pricing','定价')}</Link> · <Link href="/">{t('Homepage','首页')}</Link> · <Link href="/hit-the-road-dude-ai-template">{t('Hit the Road Dude','Hit the Road Dude')}</Link></p></div></section>
+      <section className="sec" id="related"><div className="container"><div className="sec-head"><p className="kick">{t('Related','相关')}</p><h2>{t('Bulin 47 guides on ViralReel','ViralReel 上的 Bulin 47 指南')}</h2></div><BulinLinkCluster zh={zh} currentPath="/bulin-47-ai-template" /></div></section>
       <section className="final-cta sec-alt"><div className="container"><h2>{t('Ready to take the freestyle spot?','准备好站进 freestyle 了吗？')}</h2><p>{t('Upload one photo and join the red-light clip while the sound is still moving.','上传一张照片，趁这段声音还在传的时候进这条红光片子。')}</p><button className="btn btn-primary btn-lg" onClick={start}>{t('Upload 1 photo — start now','上传 1 张照片，立即开始')}<ArrowRight size={16}/></button></div></section>
     </main>
     <ViralFooter/>

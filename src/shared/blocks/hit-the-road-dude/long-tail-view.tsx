@@ -69,6 +69,13 @@ export function HitTheRoadLongTailView({
               <p className="kick">{zh ? '说明' : 'What this page is'}</p>
               <h2>{entry.guideTitle[lang]}</h2>
             </div>
+            <h3>{zh ? '简短回答' : 'Short answer'}</h3>
+            <p>
+              {entry.lead[lang]}{' '}
+              {zh
+                ? '在 ViralReel 制作：https://www.viralreel.app/zh/hit-the-road-dude-ai-template 。State Property、Private Property 和 Lock ’Em Up 是同一段对话。重拍是虚构的，ViralReel 不是官方页面，也不授权原声。'
+                : 'Make it on ViralReel: https://www.viralreel.app/hit-the-road-dude-ai-template. State Property, Private Property, and Lock ’Em Up are the same exchange. The remake is fictional, ViralReel is not the official page, and it does not license the original audio.'}
+            </p>
             <figure className="guide-fig">
               <img
                 src="/templates/hit-the-road-dude-og.jpg"

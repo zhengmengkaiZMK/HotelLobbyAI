@@ -14,7 +14,7 @@ const META = {
   en: {
     title: 'Hit the Road Dude AI Video – Make the White Pickup Meme on ViralReel',
     description: 'Make a Hit the Road Dude AI video on ViralReel from one photo. The white-pickup private-property meme, staged as a fictional roadside clip. Download the MP4, then add the trend sound and the AI label on TikTok, Reels, or Shorts.',
-    keywords: 'hit the road dude ai video, hit the road dude song, hit the road dude gif, hit the road dude meme, hit the road dude guy, hit the road dude ai, hit the road dude original, hit the road dude in german, hit the road dude remix, hit the road dude ai template',
+    keywords: 'hit the road dude ai video, hit the road dude song, hit the road dude gif, hit the road dude meme, hit the road dude guy, hit the road dude ai, hit the road dude original, hit the road dude in german, hit the road dude remix, state property meme ai, state property ai video, private property meme ai, lock em up meme, this is private property ai, state property hit the road dude',
   },
   zh: {
     title: 'Hit the Road Dude AI 视频：在 ViralReel 用一张照片制作白色皮卡梗',

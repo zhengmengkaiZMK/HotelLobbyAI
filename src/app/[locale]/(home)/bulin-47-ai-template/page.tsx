@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { Bulin47Home } from '@/shared/blocks/bulin-47/home';
-import { BULIN_FAQ } from '@/shared/blocks/bulin-47/faq';
+import { getBulin47Faq } from '@/shared/blocks/bulin-47/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
@@ -16,7 +16,7 @@ const META = {
     description:
       'Turn one photo into the viral Bulin 47 freestyle: red-lit restaurant entrance, portable speaker, crowd filming. Street, suit, leopard-print, night-crowd, vest and pet templates. Generate a vertical video in about a minute.',
     keywords:
-      'bulin 47 ai video, bulin 47 ai template, bulin 47 freestyle, dame hombro ai video, bulin 47 meme generator, ai freestyle video from photo',
+      'bulin 47 ai video, bulin 47 ai, bulin 47 meme, bulin 47 dance, bulin 47 freestyle, bulin 47 original, dame hombro ai, bulin 47 remix, bulin 47 tiktok, bulin 47 song, bulin 47 gif',
   },
   zh: {
     title: 'Bulin 47 AI 模板：一张照片变成街头 freestyle 爆火视频',
@@ -78,7 +78,8 @@ export default async function Bulin47AiTemplatePage({
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs(true));
-  const faq = BULIN_FAQ[zh ? 'zh' : 'en'];
+  const pageUrl = zh ? `${envConfigs.app_url}/zh/bulin-47-ai-template` : `${envConfigs.app_url}/bulin-47-ai-template`;
+  const faq = getBulin47Faq(zh, { videoCosts, creditsPerUsd });
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -100,11 +101,11 @@ export default async function Bulin47AiTemplatePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
           appUrl: envConfigs.app_url,
-          pageUrl: zh ? `${envConfigs.app_url}/zh/bulin-47-ai-template` : `${envConfigs.app_url}/bulin-47-ai-template`,
+          pageUrl,
           description: META[zh ? 'zh' : 'en'].description,
         })) }}
       />
-      <Bulin47Home creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
+      <Bulin47Home creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} pageUrl={pageUrl} />
     </>
   );
 }
