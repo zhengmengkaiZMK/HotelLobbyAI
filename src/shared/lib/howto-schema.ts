@@ -1,4 +1,6 @@
+import { BBY_HOW_TO_STEPS } from '@/shared/blocks/bby-wow/steps';
 import { HIT_THE_ROAD_HOW_TO_STEPS } from '@/shared/blocks/hit-the-road-dude/steps';
+import { PEDRA_HOW_TO_STEPS } from '@/shared/blocks/pedra-do-sal/steps';
 
 const HOW_TO_STEP_SOURCES: Record<
   string,
@@ -81,6 +83,14 @@ const HOW_TO_STEP_SOURCES: Record<
     },
   ],
   'how-to-make-hit-the-road-dude-ai-video': HIT_THE_ROAD_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
+  'why-pedra-do-sal-ai-videos-went-viral': PEDRA_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
+  'how-to-make-bby-wow-ai-dance-video': BBY_HOW_TO_STEPS.map((step) => ({
     name: step.name.en,
     text: step.text.en,
   })),

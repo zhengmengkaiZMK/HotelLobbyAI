@@ -1,8 +1,74 @@
+import { getVideoCostTable } from '@/shared/lib/video-cost';
+import {
+  formatCreditCount,
+  usdFromCredits,
+  videoCreditCost,
+  type VideoCostTable,
+} from '@/shared/lib/video-yield';
+
 /**
  * Canonical ViralReel prices for FAQ, blog-adjacent copy, and schema.
  * One-time packs live on /pricing. Monthly plans live on /subscribe.
  * Keep both surfaces in any "how much does it cost" answer.
  */
+
+export interface TemplateCostContext {
+  videoCosts?: VideoCostTable;
+  creditsPerUsd?: number;
+}
+
+/** Same cells the pricing page renders: 480p/8, 720p/8, 720p/12, 1080p/15. */
+export function templateLiveCostFacts(ctx: TemplateCostContext = {}) {
+  const table = ctx.videoCosts?.length ? ctx.videoCosts : getVideoCostTable();
+  const creditsPerUsd =
+    ctx.creditsPerUsd && ctx.creditsPerUsd > 0
+      ? ctx.creditsPerUsd
+      : CANONICAL_PRICING.creditsPerUsd;
+  const p480 = videoCreditCost(table, '480p', 8);
+  const p720 = videoCreditCost(table, '720p', 8);
+  const p72012 = videoCreditCost(table, '720p', 12);
+  const p1080 = videoCreditCost(table, '1080p', 15);
+  return {
+    p480,
+    p720,
+    p72012,
+    p1080,
+    creditsPerUsd,
+    usd: usdFromCredits(p720, creditsPerUsd),
+    packs: CANONICAL_PRICING,
+  };
+}
+
+/** Credit-table answer. Numbers come from the same table the pricing page renders. */
+export function templateLiveCostAnswer(
+  product: { en: string; zh: string },
+  zh: boolean,
+  ctx: TemplateCostContext = {}
+) {
+  const { p480, p720, p72012, p1080, creditsPerUsd, usd, packs } =
+    templateLiveCostFacts(ctx);
+  const pricing = pricingUrl(zh, '/pricing');
+  const subscribe = pricingUrl(zh, '/subscribe');
+  if (zh) {
+    return `ViralReel 按积分计费，${product.zh} 生成器会在开始前显示本次消耗。当前积分表上，480p / 8 秒是 ${formatCreditCount(p480)} 积分，720p / 8 秒是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd}），720p / 12 秒是 ${formatCreditCount(p72012)} 积分，1080p / 15 秒是 ${formatCreditCount(p1080)} 积分。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}；Plus 为 ${packs.plusPrice}/月（${packs.plusCredits} 积分），Pro 为 ${packs.proPrice}/月（${packs.proCredits} 积分）。加购为 ${creditsPerUsd} 积分 = 1 美元。`;
+  }
+  return `ViralReel charges credits, and the ${product.en} generator shows the exact cost before you start. On the current credit table, 480p / 8s is ${formatCreditCount(p480)} credits, 720p / 8s is ${formatCreditCount(p720)} credits (about ${usd} at ${creditsPerUsd} credits = $1), 720p / 12s is ${formatCreditCount(p72012)} credits, and 1080p / 15s is ${formatCreditCount(p1080)} credits. One-time packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits) at ${subscribe}; Plus is ${packs.plusPrice}/mo (${packs.plusCredits} credits) and Pro is ${packs.proPrice}/mo (${packs.proCredits} credits). Top-ups are ${creditsPerUsd} credits = $1.`;
+}
+
+export function paidExportWatermarkAnswer(zh: boolean) {
+  const pricing = pricingUrl(zh, '/pricing');
+  if (zh) {
+    return `付费积分包以及月付方案导出时没有 ViralReel 水印，720p 和 1080p 都支持。每个积分包和套餐都列在 ${pricing}。`;
+  }
+  return `Paid credit packs and monthly plans export without a ViralReel watermark, at both 720p and 1080p. Every pack and plan is listed at ${pricing}.`;
+}
+
+export function failedJobCreditRefundAnswer(zh: boolean) {
+  if (zh) {
+    return '生成被接受时扣除积分。如果这次任务失败或被取消，包括模型拒绝这张照片，这些积分会退回余额。已经付给积分包或套餐的钱，不会仅仅因为积分没用完就按现金退回。';
+  }
+  return 'Credits are deducted when a generation is accepted. If that job fails or is canceled, including when the model rejects the photo, those credits return to your balance. Money already paid for a pack or a plan is not refunded as cash just because credits went unused.';
+}
 
 export const CANONICAL_PRICING = {
   packStarterPrice: '$9.9',
