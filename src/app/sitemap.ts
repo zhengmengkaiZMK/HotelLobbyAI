@@ -21,6 +21,7 @@ const staticRoutes = [
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...BULIN_LONG_TAIL_ROUTES,
+  { path: '/window-peeper-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/pedra-do-sal-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...PEDRA_LONG_TAIL_ROUTES,
   { path: '/bby-wow-ai-dance-template', priority: 0.9, changeFrequency: 'weekly' as const },

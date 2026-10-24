@@ -28,6 +28,8 @@ export interface TemplateDef {
   images?: readonly (string | null)[];
   /** Optional public preview video. null explicitly disables the default path when no media is available. */
   previewVideo?: string | null;
+  /** Optional source attribution shown as a small badge on preview media (e.g. '@isabellacapcut'). */
+  credit?: string;
   /**
    * Admin config family (`viral_family_*_{family}`).
    * Omitted templates stay on the historical rule: `party-*` → burning_bridges, everything else → hotel.

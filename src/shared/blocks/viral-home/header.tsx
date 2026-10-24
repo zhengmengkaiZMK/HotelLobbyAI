@@ -4,8 +4,10 @@
 
 import { ChevronDown, Flame, Menu } from 'lucide-react';
 import { useLocale } from 'next-intl';
+import { RiDiscordFill, RiGithubFill } from 'react-icons/ri';
 
 import { Link, usePathname } from '@/core/i18n/navigation';
+import { COMMUNITY_LINKS } from '@/config/community';
 import {
   TRENDING_TEMPLATES,
   type TrendingTemplate,
@@ -18,6 +20,7 @@ import { Brand } from './footer';
 import './home.css';
 
 const TRENDING_NAV_ORDER = [
+  'window-peeper',
   'pedra-do-sal',
   'bby-wow',
   'ozil-goal',
@@ -35,6 +38,41 @@ function trendingNavItems(): TrendingTemplate[] {
 
 function closeMobileMenu(event: { currentTarget: EventTarget & Element }) {
   event.currentTarget.closest('details.mobile-menu')?.removeAttribute('open');
+}
+
+function CommunityLinks({
+  className,
+  onNavigate,
+}: {
+  className?: string;
+  onNavigate?: (event: { currentTarget: EventTarget & Element }) => void;
+}) {
+  return (
+    <div className={className ? `community ${className}` : 'community'}>
+      <a
+        className="community-link"
+        href={COMMUNITY_LINKS.github}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="GitHub"
+        data-brand="github"
+        onClick={onNavigate}
+      >
+        <RiGithubFill size={17} aria-hidden="true" />
+      </a>
+      <a
+        className="community-link"
+        href={COMMUNITY_LINKS.discord}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Discord"
+        data-brand="discord"
+        onClick={onNavigate}
+      >
+        <RiDiscordFill size={17} aria-hidden="true" />
+      </a>
+    </div>
+  );
 }
 
 // Shared site header for all ViralReel pages.
@@ -98,6 +136,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
             )}
           </nav>
           <div className="right">
+            <CommunityLinks />
             <LocaleSelector type="button" />
             <div className="signin">
               <SignUser
@@ -157,6 +196,10 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                     </Link>
                   )
                 )}
+                <CommunityLinks
+                  className="community-mobile"
+                  onNavigate={closeMobileMenu}
+                />
               </nav>
             </details>
           </div>

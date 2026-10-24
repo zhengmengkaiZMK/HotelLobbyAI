@@ -28,10 +28,27 @@ export interface TrendingTemplate {
   vibes: readonly TrendingVibeId[];
   poster?: string;
   video?: string;
+  /** Optional source attribution shown as a small badge on preview media (e.g. '@isabellacapcut'). */
+  credit?: string;
   colors: readonly [string, string];
 }
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
+  {
+    id: 'window-peeper',
+    name: ['Window Peeper', 'Window Peeper'],
+    pitch: [
+      'One photo, and you are caught eating at the lit window.',
+      '一张照片，坐进那扇亮灯的窗边被「抓住」。',
+    ],
+    href: '/window-peeper-ai-template',
+    badge: 'hot',
+    vibes: ['dance', 'meme'],
+    poster: '/templates/wp-hoodie-poster.jpg',
+    video: '/templates/wp-hoodie.mp4',
+    credit: '@isabellacapcut',
+    colors: ['#bae6fd', '#1e3a8a'],
+  },
   {
     id: 'pedra-do-sal',
     name: ['Pedra do Sal', 'Pedra do Sal'],

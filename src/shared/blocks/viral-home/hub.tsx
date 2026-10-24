@@ -130,6 +130,7 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
       ) : (
         <span className="tv-stage" />
       )}
+      {item.credit && <span className="tv-credit">© {item.credit}</span>}
       {item.badge === 'hot' && <span className="hot">HOT</span>}
       {item.badge === 'classic' && (
         <span className="classic-badge">{t('Classic', '经典')}</span>

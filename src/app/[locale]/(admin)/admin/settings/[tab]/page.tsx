@@ -54,6 +54,7 @@ export default async function SettingsPage({
     'viral_family_models_cat_clapping',
     'viral_family_models_pedra_do_sal',
     'viral_family_models_bby_wow',
+    'viral_family_models_window_peeper',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
@@ -62,6 +63,7 @@ export default async function SettingsPage({
     'viral_family_default_model_cat_clapping',
     'viral_family_default_model_pedra_do_sal',
     'viral_family_default_model_bby_wow',
+    'viral_family_default_model_window_peeper',
   ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {
