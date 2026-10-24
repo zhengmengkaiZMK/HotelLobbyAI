@@ -78,8 +78,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
     {
       q: { en: 'How many photos do I need?', zh: '需要几张照片？' },
       a: {
-        en: 'It depends on the template. A duo such as Hotel Lobby or Cat Clapping uses two photos, one subject each. A single-subject template such as Burning Bridges, Bulin 47, Ozil Goal, or Hit the Road Dude uses one. Each template page tells you what to upload before you generate.',
-        zh: '看模板。Hotel Lobby 或 Cat Clapping 这种双人格式用两张照片，每张一个主体。Burning Bridges、Bulin 47、Ozil Goal 或 Hit the Road Dude 这种单人模板用一张。每个模板页会在生成前写明要上传什么。',
+        en: 'It depends on the template. A duo such as Hotel Lobby or Cat Clapping uses two photos, one subject each. A single-subject template such as Burning Bridges, Bulin 47, Ozil Goal, Hit the Road Dude, Pedra do Sal, or Bby Wow uses one. Each template page tells you what to upload before you generate.',
+        zh: '看模板。Hotel Lobby 或 Cat Clapping 这种双人格式用两张照片，每张一个主体。Burning Bridges、Bulin 47、Ozil Goal、Hit the Road Dude、Pedra do Sal 或 Bby Wow 这种单人模板用一张。每个模板页会在生成前写明要上传什么。',
       },
     },
     {

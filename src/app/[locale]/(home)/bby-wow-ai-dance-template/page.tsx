@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { BbyWowHome } from '@/shared/blocks/bby-wow/home';
-import { BBY_FAQ } from '@/shared/blocks/bby-wow/faq';
+import { getBbyWowFaq } from '@/shared/blocks/bby-wow/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
@@ -12,18 +12,18 @@ export const dynamic = 'force-dynamic';
 
 const META = {
   en: {
-    title: 'Bby Wow AI Dance Template – Make the Viral Bread-Bite Party Video',
+    title: 'How to Make a Bby Wow AI Dance Video on ViralReel',
     description:
-      'Turn one photo into the viral Bby Wow AI dance: walk into the party, take a big bite of a sweet bread, stare into the lens, and dance away. Suit Original, White Tee, and Staff Polo templates. Generate a vertical video in about a minute.',
+      'How to make a Bby Wow AI dance video on ViralReel from one photo. Suit Original, White Tee, and Staff Polo stage the bread-bite party exit. Download the MP4, then add the trend sound and the AI label on TikTok, Reels, or Shorts.',
     keywords:
-      'bby wow ai dance, bby wow ai, bby wow guy ai, bby wow dance ai video, dime dime baby ai, bread bite party ai video, ai dance video from photo',
+      'how to make a bby wow ai dance video, bby wow ai dance, bby wow ai, bby wow guy ai, bby wow dance ai video, dime dime baby ai, bread bite party ai video, viralreel',
   },
   zh: {
-    title: 'Bby Wow AI 跳舞模板：一张照片变成咬面包派对爆火视频',
+    title: '如何在 ViralReel 制作 Bby Wow AI 跳舞视频',
     description:
-      '把一张照片放进 Bby Wow 爆火玩法：走进派对、咬一大口甜面包、瞪镜头对视、跳舞离场。西装原版、白 T 派对版和黑 Polo 版三个模板，大约一分钟生成竖屏视频。',
+      '在 ViralReel 用一张照片制作 Bby Wow AI 跳舞视频。西装原版、白 T 派对版和黑 Polo 版，走进派对、咬面包、瞪镜头、跳舞离场。下载 MP4 后，在 TikTok、Reels 或 Shorts 加上热梗原声和 AI 标注。',
     keywords:
-      'bby wow ai dance, bby wow ai, bby wow ai 视频, bby wow 跳舞模板, 咬面包派对 ai 视频, 照片生成跳舞视频',
+      '如何制作 bby wow ai 跳舞视频, bby wow ai dance, bby wow ai, bby wow ai 视频, bby wow 跳舞模板, 咬面包派对 ai 视频, viralreel',
   },
 } as const;
 
@@ -78,7 +78,8 @@ export default async function BbyWowAiDanceTemplatePage({
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs(true));
-  const faq = BBY_FAQ[zh ? 'zh' : 'en'];
+  const pageUrl = zh ? `${envConfigs.app_url}/zh/bby-wow-ai-dance-template` : `${envConfigs.app_url}/bby-wow-ai-dance-template`;
+  const faq = getBbyWowFaq(zh, { videoCosts, creditsPerUsd });
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -100,11 +101,11 @@ export default async function BbyWowAiDanceTemplatePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
           appUrl: envConfigs.app_url,
-          pageUrl: zh ? `${envConfigs.app_url}/zh/bby-wow-ai-dance-template` : `${envConfigs.app_url}/bby-wow-ai-dance-template`,
+          pageUrl,
           description: META[zh ? 'zh' : 'en'].description,
         })) }}
       />
-      <BbyWowHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
+      <BbyWowHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} pageUrl={pageUrl} />
     </>
   );
 }

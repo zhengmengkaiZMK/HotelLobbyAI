@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { PedraDoSalHome } from '@/shared/blocks/pedra-do-sal/home';
-import { PEDRA_FAQ } from '@/shared/blocks/pedra-do-sal/faq';
+import { getPedraDoSalFaq } from '@/shared/blocks/pedra-do-sal/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
@@ -12,18 +12,18 @@ export const dynamic = 'force-dynamic';
 
 const META = {
   en: {
-    title: 'Pedra do Sal AI Template – Make the Viral Rio Street-Party Dance Video',
+    title: 'How to Make a Pedra do Sal AI Video on ViralReel',
     description:
-      'Turn one photo into the viral Pedra do Sal AI dance: a packed night square in Rio, market tents, floodlights, and you dancing calmly in the middle of the crowd. Night Party, Goth Look and Wizard Elder templates. Generate a vertical video in about a minute.',
+      'How to make a Pedra do Sal AI video on ViralReel from one photo. Night Party, Goth Look, and Wizard Elder put you in the packed Rio night square. Download the MP4, then add the trend sound and the AI label on TikTok, Reels, or Shorts.',
     keywords:
-      'pedra do sal ai, pedra do sal ai video, pedra do sal ai template, seu ze de madureira ai, charme dance ai, rio street party ai video, ai dance video from photo',
+      'how to make a pedra do sal ai video, pedra do sal ai, pedra do sal ai video, pedra do sal ai template, seu ze de madureira ai, charme dance ai, rio street party ai video, viralreel',
   },
   zh: {
-    title: 'Pedra do Sal AI 模板：一张照片变成里约街头派对爆火跳舞视频',
+    title: '如何在 ViralReel 制作 Pedra do Sal AI 视频',
     description:
-      '把一张照片放进 Pedra do Sal 爆火玩法：里约夜场石阶广场、市集帐篷、探照灯，你在人群中央淡定律动。夜街派对、暗黑大衣、巫师长老三个模板，大约一分钟生成竖屏视频。',
+      '在 ViralReel 用一张照片制作 Pedra do Sal AI 视频。夜街派对、暗黑大衣、巫师长老三个模板，把你放进里约夜场广场。下载 MP4 后，在 TikTok、Reels 或 Shorts 加上热梗原声和 AI 标注。',
     keywords:
-      'pedra do sal ai, pedra do sal ai 视频, pedra do sal 模板, 里约街头派对 ai 视频, 广场跳舞 ai 视频, 照片生成跳舞视频',
+      '如何制作 pedra do sal ai 视频, pedra do sal ai, pedra do sal ai 视频, pedra do sal 模板, 里约街头派对 ai 视频, 广场跳舞 ai 视频, viralreel',
   },
 } as const;
 
@@ -78,7 +78,8 @@ export default async function PedraDoSalAiTemplatePage({
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs(true));
-  const faq = PEDRA_FAQ[zh ? 'zh' : 'en'];
+  const pageUrl = zh ? `${envConfigs.app_url}/zh/pedra-do-sal-ai-template` : `${envConfigs.app_url}/pedra-do-sal-ai-template`;
+  const faq = getPedraDoSalFaq(zh, { videoCosts, creditsPerUsd });
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
@@ -100,11 +101,11 @@ export default async function PedraDoSalAiTemplatePage({
         type="application/ld+json"
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
           appUrl: envConfigs.app_url,
-          pageUrl: zh ? `${envConfigs.app_url}/zh/pedra-do-sal-ai-template` : `${envConfigs.app_url}/pedra-do-sal-ai-template`,
+          pageUrl,
           description: META[zh ? 'zh' : 'en'].description,
         })) }}
       />
-      <PedraDoSalHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
+      <PedraDoSalHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} pageUrl={pageUrl} />
     </>
   );
 }
