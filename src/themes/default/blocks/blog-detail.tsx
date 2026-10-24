@@ -1,9 +1,11 @@
 'use client';
 
+import { useRef } from 'react';
 import { TOCItems, TOCProvider } from 'fumadocs-ui/components/layout/toc';
 import { CalendarIcon, ListIcon } from 'lucide-react';
 import { useTranslations } from 'next-intl';
 
+import { useArticleVideos } from '@/shared/blocks/blog/article-video';
 import { MarkdownPreview } from '@/shared/blocks/common';
 import { Crumb } from '@/shared/blocks/common/crumb';
 import { type Post as PostType } from '@/shared/types/blocks/blog';
@@ -13,6 +15,8 @@ import '@/config/style/docs.css';
 
 export function BlogDetail({ post }: { post: PostType }) {
   const t = useTranslations('pages.blog.messages');
+  const articleRef = useRef<HTMLElement>(null);
+  useArticleVideos(articleRef, post.id);
 
   const crumbItems: NavItem[] = [
     {
@@ -80,7 +84,7 @@ export function BlogDetail({ post }: { post: PostType }) {
 
               {/* Main Content - Center */}
               <div className={getMainColSpan()}>
-                <article className="p-0">
+                <article ref={articleRef} className="p-0">
                   {post.body ? (
                     <div className="docs text-foreground text-md space-y-4 font-normal *:leading-relaxed">
                       {post.body}

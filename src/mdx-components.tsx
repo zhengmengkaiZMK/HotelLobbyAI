@@ -2,6 +2,7 @@ import React from 'react';
 import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
 
+import { ArticleVideo } from '@/shared/blocks/blog/article-video';
 import {
   Accordion,
   AccordionContent,
@@ -100,14 +101,8 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
         />
       );
     },
-    Video: ({ className, ...props }: React.ComponentProps<'video'>) => (
-      <video
-        className={cn('rounded-md border', className)}
-        controls
-        loop
-        {...props}
-      />
-    ),
+    video: ArticleVideo,
+    Video: ArticleVideo,
     Accordion,
     AccordionItem,
     AccordionTrigger,
