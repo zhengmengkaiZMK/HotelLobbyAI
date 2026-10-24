@@ -40,6 +40,24 @@ function isAuthPath(path: string) {
   );
 }
 
+const MOBILE_LOGIN_PROMPT_KEY = 'viral-mobile-login-prompted';
+
+function hasMobileLoginPrompted() {
+  try {
+    return sessionStorage.getItem(MOBILE_LOGIN_PROMPT_KEY) === '1';
+  } catch {
+    return false;
+  }
+}
+
+function markMobileLoginPrompted() {
+  try {
+    sessionStorage.setItem(MOBILE_LOGIN_PROMPT_KEY, '1');
+  } catch {
+    // ignore quota / private-mode failures
+  }
+}
+
 export function SignUser({
   isScrolled,
   signButtonSize = 'sm',
@@ -93,12 +111,17 @@ export function SignUser({
     setIsCheckSign(isPending);
   }, [isPending]);
 
-  // Mobile browsers rarely show One Tap. Prompt login on first visit instead.
+  // Mobile browsers rarely show One Tap. Prompt login once per tab visit.
   useEffect(() => {
     if (!mounted || !isMobile || isPending) return;
-    if (session || user || mobileLoginPrompted.current) return;
+    if (session || user) return;
     if (isAuthPath(pathname)) return;
+    if (mobileLoginPrompted.current || hasMobileLoginPrompted()) {
+      mobileLoginPrompted.current = true;
+      return;
+    }
     mobileLoginPrompted.current = true;
+    markMobileLoginPrompted();
     setIsShowSignModal(true);
   }, [
     mounted,
