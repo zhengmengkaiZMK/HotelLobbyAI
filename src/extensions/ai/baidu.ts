@@ -134,28 +134,44 @@ export class BaiduProvider implements AIProvider {
 
   private async generateSeedance(prompt: string, options: any): Promise<AITaskResult> {
     // Ark content-generation style payload on the Baidu seedance gateway.
+    // Media items must use the nested {type, <type>: {url}, role} shape —
+    // flat {type:'video', url} is rejected and nested items without a role
+    // fail asynchronously ("reference media mode requires video role to be
+    // reference_video"). Verified against the official qianfan-multimodal doc.
     const content: Array<Record<string, unknown>> = [{ type: 'text', text: prompt }];
     if (Array.isArray(options.video_input)) {
       for (const url of options.video_input.slice(0, 3)) {
-        if (url) content.push({ type: 'video', url });
+        if (url)
+          content.push({
+            type: 'video_url',
+            video_url: { url },
+            role: 'reference_video',
+          });
       }
     }
     if (Array.isArray(options.image_input)) {
       for (const url of options.image_input.slice(0, 10)) {
-        if (url) content.push({ type: 'image', url });
+        if (url)
+          content.push({
+            type: 'image_url',
+            image_url: { url },
+            role: 'reference_image',
+          });
       }
     }
 
     const body: any = {
       model: this.configs.baidu_seedance_model?.trim() || BAIDU_SEEDANCE_API_MODEL_DEFAULT,
       content,
+      // Our seedance flow is always reference-based (reference video + images),
+      // so declare it explicitly: the gateway pre-validates reference-mode
+      // constraints at creation time instead of failing asynchronously.
+      omni_reference_task_type: 'reference',
       ...(options.duration !== undefined && options.duration !== null
         ? { duration: Number(options.duration) }
         : {}),
-      // 'adaptive' is a Wan concept; the seedance doc lists fixed ratios only
-      ...(options.aspect_ratio && options.aspect_ratio !== 'adaptive'
-        ? { ratio: options.aspect_ratio }
-        : {}),
+      // 'adaptive' is valid for reference generation; other ratios pass through.
+      ...(options.aspect_ratio ? { ratio: options.aspect_ratio } : {}),
     };
 
     const data = await this.request(

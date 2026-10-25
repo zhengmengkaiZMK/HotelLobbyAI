@@ -1,5 +1,6 @@
 import { Trash } from 'lucide-react';
 
+import { cn } from '@/shared/lib/utils';
 import {
   TableBody,
   TableCell,
@@ -25,18 +26,23 @@ export function Table({
   data,
   emptyMessage,
   pagination,
+  wrapperClassName,
+  tableClassName,
 }: {
   columns?: TableColumn[];
   data?: any[];
   emptyMessage?: string;
   pagination?: Pagination;
+  wrapperClassName?: string;
+  tableClassName?: string;
 }) {
   if (!columns) {
     columns = [];
   }
 
   return (
-    <TableComponent className="w-full">
+    <div className={wrapperClassName}>
+      <TableComponent className={cn('w-full', tableClassName)}>
       <TableHeader className="">
         <TableRow className="rounded-md">
           {columns &&
@@ -152,7 +158,8 @@ export function Table({
           </TableRow>
         )}
       </TableBody>
-    </TableComponent>
+      </TableComponent>
+    </div>
   );
 }
 

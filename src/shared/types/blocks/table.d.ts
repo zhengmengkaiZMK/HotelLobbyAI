@@ -24,4 +24,8 @@ export interface Table {
   emptyMessage?: string;
   pagination?: Pagination;
   actions?: Button[];
+  /** optional class for the div wrapping the table (e.g. fixed-height areas) */
+  wrapperClassName?: string;
+  /** optional extra class for the <table> element (e.g. min-width for horizontal scroll) */
+  tableClassName?: string;
 }

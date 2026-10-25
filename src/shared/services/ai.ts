@@ -106,7 +106,9 @@ export function getAIManagerWithConfigs(configs: Configs) {
         // spread the raw config table: the provider reads admin keys such as
         // baidu_wan_model / baidu_kling_mode and the kling element-id cache
         ...configs,
-        apiKey: configs.baidu_api_key,
+        // trim: pasted keys sometimes carry stray spaces/newlines, which
+        // corrupt the Bearer header and fail BCE signature validation
+        apiKey: configs.baidu_api_key.trim(),
         // baidu result urls expire after 24h — transload to own storage by default
         customStorage: configs.baidu_custom_storage !== 'false',
       })

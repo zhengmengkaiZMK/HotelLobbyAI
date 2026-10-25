@@ -1,5 +1,7 @@
 import { getTranslations } from 'next-intl/server';
 
+import { Video } from 'lucide-react';
+
 import { AITaskStatus } from '@/extensions/ai';
 import { AudioPlayer, Empty } from '@/shared/blocks/common';
 import { AITasksAutoRefresh } from '@/shared/blocks/common/task-auto-refresh';
@@ -20,6 +22,19 @@ function parseTaskData(value: string | null) {
 }
 
 const GENERATING_STATUSES = [AITaskStatus.PENDING, AITaskStatus.PROCESSING];
+
+/** Static (non-animated) tile shown in the result column while a video is
+ *  still generating — the pulsing status badge carries the "live" signal. */
+function GeneratingVideoPlaceholder() {
+  return (
+    <div
+      aria-hidden="true"
+      className="flex h-32 w-64 items-center justify-center rounded-lg border border-zinc-200 bg-gradient-to-br from-zinc-100 via-zinc-50 to-amber-50 dark:border-zinc-700 dark:from-zinc-800 dark:via-zinc-800 dark:to-zinc-900"
+    >
+      <Video className="h-8 w-8 text-zinc-400 dark:text-zinc-600" />
+    </div>
+  );
+}
 
 /** Localized status badge: 生成中 / 已生成 / 生成失败 / 已取消. */
 function StatusBadge({ status, t }: { status: string | null; t: (key: string) => string }) {
@@ -81,7 +96,9 @@ export default async function AiTasksPage({
 }) {
   const { page: pageNum, pageSize, type } = await searchParams;
   const page = pageNum || 1;
-  const limit = pageSize || 20;
+  // fixed page size: 5 rows keep the card height stable while scrolling
+  // the wide table horizontally and paging through history
+  const limit = pageSize || 5;
 
   const user = await getUserInfo();
   if (!user) {
@@ -121,6 +138,11 @@ export default async function AiTasksPage({
               return <TaskMediaPreview urls={urls} mediaType={item.mediaType} prompt={item.prompt || ''} />;
             }
           }
+          // generating videos have no media yet — show a static image tile
+          // instead of an empty dash so the row height stays predictable
+          if (item.mediaType === 'video' && GENERATING_STATUSES.includes(item.status as AITaskStatus)) {
+            return <GeneratingVideoPlaceholder />;
+          }
           if (parsedInfo) {
             const taskInfo = parsedInfo;
             if (taskInfo.errorMessage) {
@@ -155,14 +177,14 @@ export default async function AiTasksPage({
           return '-';
         },
       },
-      { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
-      { name: 'provider', title: t('fields.provider'), type: 'label' },
-      { name: 'model', title: t('fields.model'), type: 'label' },
       {
         name: 'status',
         title: t('fields.status'),
         callback: (item: AITask) => <StatusBadge status={item.status} t={t} />,
       },
+      { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
+      { name: 'provider', title: t('fields.provider'), type: 'label' },
+      { name: 'model', title: t('fields.model'), type: 'label' },
       { name: 'costCredits', title: t('fields.cost_credits'), type: 'label' },
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       {
@@ -186,6 +208,11 @@ export default async function AiTasksPage({
     ],
     data: aiTasks,
     emptyMessage: t('list.empty_message'),
+    // fixed-height area: 5 preview-sized rows ≈ 1200px keeps every page (full,
+    // last-partial or empty) at the same height; min-width forces the table
+    // into its horizontal scroll container on narrow screens
+    wrapperClassName: 'min-h-[1200px]',
+    tableClassName: 'min-w-[960px]',
     pagination: {
       total,
       page,
