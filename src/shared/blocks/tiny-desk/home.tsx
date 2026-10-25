@@ -61,7 +61,8 @@ export function TinyDeskHome({ creditsPerUsd = 12, videoCosts = getVideoCostTabl
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => zh ? cn : en;
   useEffect(() => { track('view_template', { template: 'tiny_desk_outstanding' }); }, []);
-  const [template, setTemplate] = useState<TinyDeskTemplate>(tinyDeskTemplates[0]);
+  // hero 示意默认牛仔传奇版（用户指定）；点击其他卡片可切换
+  const [template, setTemplate] = useState<TinyDeskTemplate>(tinyDeskTemplates.find((item) => item.id === 'tinydesk-cowboys') ?? tinyDeskTemplates[0]);
   const focusGenerator = () => { document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' }); };
   const choose = (item: TinyDeskTemplate = tinyDeskTemplates[0]) => { track('click_generate', { template: 'tiny_desk_outstanding', variant: item.id }); setTemplate(item); focusGenerator(); };
   const start = () => focusGenerator();
