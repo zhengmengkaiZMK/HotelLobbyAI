@@ -244,7 +244,7 @@
 .viral-dialog .upfilled{border-color:#ea580c;box-shadow:0 0 0 3px #fff7ed}
 .viral-dialog .up-ph{height:110px;border-radius:8px;display:flex;align-items:center;justify-content:center;margin-bottom:8px;position:relative;overflow:hidden;background:linear-gradient(160deg,#fde8d7,#f9c9a8);color:#9a3412}
 .viral-dialog .up-card:nth-child(2) .up-ph{background:linear-gradient(160deg,#dbeafe,#c7ddf7)}
-.viral-dialog .up-ph img{height:100%;width:100%;object-fit:cover}
+.viral-dialog .up-ph img{height:100%;width:100%;object-fit:contain}
 .viral-dialog .up-card b{font-size:13px;font-weight:600;display:block}
 .viral-dialog .up-card small{font-size:11px;color:#71717a}
 .viral-dialog .param-row{display:flex;gap:10px;margin-bottom:18px;flex-wrap:wrap}
