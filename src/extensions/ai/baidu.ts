@@ -36,6 +36,32 @@ export const BAIDU_SEEDANCE_MODEL = 'seedance-2.5';
 
 type BaiduKind = 'wan' | 'seedance' | 'kling';
 
+// The model platforms (Seedance in particular) hard-block input media that
+// appears to contain real people (privacy compliance). Translate those
+// moderation rejections into an actionable message instead of leaking the
+// raw JSON to end users. Returns null when the error is not a known one.
+export function friendlyBaiduError(body: string): string | null {
+  let code = '';
+  let message = '';
+  try {
+    const parsed = JSON.parse(body);
+    code = String(parsed?.error?.code ?? parsed?.code ?? '');
+    message = String(parsed?.error?.message ?? parsed?.message ?? '');
+  } catch {
+    if (/SensitiveContentDetected|PrivacyInformation|DataInspectionFailed/.test(body)) {
+      return 'The model platform rejected the input media (content policy). Try again with materials that do not contain real people, or switch to another model.';
+    }
+    return null;
+  }
+  if (/SensitiveContentDetected|PrivacyInformation|DataInspectionFailed/i.test(`${code} ${message}`)) {
+    if (/image/i.test(code)) {
+      return 'The model platform rejected the input image: it appears to contain a real person, which is blocked by its privacy policy. Use photos without identifiable people or switch to another model.';
+    }
+    return 'The model platform rejected the input video: it appears to contain a real person, which is blocked by its privacy policy. Use videos without identifiable people or switch to another model.';
+  }
+  return null;
+}
+
 /**
  * Baidu Cloud provider — Wan 3.0 / Seedance 2.5 / Kling Omni video generation
  * through the Baidu VOD v3 gateway (API Key auth, async task + polling).
@@ -482,14 +508,27 @@ export class BaiduProvider implements AIProvider {
       }
     }
 
+    // surface async failure reasons (e.g. moderation rejections) — the seedance
+    // channel returns errors as HTTP 200 with {status:'failed', error:{...}}
+    let errorCode = '';
+    let errorMessage = '';
+    if (taskStatus === AITaskStatus.FAILED) {
+      const upstreamCode = String(data?.error?.code ?? data?.code ?? '');
+      const upstreamMessage = String(data?.error?.message ?? data?.message ?? '');
+      errorCode = upstreamCode;
+      errorMessage =
+        friendlyBaiduError(JSON.stringify({ error: { code: upstreamCode, message: upstreamMessage } })) ??
+        upstreamMessage;
+    }
+
     return {
       taskId,
       taskStatus,
       taskInfo: {
         videos,
         status: rawStatus,
-        errorCode: '',
-        errorMessage: '',
+        errorCode,
+        errorMessage,
         createTime: new Date(),
       },
       taskResult: { kind, ...data },
@@ -526,7 +565,9 @@ export class BaiduProvider implements AIProvider {
     if (!resp.ok) {
       const snippet = text.slice(0, 500);
       console.error('baidu request failed', { method, path, status: resp.status, snippet });
-      throw new Error(`baidu request failed (${resp.status}): ${snippet}`);
+      throw new Error(
+        `baidu request failed (${resp.status}): ${friendlyBaiduError(text) ?? snippet}`
+      );
     }
 
     try {

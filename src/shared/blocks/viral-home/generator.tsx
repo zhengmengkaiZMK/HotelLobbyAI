@@ -250,9 +250,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         if (data.status === 'processing') { setStage('processing'); setProgress((p) => Math.max(p, 55)); }
         if (data.status === 'failed' || data.status === 'canceled') {
           const rawError = String((data.taskInfo as { errorMessage?: string } | null)?.errorMessage || '');
-          const rejectedReference = /invalid argument|HTTP 400/i.test(rawError);
+          const rejectedReference = /invalid argument|HTTP 400|real person|sensitive content|privacy|content policy/i.test(rawError);
           throw new Error(rejectedReference
-            ? text('The model rejected this request — the reference material likely contains restricted content such as movie characters or celebrity faces. Try your own photos or switch to MiniMax-H3 / Seedance. Credits were refunded.', '模型拒绝了本次请求——参考素材可能包含受限制内容（如影视角色或名人面孔）。请更换为你自己的照片，或改用 MiniMax-H3 / Seedance。积分已退回。')
+            ? text('The model rejected this request — the reference material likely contains restricted content such as real people, movie characters or celebrity faces. Try your own photos or switch to another model. Credits were refunded.', '模型拒绝了本次请求——参考素材可能包含受限制内容（如真人、影视角色或名人面孔）。请更换为你自己的照片，或改用其他模型。积分已退回。')
             : text('Generation canceled or failed. Credits were refunded.', '生成已取消或失败，积分已退回。'));
         }
         if (data.status === 'success') {

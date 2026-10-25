@@ -79,9 +79,11 @@ function mediaUrls(value: unknown, type: 'image' | 'video', depth = 0): string[]
   if (Array.isArray(value)) return value.flatMap((entry) => mediaUrls(entry, type, depth + 1));
   if (typeof value !== 'object') return [];
   const result = value as Record<string, unknown>;
+  // camelCase keys cover most providers; snake_case keys cover baidu responses
+  // (e.g. wan output.video_url, seedance content.video_url)
   const keys = type === 'image'
-    ? ['images', 'imageUrl', 'image', 'output', 'data', 'url', 'uri', 'src']
-    : ['videos', 'videoUrl', 'video', 'output', 'data', 'url', 'uri', 'src'];
+    ? ['images', 'imageUrl', 'image_url', 'image', 'output', 'content', 'data', 'task_result', 'result', 'url', 'uri', 'src']
+    : ['videos', 'videoUrl', 'video_url', 'video', 'output', 'content', 'data', 'task_result', 'result', 'url', 'uri', 'src'];
   for (const key of keys) {
     const urls = mediaUrls(result[key], type, depth + 1);
     if (urls.length) return [...new Set(urls)];

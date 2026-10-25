@@ -66,7 +66,12 @@ export default async function AiTasksPage({
             return item.taskResult;
           }
           const videoUrl =
-            result.video?.url || result.video_url || result.output?.url || result.url;
+            result.video?.url ||
+            result.video_url ||
+            result.output?.video_url || // baidu wan
+            result.content?.video_url || // baidu seedance
+            result.output?.url ||
+            result.url;
           if (item.mediaType === 'video' && videoUrl && typeof videoUrl === 'string' && videoUrl.startsWith('http')) {
             return <video src={videoUrl} controls preload="metadata" className="w-56 rounded-md" />;
           }
