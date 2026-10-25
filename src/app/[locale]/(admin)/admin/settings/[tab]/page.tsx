@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { PERMISSIONS, requireAllPermissions } from '@/core/rbac';
 import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { FormCard } from '@/shared/blocks/form';
-import { getChatModels, parseModelList, getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel } from '@/shared/lib/ai-models';
+import { getChatModels, parseModelList, getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getBaiduSeedanceModel } from '@/shared/lib/ai-models';
 import { getConfigsFresh, saveConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 import {
@@ -38,12 +38,17 @@ export default async function SettingsPage({
 
   // per-family model gating: the checkbox (可用模型) and select (默认模型)
   // options are the currently connected video models, mirroring the generator
-  // dialog's list order (relay → task-relay → Kling Reference → Wan Reference)
+  // dialog's list order (relay → task-relay → Kling Reference → Wan Reference
+  // → Baidu Seedance)
+  const falRefOption = getFalReferenceModel(configs);
+  const falWanOption = getFalWanReferenceModel(configs);
+  const baiduSeedanceOption = getBaiduSeedanceModel(configs);
   const videoModelOptions = [
     ...getRelayModels(configs, 'video'),
     ...getTaskRelayModels(configs, 'video'),
-    ...(getFalReferenceModel(configs) ? [getFalReferenceModel(configs)!] : []),
-    ...(getFalWanReferenceModel(configs) ? [getFalWanReferenceModel(configs)!] : []),
+    ...(falRefOption ? [falRefOption] : []),
+    ...(falWanOption ? [falWanOption] : []),
+    ...(baiduSeedanceOption ? [baiduSeedanceOption] : []),
   ].map((m) => ({ title: m.label, value: m.value }));
   const familyModelSettingNames = new Set([
     'viral_family_models_hotel',

@@ -2,16 +2,19 @@ export const VIDEO_COST_DEFAULTS = {
   '480p:8': 7,
   '480p:12': 12,
   '480p:15': 14,
+  '480p:30': 28,
   '720p:8': 10,
   '720p:12': 14,
   '720p:15': 18,
+  '720p:30': 36,
   '1080p:8': 14,
   '1080p:12': 18,
   '1080p:15': 22,
+  '1080p:30': 44,
 } as const;
 
 export type VideoResolution = '480p' | '720p' | '1080p';
-export type VideoDuration = 8 | 12 | 15;
+export type VideoDuration = 8 | 12 | 15 | 30;
 
 export function getVideoGenerationCost(
   resolution: string | undefined,
@@ -21,15 +24,12 @@ export function getVideoGenerationCost(
   const r = resolution === undefined ? '720p' : resolution;
   if (!['480p', '720p', '1080p'].includes(r)) throw new Error('Unsupported video resolution');
   const d = duration === undefined ? 8 : Number(duration);
-  if (d !== 4 && d !== 6 && d !== 8 && d !== 12 && d !== 15) throw new Error('Unsupported video duration');
-  // Cat Clapping only offers 4s and 6s. Those short clips bill from the
-  // 8-second unit price so they stay on the same credit scale.
-  if (d === 4 || d === 6) {
-    const base = getVideoGenerationCost(r, 8, configs);
-    return Math.max(1, Math.ceil((base / 8) * d));
-  }
-  const key = `${r}:${d}` as keyof typeof VIDEO_COST_DEFAULTS;
-  const configured = Number(configs?.[`video_cost_${r}_${d}`]);
+  if (!Number.isInteger(d) || d < 2 || d > 60) throw new Error('Unsupported video duration');
+  // Bill by duration tier: clips are rounded UP to the next billing tier —
+  // <=8s bills as 8s, 9-12s as 12s, 13-15s as 15s and anything longer as 30s.
+  const tier = d <= 8 ? 8 : d <= 12 ? 12 : d <= 15 ? 15 : 30;
+  const key = `${r}:${tier}` as keyof typeof VIDEO_COST_DEFAULTS;
+  const configured = Number(configs?.[`video_cost_${r}_${tier}`]);
   return Number.isSafeInteger(configured) && configured > 0 ? configured : VIDEO_COST_DEFAULTS[key];
 }
 
@@ -44,7 +44,7 @@ export function getVideoGenerationCost(
 export function getVideoCostTable(configs?: Record<string, unknown>) {
   return (['480p', '720p', '1080p'] as const).map((resolution) => ({
     resolution,
-    costs: ([8, 12, 15] as const).map((duration) => ({ duration, credits: getFalWanReferenceVideoCost(resolution, duration, configs) })),
+    costs: ([8, 12, 15, 30] as const).map((duration) => ({ duration, credits: getFalWanReferenceVideoCost(resolution, duration, configs) })),
   }));
 }
 

@@ -78,5 +78,6 @@ export * from './kie';
 export * from './replicate';
 export * from './gemini';
 export * from './fal';
+export * from './baidu';
 export * from './media-relay';
 export * from './task-relay';

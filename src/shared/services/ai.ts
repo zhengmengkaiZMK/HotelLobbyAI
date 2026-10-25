@@ -1,6 +1,7 @@
 import {
   AIManager,
   AITaskStatus,
+  BaiduProvider,
   FalProvider,
   GeminiProvider,
   KieProvider,
@@ -95,6 +96,19 @@ export function getAIManagerWithConfigs(configs: Configs) {
       new FalProvider({
         apiKey: configs.fal_api_key,
         customStorage: configs.fal_custom_storage === 'true',
+      })
+    );
+  }
+
+  if (configs.baidu_api_key) {
+    aiManager.addProvider(
+      new BaiduProvider({
+        // spread the raw config table: the provider reads admin keys such as
+        // baidu_wan_model / baidu_kling_mode and the kling element-id cache
+        ...configs,
+        apiKey: configs.baidu_api_key,
+        // baidu result urls expire after 24h — transload to own storage by default
+        customStorage: configs.baidu_custom_storage !== 'false',
       })
     );
   }

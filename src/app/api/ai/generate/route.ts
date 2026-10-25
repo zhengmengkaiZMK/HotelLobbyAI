@@ -1,6 +1,6 @@
 import { envConfigs } from '@/config';
 import { AIMediaType } from '@/extensions/ai';
-import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, FAL_KLING_REFERENCE_DEFAULT_MODEL, FAL_WAN_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL, FAL_KLING_REFERENCE_DEFAULT_MODEL, FAL_WAN_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { respData, respErr } from '@/shared/lib/resp';
@@ -149,9 +149,15 @@ export async function POST(request: Request) {
         aspect_ratio: options?.aspect_ratio,
         resolution: options?.resolution,
       };
-    } else if (provider === 'fal' && model === (configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL)) {
+    } else if (
+      (provider === 'fal' || provider === 'baidu') &&
+      model === (configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL)
+    ) {
       // Kling O3 Pro Reference V2V — dedicated whitelist so the generic fal
-      // image-to-video flow is untouched. Admin switch gates the model.
+      // image-to-video flow is untouched. Admin switch gates the model; the
+      // source switch (baidu_kling_source) picks the channel. Baidu Cloud
+      // kling only supports 3-8s 16:9/9:16 1080P MP4/MOV reference videos
+      // (enforced upstream; our family reference clips must comply).
       const configured = getFalReferenceModel(configs);
       if (!configured || configured.value !== model) {
         throw new Error('model is not configured');
@@ -188,6 +194,12 @@ export async function POST(request: Request) {
       if (!Number.isInteger(duration) || duration < 3 || duration > 15) {
         throw new Error('Duration must be a whole number between 3 and 15 seconds');
       }
+      // Baidu Cloud kling: the reference-video channel only supports 3~8s
+      // output — reject longer tiers here with a clear message instead of a
+      // cryptic upstream failure after the element task was created.
+      if (provider === 'baidu' && duration > 8) {
+        throw new Error('Baidu Cloud Kling only supports durations of 3 to 8 seconds');
+      }
       if (options?.aspect_ratio && !['auto', '16:9', '9:16', '1:1'].includes(options.aspect_ratio)) {
         throw new Error('Aspect ratio must be auto, 16:9, 9:16 or 1:1');
       }
@@ -199,9 +211,13 @@ export async function POST(request: Request) {
         aspect_ratio: options?.aspect_ratio || 'auto',
         keep_audio: options?.keep_audio !== false,
       };
-    } else if (provider === 'fal' && model === (configs.fal_wan_reference_model?.trim() || FAL_WAN_REFERENCE_DEFAULT_MODEL)) {
+    } else if (
+      (provider === 'fal' || provider === 'baidu') &&
+      model === (configs.fal_wan_reference_model?.trim() || FAL_WAN_REFERENCE_DEFAULT_MODEL)
+    ) {
       // Wan 3.0 Reference-to-Video — dedicated whitelist so the generic fal
-      // image-to-video flow is untouched. Admin switch gates the model.
+      // image-to-video flow is untouched. Admin switch gates the model; the
+      // source switch (baidu_wan_source) picks the channel.
       const configured = getFalWanReferenceModel(configs);
       if (!configured || configured.value !== model) {
         throw new Error('model is not configured');
@@ -265,6 +281,62 @@ export async function POST(request: Request) {
         resolution: options?.resolution || '720p',
         audio: options?.audio !== false,
       };
+    } else if (provider === 'baidu' && model === BAIDU_SEEDANCE_MODEL) {
+      // Baidu Cloud Seedance 2.5 — net-new video-to-video model, same
+      // reference-material contract as the Wan reference flow (one family
+      // motion video + user photos). Billed with the Wan per-second formula
+      // so user-side credits stay unchanged.
+      const configured = getBaiduSeedanceModel(configs);
+      if (!configured) {
+        throw new Error('model is not configured');
+      }
+      if (mediaType !== AIMediaType.VIDEO || scene !== 'video-to-video') {
+        throw new Error('Seedance 2.5 only supports video-to-video');
+      }
+
+      const storageOrigins = [configs.r2_domain, configs.s3_domain, configs.r2_endpoint, configs.s3_endpoint]
+        .filter(Boolean).map((url) => new URL(url).origin);
+      const allowedOrigins = [...storageOrigins, new URL(envConfigs.app_url).origin];
+      const validateUrl = (rawUrl: string) => {
+        const parsed = new URL(rawUrl);
+        if (parsed.protocol !== 'https:' || parsed.username || parsed.password || !allowedOrigins.includes(parsed.origin)) {
+          throw new Error('Reference material must come from a configured HTTPS domain');
+        }
+      };
+
+      const videos = options?.video_input;
+      if (!Array.isArray(videos) || videos.length !== 1 || typeof videos[0] !== 'string') {
+        throw new Error('Please provide exactly one reference video for Seedance 2.5');
+      }
+      validateUrl(videos[0]);
+
+      const images = options?.image_input;
+      if (images !== undefined && images !== null) {
+        if (!Array.isArray(images) || images.length < 1 || images.length > 10) {
+          throw new Error('Please provide between one and ten reference images');
+        }
+        for (const imageUrl of images) validateUrl(imageUrl);
+      }
+
+      const duration = Number(options?.duration);
+      if (!Number.isInteger(duration) || duration < 2 || duration > 15) {
+        throw new Error('Duration must be a whole number between 2 and 15 seconds');
+      }
+      if (options?.aspect_ratio && !['adaptive', '16:9', '4:3', '1:1', '3:4', '9:16'].includes(options.aspect_ratio)) {
+        throw new Error('Aspect ratio must be adaptive, 16:9, 4:3, 1:1, 3:4 or 9:16');
+      }
+      if (options?.resolution && !['480p', '720p', '1080p'].includes(options.resolution)) {
+        throw new Error('Resolution must be 480p, 720p or 1080p');
+      }
+
+      options = {
+        video_input: videos,
+        ...(Array.isArray(images) && images.length ? { image_input: images } : {}),
+        duration,
+        aspect_ratio: options?.aspect_ratio || 'adaptive',
+        // kept for billing parity with the Wan formula; not sent upstream
+        resolution: options?.resolution || '720p',
+      };
     }
 
     // check generate type
@@ -314,18 +386,19 @@ export async function POST(request: Request) {
         options = { ...options, resolution: options?.resolution ?? '720p', duration: Number(options?.duration ?? 8) };
       } else if (scene === 'video-to-video') {
         // Kling O3 Pro Reference bills per output second (admin-configured
-        // credits/s); Wan 3.0 Reference also bills per output second by
-        // resolution tier (the reference video is not charged to users);
-        // other video-to-video models keep the flat price
+        // credits/s); Wan 3.0 Reference and Baidu Seedance 2.5 also bill per
+        // output second by resolution tier (the reference video is not
+        // charged to users); other video-to-video models keep the flat price
         const isFalReference =
-          provider === 'fal' &&
+          (provider === 'fal' || provider === 'baidu') &&
           model === (configs.fal_kling_reference_model?.trim() || FAL_KLING_REFERENCE_DEFAULT_MODEL);
         const isFalWanReference =
-          provider === 'fal' &&
+          (provider === 'fal' || provider === 'baidu') &&
           model === (configs.fal_wan_reference_model?.trim() || FAL_WAN_REFERENCE_DEFAULT_MODEL);
+        const isBaiduSeedance = provider === 'baidu' && model === BAIDU_SEEDANCE_MODEL;
         costCredits = isFalReference
           ? getFalReferenceVideoCost(options?.duration, configs)
-          : isFalWanReference
+          : isFalWanReference || isBaiduSeedance
             ? getFalWanReferenceVideoCost(options?.resolution, options?.duration, configs)
             : 10;
       } else {

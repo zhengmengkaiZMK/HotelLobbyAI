@@ -8,7 +8,7 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/
 import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
-import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL } from '@/shared/lib/ai-models';
 import { track } from '@/shared/lib/analytics';
 import { TemplateDef } from './templates';
 import { StarterPackDialog } from './starter-pack-dialog';
@@ -48,6 +48,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const falRefList = falRefModel ? [falRefModel] : [];
   const falWanModel = getFalWanReferenceModel(configs);
   const falWanList = falWanModel ? [falWanModel] : [];
+  const baiduSeedanceModel = getBaiduSeedanceModel(configs);
+  const baiduSeedanceList = baiduSeedanceModel ? [baiduSeedanceModel] : [];
   const relayList = configs.media_relay_enabled === 'true' ? relay : [];
   const taskRelayList = configs.task_relay_enabled === 'true' ? taskRelay : [];
   // per-family model gating: the admin multi-select (viral_family_models_*)
@@ -61,7 +63,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     try { const v = JSON.parse(raw); return Array.isArray(v) ? v.filter((x: unknown) => typeof x === 'string') : []; } catch { return []; }
   })();
   const familyDefaultModel = (configs[`viral_family_default_model_${family}`] as string | undefined)?.trim() || '';
-  const models = relayList.length || taskRelayList.length || falRefList.length || falWanList.length ? [...relayList, ...taskRelayList, ...falRefList, ...falWanList] : defaults;
+  const models = relayList.length || taskRelayList.length || falRefList.length || falWanList.length || baiduSeedanceList.length ? [...relayList, ...taskRelayList, ...falRefList, ...falWanList, ...baiduSeedanceList] : defaults;
   // family gating: only admin-checked models are selectable for this family;
   // if the checked list no longer intersects the connected models (e.g. a
   // relay source was disabled after checking), fall back to the full list so
@@ -78,17 +80,19 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const unsupported1080 = model?.value === 'grok-imagine-video-1.5';
   const single = model?.provider === 'media-relay' && model.value !== 'grok-imagine-video-1.5';
   const isTaskRelay = model?.provider === 'task-relay';
-  // fal Kling O3 Pro Reference: template motion video + user photos, billed per second
-  const isFalRef = model?.provider === 'fal' && !!falRefModel && model.value === falRefModel.value;
-  // fal Wan 3.0 Reference: same family behavior, plus resolution tiers.
+  // fal / baidu Kling O3 Pro Reference: template motion video + user photos, billed per second
+  const isFalRef = ['fal', 'baidu'].includes(model?.provider || '') && !!falRefModel && model.value === falRefModel.value;
+  // fal / baidu Wan 3.0 Reference: same family behavior, plus resolution tiers.
   // Upstream allows 2-30s; the dialog hides 20s and 30s until we turn them back on.
-  const isFalWan = model?.provider === 'fal' && !!falWanModel && model.value === falWanModel.value;
+  const isFalWan = ['fal', 'baidu'].includes(model?.provider || '') && !!falWanModel && model.value === falWanModel.value;
+  // baidu Seedance 2.5: net-new model, same dialog behavior as the Wan reference
+  const isBaiduSeedance = model?.provider === 'baidu' && model.value === BAIDU_SEEDANCE_MODEL;
   // gemini-omni-1.1-flash: 3-10s, 360p/720p/1080p, reference clips capped at 10s
   const isOmni = isTaskRelay && !!model && model.value.toLowerCase().startsWith('gemini-omni');
   // Kling reference: output resolution follows the reference video — show only 720p
   const resolutionOptions = isFalRef
     ? ['720p']
-    : isFalWan
+    : isFalWan || isBaiduSeedance
       ? ['480p', '720p', '1080p']
       : !isTaskRelay
         ? ['480p', '720p', '1080p']
@@ -97,10 +101,10 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
           : model!.value.toLowerCase() === 'minimax-h3' ? ['768P', '2K'] : ['720p'];
   const durationOptions = family === 'cat_clapping'
     ? [4, 6]
-    : (isFalRef ? [3, 5, 8, 10, 12, 15] : isFalWan ? [5, 10, 15, 20, 30] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]).filter((seconds) => seconds <= 15);
+    : (isFalRef ? [3, 5, 8, 10, 12, 15] : isFalWan || isBaiduSeedance ? [5, 10, 15, 20, 30] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]).filter((seconds) => seconds <= 15);
   // Omni only supports 16:9 / 9:16 / auto; Kling reference adds auto + 1:1;
-  // Wan reference uses "adaptive" (shown as auto) + fixed ratios
-  const ratioOptions = isFalWan ? ['adaptive', '16:9', '9:16', '1:1'] : isFalRef ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
+  // Wan reference / Seedance use "adaptive" (shown as auto) + fixed ratios
+  const ratioOptions = isFalWan || isBaiduSeedance ? ['adaptive', '16:9', '9:16', '1:1'] : isFalRef ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
   const defaultKeepAudio = configs.fal_kling_reference_keep_audio !== 'false';
   const [keepAudio, setKeepAudio] = useState(defaultKeepAudio);
   // family-level admin config: all templates of a family share one prompt and
@@ -185,7 +189,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const costTier = activeResolution === '768P' ? '720p' : activeResolution === '2K' ? '1080p' : activeResolution;
   const costCredits = isFalRef
     ? getFalReferenceVideoCost(activeDuration, configs)
-    : isFalWan
+    : isFalWan || isBaiduSeedance
       ? getFalWanReferenceVideoCost(activeResolution, activeDuration, configs)
       : isOmni
         ? getOmniVideoCost(activeResolution, activeDuration, configs)
@@ -334,9 +338,10 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     const usable = images.slice(0, maxSlots);
     const input = single ? usable.slice(0, 1) : usable;
     if (input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
-    // 2b) fal reference models (Kling / Wan): the family's admin-configured
-    // reference video is required — never fall back to a built-in clip silently
-    if ((isFalRef || isFalWan) && !familyRefVideo) {
+    // 2b) reference models (Kling / Wan / Baidu Seedance): the family's
+    // admin-configured reference video is required — never fall back to a
+    // built-in clip silently
+    if ((isFalRef || isFalWan || isBaiduSeedance) && !familyRefVideo) {
       setError(text('This template has no reference video configured yet. Please try again later.', '该模板尚未配置参考视频，请稍后再试。'));
       return;
     }
@@ -377,14 +382,14 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   // (prompt, reference video/audio, flags) is byte-identical to the request.
   function buildPayload(resolved: string[]) {
     if (!model) return null;
-    const videoInput = isFalRef || isFalWan
+    const videoInput = isFalRef || isFalWan || isBaiduSeedance
       ? [familyRefVideo]
       : isTaskRelay && !isOmni && familyRefVideo
         ? [familyRefVideo]
         : [];
     const isMinimax = isTaskRelay && model.value === 'MiniMax-H3';
     const audioRef = isMinimax && configs.minimax_h3_reference_audio_enabled !== 'false' ? familyRefAudio : '';
-    const scene = isFalRef || isFalWan ? 'video-to-video' : 'image-to-video';
+    const scene = isFalRef || isFalWan || isBaiduSeedance ? 'video-to-video' : 'image-to-video';
     // Wan 3.0 audio: when the admin switch forbids generated audio and the
     // family has no reference audio, the audio flag is forced off.
     const wanAudioOn = familyRefAudio ? keepAudio : wanAllowGenerated && keepAudio;
@@ -392,7 +397,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, keep_audio: keepAudio }
       : isFalWan
         ? { image_input: resolved, video_input: videoInput, ...(familyRefAudio ? { audio_input: [familyRefAudio] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution, audio: wanAudioOn }
-        : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
+        : isBaiduSeedance
+          ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution }
+          : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
     return { mediaType: 'video', scene, provider: model.provider, model: model.value, prompt, options, family };
   }
   async function download() {
