@@ -40,6 +40,12 @@ const nextConfig = {
       ['/bulin-47', '/bulin-47-ai-template'],
       ['/dame-hombro', '/dame-hombro-ai'],
       ['/state-property-meme', '/state-property-meme-ai'],
+      ['/tiny-desk-outstanding', '/tiny-desk-outstanding-ai-template'],
+      ['/npr-tiny-desk-outstanding', '/tiny-desk-outstanding-ai-template'],
+      ['/tiny-desk-outstanding-template', '/tiny-desk-outstanding-ai-template'],
+      ['/tinydesk-outstanding-ai-template', '/tiny-desk-outstanding-ai-template'],
+      ['/outstanding-tiny-desk-ai', '/tiny-desk-outstanding-ai'],
+      ['/charlie-wilson-tiny-desk', '/charlie-wilson-tiny-desk-ai'],
     ];
     return aliases.flatMap(([source, destination]) => [
       { source, destination, permanent: true },

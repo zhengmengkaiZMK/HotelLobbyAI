@@ -14,14 +14,14 @@ const META = {
   en: {
     title: 'Tiny Desk Outstanding AI Template – Make the Viral Tiny Desk Concert Video',
     description:
-      'Join the Tiny Desk Outstanding trend: AI puts you and your friends behind the NPR Tiny Desk singing the Gap Band\'s "Outstanding". Six sets — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men and Uncle Charlie. Upload photos, keep the song, generate in minutes.',
+      'Fan parody of the Tiny Desk Outstanding trend. Six sets — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, and Uncle Charlie. Three photo slots: Center Lead, Left Role, Right Role. Not affiliated with NPR, Tiny Desk, Charlie Wilson, or the Gap Band.',
     keywords:
       'tiny desk outstanding, tiny desk outstanding ai, tiny desk outstanding template, tiny desk outstanding ai video, tiny desk concert ai, tiny desk ai video, nfl tiny desk meme, outstanding gap band ai, college football coaches tiny desk, washed anthem ai video, tiny desk trend',
   },
   zh: {
     title: 'Tiny Desk Outstanding AI 模板：把朋友放进爆火的 Tiny Desk 演唱会',
     description:
-      'Tiny Desk Outstanding 爆火玩法：AI 把你和你的团队换进 NPR Tiny Desk 现场，唱 Gap Band 的《Outstanding》。输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子、真身 Charlie 六套阵容，上传照片保留原声，几分钟生成。',
+      'Tiny Desk Outstanding 的粉丝向戏仿。输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子、真身 Charlie 六套阵容。三个照片位：中间主角、左边角色、右边角色。与 NPR、Tiny Desk、Charlie Wilson 和 Gap Band 无关。',
     keywords:
       'tiny desk outstanding, tiny desk outstanding ai, tiny desk outstanding 模板, tiny desk ai 视频, tiny desk 演唱会 ai, 教练 tiny desk 梗, outstanding ai 视频, 过气赞歌 ai, 照片生成 ai 视频',
   },
@@ -104,7 +104,7 @@ export default async function TinyDeskOutstandingAiTemplatePage({
           description: META[zh ? 'zh' : 'en'].description,
         })) }}
       />
-      <TinyDeskHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} />
+      <TinyDeskHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} pageUrl={zh ? `${envConfigs.app_url}/zh/tiny-desk-outstanding-ai-template` : `${envConfigs.app_url}/tiny-desk-outstanding-ai-template`} />
     </>
   );
 }

@@ -3,6 +3,7 @@ import defaultMdxComponents from 'fumadocs-ui/mdx';
 import type { MDXComponents } from 'mdx/types';
 
 import { ArticleVideo } from '@/shared/blocks/blog/article-video';
+import { TemplateCostParagraph } from '@/shared/blocks/blog/template-cost';
 import {
   Accordion,
   AccordionContent,
@@ -103,6 +104,7 @@ export function getMDXComponents(components?: MDXComponents): MDXComponents {
     },
     video: ArticleVideo,
     Video: ArticleVideo,
+    TemplateCostParagraph,
     Accordion,
     AccordionItem,
     AccordionTrigger,

@@ -2,6 +2,7 @@ import { BBY_HOW_TO_STEPS } from '@/shared/blocks/bby-wow/steps';
 import { BULIN_HOW_TO_STEPS } from '@/shared/blocks/bulin-47/steps';
 import { HIT_THE_ROAD_HOW_TO_STEPS } from '@/shared/blocks/hit-the-road-dude/steps';
 import { PEDRA_HOW_TO_STEPS } from '@/shared/blocks/pedra-do-sal/steps';
+import { TINY_DESK_HOW_TO_STEPS } from '@/shared/blocks/tiny-desk/steps';
 
 const HOW_TO_STEP_SOURCES: Record<
   string,
@@ -74,6 +75,10 @@ const HOW_TO_STEP_SOURCES: Record<
     text: step.text.en,
   })),
   'why-pedra-do-sal-ai-videos-went-viral': PEDRA_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
+  'how-to-make-tiny-desk-outstanding-ai-video': TINY_DESK_HOW_TO_STEPS.map((step) => ({
     name: step.name.en,
     text: step.text.en,
   })),
