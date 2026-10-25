@@ -26,6 +26,13 @@
       "view": "View Task",
       "refresh": "Refresh Task"
     },
+    "status": {
+      "generating": "Generating",
+      "completed": "Completed",
+      "failed": "Failed",
+      "canceled": "Canceled"
+    },
+    "auto_refresh": "Generating tasks refresh automatically",
     "empty_message": "No tasks found"
   }
 }

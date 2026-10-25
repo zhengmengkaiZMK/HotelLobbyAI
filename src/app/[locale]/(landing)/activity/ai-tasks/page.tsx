@@ -2,6 +2,7 @@ import { getTranslations } from 'next-intl/server';
 
 import { AITaskStatus } from '@/extensions/ai';
 import { AudioPlayer, Empty } from '@/shared/blocks/common';
+import { AITasksAutoRefresh } from '@/shared/blocks/common/task-auto-refresh';
 import { TaskMediaPreview } from '@/shared/blocks/common/task-media-preview';
 import { TableCard } from '@/shared/blocks/table';
 import { AITask, getAITasks, getAITasksCount } from '@/shared/models/ai_task';
@@ -15,6 +16,38 @@ function parseTaskData(value: string | null) {
     return value ? JSON.parse(value) : null;
   } catch {
     return null;
+  }
+}
+
+const GENERATING_STATUSES = [AITaskStatus.PENDING, AITaskStatus.PROCESSING];
+
+/** Localized status badge: 生成中 / 已生成 / 生成失败 / 已取消. */
+function StatusBadge({ status, t }: { status: string | null; t: (key: string) => string }) {
+  const wrap = (label: string, className: string, pulse = false) => (
+    <span
+      className={`inline-flex items-center gap-1.5 rounded-full px-2.5 py-0.5 text-xs font-medium ${className}`}
+    >
+      {pulse && (
+        <span className="relative flex h-1.5 w-1.5">
+          <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-current opacity-75" />
+          <span className="relative inline-flex h-1.5 w-1.5 rounded-full bg-current" />
+        </span>
+      )}
+      {label}
+    </span>
+  );
+  switch (status) {
+    case AITaskStatus.PENDING:
+    case AITaskStatus.PROCESSING:
+      return wrap(t('list.status.generating'), 'bg-amber-100 text-amber-700', true);
+    case AITaskStatus.SUCCESS:
+      return wrap(t('list.status.completed'), 'bg-emerald-100 text-emerald-700');
+    case AITaskStatus.FAILED:
+      return wrap(t('list.status.failed'), 'bg-red-100 text-red-700');
+    case AITaskStatus.CANCELED:
+      return wrap(t('list.status.canceled'), 'bg-zinc-100 text-zinc-600');
+    default:
+      return <span>{status}</span>;
   }
 }
 
@@ -125,7 +158,11 @@ export default async function AiTasksPage({
       { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
       { name: 'provider', title: t('fields.provider'), type: 'label' },
       { name: 'model', title: t('fields.model'), type: 'label' },
-      { name: 'status', title: t('fields.status'), type: 'label' },
+      {
+        name: 'status',
+        title: t('fields.status'),
+        callback: (item: AITask) => <StatusBadge status={item.status} t={t} />,
+      },
       { name: 'costCredits', title: t('fields.cost_credits'), type: 'label' },
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       {
@@ -135,10 +172,7 @@ export default async function AiTasksPage({
         callback: (item: AITask) => {
           const items: Button[] = [];
 
-          if (
-            item.status === AITaskStatus.PENDING ||
-            item.status === AITaskStatus.PROCESSING
-          ) {
+          if (GENERATING_STATUSES.includes(item.status as AITaskStatus)) {
             items.push({
               title: t('list.buttons.refresh'),
               url: `/activity/ai-tasks/${item.id}/refresh`,
@@ -161,6 +195,11 @@ export default async function AiTasksPage({
 
   return (
     <div className="space-y-8">
+      <AITasksAutoRefresh
+        active={aiTasks.some((task) =>
+          GENERATING_STATUSES.includes(task.status as AITaskStatus)
+        )}
+      />
       <TableCard title={t('list.title')} table={table} />
     </div>
   );

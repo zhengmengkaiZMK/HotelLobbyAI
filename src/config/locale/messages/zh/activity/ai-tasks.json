@@ -26,6 +26,13 @@
       "view": "查看任务",
       "refresh": "刷新任务"
     },
+    "status": {
+      "generating": "生成中",
+      "completed": "已生成",
+      "failed": "生成失败",
+      "canceled": "已取消"
+    },
+    "auto_refresh": "生成中的任务会自动刷新状态",
     "empty_message": "无任务"
   }
 }

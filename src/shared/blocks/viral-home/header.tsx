@@ -2,18 +2,17 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { ChevronDown, Flame, Menu } from 'lucide-react';
+import { ChevronDown, Flame, Menu, Video } from 'lucide-react';
 import { useLocale } from 'next-intl';
-import { RiDiscordFill, RiGithubFill } from 'react-icons/ri';
 
 import { Link, usePathname } from '@/core/i18n/navigation';
-import { COMMUNITY_LINKS } from '@/config/community';
 import {
   TRENDING_TEMPLATES,
   type TrendingTemplate,
 } from '@/config/trending-templates';
 import { LocaleSelector } from '@/shared/blocks/common/locale-selector';
 import { SignUser } from '@/shared/blocks/sign/sign-user';
+import { useAppContext } from '@/shared/contexts/app';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
 
 import { Brand } from './footer';
@@ -40,41 +39,6 @@ function closeMobileMenu(event: { currentTarget: EventTarget & Element }) {
   event.currentTarget.closest('details.mobile-menu')?.removeAttribute('open');
 }
 
-function CommunityLinks({
-  className,
-  onNavigate,
-}: {
-  className?: string;
-  onNavigate?: (event: { currentTarget: EventTarget & Element }) => void;
-}) {
-  return (
-    <div className={className ? `community ${className}` : 'community'}>
-      <a
-        className="community-link"
-        href={COMMUNITY_LINKS.github}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="GitHub"
-        data-brand="github"
-        onClick={onNavigate}
-      >
-        <RiGithubFill size={17} aria-hidden="true" />
-      </a>
-      <a
-        className="community-link"
-        href={COMMUNITY_LINKS.discord}
-        target="_blank"
-        rel="noopener noreferrer"
-        aria-label="Discord"
-        data-brand="discord"
-        onClick={onNavigate}
-      >
-        <RiDiscordFill size={17} aria-hidden="true" />
-      </a>
-    </div>
-  );
-}
-
 // Shared site header for all ViralReel pages.
 // onStart opens the page's own generator dialog (each page passes its own).
 export function ViralHeader({ onStart }: { onStart: () => void }) {
@@ -82,6 +46,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
   const t = (en: string, cn: string) => (zh ? cn : en);
   const pathname = usePathname();
   const isMobile = useIsMobile();
+  const { user, setIsShowSignModal } = useAppContext();
   const showThumbs = !isMobile;
   const series = trendingNavItems();
   const homeHash = (id: string) =>
@@ -92,6 +57,23 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
     { href: '/pricing', label: t('Pricing', '定价') },
     { href: '/blog', label: t('Blog', '博客') },
   ];
+  const generationsLabel = t('My generations', '生成记录');
+  // Logged-in users go straight to their generation records; anonymous users
+  // get the sign-in modal first (same flow as the generator's signup wall).
+  const openGenerations = () => {
+    if (user) return;
+    setIsShowSignModal(true);
+  };
+  const GenerationsLink = ({ onClose }: { onClose?: () => void }) =>
+    user ? (
+      <Link href="/activity/ai-tasks" onClick={onClose}>
+        {generationsLabel}
+      </Link>
+    ) : (
+      <button type="button" className="menu-link" onClick={onClose ?? openGenerations}>
+        {generationsLabel}
+      </button>
+    );
 
   return (
     <header className="site">
@@ -134,9 +116,9 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                 </Link>
               )
             )}
+            <GenerationsLink />
           </nav>
           <div className="right">
-            <CommunityLinks />
             <LocaleSelector type="button" />
             <div className="signin">
               <SignUser
@@ -146,7 +128,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                   show_sign_out: true,
                   items: [
                     {
-                      title: t('My generations', '生成记录'),
+                      title: generationsLabel,
                       url: '/activity/ai-tasks',
                       icon: 'Video',
                     },
@@ -196,10 +178,24 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                     </Link>
                   )
                 )}
-                <CommunityLinks
-                  className="community-mobile"
-                  onNavigate={closeMobileMenu}
-                />
+                {user ? (
+                  <Link href="/activity/ai-tasks" onClick={closeMobileMenu}>
+                    <Video size={15} aria-hidden="true" />
+                    {generationsLabel}
+                  </Link>
+                ) : (
+                  <button
+                    type="button"
+                    className="menu-link"
+                    onClick={(e) => {
+                      closeMobileMenu(e);
+                      setIsShowSignModal(true);
+                    }}
+                  >
+                    <Video size={15} aria-hidden="true" />
+                    {generationsLabel}
+                  </button>
+                )}
               </nav>
             </details>
           </div>
