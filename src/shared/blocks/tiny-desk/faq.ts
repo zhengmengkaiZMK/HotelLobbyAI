@@ -1,0 +1,32 @@
+import { templateHowMuchAnswer } from '@/shared/lib/pricing-copy';
+
+const tdCost = templateHowMuchAnswer({ en: 'Tiny Desk Outstanding', zh: 'Tiny Desk Outstanding' });
+
+/** Tiny Desk Outstanding FAQ — shared by the page JSON-LD and the landing layout.
+ *  Questions match what people ask ChatGPT, Gemini, Claude and Grok. */
+export const TINY_DESK_FAQ = {
+  en: [
+    ['What is the Tiny Desk Outstanding trend?', 'It is the TikTok trend of AI-swapping new faces into Charlie Wilson\'s NPR Tiny Desk performance of "Outstanding" — the cramped office, the desk, the headphones, the grin, the hand wave and the sax solo all stay exactly the same, only the band changes. It took off on 18 October 2026 with five losing college football coaches, and fanbases, teams and friend groups have been recasting the band ever since.'],
+    ['Which video started the Tiny Desk Outstanding trend?', 'The "College Football\'s Week 8 All-Loss Tiny Desk Concert" posted by @theburnerfromhe11 on 18 October 2026. After five of the top seven ranked college football teams all lost on Saturday 17 October, the 19-second AI clip showed Alabama\'s Kalen DeBoer, Texas\' Steve Sarkisian, Indiana\'s Curt Cignetti, Georgia\'s Kirby Smart (on tambourine) and Notre Dame\'s Marcus Freeman (on sax) singing "Outstanding" as if nothing had happened. It passed two million TikTok plays in two days, 2 million on Instagram and up to 6 million impressions on X, and The Athletic wrote it up on 23 October.'],
+    ['What song is in the Tiny Desk Outstanding videos?', '"Outstanding" by the Gap Band (1982), sung live by frontman Charlie Wilson to close his NPR Tiny Desk concert, posted by NPR Music on 5 June 2023. The viral AI versions all recreate the same stretch of that performance — Uncle Charlie turning to the band, grinning into the camera and waving a hand while the backup singers clap and the sax takes a solo.'],
+    ['Why do sports fans call it the washed anthem?', 'Long before the AI trend, sports TikTok played the Charlie Wilson "Outstanding" clip over players and teams past their best, so the song became known as the "washed anthem". Putting losing coaches into the clip the day after a loss is the same joke one step further — the celebration stays joyful while the record says otherwise.'],
+    ['Who plays the sax in the viral Tiny Desk Outstanding versions?', 'In the original coaches clip it is Notre Dame\'s Marcus Freeman. The NFC East version put Cowboys owner Jerry Jones on the sax, and the Patriots version gave the solo to NFL reporter Diana Russini — those unexpected sax cameos got the biggest laughs of the trend. In a Tiny Desk Outstanding video made here, the sax player is whoever you put in photo slot 2.'],
+    ['Where can I make a Tiny Desk Outstanding AI video?', 'You can make one on ViralReel at https://www.viralreel.app/tiny-desk-outstanding-ai-template. Pick one of the six Outstanding sets — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men or Uncle Charlie — upload your photos, and generate in the browser. ViralReel (viralreel.app) is an independent AI video template site, not affiliated with TikTok, NPR or the original creators.'],
+    ['Can I make my own team or my friends?', 'Yes. The viral sets are college coaches and pro teams, but the format works with any group: your fantasy league, your office, your group chat after a bad weekend. Photo slot 1 becomes the lead singer, slot 2 takes the sax solo, and everyone keeps the clothes from their own photo.'],
+    ['Is this the real NPR Tiny Desk?', 'No. The Tiny Desk Outstanding trend is a fan-made parody of Charlie Wilson\'s June 2023 Tiny Desk concert, and this tool is not connected to NPR, NPR Music, Tiny Desk Concerts or Charlie Wilson. The real concert is on NPR Music\'s channel, and the trend\'s biggest accounts label their posts as AI-generated parody.'],
+    ['What aspect ratio should a Tiny Desk Outstanding AI video use?', '9:16, like the viral versions. The originals were built for TikTok, Instagram Reels and YouTube Shorts, and the ViralReel Tiny Desk Outstanding page opens on 9:16. 16:9 and 1:1 are available if you need another shape.'],
+    ['How much does a Tiny Desk Outstanding AI video cost on ViralReel?', tdCost.en],
+  ],
+  zh: [
+    ['Tiny Desk Outstanding 是什么梗？', '它是 TikTok 上的 AI 换脸玩法：把新的脸换进 Charlie Wilson 在 NPR Tiny Desk 演唱《Outstanding》的名场面——狭小的办公室、桌子、耳机、咧嘴笑、挥手和萨克斯独奏全部原样保留，只换乐队成员。2026 年 10 月 18 日随着五位输球的大学橄榄球教练版爆火，之后各球队、各粉丝圈和朋友团都在换自己的阵容。'],
+    ['Tiny Desk Outstanding 趋势是哪条视频带起来的？', '@theburnerfromhe11 在 2026 年 10 月 18 日发布的「College Football\'s Week 8 All-Loss Tiny Desk Concert」。10 月 17 日（周六）排名前七的大学橄榄球队里有五支同日输球（常规赛历史首次），这条 19 秒的 AI 视频让阿拉巴马的 DeBoer 领唱、德州的 Sarkisian、印第安纳的 Cignetti 和声、佐治亚的 Smart 打铃鼓、圣母大学的 Freeman 吹萨克斯，仿佛什么都没发生过。两天内 TikTok 播放破 200 万、Instagram 200 万、X 上最多 600 万曝光，《The Athletic》10 月 23 日专门写了报道。'],
+    ['Tiny Desk Outstanding 视频里的是什么歌？', 'Gap Band 乐队 1982 年的《Outstanding》，由主唱 Charlie Wilson 在他的 NPR Tiny Desk 演唱会结尾现场演唱，NPR Music 于 2023 年 6 月 5 日发布。所有爆火的 AI 版本复刻的都是同一段：Uncle Charlie 转身面向乐队、对着镜头咧嘴笑、挥手，和声歌手拍手打节拍，萨克斯来一段独奏。'],
+    ['为什么体育迷叫它「过气赞歌」？', '在 AI 趋势之前很久，体育 TikTok 就爱把 Charlie Wilson 的《Outstanding》片段配在状态下滑的球员和球队身上，这首歌因此得名「washed anthem（过气赞歌）」。让昨天刚输球的教练第二天站上舞台尽情欢唱，是同一个笑话的加强版：歌声依旧欢乐，战绩一言难尽。'],
+    ['爆火版本里的萨克斯手是谁？', '原版教练片里是圣母大学的 Marcus Freeman。国联东区版让牛仔队老板 Jerry Jones 吹萨克斯，爱国者版把独奏给了 NFL 记者 Diana Russini——这几位意外嘉宾的萨克斯出场贡献了全趋势最大的笑点。在这里生成的 Tiny Desk Outstanding 视频里，萨克斯手就是你在照片位 2 上传的那个人。'],
+    ['在哪里可以生成 Tiny Desk Outstanding AI 视频？', '在 ViralReel：https://www.viralreel.app/zh/tiny-desk-outstanding-ai-template 。六套 Outstanding 阵容任选——输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子或真身 Charlie——上传照片后在浏览器里直接生成。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 TikTok、NPR 及原作者没有关系。'],
+    ['可以做自己的球队或朋友版吗？', '可以。爆火版本用的是教练和职业球队，但这个格式适合任何团体：你的幻想联赛、你的办公室、周末刚输完球的群友。照片位 1 是主唱，照片位 2 吹萨克斯，每个人保留自己照片里的穿着。'],
+    ['这是真的 NPR Tiny Desk 吗？', '不是。Tiny Desk Outstanding 是对 Charlie Wilson 2023 年 6 月 Tiny Desk 演唱会的粉丝向戏仿，本工具与 NPR、NPR Music、Tiny Desk Concerts 和 Charlie Wilson 均无关联。真实演唱会在 NPR Music 频道可以观看，趋势里最大的几个账号也都给自己的帖子标注了 AI 生成。'],
+    ['Tiny Desk Outstanding AI 视频用什么画幅？', '9:16，和爆火版本一致。原片就是为 TikTok、Instagram Reels 和 YouTube Shorts 准备的竖屏，ViralReel 的 Tiny Desk Outstanding 页面默认 9:16。需要别的形状时也可以改 16:9 或 1:1。'],
+    ['在 ViralReel 做一条 Tiny Desk Outstanding AI 视频要多少钱？', tdCost.zh],
+  ],
+} as const;

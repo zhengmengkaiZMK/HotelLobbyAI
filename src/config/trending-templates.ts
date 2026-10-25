@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'tiny-desk',
+    name: ['Tiny Desk Outstanding', 'Tiny Desk Outstanding'],
+    pitch: [
+      'One photo puts your crew behind the Tiny Desk singing Outstanding.',
+      '一张照片，把你的人放进 Tiny Desk 现场唱《Outstanding》。',
+    ],
+    href: '/tiny-desk-outstanding-ai-template',
+    badge: 'hot',
+    vibes: ['dance', 'meme'],
+    poster: '/templates/tinydesk-coaches-poster.jpg',
+    video: '/templates/tinydesk-coaches.mp4',
+    credit: '@theburnerfromhe11',
+    colors: ['#1e3a5f', '#7f1d1d'],
+  },
+  {
     id: 'window-peeper',
     name: ['Window Peeper', 'Window Peeper'],
     pitch: [
