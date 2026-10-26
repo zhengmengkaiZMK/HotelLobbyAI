@@ -16,14 +16,14 @@ const META = {
     description:
       'Make the ba ba ba dance from your photos. Six takes — Library Original, Night Lot Duo, Stairwell Tag, Dad & Daughter, Classroom Cadets, Sibling Lesson. Two photo slots: Left Dancer, Right Dancer. Not affiliated with TikTok or the original creators.',
     keywords:
-      'ba ba ba dance, ba ba ba dance ai, ba ba ba dance template, ba ba ba dance ai video, ba ba ba duo dance, ba ba ba dance tiktok, ba ba ba dance from sing, dont you worry bout a thing dance, viral duo dance ai, two person dance ai, tiktok dance ai video',
+      'ba ba ba dance, ba ba ba dance ai, ba ba ba dance template, ba ba ba dance ai video, ba ba ba duo dance, ba ba ba dance tiktok, ba ba ba dance meme, ba ba ba dance generator, ba ba ba dance ai generator, ba ba ba dance capcut, ba ba ba dance song, ba ba ba dance original, ba ba ba tiktok dance, ba ba ba dance from sing, dont you worry bout a thing dance, viral duo dance ai, two person dance ai, tiktok dance ai video',
   },
   zh: {
     title: 'Ba Ba Ba Dance AI 模板：把你和朋友放进爆火的双人舞',
     description:
       '用照片制作 ba ba ba dance。图书馆原版、夜间停车场、楼梯轮舞、爸爸和女儿、教室学员、姐弟教学六套场景。两个照片位：左舞者、右舞者。与 TikTok 及原作者无关。',
     keywords:
-      'ba ba ba dance, ba ba ba dance ai, ba ba ba dance 模板, ba ba ba 双人舞, 欢乐好声音 ba ba ba, ba ba ba dance tiktok, 双人舞 ai 视频, 两人舞蹈 ai, 照片生成 ai 视频',
+      'ba ba ba dance, ba ba ba dance ai, ba ba ba dance 模板, ba ba ba 双人舞, 欢乐好声音 ba ba ba, ba ba ba dance tiktok, ba ba ba dance 梗, ba ba ba dance 生成器, ba ba ba dance 歌曲, 双人舞 ai 视频, 两人舞蹈 ai, 照片生成 ai 视频',
   },
 } as const;
 
