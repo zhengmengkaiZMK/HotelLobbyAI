@@ -11,6 +11,8 @@ import { getRemainingCredits } from './credit';
 export interface UserCredits {
   remainingCredits: number;
   expiresAt: Date | null;
+  // whether the user's plan/pack allows 1080p export (see plan-entitlements)
+  hdAllowed?: boolean;
 }
 
 export type User = typeof user.$inferSelect & {

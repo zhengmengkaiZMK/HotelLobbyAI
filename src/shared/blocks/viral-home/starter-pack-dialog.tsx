@@ -18,7 +18,7 @@ import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
 import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
 
-const STARTER_PRODUCT_ID = 'credits-once-starter';
+const POPULAR_PRODUCT_ID = 'credits-once-popular';
 
 export function StarterPackDialog({
   open,
@@ -37,11 +37,11 @@ export function StarterPackDialog({
   const { user, configs, setIsShowSignModal } = useAppContext();
   const [loading, setLoading] = useState(false);
   const price =
-    configs.pricing_plan_credits_once_starter_price ||
-    CANONICAL_PRICING.packStarterPrice;
+    configs.pricing_plan_credits_once_popular_price ||
+    CANONICAL_PRICING.packPopularPrice;
   const credits =
-    Number(configs.pricing_plan_credits_once_starter_credits) ||
-    CANONICAL_PRICING.packStarterCredits;
+    Number(configs.pricing_plan_credits_once_popular_credits) ||
+    CANONICAL_PRICING.packPopularCredits;
 
   async function buy() {
     if (!user) {
@@ -65,7 +65,7 @@ export function StarterPackDialog({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          product_id: STARTER_PRODUCT_ID,
+          product_id: POPULAR_PRODUCT_ID,
           currency: 'USD',
           locale,
           payment_provider: configs.default_payment_provider || 'stripe',
@@ -95,14 +95,14 @@ export function StarterPackDialog({
           </DrawerTitle>
           <DrawerDescription>
             {t(
-              `This video needs ${costCredits} credits. Your balance is ${balance}. Buy the Starter pack to continue on this page.`,
-              `本次生成需要 ${costCredits} 积分，当前余额 ${balance}。购买 Starter 积分包后会回到本页继续。`
+              `This video needs ${costCredits} credits. Your balance is ${balance}. Buy the Popular pack to continue on this page.`,
+              `本次生成需要 ${costCredits} 积分，当前余额 ${balance}。购买 Popular 积分包后会回到本页继续。`
             )}
           </DrawerDescription>
         </DrawerHeader>
         <div className="px-4">
           <div className="rounded-xl border border-orange-200 bg-white p-4">
-            <p className="text-sm font-semibold">Starter</p>
+            <p className="text-sm font-semibold">Popular</p>
             <p className="mt-1 text-2xl font-semibold tracking-tight">
               {price}
               <span className="ml-1 text-sm font-normal text-zinc-500">
@@ -111,6 +111,9 @@ export function StarterPackDialog({
             </p>
             <p className="mt-2 text-sm text-zinc-600">
               {t(`${credits} credits · never expire`, `${credits} 积分 · 永不过期`)}
+            </p>
+            <p className="mt-1 text-sm text-zinc-600">
+              {t('Supports 720p & 1080p video generation', '支持生成 720p、1080p 视频')}
             </p>
           </div>
         </div>

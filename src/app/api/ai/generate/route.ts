@@ -3,6 +3,7 @@ import { AIMediaType } from '@/extensions/ai';
 import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL, FAL_KLING_REFERENCE_DEFAULT_MODEL, FAL_WAN_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
+import { canUse1080p } from '@/shared/lib/plan-entitlements';
 import { respData, respErr } from '@/shared/lib/resp';
 import { createAITask, NewAITask } from '@/shared/models/ai_task';
 import { getRemainingCredits } from '@/shared/models/credit';
@@ -354,6 +355,14 @@ export async function POST(request: Request) {
     const user = await getUserInfo();
     if (!user) {
       throw new Error('no auth, please sign in');
+    }
+
+    // starter-tier / unpaid users are capped at 480p/720p export (MiniMax 2K
+    // is its 1080p tier and is capped the same way)
+    if (['1080p', '2K'].includes(String(options?.resolution || '')) && !(await canUse1080p(user.id))) {
+      throw new Error(
+        '1080p export is available on the Popular plan and above — your current plan supports 480p and 720p. Upgrade to Popular to unlock 1080p.'
+      );
     }
 
     // todo: get cost credits from settings
