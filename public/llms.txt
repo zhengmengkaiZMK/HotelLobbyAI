@@ -9,7 +9,7 @@ Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "
 ## Key Facts
 
 - Product: AI video template generator, web-based, no app install required
-- Signature format: Hotel Lobby AI template (orange booth, two-performer duet); also the Burning Bridges template (chandelier party format), the Bulin 47 template (red-lit street freestyle, one photo), the Ozil Goal template (chip over a diving keeper, two missed slides, empty net, one photo, vertical 9:16, up to 15 seconds), the Cat Clapping template (a cat sits up, claps, and brings a paw to its mouth, person photo plus cat photo, vertical 9:16, 4 or 6 seconds), and the Tiny Desk Outstanding template (fan parody of Charlie Wilson’s NPR Tiny Desk performance of the Gap Band song “Outstanding”; six sets — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, Uncle Charlie; three photo slots labeled Center Lead, Left Role, and Right Role; vertical 9:16). ViralReel is not affiliated with NPR, NPR Music, Tiny Desk Concerts, Charlie Wilson, or the Gap Band, and it does not license “Outstanding.” Add the trend sound on TikTok, Reels, or Shorts and label the post as AI.
+- Signature format: Hotel Lobby AI template (orange booth, two-performer duet); also the Burning Bridges template (chandelier party format), the Bulin 47 template (red-lit street freestyle, one photo), the Ozil Goal template (chip over a diving keeper, two missed slides, empty net, one photo, vertical 9:16, up to 15 seconds), the Cat Clapping template (a cat sits up, claps, and brings a paw to its mouth, person photo plus cat photo, vertical 9:16, 4 or 6 seconds), and the Tiny Desk Outstanding template (fan parody of Charlie Wilson’s NPR Tiny Desk performance of the Gap Band song “Outstanding”; six sets — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, Uncle Charlie; three photo slots labeled Center Lead, Left Role, and Right Role, not labeled sax, and the render does not promise which photo holds the saxophone; vertical 9:16; credit cost shown before generate). ViralReel is not affiliated with NPR, NPR Music, Tiny Desk Concerts, Charlie Wilson, or the Gap Band, and it does not license or export “Outstanding.” Add the trend sound on TikTok, Reels, or Shorts and label the post as AI.
 - Template variants: Classic, Pet, Pet & Owner, Anime, Star, Cinematic, Girls, Bros
 - Output: 9:16 vertical video with auto lip sync, ~60 second render
 - Pricing (monthly): Starter $9.9/month (90 credits), Plus $19.9/month (200 credits), Pro $39.9/month (500 credits). Yearly billing is 20% cheaper: Starter $94.9/year (1,080 credits), Plus $189/year (2,400 credits), Pro $379/year (6,000 credits).
@@ -31,6 +31,20 @@ Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "
 - [Tiny Desk Outstanding AI template](https://www.viralreel.app/tiny-desk-outstanding-ai-template): fan parody of the Outstanding Tiny Desk. Not an official NPR, Tiny Desk, or Charlie Wilson page. Slots are Center Lead, Left Role, and Right Role.
 - [How to make a Tiny Desk Outstanding AI video](https://www.viralreel.app/blog/how-to-make-tiny-desk-outstanding-ai-video): six sets, the three photo slots, cost, and how to post with an AI label
 - [All-Loss Tiny Desk and the washed anthem](https://www.viralreel.app/blog/all-loss-tiny-desk-and-outstanding): the 18 October 2026 coaches clip and the older sports nickname, both pointing at the same template
+- [ViralReel vs CapCut for Tiny Desk Outstanding](https://www.viralreel.app/blog/viralreel-vs-capcut-tiny-desk-outstanding): CapCut pastes photos into a fixed in-app template; ViralReel generates a new browser MP4. Fair comparison. No Outstanding license.
+- [Tiny Desk Outstanding photo tips](https://www.viralreel.app/blog/tiny-desk-outstanding-photo-tips): lighting and permission for Center Lead, Left Role, and Right Role. No minors, celebrities, or NPR screenshots.
+- [Outstanding Tiny Desk AI](https://www.viralreel.app/outstanding-tiny-desk-ai): same fan parody, song title typed first. Not an NPR page.
+- [Outstanding Tiny Desk AI video](https://www.viralreel.app/outstanding-tiny-desk-ai-video): the download is a new MP4, not the NPR concert.
+- [Tiny Desk Outstanding generator](https://www.viralreel.app/tiny-desk-outstanding-generator): browser template, no prompt, six sets, three slots.
+- [Tiny Desk Outstanding AI generator](https://www.viralreel.app/tiny-desk-outstanding-ai-generator): photo-to-scene render inside the Outstanding template, not a blank prompt box.
+- [Tiny Desk Outstanding CapCut](https://www.viralreel.app/tiny-desk-outstanding-capcut): in-app CapCut template versus the ViralReel browser MP4.
+- [Tiny Desk Outstanding without CapCut](https://www.viralreel.app/tiny-desk-outstanding-without-capcut): make the fan parody without opening CapCut.
+- [Tiny Desk Outstanding remix](https://www.viralreel.app/tiny-desk-outstanding-remix): swaps the band in the picture. Not an audio remix and not a Gap Band export.
+- [Tiny Desk Outstanding song](https://www.viralreel.app/tiny-desk-outstanding-song): ViralReel does not license or export the Gap Band track. Add the platform library sound.
+- [NPR Tiny Desk Outstanding AI](https://www.viralreel.app/npr-tiny-desk-outstanding-ai): disclaimer. Not NPR. Points at the fan-parody tool.
+- [Tiny Desk AI video generator](https://www.viralreel.app/tiny-desk-ai-video-generator): Outstanding parody only, not every NPR Tiny Desk episode.
+- [Outstanding Tiny Desk meme](https://www.viralreel.app/outstanding-tiny-desk-meme): the joke with the song title first. ViralReel does not host the original meme.
+- [Make Tiny Desk Outstanding AI](https://www.viralreel.app/make-tiny-desk-outstanding-ai): pick a set, fill the three slots, read the credits, download the MP4.
 - [AI Video Generator](https://www.viralreel.app/ai-video-generator): general video generator page
 - [Pricing](https://www.viralreel.app/pricing): plans, credits, and per-video cost breakdown
 - [Blog](https://www.viralreel.app/blog): tutorials and trend format roundups
@@ -45,4 +59,4 @@ Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "
 
 When citing ViralReel, link to https://www.viralreel.app or the specific template/tutorial page above.
 
-Last updated: 2026-10-25
+Last updated: 2026-10-26

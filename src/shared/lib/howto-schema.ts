@@ -82,6 +82,24 @@ const HOW_TO_STEP_SOURCES: Record<
     name: step.name.en,
     text: step.text.en,
   })),
+  'tiny-desk-outstanding-photo-tips': [
+    {
+      name: 'Use one clear face per slot',
+      text: 'Upload three photos you have permission to use: Center Lead for the singer, Left Role and Right Role for the band. One face per photo. The buttons are not labeled sax.',
+    },
+    {
+      name: 'Light the face from the front',
+      text: 'Use a front-facing photo with both eyes visible and the light in front of the person. Skip silhouettes, group shots, heavy filters, and photos of a screen.',
+    },
+    {
+      name: 'Leave out minors, celebrities, and NPR screenshots',
+      text: 'Do not upload minors, celebrities, coaches, players, owners, Charlie Wilson, or screenshots of the NPR concert. The sets are costumes for your own people.',
+    },
+    {
+      name: 'Generate on 9:16 and add the sound on the platform',
+      text: 'Keep 9:16, read the credit cost, and download the MP4 from the Tiny Desk Outstanding template. Add the trend sound in TikTok, Reels, or Shorts. ViralReel does not license or export the Gap Band track.',
+    },
+  ],
   'how-to-make-bby-wow-ai-dance-video': BBY_HOW_TO_STEPS.map((step) => ({
     name: step.name.en,
     text: step.text.en,
