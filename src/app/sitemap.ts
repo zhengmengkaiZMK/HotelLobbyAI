@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 
 import { envConfigs } from '@/config';
 import { defaultLocale, locales } from '@/config/locale';
+import { BABA_LONG_TAIL_ROUTES } from '@/shared/blocks/baba-dance/long-tails';
 import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
 import { BULIN_LONG_TAIL_ROUTES } from '@/shared/blocks/bulin-47/long-tails';
 import { HIT_THE_ROAD_LONG_TAIL_ROUTES } from '@/shared/blocks/hit-the-road-dude/long-tails';
@@ -18,6 +19,8 @@ function safeLastModified(value: string | Date | null | undefined, fallback: Dat
 // indexable landing routes (privacy/terms are disallowed in robots.ts)
 const staticRoutes = [
   { path: '/', priority: 1, changeFrequency: 'daily' as const },
+  { path: '/ba-ba-ba-dance-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...BABA_LONG_TAIL_ROUTES,
   { path: '/hotel-lobby-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },

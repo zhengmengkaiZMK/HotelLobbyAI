@@ -1,6 +1,6 @@
 import { envConfigs } from '@/config';
 import { AIMediaType } from '@/extensions/ai';
-import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL, FAL_KLING_REFERENCE_DEFAULT_MODEL, FAL_WAN_REFERENCE_DEFAULT_MODEL } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getFalKlingV4ReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL, FAL_KLING_REFERENCE_DEFAULT_MODEL, FAL_WAN_REFERENCE_DEFAULT_MODEL, FAL_KLING_V4_DEFAULT_MODEL } from '@/shared/lib/ai-models';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { canUse1080p } from '@/shared/lib/plan-entitlements';
@@ -9,7 +9,7 @@ import { createAITask, NewAITask } from '@/shared/models/ai_task';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
-import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost } from '@/shared/lib/video-cost';
+import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost, getFalKlingV4VideoCost } from '@/shared/lib/video-cost';
 
 export async function POST(request: Request) {
   try {
@@ -262,7 +262,8 @@ export async function POST(request: Request) {
       }
 
       const duration = Number(options?.duration);
-      // 20s and 30s stay off while the template dialogs cap every series at 15s.
+      // Wan 3.0 remains capped at 15s in ViralReel, even though the upstream
+      // endpoint supports longer durations.
       if (!Number.isInteger(duration) || duration < 2 || duration > 15) {
         throw new Error('Duration must be a whole number between 2 and 15 seconds');
       }
@@ -281,6 +282,68 @@ export async function POST(request: Request) {
         aspect_ratio: options?.aspect_ratio || 'adaptive',
         resolution: options?.resolution || '720p',
         audio: options?.audio !== false,
+      };
+    } else if (
+      provider === 'fal' &&
+      model === (configs.fal_kling_v4_model?.trim() || FAL_KLING_V4_DEFAULT_MODEL)
+    ) {
+      // Kling v4 Reference-to-Video (fal channel only) — dedicated whitelist
+      // so the generic fal image-to-video flow is untouched. Admin switch
+      // gates the model. Upstream: 3-30s integer duration, 720p/1080p only,
+      // aspect_ratio auto/16:9/9:16/1:1/21:9, up to 10 reference images and
+      // up to 5 reference videos; we keep the family convention of exactly
+      // one motion video and a 15s output cap. Audio is generated natively —
+      // the schema has no audio switch, so no audio options are forwarded.
+      const configured = getFalKlingV4ReferenceModel(configs);
+      if (!configured || configured.value !== model) {
+        throw new Error('model is not configured');
+      }
+      if (mediaType !== AIMediaType.VIDEO || scene !== 'video-to-video') {
+        throw new Error('Kling v4 Reference only supports video-to-video');
+      }
+
+      const storageOrigins = [configs.r2_domain, configs.s3_domain, configs.r2_endpoint, configs.s3_endpoint]
+        .filter(Boolean).map((url) => new URL(url).origin);
+      const allowedOrigins = [...storageOrigins, new URL(envConfigs.app_url).origin];
+      const validateUrl = (rawUrl: string) => {
+        const parsed = new URL(rawUrl);
+        if (parsed.protocol !== 'https:' || parsed.username || parsed.password || !allowedOrigins.includes(parsed.origin)) {
+          throw new Error('Reference material must come from a configured HTTPS domain');
+        }
+      };
+
+      const videos = options?.video_input;
+      if (!Array.isArray(videos) || videos.length !== 1 || typeof videos[0] !== 'string') {
+        throw new Error('Please provide exactly one reference video for Kling v4 Reference');
+      }
+      validateUrl(videos[0]);
+
+      const images = options?.image_input;
+      if (images !== undefined && images !== null) {
+        if (!Array.isArray(images) || images.length < 1 || images.length > 10) {
+          throw new Error('Please provide between one and ten reference images');
+        }
+        for (const imageUrl of images) validateUrl(imageUrl);
+      }
+
+      // Kling v4 supports 3-30s; ViralReel exposes the full upstream range.
+      const duration = Number(options?.duration);
+      if (!Number.isInteger(duration) || duration < 3 || duration > 30) {
+        throw new Error('Duration must be a whole number between 3 and 30 seconds');
+      }
+      if (options?.aspect_ratio && !['auto', '16:9', '9:16', '1:1'].includes(options.aspect_ratio)) {
+        throw new Error('Aspect ratio must be auto, 16:9, 9:16 or 1:1');
+      }
+      if (options?.resolution && !['720p', '1080p'].includes(options.resolution)) {
+        throw new Error('Resolution must be 720p or 1080p');
+      }
+
+      options = {
+        video_input: videos,
+        ...(Array.isArray(images) && images.length ? { image_input: images } : {}),
+        duration,
+        aspect_ratio: options?.aspect_ratio || 'auto',
+        resolution: options?.resolution || '720p',
       };
     } else if (provider === 'baidu' && model === BAIDU_SEEDANCE_MODEL) {
       // Baidu Cloud Seedance 2.5 — net-new video-to-video model, same
@@ -319,9 +382,10 @@ export async function POST(request: Request) {
         for (const imageUrl of images) validateUrl(imageUrl);
       }
 
+      // Seedance 2.5 supports 2-30s in the configured gateway.
       const duration = Number(options?.duration);
-      if (!Number.isInteger(duration) || duration < 2 || duration > 15) {
-        throw new Error('Duration must be a whole number between 2 and 15 seconds');
+      if (!Number.isInteger(duration) || duration < 2 || duration > 30) {
+        throw new Error('Duration must be a whole number between 2 and 30 seconds');
       }
       if (options?.aspect_ratio && !['adaptive', '16:9', '4:3', '1:1', '3:4', '9:16'].includes(options.aspect_ratio)) {
         throw new Error('Aspect ratio must be adaptive, 16:9, 4:3, 1:1, 3:4 or 9:16');
@@ -338,6 +402,19 @@ export async function POST(request: Request) {
         // kept for billing parity with the Wan formula; not sent upstream
         resolution: options?.resolution || '720p',
       };
+    }
+
+    // Product duration policy: only Kling v4 and Seedance 2.5 may exceed 15s.
+    // Keep this server-side guard in addition to the dialog options so crafted
+    // requests cannot bypass the per-model limit.
+    if (mediaType === AIMediaType.VIDEO && options?.duration !== undefined && options?.duration !== null) {
+      const requestedDuration = Number(options.duration);
+      const canUseLongDuration =
+        (provider === 'fal' && model === (configs.fal_kling_v4_model?.trim() || FAL_KLING_V4_DEFAULT_MODEL)) ||
+        (provider === 'baidu' && model === BAIDU_SEEDANCE_MODEL);
+      if (!canUseLongDuration && Number.isFinite(requestedDuration) && requestedDuration > 15) {
+        throw new Error('This model supports video durations up to 15 seconds');
+      }
     }
 
     // check generate type
@@ -404,12 +481,17 @@ export async function POST(request: Request) {
         const isFalWanReference =
           (provider === 'fal' || provider === 'baidu') &&
           model === (configs.fal_wan_reference_model?.trim() || FAL_WAN_REFERENCE_DEFAULT_MODEL);
+        const isFalKlingV4 =
+          provider === 'fal' &&
+          model === (configs.fal_kling_v4_model?.trim() || FAL_KLING_V4_DEFAULT_MODEL);
         const isBaiduSeedance = provider === 'baidu' && model === BAIDU_SEEDANCE_MODEL;
         costCredits = isFalReference
           ? getFalReferenceVideoCost(options?.duration, configs)
-          : isFalWanReference || isBaiduSeedance
-            ? getFalWanReferenceVideoCost(options?.resolution, options?.duration, configs)
-            : 10;
+          : isFalKlingV4
+            ? getFalKlingV4VideoCost(options?.resolution, options?.duration, configs)
+            : isFalWanReference || isBaiduSeedance
+              ? getFalWanReferenceVideoCost(options?.resolution, options?.duration, configs)
+              : 10;
       } else {
         throw new Error('invalid scene');
       }

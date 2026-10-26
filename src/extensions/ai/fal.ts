@@ -375,9 +375,16 @@ export class FalProvider implements AIProvider {
   // only exist under the TOP-LEVEL app path. Deep endpoint paths (e.g.
   // fal-ai/kling-video/o3/pro/video-to-video/reference/requests/{id}/status)
   // answer 405 for GET, so the full model ID must NOT be used for polling.
+  // EXCEPTION: kling/v4/reference-to-video — its official OpenAPI documents
+  // status/result under the FULL model ID
+  // (/kling/v4/reference-to-video/requests/{id}/status), so the truncation
+  // rule does not apply there.
   private getQueryModel(model?: string): string {
     if (!model) {
       return '';
+    }
+    if (model === 'kling/v4/reference-to-video') {
+      return model;
     }
     const parts = model.split('/');
     if (parts.length <= 2) {
@@ -455,6 +462,29 @@ export class FalProvider implements AIProvider {
         ...(options.aspect_ratio ? { aspect_ratio: options.aspect_ratio } : {}),
         ...(options.resolution ? { resolution: options.resolution } : {}),
         ...(options.audio !== undefined ? { audio: !!options.audio } : {}),
+      };
+      return input;
+    }
+
+    // Kling v4 Reference-to-Video has its own schema: video_urls (array, up
+    // to 5 reference videos), image_urls (array, up to 10), integer duration
+    // 3-30, resolution 720p/1080p, aspect_ratio auto/16:9/9:16/1:1/21:9. No
+    // audio switch — audio is generated natively. Map the shared option names
+    // to this endpoint's contract and strip fields it does not accept.
+    if (model === 'kling/v4/reference-to-video') {
+      input = {
+        prompt,
+        ...(options.video_input && Array.isArray(options.video_input) && options.video_input.length
+          ? { video_urls: options.video_input.slice(0, 5) }
+          : {}),
+        ...(options.image_input && Array.isArray(options.image_input) && options.image_input.length
+          ? { image_urls: options.image_input.slice(0, 10) }
+          : {}),
+        ...(options.duration !== undefined && options.duration !== null
+          ? { duration: Number(options.duration) }
+          : {}),
+        ...(options.aspect_ratio ? { aspect_ratio: options.aspect_ratio } : {}),
+        ...(options.resolution ? { resolution: options.resolution } : {}),
       };
       return input;
     }

@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'ba-ba-ba-dance',
+    name: ['Ba Ba Ba Dance', 'Ba Ba Ba Dance'],
+    pitch: [
+      'Two photos, one duo routine — solo turns and a sync finish to the Sing remix.',
+      '两张照片跳爆火双人舞——轮流独舞，同步收尾，配《欢乐好声音》混音。',
+    ],
+    href: '/ba-ba-ba-dance-ai-template',
+    badge: 'hot',
+    vibes: ['dance', 'meme'],
+    poster: '/templates/baba-original-poster.jpg',
+    video: '/templates/baba-original.mp4',
+    credit: '@otr.j5',
+    colors: ['#d9f99d', '#3f6212'],
+  },
+  {
     id: 'tiny-desk',
     name: ['Tiny Desk Outstanding', 'Tiny Desk Outstanding'],
     pitch: [

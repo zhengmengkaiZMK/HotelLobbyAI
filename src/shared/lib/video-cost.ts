@@ -113,3 +113,31 @@ export function getFalWanReferenceVideoCost(
   const unitPrice = Number.isFinite(rateConfigured) && rateConfigured > 0 ? rateConfigured : FAL_WAN_REFERENCE_RATES[r];
   return Math.max(1, Math.ceil(unitPrice * d));
 }
+
+/**
+ * Per-second billing for the fal.ai Kling v4 Reference-to-Video model.
+ * Billed by OUTPUT seconds only — the reference video input seconds are
+ * absorbed by the admin, who prices them into the per-second rates (same
+ * convention as the Wan 3.0 Reference billing). Upstream price with a video
+ * reference is $0.094/s at 720p and $0.141/s at 1080p, billed on input plus
+ * output with a minimum of 2× the output seconds — so the effective minimum
+ * per output second is $0.188 (720p) / $0.282 (1080p). At the default
+ * 12 credits/USD rate that is 2.256 / 3.384 credits/s. There is no 480p
+ * tier on this endpoint. Admins can override via
+ * `fal_kling_v4_reference_credits_per_second_{720p|1080p}`.
+ * Durations: whole seconds 3-30 (dialog caps at 15).
+ */
+const FAL_KLING_V4_REFERENCE_RATES: Record<string, number> = { '720p': 2.256, '1080p': 3.384 };
+
+export function getFalKlingV4VideoCost(
+  resolution: string | undefined,
+  duration: number | string | undefined,
+  configs?: Record<string, unknown>
+): number {
+  const r = ['720p', '1080p'].includes(resolution || '') ? resolution! : '720p';
+  const d = Number(duration);
+  if (!Number.isInteger(d) || d < 3 || d > 30) throw new Error('Unsupported video duration');
+  const rateConfigured = Number(configs?.[`fal_kling_v4_reference_credits_per_second_${r}`]);
+  const unitPrice = Number.isFinite(rateConfigured) && rateConfigured > 0 ? rateConfigured : FAL_KLING_V4_REFERENCE_RATES[r];
+  return Math.max(1, Math.ceil(unitPrice * d));
+}

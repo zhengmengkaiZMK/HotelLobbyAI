@@ -8,11 +8,11 @@ import { Dialog, DialogContent, DialogTitle, DialogDescription } from '@/shared/
 import { Progress } from '@/shared/components/ui/progress';
 import { useAppContext } from '@/shared/contexts/app';
 import { useIsMobile } from '@/shared/hooks/use-mobile';
-import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL } from '@/shared/lib/ai-models';
+import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getFalKlingV4ReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL } from '@/shared/lib/ai-models';
 import { track } from '@/shared/lib/analytics';
 import { TemplateDef } from './templates';
 import { StarterPackDialog } from './starter-pack-dialog';
-import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost } from '@/shared/lib/video-cost';
+import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost, getFalKlingV4VideoCost } from '@/shared/lib/video-cost';
 
 const defaults = [
   { value: 'google/veo-3.1', label: 'Veo 3.1 · Replicate', provider: 'replicate' },
@@ -48,6 +48,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const falRefList = falRefModel ? [falRefModel] : [];
   const falWanModel = getFalWanReferenceModel(configs);
   const falWanList = falWanModel ? [falWanModel] : [];
+  const falV4Model = getFalKlingV4ReferenceModel(configs);
+  const falV4List = falV4Model ? [falV4Model] : [];
   const baiduSeedanceModel = getBaiduSeedanceModel(configs);
   const baiduSeedanceList = baiduSeedanceModel ? [baiduSeedanceModel] : [];
   const relayList = configs.media_relay_enabled === 'true' ? relay : [];
@@ -63,7 +65,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     try { const v = JSON.parse(raw); return Array.isArray(v) ? v.filter((x: unknown) => typeof x === 'string') : []; } catch { return []; }
   })();
   const familyDefaultModel = (configs[`viral_family_default_model_${family}`] as string | undefined)?.trim() || '';
-  const models = relayList.length || taskRelayList.length || falRefList.length || falWanList.length || baiduSeedanceList.length ? [...relayList, ...taskRelayList, ...falRefList, ...falWanList, ...baiduSeedanceList] : defaults;
+  const models = relayList.length || taskRelayList.length || falRefList.length || falWanList.length || falV4List.length || baiduSeedanceList.length ? [...relayList, ...taskRelayList, ...falRefList, ...falWanList, ...falV4List, ...baiduSeedanceList] : defaults;
   // family gating: only admin-checked models are selectable for this family;
   // if the checked list no longer intersects the connected models (e.g. a
   // relay source was disabled after checking), fall back to the full list so
@@ -85,6 +87,8 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   // fal / baidu Wan 3.0 Reference: same family behavior, plus resolution tiers.
   // Upstream allows 2-30s; the dialog hides 20s and 30s until we turn them back on.
   const isFalWan = ['fal', 'baidu'].includes(model?.provider || '') && !!falWanModel && model.value === falWanModel.value;
+  // fal Kling v4 Reference: fal channel only, 720p/1080p tiers, 3-30s, no audio switch — audio is generated natively
+  const isFalV4 = model?.provider === 'fal' && !!falV4Model && model.value === falV4Model.value;
   // baidu Seedance 2.5: net-new model, same dialog behavior as the Wan reference
   const isBaiduSeedance = model?.provider === 'baidu' && model.value === BAIDU_SEEDANCE_MODEL;
   // gemini-omni-1.1-flash: 3-10s, 360p/720p/1080p, reference clips capped at 10s
@@ -92,7 +96,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   // Kling reference: output resolution follows the reference video — show only 720p
   const resolutionOptions = isFalRef
     ? ['720p']
-    : isFalWan || isBaiduSeedance
+    : isFalV4
+      ? ['720p', '1080p']
+      : isFalWan || isBaiduSeedance
       ? ['480p', '720p', '1080p']
       : !isTaskRelay
         ? ['480p', '720p', '1080p']
@@ -101,10 +107,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
           : model!.value.toLowerCase() === 'minimax-h3' ? ['768P', '2K'] : ['720p'];
   const durationOptions = family === 'cat_clapping'
     ? [4, 6]
-    : (isFalRef ? [3, 5, 8, 10, 12, 15] : isFalWan || isBaiduSeedance ? [5, 10, 15, 20, 30] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]).filter((seconds) => seconds <= 15);
-  // Omni only supports 16:9 / 9:16 / auto; Kling reference adds auto + 1:1;
+    : isFalV4 || isBaiduSeedance
+      ? [5, 10, 15, 20, 30]
+      : isFalWan ? [5, 10, 15] : isFalRef ? [3, 5, 8, 10, 12, 15] : isOmni ? [4, 6, 8, 10] : [8, 12, 15];
+  // Omni only supports 16:9 / 9:16 / auto; Kling reference + v4 add auto + 1:1;
   // Wan reference / Seedance use "adaptive" (shown as auto) + fixed ratios
-  const ratioOptions = isFalWan || isBaiduSeedance ? ['adaptive', '16:9', '9:16', '1:1'] : isFalRef ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
+  const ratioOptions = isFalWan || isBaiduSeedance ? ['adaptive', '16:9', '9:16', '1:1'] : isFalRef || isFalV4 ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
   const defaultKeepAudio = configs.fal_kling_reference_keep_audio !== 'false';
   const [keepAudio, setKeepAudio] = useState(defaultKeepAudio);
   // family-level admin config: all templates of a family share one prompt and
@@ -164,7 +172,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, embedded, template.id]);
   const prompt = allowPromptEdit && promptDraft.trim() ? promptDraft.trim() : effectivePrompt;
-  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding'].includes(family) ? '9:16' : '16:9');
+  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'baba_dance'].includes(family) ? '9:16' : '16:9');
   const [resolution, setResolution] = useState('720p');
   const [duration, setDuration] = useState(family === 'cat_clapping' ? 4 : 8);
   // transient-safe values: while switching models the state may briefly hold the
@@ -199,7 +207,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const costTier = activeResolution === '768P' ? '720p' : activeResolution === '2K' ? '1080p' : activeResolution;
   const costCredits = isFalRef
     ? getFalReferenceVideoCost(activeDuration, configs)
-    : isFalWan || isBaiduSeedance
+    : isFalV4
+      ? getFalKlingV4VideoCost(activeResolution, activeDuration, configs)
+      : isFalWan || isBaiduSeedance
       ? getFalWanReferenceVideoCost(activeResolution, activeDuration, configs)
       : isOmni
         ? getOmniVideoCost(activeResolution, activeDuration, configs)
@@ -352,7 +362,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     // 2b) reference models (Kling / Wan / Baidu Seedance): the family's
     // admin-configured reference video is required — never fall back to a
     // built-in clip silently
-    if ((isFalRef || isFalWan || isBaiduSeedance) && !familyRefVideo) {
+    if ((isFalRef || isFalWan || isFalV4 || isBaiduSeedance) && !familyRefVideo) {
       setError(text('This template has no reference video configured yet. Please try again later.', '该模板尚未配置参考视频，请稍后再试。'));
       return;
     }
@@ -393,14 +403,14 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   // (prompt, reference video/audio, flags) is byte-identical to the request.
   function buildPayload(resolved: string[]) {
     if (!model) return null;
-    const videoInput = isFalRef || isFalWan || isBaiduSeedance
+    const videoInput = isFalRef || isFalWan || isFalV4 || isBaiduSeedance
       ? [familyRefVideo]
       : isTaskRelay && !isOmni && familyRefVideo
         ? [familyRefVideo]
         : [];
     const isMinimax = isTaskRelay && model.value === 'MiniMax-H3';
     const audioRef = isMinimax && configs.minimax_h3_reference_audio_enabled !== 'false' ? familyRefAudio : '';
-    const scene = isFalRef || isFalWan || isBaiduSeedance ? 'video-to-video' : 'image-to-video';
+    const scene = isFalRef || isFalWan || isFalV4 || isBaiduSeedance ? 'video-to-video' : 'image-to-video';
     // Wan 3.0 audio: when the admin switch forbids generated audio and the
     // family has no reference audio, the audio flag is forced off.
     const wanAudioOn = familyRefAudio ? keepAudio : wanAllowGenerated && keepAudio;
@@ -408,7 +418,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, keep_audio: keepAudio }
       : isFalWan
         ? { image_input: resolved, video_input: videoInput, ...(familyRefAudio ? { audio_input: [familyRefAudio] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution, audio: wanAudioOn }
-        : isBaiduSeedance
+        : isFalV4
+          ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution }
+          : isBaiduSeedance
           ? { image_input: resolved, video_input: videoInput, duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution }
           : { image_input: resolved, ...(videoInput.length ? { video_input: videoInput } : {}), ...(audioRef ? { audio_input: [audioRef] } : {}), duration: activeDuration, aspect_ratio: activeRatio, resolution: activeResolution };
     return { mediaType: 'video', scene, provider: model.provider, model: model.value, prompt, options, family };
@@ -430,7 +442,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   };
   const panel = <div className="gen-modal">
     <div className="gen-left">{embedded ? <h2>{template.name[zh ? 1 : 0]}</h2> : <DialogTitle>{template.name[zh ? 1 : 0]}</DialogTitle>}<div className="gp-video">{result ? <video ref={resultRef} src={result} controls autoPlay playsInline /> : previewVideo ? <video ref={previewRef} src={previewVideo} muted={previewMuted} loop autoPlay playsInline preload="metadata" style={{ background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }}/> : <div className="gp-placeholder" style={{ width: '100%', height: '100%', minHeight: 380, display: 'grid', placeItems: 'center', background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }} role="img" aria-label={text('Preview media not available yet', '预览媒体暂未提供')}><span style={{ color: '#fff', background: '#0008', padding: '8px 14px', borderRadius: 8 }}>{text('Preview coming soon', '预览即将提供')}</span></div>}{!result && <><span className="gp-badge">{previewVideo ? text('TEMPLATE PREVIEW', '模板示意') : text('PREVIEW COMING SOON', '预览待上线')}</span>{previewVideo && <span className="gp-sound" role="button" tabIndex={0} aria-label={previewMuted ? text('Unmute video', '开启声音') : text('Mute video', '关闭声音')} onClick={togglePreviewSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') togglePreviewSound(); }}>{previewMuted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span>}</>}</div>{result && <div className="result-actions"><button className="btn btn-primary" disabled={downloading} onClick={download}><Download size={16}/>{text('Download', '下载视频')}</button></div>}</div>
-    <div className="gen-right"><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{Array.from({ length: maxSlots }).map((_, index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index > 0 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><span className="up-txt"><b>{single ? text('Reference image', '参考图片') : maxSlots === 1 ? text(family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? 'Your photo' : family === 'cat_clapping' ? 'Your cat' : 'Main dancer photo', family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? '你的照片' : family === 'cat_clapping' ? '你的猫' : '领舞主角照片') : family === 'cat_clapping' ? text(index === 0 ? 'Your photo' : 'Your cat', index === 0 ? '你的照片' : '你的猫') : family === 'tiny_desk_outstanding' ? text(['Center Lead', 'Left Role', 'Right Role'][index] ?? `Performer ${index + 1}`, ['中间主角', '左边角色', '右边角色'][index] ?? `主角 ${index + 1}`) : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></span></label>)}</div>
+    <div className="gen-right"><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{Array.from({ length: maxSlots }).map((_, index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index > 0 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><span className="up-txt"><b>{single ? text('Reference image', '参考图片') : maxSlots === 1 ? text(family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? 'Your photo' : family === 'cat_clapping' ? 'Your cat' : 'Main dancer photo', family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? '你的照片' : family === 'cat_clapping' ? '你的猫' : '领舞主角照片') : family === 'cat_clapping' ? text(index === 0 ? 'Your photo' : 'Your cat', index === 0 ? '你的照片' : '你的猫') : family === 'tiny_desk_outstanding' ? text(['Center Lead', 'Left Role', 'Right Role'][index] ?? `Performer ${index + 1}`, ['中间主角', '左边角色', '右边角色'][index] ?? `主角 ${index + 1}`) : family === 'baba_dance' ? text(['Left Dancer', 'Right Dancer'][index] ?? `Dancer ${index + 1}`, ['左舞者', '右舞者'][index] ?? `舞者 ${index + 1}`) : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></span></label>)}</div>
     {allowPromptEdit && <div className="prompt-edit"><p className="g-label">{text('Prompt', '文字提示词')}</p><textarea className="prompt-input" rows={4} value={promptDraft} onChange={(e) => setPromptDraft(e.target.value)} placeholder={text('Describe the scene or how to cast your photo — the template prompt is pre-filled.', '描述场景或如何使用你的照片——已预填模板提示词。')}/><p className="notice">{text('The template prompt is pre-filled. Add casting notes like "put my dad in the suit as the main dancer".', '已预填模板提示词，可追加说明，例如"把照片里的爸爸换成领舞者、穿上西装"。')}</p></div>}
     {(family !== 'tiny_desk_outstanding' && (isFalRef || (isFalWan && (familyRefAudio || wanAllowGenerated)))) && <div className="param-row"><div className="seg" aria-label={text('Audio', '音频')}><button type="button" aria-pressed={keepAudio} className={keepAudio ? 'sel' : ''} onClick={() => setKeepAudio((v) => !v)}>{keepAudio ? (isFalWan ? (familyRefAudio ? text('Use reference audio', '使用参考音频') : text('Generate audio', '生成音频')) : text('Keep original audio', '保留参考视频原声')) : text('No audio', '不带原声')}</button></div></div>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v === 'adaptive' ? text('auto', '自动') : v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => { const hdLocked = isHdTier(v) && !hdAllowed; const modelLocked = !isTaskRelay && v === '1080p' && unsupported1080; return <button key={v} disabled={hdLocked || modelLocked} title={hdLocked ? text('1080p is available on the Popular plan and above', '1080p 为 Popular 及以上方案权益') : modelLocked ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>; })}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>

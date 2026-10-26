@@ -124,6 +124,29 @@ export function getFalWanReferenceModel(configs: Record<string, string>) {
   };
 }
 
+export const FAL_KLING_V4_DEFAULT_MODEL = 'kling/v4/reference-to-video';
+
+/**
+ * fal.ai Kling v4 Reference-to-Video model, gated by its admin switch. fal
+ * channel only (no Baidu reroute). Template reference video + user photos,
+ * billed per output second by resolution tier (720p/1080p — no 480p tier).
+ * Upstream accepts 3-30s output, up to 10 reference images and up to 5
+ * reference videos; the dialog keeps the family cap at 15s and sends one
+ * motion video, same as the Kling O3 / Wan reference flows. Audio is
+ * generated natively by the model — the schema has no audio switch, so the
+ * dialog hides the audio toggle for this model.
+ */
+export function getFalKlingV4ReferenceModel(configs: Record<string, string>) {
+  if (configs.fal_kling_v4_enabled !== 'true') return null;
+  const value = configs.fal_kling_v4_model?.trim() || FAL_KLING_V4_DEFAULT_MODEL;
+  return {
+    value,
+    label: configs.fal_kling_v4_title?.trim() || 'Kling v4 Reference',
+    provider: 'fal',
+    scenes: ['video-to-video'],
+  };
+}
+
 export const BAIDU_SEEDANCE_MODEL = 'seedance-2.5';
 
 /**

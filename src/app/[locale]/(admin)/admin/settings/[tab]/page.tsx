@@ -3,7 +3,7 @@ import { getTranslations, setRequestLocale } from 'next-intl/server';
 import { PERMISSIONS, requireAllPermissions } from '@/core/rbac';
 import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { FormCard } from '@/shared/blocks/form';
-import { getChatModels, parseModelList, getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getBaiduSeedanceModel } from '@/shared/lib/ai-models';
+import { getChatModels, parseModelList, getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getFalKlingV4ReferenceModel, getBaiduSeedanceModel } from '@/shared/lib/ai-models';
 import { getConfigsFresh, saveConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 import {
@@ -42,12 +42,14 @@ export default async function SettingsPage({
   // → Baidu Seedance)
   const falRefOption = getFalReferenceModel(configs);
   const falWanOption = getFalWanReferenceModel(configs);
+  const falV4Option = getFalKlingV4ReferenceModel(configs);
   const baiduSeedanceOption = getBaiduSeedanceModel(configs);
   const videoModelOptions = [
     ...getRelayModels(configs, 'video'),
     ...getTaskRelayModels(configs, 'video'),
     ...(falRefOption ? [falRefOption] : []),
     ...(falWanOption ? [falWanOption] : []),
+    ...(falV4Option ? [falV4Option] : []),
     ...(baiduSeedanceOption ? [baiduSeedanceOption] : []),
   ].map((m) => ({ title: m.label, value: m.value }));
   const familyModelSettingNames = new Set([
@@ -61,6 +63,7 @@ export default async function SettingsPage({
     'viral_family_models_bby_wow',
     'viral_family_models_window_peeper',
     'viral_family_models_tiny_desk_outstanding',
+    'viral_family_models_baba_dance',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
@@ -71,6 +74,7 @@ export default async function SettingsPage({
     'viral_family_default_model_bby_wow',
     'viral_family_default_model_window_peeper',
     'viral_family_default_model_tiny_desk_outstanding',
+    'viral_family_default_model_baba_dance',
   ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {
