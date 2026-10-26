@@ -1,3 +1,4 @@
+import { BABA_HOW_TO_STEPS } from '@/shared/blocks/baba-dance/steps';
 import { BBY_HOW_TO_STEPS } from '@/shared/blocks/bby-wow/steps';
 import { BULIN_HOW_TO_STEPS } from '@/shared/blocks/bulin-47/steps';
 import { HIT_THE_ROAD_HOW_TO_STEPS } from '@/shared/blocks/hit-the-road-dude/steps';
@@ -100,6 +101,10 @@ const HOW_TO_STEP_SOURCES: Record<
       text: 'Keep 9:16, read the credit cost, and download the MP4 from the Tiny Desk Outstanding template. Add the trend sound in TikTok, Reels, or Shorts. ViralReel does not license or export the Gap Band track.',
     },
   ],
+  'how-to-make-ba-ba-ba-dance-ai-video': BABA_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
   'how-to-make-bby-wow-ai-dance-video': BBY_HOW_TO_STEPS.map((step) => ({
     name: step.name.en,
     text: step.text.en,

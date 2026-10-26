@@ -16,6 +16,7 @@ export const BABA_FAQ = {
     ['Is the ba ba ba dance AI video the original TikTok?', 'No. It is a new MP4 generated from your photos: your people perform the routine in the take you picked. ViralReel does not reupload the original TikToks, and it does not license the song or the creators\' audio — add the trend sound inside TikTok, Reels, or Shorts and label the post as AI-generated.'],
     ['What aspect ratio should a ba ba ba dance AI video use?', '9:16, like the viral versions. The originals were built for TikTok, Instagram Reels and YouTube Shorts, and the ViralReel Ba Ba Ba Dance page opens on 9:16. 16:9 and 1:1 are available if you need another shape.'],
     ['How much does a ba ba ba dance AI video cost on ViralReel?', babaCost.en],
+    ['Where is the full ba ba ba dance how-to?', 'The step-by-step — Left Dancer, Right Dancer, pick a take, generate, add the trend sound, label it AI — is at https://www.viralreel.app/blog/how-to-make-ba-ba-ba-dance-ai-video. What the October 2026 trend is, including the @otr.j5 library origin, is at https://www.viralreel.app/blog/ba-ba-ba-dance-trend.'],
   ],
   zh: [
     ['ba ba ba dance 是什么？', '它是 2026 年 10 月的 TikTok 双人舞热梗：两位舞者并排站在镜头前，一人先跳一段独舞、另一人在旁边围观起哄，然后互换，最后两人同步收尾。配乐是《Don\'t You Worry \'Bout a Thing》的混音——电影《欢乐好声音》（Sing）里 Tori Kelly 演唱的 Meena 版本——大家跟着口型的“ba ba ba”副歌就是梗名的由来。'],
@@ -28,5 +29,6 @@ export const BABA_FAQ = {
     ['ba ba ba dance AI 视频是原片吗？', '不是。它是用你的照片新生成的 MP4：你的人在你选的场景里跳这段舞。ViralReel 不转载原始 TikTok，也不授权歌曲和创作者音频——请在 TikTok、Reels 或 Shorts 里加热梗原声，并打开 AI 生成标注。'],
     ['ba ba ba dance AI 视频用什么画幅？', '9:16，和爆火版本一致。原片就是为 TikTok、Instagram Reels 和 YouTube Shorts 准备的竖屏，ViralReel 的 Ba Ba Ba Dance 页面默认 9:16。需要别的形状时也可以改 16:9 或 1:1。'],
     ['在 ViralReel 做一条 ba ba ba dance AI 视频要多少钱？', babaCost.zh],
+    ['完整的 ba ba ba dance 教程在哪？', '逐步做法——左舞者、右舞者、选一套场景、生成、加热梗原声、标注 AI——在 https://www.viralreel.app/zh/blog/how-to-make-ba-ba-ba-dance-ai-video 。2026 年 10 月这条趋势是什么，包括图书馆原版来源 @otr.j5，在 https://www.viralreel.app/zh/blog/ba-ba-ba-dance-trend 。'],
   ],
 } as const;
