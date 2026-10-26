@@ -18,7 +18,12 @@ import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
 import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
 
-const POPULAR_PRODUCT_ID = 'credits-once-popular';
+type PackId = 'popular' | 'starter';
+
+const PACK_PRODUCT_IDS: Record<PackId, string> = {
+  popular: 'credits-once-popular',
+  starter: 'credits-once-starter',
+};
 
 export function StarterPackDialog({
   open,
@@ -36,12 +41,33 @@ export function StarterPackDialog({
   const t = (en: string, cn: string) => (zh ? cn : en);
   const { user, configs, setIsShowSignModal } = useAppContext();
   const [loading, setLoading] = useState(false);
-  const price =
-    configs.pricing_plan_credits_once_popular_price ||
-    CANONICAL_PRICING.packPopularPrice;
-  const credits =
-    Number(configs.pricing_plan_credits_once_popular_credits) ||
-    CANONICAL_PRICING.packPopularCredits;
+  // default selection: Popular ($19.9, unlocks 720p/1080p)
+  const [selected, setSelected] = useState<PackId>('popular');
+  const packs: Record<
+    PackId,
+    { name: string; price: string; credits: number; note: string }
+  > = {
+    popular: {
+      name: 'Popular',
+      price:
+        configs.pricing_plan_credits_once_popular_price ||
+        CANONICAL_PRICING.packPopularPrice,
+      credits:
+        Number(configs.pricing_plan_credits_once_popular_credits) ||
+        CANONICAL_PRICING.packPopularCredits,
+      note: t('Supports 720p & 1080p video generation', '支持生成 720p、1080p 视频'),
+    },
+    starter: {
+      name: 'Starter',
+      price:
+        configs.pricing_plan_credits_once_starter_price ||
+        CANONICAL_PRICING.packStarterPrice,
+      credits:
+        Number(configs.pricing_plan_credits_once_starter_credits) ||
+        CANONICAL_PRICING.packStarterCredits,
+      note: t('Only supports 480p & 720p video generation', '仅支持生成 480p、720p 视频'),
+    },
+  };
 
   async function buy() {
     if (!user) {
@@ -65,7 +91,7 @@ export function StarterPackDialog({
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
-          product_id: POPULAR_PRODUCT_ID,
+          product_id: PACK_PRODUCT_IDS[selected],
           currency: 'USD',
           locale,
           payment_provider: configs.default_payment_provider || 'stripe',
@@ -95,27 +121,64 @@ export function StarterPackDialog({
           </DrawerTitle>
           <DrawerDescription>
             {t(
-              `This video needs ${costCredits} credits. Your balance is ${balance}. Buy the Popular pack to continue on this page.`,
-              `本次生成需要 ${costCredits} 积分，当前余额 ${balance}。购买 Popular 积分包后会回到本页继续。`
+              `This video needs ${costCredits} credits. Your balance is ${balance}. Pick a credit pack — you will return to this page after checkout.`,
+              `本次生成需要 ${costCredits} 积分，当前余额 ${balance}。选择一个积分包，支付后会回到本页继续。`
             )}
           </DrawerDescription>
         </DrawerHeader>
-        <div className="px-4">
-          <div className="rounded-xl border border-orange-200 bg-white p-4">
-            <p className="text-sm font-semibold">Popular</p>
-            <p className="mt-1 text-2xl font-semibold tracking-tight">
-              {price}
-              <span className="ml-1 text-sm font-normal text-zinc-500">
-                {t('once', '一次性')}
-              </span>
-            </p>
-            <p className="mt-2 text-sm text-zinc-600">
-              {t(`${credits} credits · never expire`, `${credits} 积分 · 永不过期`)}
-            </p>
-            <p className="mt-1 text-sm text-zinc-600">
-              {t('Supports 720p & 1080p video generation', '支持生成 720p、1080p 视频')}
-            </p>
-          </div>
+        <div className="space-y-2 px-4" role="radiogroup" aria-label={t('Credit packs', '积分包')}>
+          {(Object.keys(packs) as PackId[]).map((id) => {
+            const pack = packs[id];
+            const isSelected = selected === id;
+            return (
+              <button
+                key={id}
+                type="button"
+                role="radio"
+                aria-checked={isSelected}
+                disabled={loading}
+                onClick={() => setSelected(id)}
+                className={`flex w-full items-center justify-between gap-3 rounded-xl border p-4 text-left transition-colors ${
+                  isSelected
+                    ? 'border-orange-500 bg-orange-50'
+                    : 'border-zinc-200 bg-white hover:border-zinc-300'
+                }`}
+              >
+                <span>
+                  <span className="flex items-center gap-2">
+                    <span className="text-sm font-semibold">{pack.name}</span>
+                    {id === 'popular' && (
+                      <span className="rounded-full bg-orange-100 px-2 py-0.5 text-xs font-medium text-orange-700">
+                        {t('HD', '高清')}
+                      </span>
+                    )}
+                  </span>
+                  <span className="mt-0.5 block text-2xl font-semibold tracking-tight">
+                    {pack.price}
+                    <span className="ml-1 text-sm font-normal text-zinc-500">
+                      {t('once', '一次性')}
+                    </span>
+                  </span>
+                  <span className="mt-1 block text-sm text-zinc-600">
+                    {t(`${pack.credits} credits · never expire`, `${pack.credits} 积分 · 永不过期`)}
+                  </span>
+                  <span className="mt-0.5 block text-sm text-zinc-600">{pack.note}</span>
+                </span>
+                <span
+                  aria-hidden="true"
+                  className={`flex size-5 flex-none items-center justify-center rounded-full border-2 ${
+                    isSelected ? 'border-orange-500' : 'border-zinc-300'
+                  }`}
+                >
+                  <span
+                    className={`size-2.5 rounded-full ${
+                      isSelected ? 'bg-orange-500' : 'bg-transparent'
+                    }`}
+                  />
+                </span>
+              </button>
+            );
+          })}
         </div>
         <DrawerFooter className="pt-4">
           <Button
@@ -125,7 +188,10 @@ export function StarterPackDialog({
           >
             {loading
               ? t('Redirecting to checkout…', '正在前往支付…')
-              : t('Buy credits', '购买积分')}
+              : t(
+                  `Buy ${packs[selected].name} — ${packs[selected].price}`,
+                  `购买 ${packs[selected].name}（${packs[selected].price}）`
+                )}
           </Button>
           <DrawerClose asChild>
             <Button variant="outline">{t('Not now', '稍后再说')}</Button>
