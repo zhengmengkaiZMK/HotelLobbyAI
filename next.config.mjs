@@ -1,4 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer';
+import path from 'node:path';
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 import { createMDX } from 'fumadocs-mdx/next';
 import createNextIntlPlugin from 'next-intl/plugin';
@@ -22,6 +23,45 @@ const nextConfig = {
   // when they expose a "workerd" export condition. `@libsql/client` does, and without
   // this the OpenNext bundler can fail to resolve it.
   serverExternalPackages: ['@libsql/client', '@libsql/isomorphic-ws'],
+  // Alias the `shiki` main entry to a slim bundle: the full package registers
+  // ~200 TextMate grammars + oniguruma wasm, which the OpenNext bundler inlines
+  // into handler.mjs and pushed the worker past Cloudflare's 63.9 MiB limit
+  // (error 10027). The shim keeps the same public API with a small allow-list.
+  // The exact-match `$` aliases leave subpaths (shiki/core, shiki/langs/*)
+  // pointing at the real package, which the shim itself imports.
+  webpack: (config) => {
+    config.resolve.alias = {
+      ...config.resolve.alias,
+      shiki$: path.resolve('./src/shared/lib/shiki-slim.ts'),
+      'shiki/engine/oniguruma$': path.resolve(
+        './src/shared/lib/shiki-oniguruma-stub.ts'
+      ),
+      'shiki/wasm$': path.resolve('./src/shared/lib/shiki-wasm-stub.ts'),
+    };
+    // Next externalizes `import("shiki")` (it appears verbatim as
+    // `a.exports = import("shiki")` in the server chunks), and webpack
+    // externals take precedence over resolve.alias — so the alias above only
+    // works once shiki requests are removed from the externals list.
+    const skipExternal = (request) =>
+      typeof request === 'string' && request.startsWith('shiki');
+    const externals = config.externals;
+    if (Array.isArray(externals)) {
+      config.externals = externals.map((external) => {
+        if (typeof external !== 'function') return external;
+        return (context, callback) => {
+          if (skipExternal(context.request)) return callback();
+          return external(context, callback);
+        };
+      });
+    } else if (typeof externals === 'function') {
+      const original = externals;
+      config.externals = (context, callback) => {
+        if (skipExternal(context.request)) return callback();
+        return original(context, callback);
+      };
+    }
+    return config;
+  },
   images: {
     imageSizes: [16, 32, 48, 64, 96, 128, 256, 384],
     deviceSizes: [640, 750, 828, 1080, 1200, 1920, 2048, 3840],
