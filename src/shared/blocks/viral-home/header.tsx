@@ -145,7 +145,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                 <Menu size={20} />
               </summary>
               <nav>
-                <details className="mobile-sub">
+                <details className="mobile-sub" open>
                   <summary>
                     <Flame size={15} aria-hidden="true" />
                     {t('Trending', '热门')}
