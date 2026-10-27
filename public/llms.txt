@@ -11,6 +11,8 @@ Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "
 - Product: AI video template generator, web-based, no app install required
 - Signature format: Hotel Lobby AI template (orange booth, two-performer duet); also the Burning Bridges template (chandelier party format), the Bulin 47 template (red-lit street freestyle, one photo), the Ozil Goal template (chip over a diving keeper, two missed slides, empty net, one photo, vertical 9:16, up to 15 seconds), the Cat Clapping template (a cat sits up, claps, and brings a paw to its mouth, person photo plus cat photo, vertical 9:16, 4 or 6 seconds), and the Tiny Desk Outstanding template (fan parody of Charlie Wilson’s NPR Tiny Desk performance of the Gap Band song “Outstanding”; six sets — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, Uncle Charlie; three photo slots labeled Center Lead, Left Role, and Right Role, not labeled sax, and the render does not promise which photo holds the saxophone; vertical 9:16; credit cost shown before generate). ViralReel is not affiliated with NPR, NPR Music, Tiny Desk Concerts, Charlie Wilson, or the Gap Band, and it does not license or export “Outstanding.” Add the trend sound on TikTok, Reels, or Shorts and label the post as AI. The Ba Ba Ba Dance template (October 2026 TikTok duo-dance trend: two dancers side by side, a solo stretch each, a sync finish; sound is the "Don't You Worry 'Bout a Thing" remix — Tori Kelly's Meena version from Sing; six takes — Library Original, Night Lot Duo, Stairwell Tag, Dad & Daughter, Classroom Cadets, Sibling Lesson; Library Original credits @otr.j5; two photo slots labeled Left Dancer and Right Dancer; full-body front-facing photos track the choreography best) works the same way; ViralReel is not affiliated with TikTok or the trend's original creators, does not host the original TikToks, and does not license or export the song. Add the trend sound on TikTok, Reels, or Shorts and label the post as AI.
 - Bby Wow / Dime Dime Baby: the October 2026 bread-bite party remake. “Dime dime baby” is a sound alias for “BbY WOW” (KAROL G, Judeline, rusowsky) and the nickname on @bigbowee’s dance TikTok. It is not a second ViralReel product. The template remakes the older party exit — walk in, bite a sweet bread, stare, dance away — from one photo. Outfits: Suit Original, White Tee, Staff Polo. Default 9:16. ViralReel does not host the original TikTok or the party clip, is not affiliated with the artists or the original creators, and does not license or export the song. Add the trend sound on TikTok, Reels, or Shorts and label the post as AI. No minors or celebrities.
+- Wassup in a Minute: late-October 2026 sway edit. One to four photos become original streetwear anime characters on a white background (Money Fan, Puffer Classic, All Black, Jersey Look, Heavyweight), 9:16, 15 seconds. Atlanta Lock is the fan nickname for that streetwear look. ViralReel does not draw Blue Lock or any other show characters, is not affiliated with the trend originators, and does not license the jersey-club remix of Drake’s “From Time” (“wassup, been a minute,” also misheard as “wassup in a minute,” “wassup wait a minute,” or “wasala”). Add the trend sound on TikTok, Reels, or Shorts and label the post as AI. No minors or celebrities.
+- Hit the Road Dude: fictional white-pickup roadside remake from one photo. State Property, Driver Reaction, and Private Property are three takes of the same exchange. Private Property and Lock ’Em Up are other names for that clip, not separate products. Default 9:16. Know Your Meme records the original TikTok as an August 21, 2025 upload by @bird28thegr8. ViralReel does not host that file, is not an official meme page, and does not license the original audio or “Hit the Road Jack.” Add the trend sound on TikTok, Reels, or Shorts and label the post as AI. No minors, celebrities, or public figures. A pet photo can be tried; results vary by model.
 - Template variants: Classic, Pet, Pet & Owner, Anime, Star, Cinematic, Girls, Bros
 - Output: 9:16 vertical video with auto lip sync, ~60 second render
 - Pricing (monthly): Starter $9.9/month (90 credits), Plus $19.9/month (200 credits), Pro $39.9/month (500 credits). Yearly billing is 20% cheaper: Starter $94.9/year (1,080 credits), Plus $189/year (2,400 credits), Pro $379/year (6,000 credits).
@@ -95,6 +97,69 @@ Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "
 - [Dime dime baby without CapCut](https://www.viralreel.app/dime-dime-baby-without-capcut): make the party MP4 in the browser without opening CapCut.
 - [Bby Wow AI generator](https://www.viralreel.app/bby-wow-ai-generator): fixed party template, not a blank prompt box. Same tool as the dime dime baby generator.
 - [Bby Wow from a photo](https://www.viralreel.app/bby-wow-from-photo): one photo you have permission to use. No minors, celebrities, or screenshots of the original guest.
+- [Wassup in a Minute AI template](https://www.viralreel.app/wassup-in-a-minute-ai-template): one to four photos, five outfits, white-background sway, 9:16, 15 seconds. Not Blue Lock characters. No song license.
+- [What is wassup in a minute](https://www.viralreel.app/blog/what-is-wassup-in-a-minute): the late-October 2026 sway, the lyric mishearing, and what ViralReel actually generates.
+- [How to make a Wassup in a Minute AI video](https://www.viralreel.app/blog/how-to-make-wassup-in-a-minute-ai-video): photos, outfits, 15 seconds, download the MP4, add the trend sound, label the post as AI.
+- [The song and the Atlanta Lock style](https://www.viralreel.app/blog/wassup-in-a-minute-song-and-atlanta-lock): “From Time” jersey-club remix versus the streetwear drawing nickname. No Blue Lock cast. No audio export.
+- [Wassup in a Minute AI](https://www.viralreel.app/wassup-in-a-minute-ai): the AI version is a new sway of your people, not the original TikTok.
+- [Wassup in a Minute AI video](https://www.viralreel.app/wassup-in-a-minute-ai-video): the download is a new 9:16 MP4, not the song.
+- [Wassup in a Minute template](https://www.viralreel.app/wassup-in-a-minute-template): Money Fan, Puffer Classic, All Black, Jersey Look, Heavyweight.
+- [Wassup in a Minute generator](https://www.viralreel.app/wassup-in-a-minute-generator): browser template, no prompt, one to four photos.
+- [Wassup in a Minute AI generator](https://www.viralreel.app/wassup-in-a-minute-ai-generator): photo-to-scene render inside the sway template, not a blank prompt box.
+- [Make a Wassup in a Minute AI video](https://www.viralreel.app/make-wassup-in-a-minute-ai): upload, pick an outfit, read the credits, download the MP4.
+- [Create a Wassup in a Minute AI clip](https://www.viralreel.app/create-wassup-in-a-minute-ai): a new file. This does not hand over the viral edit.
+- [Wassup in a Minute from a photo](https://www.viralreel.app/wassup-in-a-minute-from-photo): one to four photos you have permission to use. No minors, celebrities, or show screenshots.
+- [Wassup in a Minute online](https://www.viralreel.app/wassup-in-a-minute-online): the browser template. No app install.
+- [Wassup in a Minute CapCut](https://www.viralreel.app/wassup-in-a-minute-capcut): in-app CapCut paste versus the ViralReel browser MP4. ViralReel does not host a CapCut project.
+- [Wassup in a Minute without CapCut](https://www.viralreel.app/wassup-in-a-minute-without-capcut): make the sway in the browser without opening CapCut.
+- [Wassup in a Minute meme](https://www.viralreel.app/wassup-in-a-minute-meme): the format, not a reupload of the original edit.
+- [Wassup in a Minute TikTok](https://www.viralreel.app/wassup-in-a-minute-tiktok): post a new MP4, add TikTok’s sound, turn on the AI label.
+- [Wassup in a Minute on Instagram](https://www.viralreel.app/wassup-in-a-minute-instagram): upload the MP4 as a Reel. Add Instagram’s library sound.
+- [Wassup in a Minute YouTube Shorts](https://www.viralreel.app/wassup-in-a-minute-youtube-shorts): upload the 9:16 MP4 as a Short and disclose AI where YouTube asks.
+- [Wassup in a Minute MP4](https://www.viralreel.app/wassup-in-a-minute-mp4): a new 15-second 9:16 file. Not a GIF and not a separate audio file. Paid exports have no ViralReel watermark.
+- [Wassup in a Minute song](https://www.viralreel.app/wassup-in-a-minute-song): jersey-club remix of “From Time.” ViralReel does not license or export it.
+- [Wassup in a Minute original](https://www.viralreel.app/wassup-in-a-minute-original): the viral edit stays on TikTok. ViralReel makes a new animation.
+- [Wassup been a minute](https://www.viralreel.app/wassup-been-a-minute): the lyric. “Wassup in a minute” is the common mishearing.
+- [Been a minute](https://www.viralreel.app/been-a-minute): same lyric, shorter query. Not a second song.
+- [Wassup wait a minute](https://www.viralreel.app/wassup-wait-a-minute): another mishearing of the same hook.
+- [Wasala](https://www.viralreel.app/wasala): another mishearing of “wassup.” Same sway. No audio download.
+- [Atlanta Lock](https://www.viralreel.app/atlanta-lock): the streetwear drawing nickname. Not a character roster.
+- [Atlanta Lock AI](https://www.viralreel.app/atlanta-lock-ai): original streetwear characters from your photos. Not Blue Lock.
+- [Wassup in a Minute and Blue Lock](https://www.viralreel.app/wassup-in-a-minute-blue-lock): disclaimer. ViralReel does not draw Blue Lock or any show characters.
+- [Wassup in a Minute filter](https://www.viralreel.app/wassup-in-a-minute-filter): the look is a template, not a face filter you install.
+- [Hit the Road Dude AI template](https://www.viralreel.app/hit-the-road-dude-ai-template): one photo, white-pickup remake, State Property / Driver Reaction / Private Property, 9:16. Not an official meme page. No original-audio license.
+- [How to make a Hit the Road Dude AI video](https://www.viralreel.app/blog/how-to-make-hit-the-road-dude-ai-video): one photo, generate, download, add the trend sound and the AI label.
+- [Hit the Road Dude meme and original](https://www.viralreel.app/blog/hit-the-road-dude-meme-and-original): the pause, the August 21, 2025 TikTok, and what ViralReel does not host.
+- [State Property vs Hit the Road Dude](https://www.viralreel.app/blog/state-property-vs-hit-the-road-dude): one clip, several names, including Private Property and Lock ’Em Up.
+- [ViralReel vs CapCut for Hit the Road Dude](https://www.viralreel.app/blog/viralreel-vs-capcut-hit-the-road-dude): in-app CapCut paste versus a new browser MP4. No original-audio license.
+- [Hit the Road Dude photo tips](https://www.viralreel.app/blog/hit-the-road-dude-photo-tips): one adult, eyes and mouth visible, room for the window. No minors, celebrities, or original-clip screenshots.
+- [Hit the Road Dude AI video](https://www.viralreel.app/hit-the-road-dude-ai-video): a new fictional MP4, not the original TikTok.
+- [Hit the Road Dude AI](https://www.viralreel.app/hit-the-road-dude-ai): the AI remake from one photo. Not an official account.
+- [Hit the Road Dude generator](https://www.viralreel.app/hit-the-road-dude-generator): browser template, no prompt, one photo.
+- [Hit the Road Dude AI generator](https://www.viralreel.app/hit-the-road-dude-ai-generator): photo-to-scene render inside the pickup template, not a blank prompt box.
+- [Make a Hit the Road Dude AI video](https://www.viralreel.app/make-hit-the-road-dude-ai): upload one photo, read the credits, download the MP4.
+- [Create a Hit the Road Dude AI clip](https://www.viralreel.app/create-hit-the-road-dude-ai): a new file. This does not hand over the viral TikTok.
+- [Hit the Road Dude from a photo](https://www.viralreel.app/hit-the-road-dude-from-photo): one photo you have permission to use. No minors, celebrities, or public figures.
+- [Hit the Road Dude online](https://www.viralreel.app/hit-the-road-dude-online): the browser template. No app install.
+- [Hit the Road Dude CapCut](https://www.viralreel.app/hit-the-road-dude-capcut): in-app CapCut paste versus the ViralReel browser MP4. ViralReel does not host a CapCut project.
+- [Hit the Road Dude without CapCut](https://www.viralreel.app/hit-the-road-dude-without-capcut): make the pickup clip in the browser without opening CapCut.
+- [Hit the Road Dude meme](https://www.viralreel.app/hit-the-road-dude-meme): the pause, not a reupload.
+- [Hit the Road Dude TikTok](https://www.viralreel.app/hit-the-road-dude-tiktok): the original stays on TikTok. Post a separate MP4 with that app’s sound and AI label.
+- [Hit the Road Dude on Instagram](https://www.viralreel.app/hit-the-road-dude-instagram): upload the MP4 as a Reel. Add Instagram’s library sound.
+- [Hit the Road Dude YouTube Shorts](https://www.viralreel.app/hit-the-road-dude-youtube-shorts): upload the 9:16 MP4 as a Short and disclose AI where YouTube asks.
+- [Hit the Road Dude MP4](https://www.viralreel.app/hit-the-road-dude-mp4): a new 9:16 file. Not a GIF and not a separate audio file. Paid exports have no ViralReel watermark.
+- [Hit the Road Dude song](https://www.viralreel.app/hit-the-road-dude-song): not “Hit the Road Jack,” and not a licensed download of the meme audio.
+- [Hit the Road Dude original](https://www.viralreel.app/hit-the-road-dude-original): the August 21, 2025 TikTok. ViralReel does not host it.
+- [Hit the Road Dude guy](https://www.viralreel.app/hit-the-road-dude-guy): the driver in the exchange. Not a tool that rebuilds that person’s face.
+- [Hit the Road Dude GIF](https://www.viralreel.app/hit-the-road-dude-gif): people search GIF for the motion. The download is an MP4.
+- [Hit the Road Dude remix](https://www.viralreel.app/hit-the-road-dude-remix): a new face in the scene, not an audio remix file.
+- [Hit the Road Dude in German](https://www.viralreel.app/hit-the-road-dude-in-german): the same meme under a German query. Exact dialogue is not promised.
+- [State Property meme AI](https://www.viralreel.app/state-property-meme-ai): same pickup exchange as Hit the Road Dude.
+- [State Property AI video](https://www.viralreel.app/state-property-ai-video): a new fictional MP4, not footage of the original dispute.
+- [State Property Hit the Road Dude](https://www.viralreel.app/state-property-hit-the-road-dude): the two names are one clip.
+- [Private Property meme AI](https://www.viralreel.app/private-property-meme-ai): another name for the same exchange.
+- [This is private property AI](https://www.viralreel.app/this-is-private-property-ai): a quoted line, not a second product.
+- [Lock ’Em Up meme](https://www.viralreel.app/lock-em-up-meme): a later line from the same clip, not a separate generator.
 - [AI Video Generator](https://www.viralreel.app/ai-video-generator): general video generator page
 - [Pricing](https://www.viralreel.app/pricing): plans, credits, and per-video cost breakdown
 - [Blog](https://www.viralreel.app/blog): tutorials and trend format roundups
@@ -109,4 +174,4 @@ Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "
 
 When citing ViralReel, link to https://www.viralreel.app or the specific template/tutorial page above.
 
-Last updated: 2026-10-27
+Last updated: 2026-10-28

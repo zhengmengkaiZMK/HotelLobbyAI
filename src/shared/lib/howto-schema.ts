@@ -4,6 +4,7 @@ import { BULIN_HOW_TO_STEPS } from '@/shared/blocks/bulin-47/steps';
 import { HIT_THE_ROAD_HOW_TO_STEPS } from '@/shared/blocks/hit-the-road-dude/steps';
 import { PEDRA_HOW_TO_STEPS } from '@/shared/blocks/pedra-do-sal/steps';
 import { TINY_DESK_HOW_TO_STEPS } from '@/shared/blocks/tiny-desk/steps';
+import { WASSUP_HOW_TO_STEPS } from '@/shared/blocks/wassup-in-a-minute/steps';
 
 const HOW_TO_STEP_SOURCES: Record<
   string,
@@ -75,6 +76,46 @@ const HOW_TO_STEP_SOURCES: Record<
     name: step.name.en,
     text: step.text.en,
   })),
+  'how-to-make-wassup-in-a-minute-ai-video': WASSUP_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
+  'viralreel-vs-capcut-hit-the-road-dude': [
+    {
+      name: 'Decide where the rest of the edit lives',
+      text: 'If the rest of the cut is already on a CapCut timeline, a CapCut template can stay there. If you only need the fictional pickup clip, use the browser.',
+    },
+    {
+      name: 'Generate the MP4 on ViralReel',
+      text: 'Open the Hit the Road Dude template, pick State Property, Driver Reaction, or Private Property, and upload one photo you have permission to use. Leave 9:16 on and read the credit cost.',
+    },
+    {
+      name: 'Download, then edit only if you still need a timeline',
+      text: 'Download the new MP4. Import it into CapCut afterward if you want more cuts. ViralReel does not host a CapCut project.',
+    },
+    {
+      name: 'Add the trend sound on the platform',
+      text: 'Add the Hit the Road Dude sound from TikTok, Reels, or Shorts and turn on the AI label. ViralReel does not license the original audio or Hit the Road Jack.',
+    },
+  ],
+  'hit-the-road-dude-photo-tips': [
+    {
+      name: 'Use one clear face',
+      text: 'Upload one photo of one adult you have permission to use. Eyes and mouth visible. The driver’s expression carries the joke.',
+    },
+    {
+      name: 'Light the face from the front',
+      text: 'Use even daylight. Skip sunglasses, group shots, heavy filters, and screenshots of the original clip.',
+    },
+    {
+      name: 'Leave room for the window',
+      text: 'Keep a little space around the head and shoulders so the truck-window crop has somewhere to sit. A pet photo can be tried; results vary by model.',
+    },
+    {
+      name: 'Generate on 9:16 and add the sound later',
+      text: 'Pick State Property, Driver Reaction, or Private Property, read the credits, and download the MP4. Add the trend sound in TikTok, Reels, or Shorts. ViralReel does not license the original audio.',
+    },
+  ],
   'why-pedra-do-sal-ai-videos-went-viral': PEDRA_HOW_TO_STEPS.map((step) => ({
     name: step.name.en,
     text: step.text.en,
