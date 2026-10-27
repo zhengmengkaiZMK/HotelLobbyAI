@@ -793,7 +793,7 @@ export function ImageGenerator({
                         {t('credits_remaining', { credits: remainingCredits })}
                       </span>
                     </div>
-                    <Link href="/subscribe">
+                    <Link href="/pricing">
                       <Button variant="outline" className="w-full" size="lg">
                         <CreditCard className="mr-2 h-4 w-4" />
                         {t('buy_credits')}

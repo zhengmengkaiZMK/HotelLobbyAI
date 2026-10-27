@@ -353,7 +353,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         return;
       }
       setError(text('Insufficient credits. Taking you to the pricing page…', '积分不足，正在前往购买页…'));
-      setTimeout(() => router.push('/subscribe'), 1200);
+      setTimeout(() => router.push('/pricing'), 1200);
       return;
     }
     if (unsupported1080 && activeResolution === '1080p') { setError(text('This model supports up to 720p. Choose another model for 1080p.', '当前模型最高支持 720p，1080p 请切换其他模型。')); return; }
