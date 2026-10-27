@@ -63,7 +63,7 @@ interface BackendTask {
 type VideoGeneratorTab = 'text-to-video' | 'image-to-video' | 'video-to-video';
 
 const POLL_INTERVAL = 15000;
-const GENERATION_TIMEOUT = 600000; // 10 minutes for video
+const GENERATION_TIMEOUT = 900000; // 15 minutes for video
 
 const textToVideoCredits = 6;
 const imageToVideoCredits = 8;
