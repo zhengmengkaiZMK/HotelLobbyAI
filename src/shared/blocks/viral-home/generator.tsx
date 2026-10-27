@@ -109,7 +109,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     ? [4, 6]
     : family === 'baba_dance'
       ? [20, 30]
-      : isFalV4 || isBaiduSeedance
+      : family === 'tiny_desk_outstanding'
+        ? [15]
+        : isFalV4 || isBaiduSeedance
         ? [5, 10, 15, 20, 30]
         : isFalWan ? [5, 10, 15] : isFalRef ? [3, 5, 8, 10, 12, 15] : isOmni ? [4, 6, 8, 10] : [8, 12, 15];
   // Omni only supports 16:9 / 9:16 / auto; Kling reference + v4 add auto + 1:1;
