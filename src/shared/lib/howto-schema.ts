@@ -83,6 +83,24 @@ const HOW_TO_STEP_SOURCES: Record<
     name: step.name.en,
     text: step.text.en,
   })),
+  'post-tiny-desk-outstanding-tiktok-reels-shorts': [
+    {
+      name: 'Download the 9:16 MP4',
+      text: 'Download the fan-parody MP4 from the Tiny Desk Outstanding template on ViralReel and leave the ratio on 9:16. It is a new file, not the NPR concert and not the original TikTok.',
+    },
+    {
+      name: 'Upload that file',
+      text: 'Upload the download in TikTok, Instagram Reels, or YouTube Shorts. Do not upload the NPR video or the original meme.',
+    },
+    {
+      name: 'Add the Outstanding trend sound',
+      text: 'Add the Outstanding sound from that app’s library. ViralReel does not license or export the Gap Band track.',
+    },
+    {
+      name: 'Turn on the AI label and post',
+      text: 'Turn on the AI-generated label where the app asks, then post. A caption that calls the clip a fan parody matches the file.',
+    },
+  ],
   'tiny-desk-outstanding-photo-tips': [
     {
       name: 'Use one clear face per slot',
