@@ -105,15 +105,23 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         : isOmni
           ? ['360p', '720p', '1080p']
           : model!.value.toLowerCase() === 'minimax-h3' ? ['768P', '2K'] : ['720p'];
-  const durationOptions = family === 'cat_clapping'
-    ? [4, 6]
-    : family === 'baba_dance'
-      ? [20, 30]
-      : family === 'tiny_desk_outstanding'
-        ? [15]
-        : isFalV4 || isBaiduSeedance
-        ? [5, 10, 15, 20, 30]
-        : isFalWan ? [5, 10, 15] : isFalRef ? [3, 5, 8, 10, 12, 15] : isOmni ? [4, 6, 8, 10] : [8, 12, 15];
+  // Families whose template videos have a fixed length: only that duration
+  // option is offered, everything else stays hidden.
+  const familyFixedDurations: Record<string, number[]> = {
+    cat_clapping: [4, 6],
+    baba_dance: [20, 30],
+    tiny_desk_outstanding: [15],
+    window_peeper: [15],
+    bby_wow: [10],
+    pedra_do_sal: [15],
+    hit_the_road_dude: [10],
+    wassup_in_a_minute: [10],
+  };
+  const durationOptions =
+    familyFixedDurations[family] ??
+    (isFalV4 || isBaiduSeedance
+      ? [5, 10, 15, 20, 30]
+      : isFalWan ? [5, 10, 15] : isFalRef ? [3, 5, 8, 10, 12, 15] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]);
   // Omni only supports 16:9 / 9:16 / auto; Kling reference + v4 add auto + 1:1;
   // Wan reference / Seedance use "adaptive" (shown as auto) + fixed ratios
   const ratioOptions = isFalWan || isBaiduSeedance ? ['adaptive', '16:9', '9:16', '1:1'] : isFalRef || isFalV4 ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];

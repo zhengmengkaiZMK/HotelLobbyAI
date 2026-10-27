@@ -19,6 +19,7 @@ import { Brand } from './footer';
 import './home.css';
 
 const TRENDING_NAV_ORDER = [
+  'wassup-in-a-minute',
   'ba-ba-ba-dance',
   'tiny-desk',
   'window-peeper',

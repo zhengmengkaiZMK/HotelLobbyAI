@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'wassup-in-a-minute',
+    name: ['Wassup in a Minute', 'Wassup in a Minute'],
+    pitch: [
+      'One photo makes you the swaying streetwear anime character.',
+      '一张照片，把你画成白底摇摆的街服动漫角色。',
+    ],
+    href: '/wassup-in-a-minute-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'dance'],
+    poster: '/templates/wassup-money-poster.jpg',
+    video: '/templates/wassup-money.mp4',
+    credit: '@ristyisvalid',
+    colors: ['#86efac', '#14532d'],
+  },
+  {
     id: 'ba-ba-ba-dance',
     name: ['Ba Ba Ba Dance', 'Ba Ba Ba Dance'],
     pitch: [
