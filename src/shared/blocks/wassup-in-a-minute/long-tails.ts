@@ -130,8 +130,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'How long is the video?', zh: '视频有多长？' },
         a: {
-          en: 'Ten seconds — the length the trend uses. The template only offers the 10s option so the sway lands on the beat.',
-          zh: '十秒——和趋势用的长度一致。模板只提供 10s 一档，保证摇摆落在节拍上。',
+          en: 'Fifteen seconds. The template only offers the 15s option so the sway lands on the beat.',
+          zh: '十五秒。模板只提供 15s 一档，保证摇摆落在节拍上。',
         },
       },
     ],
@@ -160,12 +160,12 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       en: [
         'A wassup in a minute template saves you the two-step workflow creators used in late October 2026: an AI image prompt to draw the character, then keyframing the sway by hand in an editor. ViralReel folds both steps into one generation from one photo.',
         'The template family has five variants: Money Fan (the fanned stack of banknotes from the original edit), Puffer Classic (glossy black puffer over a white tee and cap), All Black (hoodie, chains, cargos), Jersey Look (oversized sports jersey), and Heavyweight (a broad imposing build). Each variant is the same white-background sway in a different outfit.',
-        'Prompt editing stays open: if you want a different jacket color or pose, edit the pre-filled prompt before you generate. The ratio stays 9:16 and the length stays 10 seconds so the result still reads as this trend.',
+        'Prompt editing stays open: if you want a different jacket color or pose, edit the pre-filled prompt before you generate. The ratio stays 9:16 and the length stays 15 seconds so the result still reads as this trend.',
       ],
       zh: [
         'wassup in a minute template 替你省掉了 2026 年 10 月底创作者们用的两步流程：先用 AI 图像提示词画出角色，再在剪辑软件里手动打关键帧做摇摆。ViralReel 把两步合并成一次生成，只需要一张照片。',
         '模板系列有五个变体：甩钱原版（原片里挥开的那沓钞票）、黑羽绒经典（亮面黑羽绒服配白 T 和棒球帽）、全黑装（连帽衫、链子、工装裤）、球衣版（宽松运动球衣）和大块头（宽厚的壮硕身形）。每个变体都是同一套白底摇摆，换的是造型。',
-        '提示词保持可编辑：想换外套颜色或姿势，生成前直接改预填的提示词。画幅保持 9:16，时长保持 10 秒，成片才能被认成这条趋势。',
+        '提示词保持可编辑：想换外套颜色或姿势，生成前直接改预填的提示词。画幅保持 9:16，时长保持 15 秒，成片才能被认成这条趋势。',
       ],
     },
     steps: makeVideoSteps,
@@ -334,6 +334,356 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  {
+    keyword: 'wassup wait a minute',
+    slug: 'wassup-wait-a-minute',
+    title: {
+      en: 'Wassup Wait a Minute – Another Name for the Sway Trend | ViralReel',
+      zh: 'Wassup Wait a Minute：摇摆趋势的另一个名字 | ViralReel',
+    },
+    description: {
+      en: 'wassup wait a minute: the misheard spelling of the October 2026 sway trend, why one sound has three names, and how to make your own wassup in a minute AI video on ViralReel.',
+      zh: 'wassup wait a minute：2026 年 10 月摇摆趋势的另一种听写，为什么一段声音有三个名字，以及如何在 ViralReel 制作你自己的 wassup in a minute AI 视频。',
+    },
+    h1: { en: 'Wassup wait a minute', zh: 'Wassup wait a minute' },
+    lead: {
+      en: '"Wassup wait a minute" is one of the three ways people hear the same trend sound. Same edit, same sway, same hashtag.',
+      zh: '「Wassup wait a minute」是同一段趋势声音的三种听法之一。同一条剪辑，同一种摇摆，同一个话题标签。',
+    },
+    guideTitle: {
+      en: 'Why the trend sound has three names',
+      zh: '趋势声音为什么有三个名字',
+    },
+    body: {
+      en: [
+        'The wassup in a minute sound is a jersey-club remix built on "From Time", the 2013 Drake track with Jhené Aiko. Early in the remix the vocal greets with "wassup, been a minute" — and listeners split three ways: wassup in a minute, wassup been a minute, and wassup wait a minute. Some even hear "wasala in a minute".',
+        'The hashtag #wassupinaminute settled the official spelling, but search volume splits across all three phrases, and the animation underneath is the same: streetwear anime characters swaying side to side on a white background. ViralReel makes the AI version of that format from one to four photos — Money Fan, Puffer Classic, All Black, Jersey Look, or Heavyweight — and you add the trend sound yourself in TikTok.',
+        'Whichever spelling you searched, the way in is the same: upload your photo, generate the 9:16 MP4, then search the sound in TikTok, Reels, or Shorts and post with the AI label on. ViralReel does not license the audio.',
+      ],
+      zh: [
+        'wassup in a minute 的原声是一段 jersey club 混音，取自 Drake 与 Jhené Aiko 2013 年的《From Time》。混音开头的人声是「wassup, been a minute」——听众分成三派：wassup in a minute、wassup been a minute 和 wassup wait a minute，甚至还有人听成「wasala in a minute」。',
+        '话题标签 #wassupinaminute 定下了官方拼法，但搜索量分散在三种写法上；下面的动画是同一个：街服动漫角色在白底上左右摇摆。ViralReel 用一至四张照片做这个格式的 AI 版——甩钱原版、黑羽绒经典、全黑装、球衣版或大块头——原声由你在 TikTok 里自己加。',
+        '不管你搜的是哪种拼法，入场方式都一样：上传照片、生成 9:16 的 MP4，然后在 TikTok、Reels 或 Shorts 里搜原声、带上 AI 标注发布。ViralReel 不授权那段音频。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is wassup wait a minute a different trend?', zh: 'wassup wait a minute 是另一条趋势吗？' },
+        a: {
+          en: 'No. It is one of the misheard spellings of the same October 2026 sway trend. The hashtag spelling is #wassupinaminute.',
+          zh: '不是。它是同一条 2026 年 10 月摇摆趋势的误听拼法之一。话题标签的拼法是 #wassupinaminute。',
+        },
+      },
+      {
+        q: { en: 'Which spelling should I use in my caption?', zh: '发帖时该用哪种拼法？' },
+        a: {
+          en: 'Use #wassupinaminute for the hashtag, and any spelling in the caption text — the sound and the format are what carry the post.',
+          zh: '话题标签用 #wassupinaminute，文案里用哪种拼法都行——带着帖子走的是原声和格式。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'wassup in a minute song',
+    slug: 'wassup-in-a-minute-song',
+    title: {
+      en: 'The Wassup in a Minute Song – the Sound Behind the Sway | ViralReel',
+      zh: 'Wassup in a Minute 的歌：摇摆背后的那段声音 | ViralReel',
+    },
+    description: {
+      en: "wassup in a minute song: the jersey-club remix of Drake's \"From Time\" that powers the October 2026 sway trend — what it is, who made it, and how to add it to your own video from ViralReel.",
+      zh: 'wassup in a minute song：驱动 2026 年 10 月摇摆趋势的《From Time》jersey club 混音——它是什么、谁做的，以及如何把它加到你从 ViralReel 导出的视频里。',
+    },
+    h1: { en: 'The wassup in a minute song', zh: 'wassup in a minute 的歌' },
+    lead: {
+      en: 'The wassup in a minute song is a jersey-club remix of "From Time" by Drake with Jhené Aiko — the line "wassup, been a minute" is the hook the whole trend sways to.',
+      zh: 'wassup in a minute 的歌是《From Time》（Drake 与 Jhené Aiko）的 jersey club 混音——「wassup, been a minute」这句就是全趋势跟着摇摆的 hook。',
+    },
+    guideTitle: {
+      en: 'What the wassup in a minute song is',
+      zh: 'wassup in a minute 的歌是什么',
+    },
+    body: {
+      en: [
+        'People searching for the wassup in a minute song want the sound behind the swaying anime edits. It is a jersey-club remix built on "From Time", Drake\'s 2013 track with Jhené Aiko. Early in the remix the vocal says "wassup, been a minute", which most listeners hear as "wassup in a minute" — the mishearing that named the trend.',
+        'The song belongs to its creators and rights holders. ViralReel does not license it, and the MP4 you download from ViralReel carries only the picture. That is by design: adding the official sound inside TikTok is what pushes your post into the trend\'s feed.',
+        'To use it: search "wassup in a minute" or "wassup been a minute" in the TikTok, Reels, or Shorts sound picker, pick the top trend sound, and start your clip on the first beat. Pair it with your ViralReel sway video and the hashtags #wassupinaminute and #animation.',
+      ],
+      zh: [
+        '搜 wassup in a minute song 的人要的是摇摆动画背后的那段声音。它是一段 jersey club 混音，取自 Drake 与 Jhené Aiko 2013 年的《From Time》。混音开头的人声是「wassup, been a minute」，大多数人听成「wassup in a minute」——这条趋势的名字就来自这个误听。',
+        '这首歌归创作者和版权方所有。ViralReel 不做授权，你从 ViralReel 下载的 MP4 只有画面。这是刻意的设计：在 TikTok 里加官方原声，你的帖子才会进趋势的信息流。',
+        '用法：在 TikTok、Reels 或 Shorts 的曲库里搜「wassup in a minute」或「wassup been a minute」，选最热的那条趋势原声，让片段从第一拍开始。配上你的 ViralReel 摇摆视频和 #wassupinaminute、#animation 标签。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Who made the wassup in a minute sound?', zh: 'wassup in a minute 的声音是谁做的？' },
+        a: {
+          en: 'A jersey-club remix of "From Time" (Drake with Jhené Aiko) that circulated on TikTok from January 2026 and became the trend sound in late October 2026. ViralReel is not affiliated with the rights holders.',
+          zh: '一段《From Time》（Drake 与 Jhené Aiko）的 jersey club 混音，2026 年 1 月起在 TikTok 流传，10 月底成为趋势原声。ViralReel 与版权方没有关系。',
+        },
+      },
+      {
+        q: { en: 'Does my ViralReel download include the song?', zh: 'ViralReel 的成片带这首歌吗？' },
+        a: {
+          en: 'No. The MP4 is picture only. Add the trend sound inside TikTok, Reels, or Shorts when you post.',
+          zh: '不带。MP4 只有画面。发布时在 TikTok、Reels 或 Shorts 里另加热梗原声。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'wassup in a minute original',
+    slug: 'wassup-in-a-minute-original',
+    title: {
+      en: 'The Original Wassup in a Minute Edit – Where It Started | ViralReel',
+      zh: 'Wassup in a Minute 原版：趋势从哪条开始 | ViralReel',
+    },
+    description: {
+      en: 'wassup in a minute original: the 22 October 2026 @ristyisvalid post that started the sway trend, the follow-up that named it, and how to make your own AI version on ViralReel instead of reuploading the original.',
+      zh: 'wassup in a minute original：2026 年 10 月 22 日 @ristyisvalid 那条起点帖、定名的后续帖，以及如何在 ViralReel 制作你自己的 AI 版而不是转载原片。',
+    },
+    h1: { en: 'The wassup in a minute original', zh: 'wassup in a minute 原版' },
+    lead: {
+      en: "The original wassup in a minute edit is @ristyisvalid's 22 October 2026 animation: streetwear anime drawings swaying on a white background. Make your own version instead of reposting it.",
+      zh: 'wassup in a minute 的原版是 @ristyisvalid 2026 年 10 月 22 日的动画：街服动漫形象在白底上摇摆。做你自己的版本，不要转载原片。',
+    },
+    guideTitle: {
+      en: 'The original posts behind the trend',
+      zh: '趋势背后的原始帖子',
+    },
+    body: {
+      en: [
+        "The wassup in a minute original is a pair of TikTok posts by the US animator @ristyisvalid. On 22 October 2026 the first post showed hand-drawn streetwear anime characters swaying side to side on a plain white background; the next day's follow-up, captioned \"Wassup in a minute\", passed a million views within days and gave the trend its name.",
+        'Reuploading the original clip is not the move. The format spread because people remake it with new characters — and the AI wave put your own face in the row. On ViralReel you upload one to four photos and get a new 9:16 animation of original streetwear characters swaying to the beat, with no fan artist\'s drawing and no show character involved.',
+        'If you want to credit the trend when you post, link the sound rather than the video: add the official "wassup in a minute" sound inside TikTok, use #wassupinaminute, and keep the AI-generated label on. Your clip is a new fictional animation, not a copy of the original file.',
+      ],
+      zh: [
+        'wassup in a minute 的原版是美国动画师 @ristyisvalid 的两条 TikTok。2026 年 10 月 22 日第一条展示了手绘街服动漫角色在纯白背景上左右摇摆；次日标注「Wassup in a minute」的后续帖几天内破百万播放，趋势由此得名。',
+        '转载原片不是正确玩法。这个格式能传开是因为大家不断换角色重拍——AI 浪潮则把你自己的脸放进了那排角色里。在 ViralReel，你上传一至四张照片，就能得到一条全新的 9:16 动画：原创街服角色按节拍摇摆，不涉及粉丝画手的原画，也没有任何动漫角色。',
+        '发布时如果想致敬趋势，链接声音而不是视频：在 TikTok 里加官方「wassup in a minute」原声，用 #wassupinaminute，保留 AI 生成标注。你的片子是一条新的虚构动画，不是原文件的拷贝。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Who made the original wassup in a minute edit?', zh: 'wassup in a minute 原版是谁做的？' },
+        a: {
+          en: 'The US animator @ristyisvalid — the 22 October 2026 post started the trend and the 23 October follow-up named it. ViralReel is not affiliated with the creator.',
+          zh: '美国动画师 @ristyisvalid——10 月 22 日的帖子开启了趋势，10 月 23 日的后续帖给它定了名。ViralReel 与该创作者没有关系。',
+        },
+      },
+      {
+        q: { en: 'Can I repost the original video?', zh: '可以转载原视频吗？' },
+        a: {
+          en: 'No. The original belongs to its creator. Make your own AI version from your photo on ViralReel — that is the version the trend format wants.',
+          zh: '不可以。原片归创作者所有。在 ViralReel 用你的照片做你自己的 AI 版——趋势格式要的正是这个。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'wassup in a minute filter',
+    slug: 'wassup-in-a-minute-filter',
+    title: {
+      en: 'Wassup in a Minute Filter – the AI Version That Works | ViralReel',
+      zh: 'Wassup in a Minute 滤镜：真正能用的 AI 版 | ViralReel',
+    },
+    description: {
+      en: 'Looking for a wassup in a minute filter? There is no official TikTok filter — ViralReel is the working AI version: upload one to four photos, get the swaying streetwear anime character MP4.',
+      zh: '在找 wassup in a minute 滤镜？TikTok 并没有官方滤镜——ViralReel 是真正能用的 AI 版：上传一至四张照片，直接导出摇摆街服动漫角色 MP4。',
+    },
+    h1: { en: 'Wassup in a minute filter', zh: 'wassup in a minute 滤镜' },
+    lead: {
+      en: 'People search for a wassup in a minute filter expecting a TikTok effect. There is none — here is the AI way that actually produces the clip.',
+      zh: '很多人搜 wassup in a minute 滤镜，以为 TikTok 有个特效。其实没有——真正能出片的是 AI 流程。',
+    },
+    guideTitle: {
+      en: 'How the "wassup in a minute filter" actually works',
+      zh: '「wassup in a minute 滤镜」实际上怎么用',
+    },
+    body: {
+      en: [
+        'A wassup in a minute filter does not exist as a TikTok effect. The trend is hand-drawn animation, and the AI versions are made with image-to-video tools, not camera filters. That is why filter searches end on template sites like this one.',
+        'The ViralReel version works like a filter with better output: upload one to four photos, pick an outfit (Money Fan, Puffer Classic, All Black, Jersey Look, or Heavyweight), and generate. The site draws you as an original streetwear anime character on a white background and animates the side-to-side sway — a 9:16 MP4 you can post with the trend sound.',
+        'Compared with the manual workflow (AI image prompt, then keyframing the shake in an editor), this is the one-tap path. The result is a new fictional animation of you, which is also what keeps it postable: no show characters, no fan-art reuploads.',
+      ],
+      zh: [
+        'wassup in a minute 滤镜并不是一个 TikTok 特效。这条趋势是手绘动画，AI 版用的是图生视频工具，不是摄像头滤镜——所以搜滤镜最终都会落到模板站上。',
+        'ViralReel 的版本用起来像滤镜，但产出更好：上传一至四张照片，选一套造型（甩钱原版、黑羽绒经典、全黑装、球衣版或大块头），生成。网站把你画成白底原创街服动漫角色并做出左右摇摆——一条可以配原声发布的 9:16 MP4。',
+        '对比手工流程（先跑 AI 图像提示词，再在剪辑软件里打关键帧做抖动），这是一键路径。结果是一条以你为主角的新虚构动画，这也是它可以直接发布的原因：没有动漫角色，没有搬运粉丝画稿。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is there an official wassup in a minute filter on TikTok?', zh: 'TikTok 上有官方的 wassup in a minute 滤镜吗？' },
+        a: {
+          en: 'No. The trend is animation, not a camera effect. AI template sites like ViralReel are how people make their own version.',
+          zh: '没有。这条趋势是动画，不是摄像头特效。大家用 ViralReel 这类 AI 模板站做自己的版本。',
+        },
+      },
+      {
+        q: { en: 'How is this different from a filter?', zh: '这和滤镜有什么区别？' },
+        a: {
+          en: 'A filter changes your camera image live. This generates a new animation file from your photo — you upload, wait a few minutes, and download an MP4.',
+          zh: '滤镜实时改变摄像头画面；这个是用你的照片生成一条新的动画文件——上传、等几分钟、下载 MP4。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'wassup in a minute blue lock',
+    slug: 'wassup-in-a-minute-blue-lock',
+    title: {
+      en: 'Wassup in a Minute Blue Lock – the Atlanta Lock Connection | ViralReel',
+      zh: 'Wassup in a Minute 与 Blue Lock：Atlanta Lock 的渊源 | ViralReel',
+    },
+    description: {
+      en: 'wassup in a minute Blue Lock: why the sway trend looks like Blue Lock characters as Atlanta rappers, and how ViralReel makes you the character instead — original art, no show characters.',
+      zh: 'wassup in a minute Blue Lock：为什么摇摆趋势看着像 Blue Lock 角色扮亚特兰大说唱歌手，以及 ViralReel 如何让你本人成为角色——原创画风，不用动漫角色。',
+    },
+    h1: { en: 'Wassup in a minute Blue Lock', zh: 'wassup in a minute 与 Blue Lock' },
+    lead: {
+      en: 'The wassup in a minute trend grew out of Blue Lock fan art — but the AI version that works for posting draws you, not a show character.',
+      zh: 'wassup in a minute 趋势脱胎于 Blue Lock 粉丝画——但真正适合发布的 AI 版画的是你，不是动漫角色。',
+    },
+    guideTitle: {
+      en: 'The Blue Lock connection, explained',
+      zh: '与 Blue Lock 的渊源，一次说清',
+    },
+    body: {
+      en: [
+        'The drawing style behind the wassup in a minute trend is Atlanta Lock: a fan nickname for drawings of the Blue Lock football anime cast as Atlanta rappers — glossy puffer jackets, gold chains, baggy jeans, and a fanned stack of cash. The original edit and many early remakes used Blue Lock characters.',
+        'There is a hard line between enjoying that fan art and posting it. The drawings belong to fan artists, and the characters belong to the show. ViralReel takes neither: your video is an original anime drawing of you (or your friends, one per photo, up to four) in the same streetwear style on the same white background.',
+        'That is also why the AI version is safe to post: no Blue Lock character appears in it, no fan artist\'s work is reused, and the outfit is generic streetwear with no logos or numbers. You keep the look of the trend and lose the copyright problem.',
+      ],
+      zh: [
+        'wassup in a minute 趋势背后的画风是 Atlanta Lock：粉丝对「把《Blue Lock》足球动漫角色画成亚特兰大说唱歌手」的昵称——亮面羽绒服、金链子、阔腿牛仔裤、挥开的一沓现金。原版剪辑和早期大量重拍用的都是 Blue Lock 角色。',
+        '「欣赏粉丝画」和「发布粉丝画」之间有一条硬线：画稿归粉丝画手所有，角色归作品方。ViralReel 两者都不碰：你的视频是以你（或你的朋友，一张照片一个人，最多四人）为原型的原创动漫形象，同样的街服画风、同样的白底。',
+        '这也是 AI 版可以放心发布的原因：画面里没有 Blue Lock 角色，没有复用任何粉丝画稿，造型是无 logo、无号码的通用街服。你保住了趋势的观感，避开了版权问题。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Can ViralReel draw a Blue Lock character?', zh: 'ViralReel 能画 Blue Lock 角色吗？' },
+        a: {
+          en: 'No. ViralReel draws original characters from your photos only. The output keeps the Atlanta Lock streetwear style without using any show character or fan artist\'s drawing.',
+          zh: '不能。ViralReel 只用你的照片画原创角色。输出保留 Atlanta Lock 街服画风，但不使用任何动漫角色或粉丝画稿。',
+        },
+      },
+      {
+        q: { en: 'Is the Atlanta Lock look still recognizable without the characters?', zh: '没有那些角色，Atlanta Lock 的观感还在吗？' },
+        a: {
+          en: 'Yes — the look is the outfit, the white background, and the sway. Those three carry the trend, and all three are in every ViralReel version.',
+          zh: '在——观感来自造型、白底和摇摆。这三样撑起整条趋势，ViralReel 的每个版本都有。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'atlanta lock ai',
+    slug: 'atlanta-lock-ai',
+    title: {
+      en: 'Atlanta Lock AI – Make the Streetwear Anime Sway on ViralReel',
+      zh: 'Atlanta Lock AI：在 ViralReel 制作街服动漫摇摆',
+    },
+    description: {
+      en: 'atlanta lock ai: the fan drawing style of Blue Lock characters as Atlanta rappers, turned into an AI trend. ViralReel draws you in the same style from one photo — original art, up to four people, 9:16 MP4.',
+      zh: 'atlanta lock ai：把 Blue Lock 角色画成亚特兰大说唱歌手的粉丝画风演变成的 AI 趋势。ViralReel 用一张照片把你画成同款画风——原创画稿，最多四人，9:16 MP4。',
+    },
+    h1: { en: 'Atlanta Lock AI', zh: 'Atlanta Lock AI' },
+    lead: {
+      en: 'Atlanta Lock is the fan art style behind the wassup in a minute trend: anime characters drawn as Atlanta rappers. The AI version on ViralReel draws you in that style.',
+      zh: 'Atlanta Lock 是 wassup in a minute 趋势背后的粉丝画风：把动漫角色画成亚特兰大说唱歌手。ViralReel 的 AI 版用这种画风画你。',
+    },
+    guideTitle: {
+      en: 'How to make an Atlanta Lock AI video of yourself',
+      zh: '如何制作你自己的 Atlanta Lock AI 视频',
+    },
+    body: {
+      en: [
+        'Atlanta Lock is what fans call the drawings of the Blue Lock football anime cast as Atlanta rappers: glossy puffer jackets, chains, baggy jeans, banknotes fanned in one hand. In late October 2026 those drawings started swaying side to side on white backgrounds to a jersey-club remix, and the wassup in a minute trend took off.',
+        'An Atlanta Lock AI version that posts safely draws you — not Isagi, not Bachira, not any show character. On ViralReel you upload one to four photos and the template renders original streetwear anime characters in the same style: white background, soft drop shadow, the side-to-side sway on the beat, 9:16 vertical.',
+        'Post it with the wassup in a minute trend sound added inside TikTok, Reels, or Shorts, plus #wassupinaminute and #atlantalock. The drawing, the outfit and the animation are generated fresh from your photos — no fan artist\'s file is reused, which is what keeps the post clean.',
+      ],
+      zh: [
+        'Atlanta Lock 是粉丝对「把《Blue Lock》足球动漫角色画成亚特兰大说唱歌手」这批画作的昵称：亮面羽绒服、链子、阔腿牛仔裤、单手挥开的钞票。2026 年 10 月底，这些画作开始在白底上跟着 jersey club 混音左右摇摆，wassup in a minute 趋势随之爆火。',
+        '能安全发布的 Atlanta Lock AI 版画的是你——不是洁世一，不是蜂乐，不是任何动漫角色。在 ViralReel 上传一至四张照片，模板按同款画风渲染原创街服动漫角色：白底、会动的软阴影、踩着节拍的左右摇摆、9:16 竖屏。',
+        '发布时在 TikTok、Reels 或 Shorts 里加 wassup in a minute 趋势原声，带上 #wassupinaminute 和 #atlantalock。画稿、造型和动画都是从你的照片新生成的——没有复用任何粉丝画稿文件，帖子因此干净。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'What does Atlanta Lock mean?', zh: 'Atlanta Lock 是什么意思？' },
+        a: {
+          en: 'A fan nickname for drawings of the Blue Lock anime cast as Atlanta rappers — puffer jackets, chains, baggy jeans, fanned cash. It is the art style behind the wassup in a minute trend.',
+          zh: '粉丝对「把《Blue Lock》角色画成亚特兰大说唱歌手」画作的昵称——羽绒服、链子、阔腿裤、挥开的钞票。它是 wassup in a minute 趋势背后的画风。',
+        },
+      },
+      {
+        q: { en: 'Is Atlanta Lock AI legal to post?', zh: 'Atlanta Lock AI 发布出去合规吗？' },
+        a: {
+          en: 'The ViralReel version is: it draws original characters from your photos in a similar style, and does not reproduce any show character or fan artist\'s file. Keep the AI label on when you post.',
+          zh: 'ViralReel 的版本合规：它用你的照片画同风格的原创角色，不复现任何动漫角色或粉丝画稿。发布时保留 AI 标注。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'wassup in a minute generator',
+    slug: 'wassup-in-a-minute-generator',
+    title: {
+      en: 'Wassup in a Minute Generator – One Tap, Your Swaying Character | ViralReel',
+      zh: 'Wassup in a Minute 生成器：一键做出你的摇摆角色 | ViralReel',
+    },
+    description: {
+      en: 'wassup in a minute generator: ViralReel turns one to four photos into a swaying streetwear anime character — no prompt, no keyframes, browser only. Download the 9:16 MP4 and post with the trend sound.',
+      zh: 'wassup in a minute generator：ViralReel 用一至四张照片生成摇摆街服动漫角色——不写提示词、不打关键帧，浏览器直接出 9:16 MP4。',
+    },
+    h1: { en: 'Wassup in a minute generator', zh: 'wassup in a minute 生成器' },
+    lead: {
+      en: 'The wassup in a minute generator on ViralReel runs the whole trend for you: draw the character, animate the sway, export the MP4.',
+      zh: 'ViralReel 的 wassup in a minute 生成器替你跑完整条趋势：画角色、做摇摆、导出 MP4。',
+    },
+    guideTitle: {
+      en: 'Using the wassup in a minute generator',
+      zh: '怎么用 wassup in a minute 生成器',
+    },
+    body: {
+      en: [
+        'The wassup in a minute generator is the one-tap path into the trend. Open it, upload one to four photos of people you have permission to use, and press generate. You get a 9:16 MP4 of original streetwear anime characters swaying side to side on a white background — the full format, no editing.',
+        'Everything the trend needs is pre-built: the pure white background, the soft drop shadow, the streetwear outfits (Money Fan, Puffer Classic, All Black, Jersey Look, Heavyweight), and the side-to-side sway. The credit cost shows before you start, and the 15s length is fixed so the result reads as this trend.',
+        'You write no prompt and touch no keyframes. Download the MP4, add the "wassup in a minute" sound inside TikTok, Reels, or Shorts, and post with #wassupinaminute and the AI label on.',
+      ],
+      zh: [
+        'wassup in a minute 生成器是进这条趋势的一键路径。打开它，上传一至四张你有权使用的人物照片，点生成。你得到一条 9:16 的 MP4：原创街服动漫角色在白底上左右摇摆——完整格式，零剪辑。',
+        '趋势需要的东西都预置好了：纯白背景、会动的软阴影、街服造型（甩钱原版、黑羽绒经典、全黑装、球衣版、大块头），以及左右摇摆。积分在生成前显示，15s 时长固定，成片才能被认成这条趋势。',
+        '你不用写提示词，也不用碰关键帧。下载 MP4，在 TikTok、Reels 或 Shorts 里加「wassup in a minute」原声，带 #wassupinaminute 和 AI 标注发布。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is the wassup in a minute generator free?', zh: 'wassup in a minute 生成器免费吗？' },
+        a: {
+          en: 'It runs on credits. The exact cost shows on the generator before you start, and failed jobs are refunded.',
+          zh: '按积分计费。确切的积分在生成前显示在生成器上，失败的任务会退积分。',
+        },
+      },
+      {
+        q: { en: 'Do I need to write a prompt in the generator?', zh: '生成器里需要写提示词吗？' },
+        a: {
+          en: 'No. The prompt is pre-filled per template variant and the admin settings tune it. You only upload photos and generate.',
+          zh: '不需要。每个模板变体的提示词已预填，后台配置统一调优。你只管上传照片然后生成。',
+        },
+      },
+    ],
+  },
 ];
 
 export function getWassupLongTail(slug: string): LongTailEntry | undefined {
@@ -361,6 +711,8 @@ export function wassupLinkGroups(zh: boolean) {
         { href: '/wassup-in-a-minute-ai', label: 'Wassup in a Minute AI' },
         { href: '/wassup-in-a-minute-ai-video', label: zh ? 'Wassup in a Minute AI 视频' : 'Wassup in a Minute AI video' },
         { href: '/wassup-in-a-minute-template', label: zh ? '模板变体' : 'Template variants' },
+        { href: '/wassup-in-a-minute-generator', label: zh ? '生成器' : 'Generator' },
+        { href: '/wassup-in-a-minute-filter', label: zh ? '滤镜版' : 'Filter version' },
         { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
         { href: '/subscribe', label: zh ? '月付方案' : 'Monthly plans' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
@@ -371,7 +723,18 @@ export function wassupLinkGroups(zh: boolean) {
       links: [
         { href: '/wassup-in-a-minute-meme', label: zh ? '梗详解' : 'Wassup in a Minute meme' },
         { href: '/wassup-in-a-minute-tiktok', label: zh ? 'TikTok 玩法' : 'Wassup in a Minute TikTok' },
+        { href: '/wassup-in-a-minute-original', label: zh ? '原版出处' : 'The original edit' },
+        { href: '/wassup-in-a-minute-song', label: zh ? '趋势原声' : 'The trend song' },
         { href: '/wassup-been-a-minute', label: zh ? 'Wassup been a minute' : 'Wassup been a minute' },
+        { href: '/wassup-wait-a-minute', label: 'Wassup wait a minute' },
+      ],
+    },
+    {
+      title: 'Atlanta Lock',
+      links: [
+        { href: '/atlanta-lock-ai', label: 'Atlanta Lock AI' },
+        { href: '/wassup-in-a-minute-blue-lock', label: zh ? '与 Blue Lock 的关系' : 'Blue Lock connection' },
+        { href: '/wassup-in-a-minute-filter', label: zh ? '滤镜版' : 'Filter version' },
       ],
     },
     {
@@ -387,6 +750,9 @@ export function wassupLinkGroups(zh: boolean) {
     {
       title: zh ? '指南' : 'Guides',
       links: [
+        { href: '/blog/what-is-wassup-in-a-minute', label: zh ? 'Wassup in a Minute 是什么' : 'What wassup in a minute is' },
+        { href: '/blog/how-to-make-wassup-in-a-minute-ai-video', label: zh ? '如何制作 wassup in a minute AI 视频' : 'How to make a wassup in a minute AI video' },
+        { href: '/blog/wassup-in-a-minute-song-and-atlanta-lock', label: zh ? '原声与 Atlanta Lock 画风' : 'The song and the Atlanta Lock style' },
         { href: '/blog/october-2026-viral-ai-meme-videos', label: zh ? '2026 年 10 月梗视频盘点' : 'October 2026 meme roundup' },
         { href: '/blog/how-to-make-bby-wow-ai-dance-video', label: zh ? '如何制作 Bby Wow AI 跳舞视频' : 'How to make a Bby Wow AI dance video' },
       ],
