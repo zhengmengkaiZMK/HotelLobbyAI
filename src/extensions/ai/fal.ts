@@ -375,16 +375,14 @@ export class FalProvider implements AIProvider {
   // only exist under the TOP-LEVEL app path. Deep endpoint paths (e.g.
   // fal-ai/kling-video/o3/pro/video-to-video/reference/requests/{id}/status)
   // answer 405 for GET, so the full model ID must NOT be used for polling.
-  // EXCEPTION: kling/v4/reference-to-video — its official OpenAPI documents
-  // status/result under the FULL model ID
-  // (/kling/v4/reference-to-video/requests/{id}/status), so the truncation
-  // rule does not apply there.
+  // This ALSO applies to kling/v4/reference-to-video (re-verified 2026-10-27:
+  // GET /kling/v4/reference-to-video/requests/{id}/status -> 405 while
+  // GET /kling/v4/requests/{id}/status is a valid route), even though the
+  // endpoint's OpenAPI document claims full-path status routes. Always
+  // truncate to the top-level app path.
   private getQueryModel(model?: string): string {
     if (!model) {
       return '';
-    }
-    if (model === 'kling/v4/reference-to-video') {
-      return model;
     }
     const parts = model.split('/');
     if (parts.length <= 2) {
