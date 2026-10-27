@@ -24,7 +24,7 @@ export interface TemplateDef {
   name: readonly [string, string];
   colors: readonly [string, string];
   prompt: string;
-  slots?: 1 | 2 | 3;
+  slots?: 1 | 2 | 3 | 4;
   images?: readonly (string | null)[];
   /** Optional public preview video. null explicitly disables the default path when no media is available. */
   previewVideo?: string | null;

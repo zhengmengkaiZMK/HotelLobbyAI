@@ -68,7 +68,7 @@ export function WassupInAMinuteHome({ creditsPerUsd = 12, videoCosts = getVideoC
   const start = () => focusGenerator();
   const features = [
     [Dices, t('The sway on the beat', '踩着节拍的摇摆'), t('Two sways per second from the planted feet, head and shoulders bobbing just behind — the exact motion the viral edits use.','每秒两次、从脚底起的左右摇摆，头和肩膀慢半拍跟上——和爆款剪辑完全同款。')],
-    [Video, t('One photo, you are the drawing', '一张照片，你就是画中人'), t('Your face, hair, and skin tone become an original streetwear anime character. No show characters, no fan-art reuploads.','你的脸、发型和肤色变成原创街服动漫形象。不用动漫角色，不搬运粉丝画稿。')],
+    [Video, t('Up to four photos, one crew', '最多四张照片，整队人马'), t('Your face, hair, and skin tone become original streetwear anime characters — one to four people, standing in a row like the original edit.','你的脸、发型和肤色变成原创街服动漫形象——一到四个人，像原片一样排成一排。')],
     [Users, t('Five outfits, same white room', '五种造型，同一面白墙'), t('Money Fan, Puffer Classic, All Black, Jersey Look, or Heavyweight — pick the fit, keep the trend.','甩钱原版、黑羽绒经典、全黑装、球衣版或大块头——选造型，不换趋势。')],
     [Smartphone, t('Vertical, ready to post', '竖屏，拿去就能发'), t('Opens on 9:16 for TikTok, Reels, and Shorts. Add the "wassup in a minute" sound when you post so the clip joins the trend.','默认 9:16，适配 TikTok、Reels 和 Shorts。发布时加上「wassup in a minute」原声，视频才会进同一条趋势。')],
   ] as const;

@@ -14,14 +14,14 @@ const META = {
   en: {
     title: 'How to Make a Wassup in a Minute AI Video on ViralReel',
     description:
-      'How to make a wassup in a minute AI video on ViralReel from one photo. Money Fan, Puffer Classic, All Black, Jersey Look, and Heavyweight redraw you as the swaying streetwear anime character. Download the MP4, add the trend sound in TikTok.',
+      'How to make a wassup in a minute AI video on ViralReel from one to four photos. Money Fan, Puffer Classic, All Black, Jersey Look, and Heavyweight redraw your crew as the swaying streetwear anime characters. Download the MP4, add the trend sound in TikTok.',
     keywords:
       'wassup in a minute, wassup in a minute ai, wassup in a minute template, wassup in a minute meme, wassup been a minute, atlanta lock ai, wassup in a minute ai video, viralreel',
   },
   zh: {
     title: '如何在 ViralReel 制作 Wassup in a Minute AI 视频',
     description:
-      '在 ViralReel 用一张照片制作 wassup in a minute AI 视频。甩钱原版、黑羽绒经典、全黑装、球衣版和大块头，把你画成白底摇摆的街服动漫角色。下载 MP4 后，在 TikTok、Reels 或 Shorts 加上热梗原声和 AI 标注。',
+      '在 ViralReel 用一至四张照片制作 wassup in a minute AI 视频。甩钱原版、黑羽绒经典、全黑装、球衣版和大块头，把你们画成白底摇摆的街服动漫角色。下载 MP4 后，在 TikTok、Reels 或 Shorts 加上热梗原声和 AI 标注。',
     keywords:
       'wassup in a minute, wassup in a minute ai, wassup in a minute 模板, wassup in a minute 梗, wassup been a minute, atlanta lock ai, wassup in a minute ai 视频, viralreel',
   },

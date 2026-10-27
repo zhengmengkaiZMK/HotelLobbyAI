@@ -6,17 +6,17 @@ export interface WassupHowToStep {
 
 export const WASSUP_HOW_TO_STEPS: readonly WassupHowToStep[] = [
   {
-    name: { en: 'Upload one photo', zh: '上传一张照片' },
+    name: { en: 'Upload your photos', zh: '上传照片' },
     text: {
-      en: 'On ViralReel, open the Wassup in a Minute template and upload one clear photo of one person you have permission to use — face toward the camera, knees up or full body. JPG, PNG, and WebP work. Skip group shots, sunglasses, and heavy filters.',
-      zh: '在 ViralReel 打开 Wassup in a Minute 模板，上传一张你有权使用的单人清晰照片，正对镜头，半身或全身。支持 JPG、PNG 和 WebP。不要用合照、墨镜或重滤镜。',
+      en: 'On ViralReel, open the Wassup in a Minute template and upload one to four clear photos of people you have permission to use — face toward the camera, knees up or full body. JPG, PNG, and WebP work. Skip group shots, sunglasses, and heavy filters.',
+      zh: '在 ViralReel 打开 Wassup in a Minute 模板，上传一至四张你有权使用的人物清晰照片，正对镜头，半身或全身。支持 JPG、PNG 和 WebP。不要用合照、墨镜或重滤镜。',
     },
   },
   {
     name: { en: 'Generate', zh: '生成' },
     text: {
-      en: 'Leave the ratio on 9:16, check the credit cost shown before you start, and generate. You are drawn as an original streetwear anime character on a white background, then animated with the side-to-side sway.',
-      zh: '画幅保持 9:16，看清页面上的积分后生成。你会被画成白底街服动漫角色，然后按节拍左右摇摆。',
+      en: 'Leave the ratio on 9:16, check the credit cost shown before you start, and generate. Everyone is drawn as an original streetwear anime character on a white background, then animated with the side-to-side sway.',
+      zh: '画幅保持 9:16，看清页面上的积分后生成。所有人会被画成白底街服动漫角色，然后按节拍左右摇摆。',
     },
   },
   {
