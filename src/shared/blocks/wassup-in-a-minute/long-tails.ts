@@ -1,13 +1,14 @@
 import type { TemplateCostContext } from '@/shared/lib/pricing-copy';
 
+import { WASSUP_INTENT_TAILS } from './intent-tails';
 import { WASSUP_HOW_TO_STEPS, type WassupHowToStep } from './steps';
 
 /**
  * Long-tail landings for the Wassup in a Minute template.
  *
  * To add another keyword: append an entry here (the sitemap reads
- * WASSUP_LONG_TAIL_ROUTES) and add a thin route at
- * src/app/[locale]/(home)/<slug>/page.tsx that renders LongTailRoute.
+ * WASSUP_LONG_TAIL_ROUTES). Public URLs are served by the single
+ * `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
  * Do not reuse the main `wassup-in-a-minute-ai-template` slug.
  */
 
@@ -684,6 +685,7 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  ...WASSUP_INTENT_TAILS,
 ];
 
 export function getWassupLongTail(slug: string): LongTailEntry | undefined {
@@ -712,6 +714,14 @@ export function wassupLinkGroups(zh: boolean) {
         { href: '/wassup-in-a-minute-ai-video', label: zh ? 'Wassup in a Minute AI 视频' : 'Wassup in a Minute AI video' },
         { href: '/wassup-in-a-minute-template', label: zh ? '模板变体' : 'Template variants' },
         { href: '/wassup-in-a-minute-generator', label: zh ? '生成器' : 'Generator' },
+        { href: '/wassup-in-a-minute-ai-generator', label: zh ? 'AI 生成器' : 'AI generator' },
+        { href: '/make-wassup-in-a-minute-ai', label: zh ? '制作' : 'Make one' },
+        { href: '/create-wassup-in-a-minute-ai', label: zh ? '创建' : 'Create one' },
+        { href: '/wassup-in-a-minute-from-photo', label: zh ? '用照片制作' : 'From a photo' },
+        { href: '/wassup-in-a-minute-online', label: zh ? '在线制作' : 'Online' },
+        { href: '/wassup-in-a-minute-capcut', label: 'CapCut' },
+        { href: '/wassup-in-a-minute-without-capcut', label: zh ? '不用 CapCut' : 'Without CapCut' },
+        { href: '/wassup-in-a-minute-mp4', label: 'MP4' },
         { href: '/wassup-in-a-minute-filter', label: zh ? '滤镜版' : 'Filter version' },
         { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
         { href: '/subscribe', label: zh ? '月付方案' : 'Monthly plans' },
@@ -723,6 +733,8 @@ export function wassupLinkGroups(zh: boolean) {
       links: [
         { href: '/wassup-in-a-minute-meme', label: zh ? '梗详解' : 'Wassup in a Minute meme' },
         { href: '/wassup-in-a-minute-tiktok', label: zh ? 'TikTok 玩法' : 'Wassup in a Minute TikTok' },
+        { href: '/wassup-in-a-minute-instagram', label: 'Instagram' },
+        { href: '/wassup-in-a-minute-youtube-shorts', label: 'YouTube Shorts' },
         { href: '/wassup-in-a-minute-original', label: zh ? '原版出处' : 'The original edit' },
         { href: '/wassup-in-a-minute-song', label: zh ? '趋势原声' : 'The trend song' },
         { href: '/wassup-been-a-minute', label: zh ? 'Wassup been a minute' : 'Wassup been a minute' },
@@ -733,6 +745,9 @@ export function wassupLinkGroups(zh: boolean) {
       title: 'Atlanta Lock',
       links: [
         { href: '/atlanta-lock-ai', label: 'Atlanta Lock AI' },
+        { href: '/atlanta-lock', label: zh ? 'Atlanta Lock 是什么' : 'What Atlanta Lock is' },
+        { href: '/been-a-minute', label: zh ? 'Been a minute' : 'Been a minute' },
+        { href: '/wasala', label: zh ? 'Wasala 听写' : 'Wasala mishearing' },
         { href: '/wassup-in-a-minute-blue-lock', label: zh ? '与 Blue Lock 的关系' : 'Blue Lock connection' },
         { href: '/wassup-in-a-minute-filter', label: zh ? '滤镜版' : 'Filter version' },
       ],

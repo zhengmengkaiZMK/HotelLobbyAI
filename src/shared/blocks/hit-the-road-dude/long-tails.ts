@@ -6,14 +6,15 @@ import {
   hitTheRoadWatermarkAnswer,
   type HitTheRoadFaqContext,
 } from './faq';
+import { HIT_THE_ROAD_INTENT_TAILS } from './intent-tails';
 import { HIT_THE_ROAD_HOW_TO_STEPS, type HitTheRoadHowToStep } from './steps';
 
 /**
  * Long-tail landings for the Hit the Road Dude template.
  *
  * To add another keyword: append an entry here (the sitemap reads
- * HIT_THE_ROAD_LONG_TAIL_ROUTES) and add a thin route at
- * src/app/[locale]/(home)/<slug>/page.tsx that renders LongTailRoute.
+ * HIT_THE_ROAD_LONG_TAIL_ROUTES). Public URLs are served by the single
+ * `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
  * Do not reuse the main `hit-the-road-dude-ai-template` slug.
  */
 
@@ -23,6 +24,8 @@ export const HIT_THE_ROAD_POSTS = {
   howTo: '/blog/how-to-make-hit-the-road-dude-ai-video',
   explainer: '/blog/hit-the-road-dude-meme-and-original',
   aliases: '/blog/state-property-vs-hit-the-road-dude',
+  capcut: '/blog/viralreel-vs-capcut-hit-the-road-dude',
+  photoTips: '/blog/hit-the-road-dude-photo-tips',
 } as const;
 
 function absoluteUrl(zh: boolean, path: string) {
@@ -864,6 +867,7 @@ export const HIT_THE_ROAD_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  ...HIT_THE_ROAD_INTENT_TAILS,
 ];
 
 export function getHitTheRoadLongTail(slug: string) {
@@ -915,6 +919,15 @@ export function hitTheRoadLinkGroups(zh: boolean): HitTheRoadLinkGroup[] {
         { href: HIT_THE_ROAD_TEMPLATE_PATH, label: zh ? 'Hit the Road Dude AI 模板' : 'Hit the Road Dude AI template' },
         { href: '/hit-the-road-dude-ai-video', label: 'Hit the Road Dude AI video' },
         { href: '/hit-the-road-dude-ai', label: 'Hit the Road Dude AI' },
+        { href: '/hit-the-road-dude-generator', label: zh ? '生成器' : 'Generator' },
+        { href: '/hit-the-road-dude-ai-generator', label: zh ? 'AI 生成器' : 'AI generator' },
+        { href: '/make-hit-the-road-dude-ai', label: zh ? '制作' : 'Make one' },
+        { href: '/create-hit-the-road-dude-ai', label: zh ? '创建' : 'Create one' },
+        { href: '/hit-the-road-dude-from-photo', label: zh ? '用照片制作' : 'From a photo' },
+        { href: '/hit-the-road-dude-online', label: zh ? '在线制作' : 'Online' },
+        { href: '/hit-the-road-dude-capcut', label: 'CapCut' },
+        { href: '/hit-the-road-dude-without-capcut', label: zh ? '不用 CapCut' : 'Without CapCut' },
+        { href: '/hit-the-road-dude-mp4', label: 'MP4' },
         { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
       ],
@@ -929,6 +942,9 @@ export function hitTheRoadLinkGroups(zh: boolean): HitTheRoadLinkGroup[] {
         { href: '/hit-the-road-dude-gif', label: 'Hit the Road Dude GIF' },
         { href: '/hit-the-road-dude-remix', label: 'Hit the Road Dude remix' },
         { href: '/hit-the-road-dude-in-german', label: 'Hit the Road Dude in German' },
+        { href: '/hit-the-road-dude-tiktok', label: 'TikTok' },
+        { href: '/hit-the-road-dude-instagram', label: 'Instagram' },
+        { href: '/hit-the-road-dude-youtube-shorts', label: 'YouTube Shorts' },
       ],
     },
     {
@@ -948,6 +964,8 @@ export function hitTheRoadLinkGroups(zh: boolean): HitTheRoadLinkGroup[] {
         { href: HIT_THE_ROAD_POSTS.howTo, label: zh ? '如何制作 Hit the Road Dude AI 视频' : 'How to make a Hit the Road Dude AI video' },
         { href: HIT_THE_ROAD_POSTS.explainer, label: zh ? '梗、原片和歌' : 'Meme, original, and the song' },
         { href: HIT_THE_ROAD_POSTS.aliases, label: zh ? 'State Property 和 Hit the Road Dude' : 'State Property vs Hit the Road Dude' },
+        { href: HIT_THE_ROAD_POSTS.capcut, label: zh ? 'ViralReel 和 CapCut' : 'ViralReel vs CapCut' },
+        { href: HIT_THE_ROAD_POSTS.photoTips, label: zh ? '照片建议' : 'Photo tips' },
         { href: '/bulin-47-ai-template', label: 'Bulin 47' },
       ],
     },
