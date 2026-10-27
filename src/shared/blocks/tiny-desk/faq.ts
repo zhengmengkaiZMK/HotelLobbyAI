@@ -16,6 +16,8 @@ export const TINY_DESK_FAQ = {
     ['Is this the real NPR Tiny Desk?', 'No. The Tiny Desk Outstanding trend is a fan-made parody of Charlie Wilson\'s June 2023 Tiny Desk concert, and this tool is not connected to NPR, NPR Music, Tiny Desk Concerts or Charlie Wilson. The real concert is on NPR Music\'s channel, and the trend\'s biggest accounts label their posts as AI-generated parody.'],
     ['What aspect ratio should a Tiny Desk Outstanding AI video use?', '9:16, like the viral versions. The originals were built for TikTok, Instagram Reels and YouTube Shorts, and the ViralReel Tiny Desk Outstanding page opens on 9:16. 16:9 and 1:1 are available if you need another shape.'],
     ['How much does a Tiny Desk Outstanding AI video cost on ViralReel?', tdCost.en],
+    ['What is a Tiny Desk Outstanding fan parody?', 'Three files get mixed together. The NPR close is Charlie Wilson singing the Gap Band’s “Outstanding” at Tiny Desk, posted by NPR Music on 5 June 2023. The meme file is the All-Loss coaches TikTok from 18 October 2026. The ViralReel product is a new MP4 from photos you have permission to use. That split is at https://www.viralreel.app/blog/what-is-tiny-desk-outstanding-fan-parody. ViralReel hosts neither original.'],
+    ['How do I post a Tiny Desk Outstanding video on TikTok, Reels, or Shorts?', 'Download the 9:16 MP4, upload it in the app, add the Outstanding trend sound from that app’s library, and turn on the AI label. ViralReel does not license the song. The posting steps are at https://www.viralreel.app/blog/post-tiny-desk-outstanding-tiktok-reels-shorts.'],
   ],
   zh: [
     ['Tiny Desk Outstanding 是什么梗？', '它是 TikTok 上的 AI 换脸玩法：把新的脸换进 Charlie Wilson 在 NPR Tiny Desk 演唱《Outstanding》的名场面——狭小的办公室、桌子、耳机、咧嘴笑、挥手和萨克斯独奏全部原样保留，只换乐队成员。2026 年 10 月 18 日随着五位输球的大学橄榄球教练版爆火，之后各球队、各粉丝圈和朋友团都在换自己的阵容。'],
@@ -28,5 +30,7 @@ export const TINY_DESK_FAQ = {
     ['这是真的 NPR Tiny Desk 吗？', '不是。Tiny Desk Outstanding 是对 Charlie Wilson 2023 年 6 月 Tiny Desk 演唱会的粉丝向戏仿，本工具与 NPR、NPR Music、Tiny Desk Concerts 和 Charlie Wilson 均无关联。真实演唱会在 NPR Music 频道可以观看，趋势里最大的几个账号也都给自己的帖子标注了 AI 生成。'],
     ['Tiny Desk Outstanding AI 视频用什么画幅？', '9:16，和爆火版本一致。原片就是为 TikTok、Instagram Reels 和 YouTube Shorts 准备的竖屏，ViralReel 的 Tiny Desk Outstanding 页面默认 9:16。需要别的形状时也可以改 16:9 或 1:1。'],
     ['在 ViralReel 做一条 Tiny Desk Outstanding AI 视频要多少钱？', tdCost.zh],
+    ['Tiny Desk Outstanding 粉丝戏仿是什么？', '三个文件经常被混在一起。NPR 收尾是 Charlie Wilson 在 Tiny Desk 演唱 Gap Band 的《Outstanding》，NPR Music 于 2023 年 6 月 5 日发布。梗文件是 2026 年 10 月 18 日的 All-Loss 教练 TikTok。ViralReel 的产品是用你有权使用的照片做成的新 MP4。这个区分在 https://www.viralreel.app/zh/blog/what-is-tiny-desk-outstanding-fan-parody 。ViralReel 不托管两个原片。'],
+    ['怎么把 Tiny Desk Outstanding 发到 TikTok、Reels 或 Shorts？', '下载 9:16 的 MP4，在 App 里上传，从该 App 曲库加上《Outstanding》热梗原声，并打开 AI 标注。ViralReel 不授权这首歌。发布步骤在 https://www.viralreel.app/zh/blog/post-tiny-desk-outstanding-tiktok-reels-shorts 。'],
   ],
 } as const;

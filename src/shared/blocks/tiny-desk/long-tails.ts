@@ -24,6 +24,8 @@ export const TINY_DESK_POSTS = {
   roundup: '/blog/october-2026-viral-ai-meme-videos',
   capcut: '/blog/viralreel-vs-capcut-tiny-desk-outstanding',
   photoTips: '/blog/tiny-desk-outstanding-photo-tips',
+  memeExplainer: '/blog/what-is-tiny-desk-outstanding-fan-parody',
+  posting: '/blog/post-tiny-desk-outstanding-tiktok-reels-shorts',
 } as const;
 
 const PRODUCT = { en: 'Tiny Desk Outstanding', zh: 'Tiny Desk Outstanding' };
@@ -36,6 +38,10 @@ const EN_PHOTO_POST = 'https://www.viralreel.app/blog/tiny-desk-outstanding-phot
 const ZH_PHOTO_POST = 'https://www.viralreel.app/zh/blog/tiny-desk-outstanding-photo-tips';
 const EN_HOWTO = 'https://www.viralreel.app/blog/how-to-make-tiny-desk-outstanding-ai-video';
 const ZH_HOWTO = 'https://www.viralreel.app/zh/blog/how-to-make-tiny-desk-outstanding-ai-video';
+const EN_MEME_EXPLAINER = 'https://www.viralreel.app/blog/what-is-tiny-desk-outstanding-fan-parody';
+const ZH_MEME_EXPLAINER = 'https://www.viralreel.app/zh/blog/what-is-tiny-desk-outstanding-fan-parody';
+const EN_POSTING = 'https://www.viralreel.app/blog/post-tiny-desk-outstanding-tiktok-reels-shorts';
+const ZH_POSTING = 'https://www.viralreel.app/zh/blog/post-tiny-desk-outstanding-tiktok-reels-shorts';
 
 function templateUrl(zh: boolean) {
   return zh ? ZH_TEMPLATE : EN_TEMPLATE;
@@ -1269,6 +1275,606 @@ export const TINY_DESK_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  {
+    keyword: 'tiny desk outstanding original',
+    slug: 'tiny-desk-outstanding-original',
+    title: {
+      en: 'Tiny Desk Outstanding Original – NPR Close, Meme, or a New MP4',
+      zh: 'Tiny Desk Outstanding 原片：NPR 收尾、梗，还是一条新 MP4',
+    },
+    description: {
+      en: 'tiny desk outstanding original: three different files. NPR Music posted Charlie Wilson’s Outstanding close on 5 June 2023. The meme TikTok is 18 October 2026. ViralReel makes a new fan-parody MP4 and hosts neither original.',
+      zh: 'tiny desk outstanding original：三个不同的文件。NPR Music 在 2023 年 6 月 5 日发布 Charlie Wilson 的 Outstanding 收尾。梗 TikTok 是 2026 年 10 月 18 日。ViralReel 做的是新的粉丝戏仿 MP4，两个原片都不托管。',
+    },
+    h1: { en: 'Tiny Desk Outstanding original', zh: 'Tiny Desk Outstanding 原片' },
+    lead: {
+      en: '“Tiny Desk Outstanding original” names three files. ViralReel hosts none of the first two. It makes a new fan parody from your photos.',
+      zh: '“Tiny Desk Outstanding 原片”其实指向三个文件。前两个 ViralReel 都不托管。它用你的照片做一条新的粉丝戏仿。',
+    },
+    guideTitle: {
+      en: 'Which original this search is asking for',
+      zh: '这次搜索要的是哪一个原片',
+    },
+    body: {
+      en: [
+        'The performance original is Charlie Wilson closing his NPR Tiny Desk concert with the Gap Band song “Outstanding.” NPR Music posted that concert on 5 June 2023. The office, the desk, the grin, the hand wave, and the sax solo are that video. It stays on NPR Music. ViralReel is not NPR and does not reupload it.',
+        'The meme original is later. On 18 October 2026 @theburnerfromhe11 posted “College Football’s Week 8 All-Loss Tiny Desk Concert,” the day after five of the top seven ranked teams lost. That TikTok is the file people mean when they say the trend started. ViralReel does not host it and does not generate those coaches. The split between the NPR close, that TikTok, and this product is written at ' + EN_MEME_EXPLAINER + '.',
+        'What you can make here is a third file: a new 9:16 MP4 at ' + EN_TEMPLATE + '. Six sets — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, Uncle Charlie — are costumes for photos you have permission to use. There is no Outstanding license. Add the trend sound on TikTok, Reels, or Shorts.',
+      ],
+      zh: [
+        '演出原片是 Charlie Wilson 用 Gap Band 的《Outstanding》为 NPR Tiny Desk 演唱会收尾。NPR Music 在 2023 年 6 月 5 日发布那场演唱会。办公室、桌子、咧嘴笑、挥手和萨克斯独奏都在那条视频里。它仍在 NPR Music。ViralReel 不是 NPR，也不转载它。',
+        '梗的原片更晚。2026 年 10 月 18 日，@theburnerfromhe11 发布了「College Football’s Week 8 All-Loss Tiny Desk Concert」，前一天排名前七的球队有五支同日输球。大家说趋势从这里开始时，指的就是这条 TikTok。ViralReel 不托管它，也不生成那些教练。NPR 收尾、那条 TikTok 和本站产品的区分写在 ' + ZH_MEME_EXPLAINER + ' 。',
+        '你在这里能做的是第三个文件：' + ZH_TEMPLATE + ' 上一条新的 9:16 MP4。六套阵容——输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子、真身 Charlie——是给有权使用的照片准备的造型。没有《Outstanding》的授权。热梗原声请在 TikTok、Reels 或 Shorts 里另加。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Where is the original Tiny Desk Outstanding video?', zh: 'Tiny Desk Outstanding 原片在哪里？' },
+        a: {
+          en: 'The concert is on NPR Music (posted 5 June 2023). The trend’s coaches TikTok was posted by @theburnerfromhe11 on 18 October 2026. ViralReel hosts neither file.',
+          zh: '演唱会在 NPR Music（2023 年 6 月 5 日发布）。趋势里的教练 TikTok 由 @theburnerfromhe11 在 2026 年 10 月 18 日发布。ViralReel 不托管这两个文件。',
+        },
+      },
+      {
+        q: { en: 'Does the ViralReel download replace the original?', zh: 'ViralReel 的下载能代替原片吗？' },
+        a: {
+          en: 'No. The download is a new fan-parody MP4 made from your photos. It is not a copy of the NPR concert or the original TikTok.',
+          zh: '不能。下载的是用你的照片做成的新粉丝戏仿 MP4。它不是 NPR 演唱会或原始 TikTok 的拷贝。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'tiny desk outstanding from photo',
+    slug: 'tiny-desk-outstanding-from-photo',
+    title: {
+      en: 'Tiny Desk Outstanding from Photo – Three Photos to an MP4',
+      zh: '用照片做 Tiny Desk Outstanding：三张照片到一条 MP4',
+    },
+    description: {
+      en: 'tiny desk outstanding from photo: upload three photos you have permission to use into Center Lead, Left Role, and Right Role. ViralReel makes a new fan-parody MP4. Not a prompt, not an NPR screenshot, not a celebrity face.',
+      zh: 'tiny desk outstanding from photo：把三张有权使用的照片放进中间主角、左边角色和右边角色。ViralReel 做一条新的粉丝戏仿 MP4。不是提示词，不是 NPR 截图，也不是名人的脸。',
+    },
+    h1: { en: 'Tiny Desk Outstanding from a photo', zh: '用照片做 Tiny Desk Outstanding' },
+    lead: {
+      en: 'A Tiny Desk Outstanding from a photo starts with pictures you already have. The template turns those faces into a new desk scene. It does not start from a screenshot of NPR.',
+      zh: '用照片做 Tiny Desk Outstanding，起点是你已经有的照片。模板把这些脸放进一个新的桌子场景。起点不是 NPR 的截图。',
+    },
+    guideTitle: {
+      en: 'What “from a photo” means on ViralReel',
+      zh: '在 ViralReel 上“用照片做”是什么意思',
+    },
+    body: {
+      en: [
+        'Photo-to-video here is three stills in, one MP4 out. Open ' + EN_TEMPLATE + '. ' + SLOTS_EN + ' Reference models require all three. One clear face per photo works better than a group shot, a screenshot, or the same picture pasted three times.',
+        'Do not upload the NPR concert, the original TikTok, Charlie Wilson, coaches, players, owners, other celebrities, or minors. The six sets are costumes — All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, Uncle Charlie — for people who agreed to be in the clip. Lighting and what to leave out are in ' + EN_PHOTO_POST + '.',
+        'You do not write a prompt and you do not paste the photo into a CapCut project to use this path. Keep 9:16. The credit cost is on the generator before you start. Credit packs are on https://www.viralreel.app/pricing and monthly plans are on https://www.viralreel.app/subscribe. The download is a new fan parody. Add the trend sound on the platform. ViralReel does not license “Outstanding.”',
+      ],
+      zh: [
+        '这里的照片转视频是三张静帧进去，一条 MP4 出来。打开 ' + ZH_TEMPLATE + ' 。' + SLOTS_ZH + ' 参考模型需要三张都传上。每张一个清晰的脸，比合照、截图，或同一张图贴三次更好。',
+        '不要上传 NPR 演唱会、原始 TikTok、Charlie Wilson、教练、球员、老板、其他名人或未成年人。六套阵容是造型——输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子、真身 Charlie——给同意出镜的人用。光线和不要放什么写在 ' + ZH_PHOTO_POST + ' 。',
+        '这条路径不用写提示词，也不用把照片贴进 CapCut 工程。保持 9:16。积分在生成前显示在生成器上。积分包在 https://www.viralreel.app/zh/pricing ，月付方案在 https://www.viralreel.app/zh/subscribe 。下载的是新的粉丝戏仿。热梗原声在平台上另加。ViralReel 不授权《Outstanding》。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'How many photos does Tiny Desk Outstanding from a photo need?', zh: '用照片做 Tiny Desk Outstanding 要几张照片？' },
+        a: {
+          en: 'Three. Center Lead, Left Role, and Right Role. Reference models require all three. Use photos you have permission to use, one face each.',
+          zh: '三张。中间主角、左边角色、右边角色。参考模型需要三张都传上。用你有权使用的照片，每张一张脸。',
+        },
+      },
+      {
+        q: { en: 'Can I start from a screenshot of the original video?', zh: '可以从原视频的截图开始吗？' },
+        a: {
+          en: 'No. Upload photos you have permission to use. Do not upload NPR screenshots, the original TikTok, or a photo of a screen.',
+          zh: '不可以。上传你有权使用的照片。不要上传 NPR 截图、原始 TikTok，或屏幕的照片。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'tiny desk outstanding online',
+    slug: 'tiny-desk-outstanding-online',
+    title: {
+      en: 'Tiny Desk Outstanding Online – Make It in the Browser',
+      zh: '在线做 Tiny Desk Outstanding：在浏览器里完成',
+    },
+    description: {
+      en: 'tiny desk outstanding online: ViralReel runs in the browser. No app install. Pick a set, upload three photos, download a 9:16 fan-parody MP4. Not NPR. No Outstanding license.',
+      zh: 'tiny desk outstanding online：ViralReel 在浏览器里运行。不用装 App。选一套阵容，上传三张照片，下载 9:16 粉丝戏仿 MP4。不是 NPR。不授权《Outstanding》。',
+    },
+    h1: { en: 'Tiny Desk Outstanding online', zh: '在线 Tiny Desk Outstanding' },
+    lead: {
+      en: 'Tiny Desk Outstanding online means the browser on ViralReel. You do not install an app and you do not leave the site to find a project file.',
+      zh: '在线 Tiny Desk Outstanding 指的是 ViralReel 的浏览器。不用装 App，也不用离开网站去找工程文件。',
+    },
+    guideTitle: {
+      en: 'The online path, from the URL to the MP4',
+      zh: '从网址到 MP4 的在线路径',
+    },
+    body: {
+      en: [
+        'The online generator is ' + EN_TEMPLATE + '. Open it on a phone or a laptop. Pick All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, or Uncle Charlie. The page opens on 9:16. The credit cost for the resolution and length you pick is on that page before you generate.',
+        'There is no ViralReel app to install for this template, and no CapCut project bundled with the URL. If the search was “without CapCut,” the comparison is ' + EN_CAPCUT_POST + '. If the search was the install-free generator by another name, see https://www.viralreel.app/tiny-desk-outstanding-generator.',
+        'The file you download is a new fan parody, not the NPR concert. ViralReel (viralreel.app) is not affiliated with NPR, Tiny Desk, Charlie Wilson, or the Gap Band, and it does not license “Outstanding.” Posting the MP4 with the trend sound and an AI label is covered at ' + EN_POSTING + '.',
+      ],
+      zh: [
+        '在线生成器是 ' + ZH_TEMPLATE + ' 。手机或笔记本打开即可。输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子或真身 Charlie 任选。页面默认 9:16。你选的分辨率和时长对应的积分，会在生成前显示在那一页上。',
+        '这个模板没有要安装的 ViralReel App，网址里也不附带 CapCut 工程。如果搜的是“不用 CapCut”，对照在 ' + ZH_CAPCUT_POST + ' 。如果搜的是同一个免安装生成器的另一个名字，见 https://www.viralreel.app/zh/tiny-desk-outstanding-generator 。',
+        '下载的文件是新的粉丝戏仿，不是 NPR 演唱会。ViralReel（viralreel.app）与 NPR、Tiny Desk、Charlie Wilson 和 Gap Band 均无关联，也不授权《Outstanding》。把 MP4 配上热梗原声和 AI 标注再发布，写在 ' + ZH_POSTING + ' 。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Can I make Tiny Desk Outstanding online without an app?', zh: '可以不装 App、在线做 Tiny Desk Outstanding 吗？' },
+        a: {
+          en: 'Yes. The template runs in the browser at https://www.viralreel.app/tiny-desk-outstanding-ai-template. There is no install step.',
+          zh: '可以。模板在浏览器里：https://www.viralreel.app/zh/tiny-desk-outstanding-ai-template 。没有安装步骤。',
+        },
+      },
+      {
+        q: { en: 'Is the online page the NPR concert?', zh: '这个在线页面是 NPR 演唱会吗？' },
+        a: {
+          en: 'No. It is an independent fan-parody tool. The real concert stays on NPR Music.',
+          zh: '不是。它是独立的粉丝戏仿工具。真实演唱会仍在 NPR Music。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'create tiny desk outstanding ai',
+    slug: 'create-tiny-desk-outstanding-ai',
+    title: {
+      en: 'Create Tiny Desk Outstanding AI – A New Cast, Not the Viral File',
+      zh: '创建 Tiny Desk Outstanding AI：新阵容，不是那条爆火文件',
+    },
+    description: {
+      en: 'create tiny desk outstanding ai: you create a new fan parody on ViralReel from photos you have permission to use. You do not request the NPR concert or the All-Loss TikTok. Six sets. Three slots. No Outstanding license.',
+      zh: 'create tiny desk outstanding ai：你在 ViralReel 用有权使用的照片创建一条新的粉丝戏仿。不是索取 NPR 演唱会或 All-Loss TikTok。六套阵容。三个位置。不授权《Outstanding》。',
+    },
+    h1: { en: 'Create Tiny Desk Outstanding AI', zh: '创建 Tiny Desk Outstanding AI' },
+    lead: {
+      en: 'To create Tiny Desk Outstanding AI is to author a new clip. The viral file already exists somewhere else. This page is the new one, made from your photos.',
+      zh: '创建 Tiny Desk Outstanding AI，是做出一条新片子。那条爆火文件在别的地方。这一页做的是新的，用的是你的照片。',
+    },
+    guideTitle: {
+      en: 'What you are creating, and what you are not',
+      zh: '你在创建什么，以及不是什么',
+    },
+    body: {
+      en: [
+        'Create is not a request for the existing meme. The NPR close and the 18 October 2026 coaches TikTok are not generated on demand. You create a fan parody: your office, your group chat, your fantasy league, standing in that fixed scene. The step checklist under the verb “make” is https://www.viralreel.app/make-tiny-desk-outstanding-ai. The long write-up is ' + EN_HOWTO + '.',
+        SLOTS_EN + ' Then choose a set that matches the joke you want: All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, or Uncle Charlie. Those names are costumes. They do not look up coaches, players, or Charlie Wilson.',
+        'Create it at ' + EN_TEMPLATE + '. Keep 9:16 and read the credits before you generate. The result is an MP4 of a new scene. ViralReel does not license “Outstanding.” When the file is ready, follow ' + EN_POSTING + ' to add the trend sound and the AI label.',
+      ],
+      zh: [
+        '创建不是去要那条已经存在的梗。NPR 收尾和 2026 年 10 月 18 日的教练 TikTok 不会按需生成。你创建的是粉丝戏仿：你的办公室、你的群聊、你的幻想联赛，站进那个固定场景。动词“制作”下面的步骤清单在 https://www.viralreel.app/zh/make-tiny-desk-outstanding-ai 。长文在 ' + ZH_HOWTO + ' 。',
+        SLOTS_ZH + ' 然后选一套和你想讲的笑话匹配的阵容：输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子或真身 Charlie。这些名字是造型。它们不会按名字去找教练、球员或 Charlie Wilson。',
+        '在 ' + ZH_TEMPLATE + ' 创建。保持 9:16，生成前看清积分。结果是一条新场景的 MP4。ViralReel 不授权《Outstanding》。文件好了之后，按 ' + ZH_POSTING + ' 加热梗原声和 AI 标注。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Does “create Tiny Desk Outstanding AI” give me the viral coaches clip?', zh: '“创建 Tiny Desk Outstanding AI”会给我那条爆火教练片吗？' },
+        a: {
+          en: 'No. You create a new fan parody from photos you have permission to use. ViralReel does not hand over the NPR concert or the original TikTok.',
+          zh: '不会。你用有权使用的照片创建一条新的粉丝戏仿。ViralReel 不会交出 NPR 演唱会或原始 TikTok。',
+        },
+      },
+      {
+        q: { en: 'Who can be in the clip I create?', zh: '我创建的片子里可以是谁？' },
+        a: {
+          en: 'People who agreed to be in it. Do not upload minors, celebrities, coaches, players, owners, or Charlie Wilson.',
+          zh: '同意出镜的人。不要上传未成年人、名人、教练、球员、老板或 Charlie Wilson。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'charlie wilson outstanding ai',
+    slug: 'charlie-wilson-outstanding-ai',
+    title: {
+      en: 'Charlie Wilson Outstanding AI – The Song, Not His Face',
+      zh: 'Charlie Wilson Outstanding AI：这首歌，不是他的脸',
+    },
+    description: {
+      en: 'charlie wilson outstanding ai: the search names the singer and the Gap Band song. ViralReel does not generate Charlie Wilson and does not license Outstanding. The desk fan parody uses your photos. Not NPR.',
+      zh: 'charlie wilson outstanding ai：这个搜索点名的是歌手和 Gap Band 的歌。ViralReel 不生成 Charlie Wilson，也不授权《Outstanding》。桌子上的粉丝戏仿用的是你的照片。不是 NPR。',
+    },
+    h1: { en: 'Charlie Wilson Outstanding AI', zh: 'Charlie Wilson Outstanding AI' },
+    lead: {
+      en: 'Charlie Wilson Outstanding AI puts the singer and the song first. ViralReel does not build his face and does not sell the recording. The fan parody is a new scene from your photos.',
+      zh: 'Charlie Wilson Outstanding AI 把歌手和歌放在前面。ViralReel 不生成他的脸，也不出售那段录音。粉丝戏仿是用你的照片做的新场景。',
+    },
+    guideTitle: {
+      en: 'The Outstanding performance, separated from the AI file',
+      zh: '把 Outstanding 的演出和 AI 文件分开',
+    },
+    body: {
+      en: [
+        'Charlie Wilson sang “Outstanding,” the 1982 Gap Band song, to close his NPR Tiny Desk concert. NPR Music posted it on 5 June 2023. A search that leads with his name and the song title is looking for that performance. The page that leads with the desk name is https://www.viralreel.app/charlie-wilson-tiny-desk-ai. This page is the song-first twin. Neither page is an official Charlie Wilson or NPR property.',
+        'ViralReel does not generate Charlie Wilson from his name, and the Uncle Charlie set is a costume (beanie, gold shades, patterned shirt), not his face. Do not upload his photo or a still from the concert. The song question — there is no license and no export of the Gap Band track — is https://www.viralreel.app/gap-band-outstanding-ai.',
+        'The AI video you can make is the fan parody at ' + EN_TEMPLATE + '. Your photos fill Center Lead, Left Role, and Right Role. Add the trend sound yourself on TikTok, Reels, or Shorts. The three-way split of concert, meme, and product is ' + EN_MEME_EXPLAINER + '.',
+      ],
+      zh: [
+        'Charlie Wilson 用 Gap Band 1982 年的《Outstanding》为 NPR Tiny Desk 演唱会收尾。NPR Music 在 2023 年 6 月 5 日发布。先写他的名字再写歌名的搜索，找的是那场演出。先写桌子名字的页面在 https://www.viralreel.app/zh/charlie-wilson-tiny-desk-ai 。这一页是歌名在前的对照页。两页都不是 Charlie Wilson 或 NPR 的官方页面。',
+        'ViralReel 不会按名字生成 Charlie Wilson。真身 Charlie 套装是造型（毛线帽、金色墨镜、花衬衫），不是他的脸。不要上传他的照片或演唱会截图。歌曲问题——没有授权，也不导出 Gap Band 曲目——在 https://www.viralreel.app/zh/gap-band-outstanding-ai 。',
+        '你能做的 AI 视频是 ' + ZH_TEMPLATE + ' 上的粉丝戏仿。你的照片填中间主角、左边角色和右边角色。热梗原声请自己在 TikTok、Reels 或 Shorts 里加。演唱会、梗和产品的三分法在 ' + ZH_MEME_EXPLAINER + ' 。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is Charlie Wilson Outstanding AI different from Charlie Wilson Tiny Desk AI?', zh: 'Charlie Wilson Outstanding AI 和 Charlie Wilson Tiny Desk AI 是两回事吗？' },
+        a: {
+          en: 'Same limit, different word order. Outstanding-first is the song he sang. Tiny-Desk-first is the concert framing. ViralReel generates neither his face nor NPR’s file.',
+          zh: '限制相同，词序不同。Outstanding 在前指的是他唱的那首歌。Tiny Desk 在前指的是演唱会构图。ViralReel 既不生成他的脸，也不生成 NPR 的文件。',
+        },
+      },
+      {
+        q: { en: 'Will the MP4 use Charlie Wilson’s voice?', zh: 'MP4 会用 Charlie Wilson 的声音吗？' },
+        a: {
+          en: 'No licensed vocal ships with the file. ViralReel does not license “Outstanding.” Add the trend sound from the TikTok, Reels, or Shorts library when you post.',
+          zh: '文件里没有已授权的人声。ViralReel 不授权《Outstanding》。发布时请从 TikTok、Reels 或 Shorts 的曲库加热梗原声。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'washed anthem tiny desk',
+    slug: 'washed-anthem-tiny-desk',
+    title: {
+      en: 'Washed Anthem Tiny Desk – The Desk the Nickname Points At',
+      zh: '过气赞歌 Tiny Desk：这个外号指向的那张桌子',
+    },
+    description: {
+      en: 'washed anthem tiny desk: the nickname and the desk are one Charlie Wilson Outstanding scene. ViralReel’s fan parody is the Tiny Desk Outstanding template. Not a second product. Not a song download. Not NPR.',
+      zh: 'washed anthem tiny desk：这个外号和这张桌子是同一个 Charlie Wilson 的 Outstanding 场景。ViralReel 的粉丝戏仿就是 Tiny Desk Outstanding 模板。不是第二个产品。不是歌曲下载。不是 NPR。',
+    },
+    h1: { en: 'Washed anthem Tiny Desk', zh: '过气赞歌 Tiny Desk' },
+    lead: {
+      en: 'Washed anthem Tiny Desk is the nickname pointed at one desk. There is no second ViralReel product hiding behind the phrase.',
+      zh: '过气赞歌 Tiny Desk 是指向同一张桌子的外号。这个说法后面没有第二个 ViralReel 产品。',
+    },
+    guideTitle: {
+      en: 'The nickname, pinned to the desk',
+      zh: '钉在这张桌子上的外号',
+    },
+    body: {
+      en: [
+        'Washed anthem is what sports TikTok called Charlie Wilson’s Outstanding close before the AI wave: a celebration song laid over a subject past its peak. Washed anthem tiny desk asks for the desk in that nickname, not a glossary entry. The nickname page is https://www.viralreel.app/washed-anthem-ai. The coaches clip that made the joke louder is https://www.viralreel.app/all-loss-tiny-desk. The longer sports write-up is https://www.viralreel.app/blog/all-loss-tiny-desk-and-outstanding.',
+        'On ViralReel both phrases land on one template: ' + EN_TEMPLATE + '. All-Loss Coaches is the costume of the day-after-a-loss joke. The other five sets — Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, Uncle Charlie — are the same desk with a different band. None of them generate the athletes the nickname was about.',
+        'The download is a new fan-parody MP4. ViralReel does not license the washed-anthem recording, which is “Outstanding.” Add that sound on TikTok, Reels, or Shorts and label the post as AI. This site is not NPR.',
+      ],
+      zh: [
+        '过气赞歌是体育 TikTok 在 AI 浪潮之前对 Charlie Wilson 的 Outstanding 收尾的叫法：一首庆祝的歌，配在已经过了巅峰的对象上。搜 washed anthem tiny desk 要的是这个外号里的桌子，不是词条。外号页在 https://www.viralreel.app/zh/washed-anthem-ai 。把笑话做得更响的教练片在 https://www.viralreel.app/zh/all-loss-tiny-desk 。更长的体育说明在 https://www.viralreel.app/zh/blog/all-loss-tiny-desk-and-outstanding 。',
+        '在 ViralReel，两个说法落到同一个模板：' + ZH_TEMPLATE + ' 。输球教练团是“输球第二天”这个笑话的造型。另外五套——牛仔传奇、国联东区乐队、公羊队、马刺大个子、真身 Charlie——是同一张桌子换一支乐队。它们都不会生成外号当初指向的那些运动员。',
+        '下载的是新的粉丝戏仿 MP4。ViralReel 不授权过气赞歌那段录音，也就是《Outstanding》。请在 TikTok、Reels 或 Shorts 里加这段声音，并把帖子标成 AI。本站不是 NPR。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is washed anthem Tiny Desk a different video from Tiny Desk Outstanding?', zh: '过气赞歌 Tiny Desk 和 Tiny Desk Outstanding 是两条不同的视频吗？' },
+        a: {
+          en: 'No. Washed anthem is the nickname. Tiny Desk Outstanding is the same Charlie Wilson desk. ViralReel has one fan-parody template for both.',
+          zh: '不是。过气赞歌是外号。Tiny Desk Outstanding 是同一张 Charlie Wilson 的桌子。ViralReel 对两者只有一个粉丝戏仿模板。',
+        },
+      },
+      {
+        q: { en: 'Can I download the washed anthem from this page?', zh: '能从这个页面下载过气赞歌吗？' },
+        a: {
+          en: 'No. ViralReel does not license or export “Outstanding.” Add the trend sound in the app you post to.',
+          zh: '不能。ViralReel 不授权也不导出《Outstanding》。请在你发布的应用里加热梗原声。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'tiny desk outstanding instagram',
+    slug: 'tiny-desk-outstanding-instagram',
+    title: {
+      en: 'Tiny Desk Outstanding Instagram – Post the MP4 as a Reel',
+      zh: 'Tiny Desk Outstanding Instagram：把 MP4 发成 Reel',
+    },
+    description: {
+      en: 'tiny desk outstanding instagram: make a 9:16 fan-parody MP4 on ViralReel, then post it as an Instagram Reel. Add the trend sound from Instagram’s library and the AI label. ViralReel does not license Outstanding. Not NPR.',
+      zh: 'tiny desk outstanding instagram：在 ViralReel 做一条 9:16 粉丝戏仿 MP4，再发成 Instagram Reel。从 Instagram 曲库加热梗原声，并打开 AI 标注。ViralReel 不授权《Outstanding》。不是 NPR。',
+    },
+    h1: { en: 'Tiny Desk Outstanding on Instagram', zh: 'Instagram 上的 Tiny Desk Outstanding' },
+    lead: {
+      en: 'Tiny Desk Outstanding on Instagram is a posting step. ViralReel makes the 9:16 MP4. Instagram is where you add the Reel, the trend sound, and the AI label.',
+      zh: 'Instagram 上的 Tiny Desk Outstanding 是发布步骤。ViralReel 做 9:16 的 MP4。Instagram 是你加上 Reel、热梗原声和 AI 标注的地方。',
+    },
+    guideTitle: {
+      en: 'From the ViralReel MP4 to an Instagram Reel',
+      zh: '从 ViralReel 的 MP4 到一条 Instagram Reel',
+    },
+    body: {
+      en: [
+        'Instagram did pick up the trend — the All-Loss coaches clip drew on the order of two million views there — but ViralReel does not host those Reels and is not affiliated with Instagram. What you post is a new fan parody. Make it at ' + EN_TEMPLATE + ', ratio 9:16, which is the Reel frame. The TikTok-origin page is https://www.viralreel.app/tiny-desk-outstanding-tiktok. This page is the Reels upload.',
+        'Download the MP4. In Instagram, start a Reel and upload that file from your camera roll. Add the Outstanding sound from Instagram’s own library if the post should sit with the trend. ViralReel does not license the Gap Band track, so the sound has to come from the app, not from this site. Turn on the AI-generated label Instagram offers. A full pass across TikTok, Reels, and Shorts is ' + EN_POSTING + '.',
+        'Center Lead, Left Role, and Right Role are filled before you ever open Instagram. Do not upload celebrities or NPR screenshots into the generator to “match” a Reel you saw. Credit packs are at https://www.viralreel.app/pricing. Monthly plans are at https://www.viralreel.app/subscribe. The generator shows the credit cost before you render.',
+      ],
+      zh: [
+        'Instagram 上也接住了这个趋势——All-Loss 教练片在那边大约有两百万观看——但 ViralReel 不托管那些 Reel，也与 Instagram 没有关系。你发的是新的粉丝戏仿。在 ' + ZH_TEMPLATE + ' 制作，画幅 9:16，也就是 Reel 的画幅。TikTok 起源页在 https://www.viralreel.app/zh/tiny-desk-outstanding-tiktok 。这一页是 Reels 上传。',
+        '下载 MP4。在 Instagram 里新建 Reel，从相册上传这个文件。如果帖子要和趋势站在一起，从 Instagram 自己的曲库加上《Outstanding》。ViralReel 不授权 Gap Band 的曲目，所以声音必须来自那个 App，而不是本站。打开 Instagram 提供的 AI 生成标注。TikTok、Reels 和 Shorts 的完整流程在 ' + ZH_POSTING + ' 。',
+        '中间主角、左边角色和右边角色在你打开 Instagram 之前就填好。不要为了“对上”你看到的某条 Reel，把名人或 NPR 截图传进生成器。积分包在 https://www.viralreel.app/zh/pricing 。月付方案在 https://www.viralreel.app/zh/subscribe 。生成器会在渲染前显示积分。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Does ViralReel post the Tiny Desk Outstanding video to Instagram for me?', zh: 'ViralReel 会帮我把 Tiny Desk Outstanding 发到 Instagram 吗？' },
+        a: {
+          en: 'No. You download the MP4 and upload it as a Reel yourself. Add the trend sound from Instagram’s library and the AI label in the app.',
+          zh: '不会。你自己下载 MP4，再作为 Reel 上传。在 App 里从 Instagram 曲库加热梗原声，并打开 AI 标注。',
+        },
+      },
+      {
+        q: { en: 'What ratio should an Instagram Reel of this trend use?', zh: '这条趋势的 Instagram Reel 该用什么画幅？' },
+        a: {
+          en: '9:16. That is the default on the Tiny Desk Outstanding template, and it is the vertical frame Reels uses.',
+          zh: '9:16。这是 Tiny Desk Outstanding 模板的默认画幅，也是 Reels 使用的竖屏。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'tiny desk outstanding youtube shorts',
+    slug: 'tiny-desk-outstanding-youtube-shorts',
+    title: {
+      en: 'Tiny Desk Outstanding YouTube Shorts – Upload the 9:16 MP4',
+      zh: 'Tiny Desk Outstanding YouTube Shorts：上传 9:16 的 MP4',
+    },
+    description: {
+      en: 'tiny desk outstanding youtube shorts: export a 9:16 fan-parody MP4 from ViralReel and upload it as a YouTube Short. Disclose it as AI. Add a trend sound in YouTube if you use one. No Outstanding license. Not NPR.',
+      zh: 'tiny desk outstanding youtube shorts：从 ViralReel 导出 9:16 粉丝戏仿 MP4，再作为 YouTube Short 上传。标明它是 AI。如果要用热梗原声，在 YouTube 里加。不授权《Outstanding》。不是 NPR。',
+    },
+    h1: { en: 'Tiny Desk Outstanding YouTube Shorts', zh: 'Tiny Desk Outstanding YouTube Shorts' },
+    lead: {
+      en: 'A Tiny Desk Outstanding YouTube Short is the same fan-parody MP4, uploaded in the vertical slot YouTube calls Shorts. ViralReel does not upload it for you.',
+      zh: 'Tiny Desk Outstanding 的 YouTube Short 是同一条粉丝戏仿 MP4，上传到 YouTube 叫做 Shorts 的竖屏位置。ViralReel 不会替你上传。',
+    },
+    guideTitle: {
+      en: 'What to upload when the destination is Shorts',
+      zh: '目的地是 Shorts 时要上传什么',
+    },
+    body: {
+      en: [
+        'YouTube Shorts wants a vertical file. The Tiny Desk Outstanding template opens on 9:16 for that reason, the same ratio TikTok and Reels use. Make the fan parody at ' + EN_TEMPLATE + ', download the MP4, and upload that file as a Short. Do not upload the NPR concert or the original TikTok.',
+        'ViralReel does not license “Outstanding,” so the MP4 is the picture. If the Short should use the trend sound, add it from YouTube’s audio tools rather than expecting a Gap Band soundtrack inside the download. Some renders follow an admin reference track, generate other audio, or export silence. Treat the file as video. Disclose altered or AI-generated content where YouTube asks. The cross-platform steps are ' + EN_POSTING + '.',
+        'The Instagram path is https://www.viralreel.app/tiny-desk-outstanding-instagram. The file-format page is https://www.viralreel.app/tiny-desk-outstanding-mp4. Slots stay Center Lead, Left Role, and Right Role, filled with photos you have permission to use. This is not an NPR or Charlie Wilson channel.',
+      ],
+      zh: [
+        'YouTube Shorts 要的是竖屏文件。Tiny Desk Outstanding 模板默认 9:16，就是为了这个，和 TikTok、Reels 用的是同一个画幅。在 ' + ZH_TEMPLATE + ' 做粉丝戏仿，下载 MP4，再把这个文件作为 Short 上传。不要上传 NPR 演唱会或原始 TikTok。',
+        'ViralReel 不授权《Outstanding》，所以 MP4 是画面。如果 Short 要用热梗原声，从 YouTube 的音频工具里加，不要指望下载文件里自带 Gap Band 原声。有的成片会跟随管理员参考音轨，有的生成别的声音，有的导出无声。把文件当成视频。在 YouTube 要求的地方标明改动过或 AI 生成。跨平台步骤在 ' + ZH_POSTING + ' 。',
+        'Instagram 路径在 https://www.viralreel.app/zh/tiny-desk-outstanding-instagram 。文件格式页在 https://www.viralreel.app/zh/tiny-desk-outstanding-mp4 。位置仍是中间主角、左边角色、右边角色，填你有权使用的照片。这不是 NPR 或 Charlie Wilson 的频道。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'What file do I upload to YouTube Shorts?', zh: '我要上传什么文件到 YouTube Shorts？' },
+        a: {
+          en: 'The 9:16 MP4 you download from the ViralReel Tiny Desk Outstanding template. It is a new fan parody, not the NPR video.',
+          zh: '你从 ViralReel 的 Tiny Desk Outstanding 模板下载的 9:16 MP4。它是新的粉丝戏仿，不是 NPR 的视频。',
+        },
+      },
+      {
+        q: { en: 'Does the Short include the original Outstanding audio?', zh: '这条 Short 会带上原版 Outstanding 音频吗？' },
+        a: {
+          en: 'Not as a licensed soundtrack. Add a trend sound in YouTube if the Short needs that song, and disclose the video as AI where YouTube asks.',
+          zh: '不是作为已授权的原声。如果 Short 需要这首歌，在 YouTube 里加热梗原声，并在 YouTube 要求的地方标明视频是 AI。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'tiny desk outstanding mp4',
+    slug: 'tiny-desk-outstanding-mp4',
+    title: {
+      en: 'Tiny Desk Outstanding MP4 – The File ViralReel Downloads',
+      zh: 'Tiny Desk Outstanding MP4：ViralReel 下载的那个文件',
+    },
+    description: {
+      en: 'tiny desk outstanding mp4: ViralReel downloads a new 9:16 fan-parody MP4. Not a GIF of the NPR concert, not a Gap Band audio file, and not the original TikTok. Add the trend sound when you post.',
+      zh: 'tiny desk outstanding mp4：ViralReel 下载的是一条新的 9:16 粉丝戏仿 MP4。不是 NPR 演唱会的 GIF，不是 Gap Band 音频文件，也不是原始 TikTok。发布时再加热梗原声。',
+    },
+    h1: { en: 'Tiny Desk Outstanding MP4', zh: 'Tiny Desk Outstanding MP4' },
+    lead: {
+      en: 'The Tiny Desk Outstanding MP4 is a new fan-parody file. It is the download from ViralReel, not a rip of the NPR concert.',
+      zh: 'Tiny Desk Outstanding MP4 是一条新的粉丝戏仿文件。它是 ViralReel 的下载，不是 NPR 演唱会的搬运。',
+    },
+    guideTitle: {
+      en: 'What is inside the MP4, and what is not',
+      zh: '这条 MP4 里面有什么，没有什么',
+    },
+    body: {
+      en: [
+        'Searchers who type mp4 want the container. On ViralReel that container is a new scene: your photos in the Outstanding desk, default 9:16, ready for TikTok, Reels, and Shorts. Generate it at ' + EN_TEMPLATE + '. The page that describes the video as a video, rather than as a file type, is https://www.viralreel.app/tiny-desk-outstanding-ai-video.',
+        'The MP4 is not a GIF, not a screenshot sequence of NPR, and not a separate audio download of “Outstanding.” ViralReel does not license the Gap Band track or NPR’s recording. A model may follow an admin reference track, generate other audio, or export silence. Plan to add the trend sound in the app you post to. Steps for TikTok, Instagram Reels, and YouTube Shorts are ' + EN_POSTING + '.',
+        'Paid credit packs and monthly plans export without a ViralReel watermark. Packs are listed at https://www.viralreel.app/pricing. Monthly plans are listed at https://www.viralreel.app/subscribe. The generator shows the credit cost before you start. Failed or canceled jobs return those credits. The file is yours to post. It is still a fan parody, not an NPR master.',
+      ],
+      zh: [
+        '在搜索里打出 mp4 的人要的是容器。在 ViralReel，这个容器是一个新场景：你的照片站在 Outstanding 的桌子后面，默认 9:16，给 TikTok、Reels 和 Shorts 用。在 ' + ZH_TEMPLATE + ' 生成。把这条视频当成“视频”而不是“文件格式”来讲的页面在 https://www.viralreel.app/zh/tiny-desk-outstanding-ai-video 。',
+        '这条 MP4 不是 GIF，不是 NPR 的截图序列，也不是《Outstanding》的单独音频下载。ViralReel 不授权 Gap Band 的曲目或 NPR 的录音。模型可能跟随管理员参考音轨，也可能生成别的声音，或导出无声。请计划在发布的 App 里加热梗原声。TikTok、Instagram Reels 和 YouTube Shorts 的步骤在 ' + ZH_POSTING + ' 。',
+        '付费积分包和月付方案导出时没有 ViralReel 水印。积分包列在 https://www.viralreel.app/zh/pricing 。月付方案列在 https://www.viralreel.app/zh/subscribe 。生成器会在开始前显示积分。失败或取消的任务会退回这些积分。文件归你发布。它仍然是粉丝戏仿，不是 NPR 母带。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is the Tiny Desk Outstanding download an MP4?', zh: 'Tiny Desk Outstanding 的下载是 MP4 吗？' },
+        a: {
+          en: 'Yes. ViralReel downloads a new fan-parody MP4. It does not download the NPR concert, a GIF of it, or the Gap Band song as its own file.',
+          zh: '是。ViralReel 下载一条新的粉丝戏仿 MP4。它不下载 NPR 演唱会、演唱会的 GIF，或单独的 Gap Band 歌曲文件。',
+        },
+      },
+      {
+        q: { en: 'Does the MP4 have a watermark?', zh: '这条 MP4 有水印吗？' },
+        a: {
+          en: 'Paid credit packs and monthly plans export without a ViralReel watermark. The generator shows the credit cost before you render.',
+          zh: '付费积分包和月付方案导出时没有 ViralReel 水印。生成器会在渲染前显示积分。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'gap band tiny desk ai',
+    slug: 'gap-band-tiny-desk-ai',
+    title: {
+      en: 'Gap Band Tiny Desk AI – Charlie Wilson’s Close, Not a Band Download',
+      zh: 'Gap Band Tiny Desk AI：Charlie Wilson 的收尾，不是乐队文件下载',
+    },
+    description: {
+      en: 'gap band tiny desk ai: the Tiny Desk people mean is Charlie Wilson, Gap Band frontman, closing with Outstanding. ViralReel does not host an official Gap Band Tiny Desk and does not license the song. Fan parody only.',
+      zh: 'gap band tiny desk ai：大家说的 Tiny Desk 是 Gap Band 主唱 Charlie Wilson 用《Outstanding》收尾。ViralReel 不托管官方的 Gap Band Tiny Desk，也不授权这首歌。只有粉丝戏仿。',
+    },
+    h1: { en: 'Gap Band Tiny Desk AI', zh: 'Gap Band Tiny Desk AI' },
+    lead: {
+      en: 'Gap Band Tiny Desk AI looks for the band’s name on a Tiny Desk stage. The performance the meme uses is Charlie Wilson’s Outstanding close. ViralReel does not host that concert.',
+      zh: 'Gap Band Tiny Desk AI 是在 Tiny Desk 舞台上找乐队的名字。梗用的演出是 Charlie Wilson 的 Outstanding 收尾。ViralReel 不托管那场演唱会。',
+    },
+    guideTitle: {
+      en: 'The band name, the frontman, and the parody',
+      zh: '乐队名、主唱，以及戏仿',
+    },
+    body: {
+      en: [
+        'The Gap Band’s frontman, Charlie Wilson, closed his own NPR Tiny Desk concert with “Outstanding,” the song the group released in 1982. NPR Music posted that concert on 5 June 2023. A search for gap band tiny desk ai often wants a band episode. ViralReel does not host an official Gap Band Tiny Desk, does not speak for the group, and does not offer a menu of other NPR episodes. The song-download version of this question is https://www.viralreel.app/gap-band-outstanding-ai.',
+        'The AI product is a fan parody of that one close, made from photos you have permission to use, at ' + EN_TEMPLATE + '. Do not upload Charlie Wilson, the Gap Band, or a screenshot of the concert. Uncle Charlie on the template is a costume, not a face generator for the frontman.',
+        'There is no Gap Band audio export. Add the trend sound on TikTok, Reels, or Shorts if the post needs the song. The page that only says the desk is not NPR is https://www.viralreel.app/npr-tiny-desk-outstanding-ai.',
+      ],
+      zh: [
+        'Gap Band 主唱 Charlie Wilson 用乐队 1982 年的《Outstanding》为自己的 NPR Tiny Desk 演唱会收尾。NPR Music 在 2023 年 6 月 5 日发布那场演唱会。搜 gap band tiny desk ai 的人常常想要一场乐队专场。ViralReel 不托管官方的 Gap Band Tiny Desk，不代表乐队发言，也不提供其他 NPR 场次的菜单。这个问题的“歌曲下载”版本在 https://www.viralreel.app/zh/gap-band-outstanding-ai 。',
+        'AI 产品是那段收尾的粉丝戏仿，用你有权使用的照片，在 ' + ZH_TEMPLATE + ' 制作。不要上传 Charlie Wilson、Gap Band 或演唱会截图。模板上的真身 Charlie 是造型，不是主唱的换脸生成器。',
+        '没有 Gap Band 的音频导出。如果帖子需要这首歌，在 TikTok、Reels 或 Shorts 里加热梗原声。只说明这张桌子不是 NPR 的页面在 https://www.viralreel.app/zh/npr-tiny-desk-outstanding-ai 。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is there an official Gap Band Tiny Desk on ViralReel?', zh: 'ViralReel 上有官方的 Gap Band Tiny Desk 吗？' },
+        a: {
+          en: 'No. The meme uses Charlie Wilson’s NPR Tiny Desk close of “Outstanding.” ViralReel does not host that concert and is not affiliated with the Gap Band or NPR.',
+          zh: '没有。梗用的是 Charlie Wilson 在 NPR Tiny Desk 用《Outstanding》收尾。ViralReel 不托管那场演唱会，也与 Gap Band 或 NPR 没有关系。',
+        },
+      },
+      {
+        q: { en: 'How is this different from Gap Band Outstanding AI?', zh: '它和 Gap Band Outstanding AI 有什么不同？' },
+        a: {
+          en: 'Gap Band Outstanding AI is the song question: no license, no audio export. This page is the desk question: there is no official Gap Band Tiny Desk episode here, only the fan-parody template.',
+          zh: 'Gap Band Outstanding AI 是歌曲问题：没有授权，没有音频导出。这一页是桌子问题：这里没有官方的 Gap Band Tiny Desk 场次，只有粉丝戏仿模板。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'tiny desk outstanding fan parody',
+    slug: 'tiny-desk-outstanding-fan-parody',
+    title: {
+      en: 'Tiny Desk Outstanding Fan Parody – What ViralReel Actually Makes',
+      zh: 'Tiny Desk Outstanding 粉丝戏仿：ViralReel 实际做的是什么',
+    },
+    description: {
+      en: 'tiny desk outstanding fan parody: a new MP4 that borrows the Outstanding desk framing and swaps in photos you have permission to use. Not affiliated with NPR, Tiny Desk, Charlie Wilson, or the Gap Band. No song license.',
+      zh: 'tiny desk outstanding fan parody：一条新的 MP4，借用 Outstanding 桌子的构图，换上你有权使用的照片。与 NPR、Tiny Desk、Charlie Wilson 和 Gap Band 无关。没有歌曲授权。',
+    },
+    h1: { en: 'Tiny Desk Outstanding fan parody', zh: 'Tiny Desk Outstanding 粉丝戏仿' },
+    lead: {
+      en: 'A Tiny Desk Outstanding fan parody copies the framing of one performance and fills it with someone else. On ViralReel that someone else is whoever is in your photos.',
+      zh: 'Tiny Desk Outstanding 粉丝戏仿借用一场演出的构图，再换成别人。在 ViralReel，这个别人就是你照片里的人。',
+    },
+    guideTitle: {
+      en: 'What “fan parody” commits this page to',
+      zh: '“粉丝戏仿”在这一页上承诺什么',
+    },
+    body: {
+      en: [
+        'Fan parody here is a format claim, not a partnership. The framing people recognize — cramped office, cluttered desk, grin, hand wave, sax in the scene — comes from Charlie Wilson closing his NPR Tiny Desk with “Outstanding.” ViralReel (viralreel.app) is not affiliated with NPR, NPR Music, Tiny Desk Concerts, Charlie Wilson, or the Gap Band. It does not license the song and it does not present the download as their work. The citeable split of concert, meme TikTok, and product is ' + EN_MEME_EXPLAINER + '.',
+        SLOTS_EN + ' The six sets are All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, and Uncle Charlie. Use them as looks for people who agreed to be filmed. Do not upload the public figures the viral casts used.',
+        'Make that parody at ' + EN_TEMPLATE + '. Keep 9:16. Read the credit cost before you generate. When you post, add the trend sound in TikTok, Reels, or Shorts and turn on the AI label, as described at ' + EN_POSTING + '. Labeling it as a fan parody in the caption matches what the file is.',
+      ],
+      zh: [
+        '这里的粉丝戏仿是对格式的说明，不是合作关系。大家认得的构图——狭小的办公室、杂乱的桌子、咧嘴笑、挥手、场景里的萨克斯——来自 Charlie Wilson 用《Outstanding》为 NPR Tiny Desk 收尾。ViralReel（viralreel.app）与 NPR、NPR Music、Tiny Desk Concerts、Charlie Wilson 和 Gap Band 均无关联。它不授权这首歌，也不把下载说成他们的作品。演唱会、梗 TikTok 和产品的可引用区分在 ' + ZH_MEME_EXPLAINER + ' 。',
+        SLOTS_ZH + ' 六套阵容是输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子和真身 Charlie。把它们当成同意出镜的人的造型。不要上传爆火阵容里的那些公众人物。',
+        '在 ' + ZH_TEMPLATE + ' 做这条戏仿。保持 9:16。生成前看清积分。发布时在 TikTok、Reels 或 Shorts 里加热梗原声并打开 AI 标注，步骤在 ' + ZH_POSTING + ' 。在文案里把它写成粉丝戏仿，和文件本身一致。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is the Tiny Desk Outstanding fan parody an official video?', zh: 'Tiny Desk Outstanding 粉丝戏仿是官方视频吗？' },
+        a: {
+          en: 'No. It is an independent parody made from your photos. NPR, Tiny Desk, Charlie Wilson, and the Gap Band are not partners on this page.',
+          zh: '不是。它是用你的照片做的独立戏仿。NPR、Tiny Desk、Charlie Wilson 和 Gap Band 都不是这一页的合作方。',
+        },
+      },
+      {
+        q: { en: 'Does a fan parody include the original song?', zh: '粉丝戏仿里包含原曲吗？' },
+        a: {
+          en: 'Not from ViralReel. The site does not license “Outstanding.” Add the trend sound on the platform and label the post as AI.',
+          zh: 'ViralReel 不提供。本站不授权《Outstanding》。请在平台上加热梗原声，并把帖子标成 AI。',
+        },
+      },
+    ],
+  },
+  {
+    keyword: 'outstanding tiny desk generator',
+    slug: 'outstanding-tiny-desk-generator',
+    title: {
+      en: 'Outstanding Tiny Desk Generator – Same Tool, Song Title First',
+      zh: 'Outstanding Tiny Desk 生成器：同一个工具，歌名在前',
+    },
+    description: {
+      en: 'outstanding tiny desk generator: the same ViralReel browser tool as the Tiny Desk Outstanding generator, with the song title typed first. No prompt. Six sets. Three slots. Not NPR. No Outstanding license.',
+      zh: 'outstanding tiny desk generator：和 Tiny Desk Outstanding 生成器相同的 ViralReel 浏览器工具，只是歌名打在前面。不用提示词。六套阵容。三个位置。不是 NPR。不授权《Outstanding》。',
+    },
+    h1: { en: 'Outstanding Tiny Desk generator', zh: 'Outstanding Tiny Desk 生成器' },
+    lead: {
+      en: 'The Outstanding Tiny Desk generator is the Tiny Desk Outstanding generator with the words flipped. One template. No second tool.',
+      zh: 'Outstanding Tiny Desk 生成器就是把词序反过来的 Tiny Desk Outstanding 生成器。一个模板。没有第二个工具。',
+    },
+    guideTitle: {
+      en: 'The generator this word order opens',
+      zh: '这个词序打开的是哪个生成器',
+    },
+    body: {
+      en: [
+        'Outstanding tiny desk generator leads with the song, then asks for the tool. The tool is the browser template at ' + EN_TEMPLATE + '. The desk-first URL for the same generator is https://www.viralreel.app/tiny-desk-outstanding-generator. The AI-specific URL is https://www.viralreel.app/tiny-desk-outstanding-ai-generator. You do not write a prompt on any of them.',
+        SLOTS_EN + ' Sets: All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, Uncle Charlie. Default 9:16. The credit cost appears before generate, from the same table as https://www.viralreel.app/pricing. Monthly plans are at https://www.viralreel.app/subscribe.',
+        'The output is a new fan-parody MP4, not the NPR concert and not a licensed Gap Band file. Full steps are ' + EN_HOWTO + '. This page is not an official Outstanding or Tiny Desk generator from NPR.',
+      ],
+      zh: [
+        'Outstanding tiny desk generator 先说歌，再要工具。工具就是 ' + ZH_TEMPLATE + ' 上的浏览器模板。同一个生成器、桌子在前的网址是 https://www.viralreel.app/zh/tiny-desk-outstanding-generator 。带 AI 的网址是 https://www.viralreel.app/zh/tiny-desk-outstanding-ai-generator 。这几个页面都不用写提示词。',
+        SLOTS_ZH + ' 阵容：输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子、真身 Charlie。默认 9:16。积分在生成前出现，和 https://www.viralreel.app/zh/pricing 是同一张表。月付方案在 https://www.viralreel.app/zh/subscribe 。',
+        '输出是新的粉丝戏仿 MP4，不是 NPR 演唱会，也不是已授权的 Gap Band 文件。完整步骤在 ' + ZH_HOWTO + ' 。这一页不是 NPR 的官方 Outstanding 或 Tiny Desk 生成器。',
+      ],
+    },
+    steps: makeVideoSteps,
+    faq: [
+      {
+        q: { en: 'Is the Outstanding Tiny Desk generator a different app?', zh: 'Outstanding Tiny Desk 生成器是另一个 App 吗？' },
+        a: {
+          en: 'No. It is the same browser template as Tiny Desk Outstanding generator. Song title first, desk second. Nothing to install.',
+          zh: '不是。它和 Tiny Desk Outstanding 生成器是同一个浏览器模板。歌名在前，桌子在后。没有要安装的东西。',
+        },
+      },
+      {
+        q: { en: 'Do I describe the office in a prompt?', zh: '需要在提示词里描述办公室吗？' },
+        a: {
+          en: 'No. Pick a set and upload Center Lead, Left Role, and Right Role. The desk is already in the template.',
+          zh: '不用。选一套阵容，上传中间主角、左边角色和右边角色。桌子已经在模板里。',
+        },
+      },
+    ],
+  },
 ];
 
 export function getTinyDeskLongTail(slug: string) {
@@ -1338,6 +1944,9 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
         { href: TINY_DESK_TEMPLATE_PATH, label: zh ? 'Tiny Desk Outstanding 模板' : 'Tiny Desk Outstanding template' },
         { href: '/tiny-desk-outstanding-ai-video', label: zh ? 'Tiny Desk Outstanding AI 视频' : 'Tiny Desk Outstanding AI video' },
         { href: '/tiny-desk-outstanding-ai', label: 'Tiny Desk Outstanding AI' },
+        { href: '/tiny-desk-outstanding-online', label: zh ? '在线制作' : 'Make it online' },
+        { href: '/tiny-desk-outstanding-from-photo', label: zh ? '用照片做' : 'From a photo' },
+        { href: '/create-tiny-desk-outstanding-ai', label: zh ? '创建一条新的' : 'Create a new one' },
         { href: '/tiny-desk-ai-template', label: zh ? 'Tiny Desk AI 模板' : 'Tiny Desk AI template' },
         { href: '/tiny-desk-concert-ai', label: zh ? 'Tiny Desk concert AI' : 'Tiny Desk concert AI' },
         { href: '/pricing', label: zh ? '积分包定价' : 'Credit pack pricing' },
@@ -1361,6 +1970,11 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
         { href: '/npr-tiny-desk-outstanding-ai', label: zh ? 'NPR 搜索免责声明' : 'NPR search disclaimer' },
         { href: '/tiny-desk-outstanding-remix', label: zh ? '桌子翻拍' : 'Desk remix' },
         { href: '/tiny-desk-outstanding-song', label: zh ? '这首歌（不提供下载）' : 'The song (no download)' },
+        { href: '/tiny-desk-outstanding-original', label: zh ? '原片在哪' : 'Where the original is' },
+        { href: '/tiny-desk-outstanding-fan-parody', label: zh ? '粉丝戏仿' : 'Fan parody' },
+        { href: '/charlie-wilson-outstanding-ai', label: zh ? 'Charlie Wilson Outstanding AI' : 'Charlie Wilson Outstanding AI' },
+        { href: '/washed-anthem-tiny-desk', label: zh ? '过气赞歌 Tiny Desk' : 'Washed anthem Tiny Desk' },
+        { href: '/gap-band-tiny-desk-ai', label: zh ? 'Gap Band Tiny Desk AI' : 'Gap Band Tiny Desk AI' },
       ],
     },
     {
@@ -1373,6 +1987,7 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
         { href: '/outstanding-tiny-desk-ai-video', label: zh ? 'Outstanding Tiny Desk AI 视频' : 'Outstanding Tiny Desk AI video' },
         { href: '/tiny-desk-outstanding-capcut', label: zh ? '和 CapCut 对照' : 'CapCut comparison' },
         { href: '/tiny-desk-outstanding-without-capcut', label: zh ? '不用 CapCut' : 'Without CapCut' },
+        { href: '/outstanding-tiny-desk-generator', label: zh ? 'Outstanding Tiny Desk 生成器' : 'Outstanding Tiny Desk generator' },
       ],
     },
     {
@@ -1382,7 +1997,19 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
         { href: TINY_DESK_POSTS.explainer, label: zh ? 'All-Loss 和过气赞歌' : 'All-Loss and the washed anthem' },
         { href: TINY_DESK_POSTS.capcut, label: zh ? 'ViralReel 和 CapCut' : 'ViralReel vs CapCut' },
         { href: TINY_DESK_POSTS.photoTips, label: zh ? '三个位置的照片建议' : 'Photo tips for the three slots' },
+        { href: TINY_DESK_POSTS.memeExplainer, label: zh ? '粉丝戏仿是什么' : 'What the fan parody is' },
+        { href: TINY_DESK_POSTS.posting, label: zh ? '发到 TikTok、Reels、Shorts' : 'Post on TikTok, Reels, and Shorts' },
         { href: TINY_DESK_POSTS.roundup, label: zh ? '2026 年 10 月 AI 梗视频' : 'October 2026 AI meme videos' },
+      ],
+    },
+    {
+      title: zh ? '发布 MP4' : 'Post the MP4',
+      links: [
+        { href: '/tiny-desk-outstanding-mp4', label: zh ? '下载 MP4' : 'Download the MP4' },
+        { href: '/tiny-desk-outstanding-instagram', label: zh ? '发到 Instagram Reels' : 'Post on Instagram Reels' },
+        { href: '/tiny-desk-outstanding-youtube-shorts', label: zh ? '发到 YouTube Shorts' : 'Post on YouTube Shorts' },
+        { href: '/tiny-desk-outstanding-tiktok', label: zh ? 'TikTok 上的趋势' : 'The TikTok trend' },
+        { href: TINY_DESK_POSTS.posting, label: zh ? '三平台发布步骤' : 'Posting steps for all three' },
       ],
     },
   ];
