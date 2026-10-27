@@ -7,8 +7,8 @@ import { WASSUP_HOW_TO_STEPS, type WassupHowToStep } from './steps';
  * Long-tail landings for the Wassup in a Minute template.
  *
  * To add another keyword: append an entry here (the sitemap reads
- * WASSUP_LONG_TAIL_ROUTES) and add a thin route at
- * src/app/[locale]/(home)/<slug>/page.tsx that renders LongTailRoute.
+ * WASSUP_LONG_TAIL_ROUTES). Public URLs are served by the single
+ * `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
  * Do not reuse the main `wassup-in-a-minute-ai-template` slug.
  */
 

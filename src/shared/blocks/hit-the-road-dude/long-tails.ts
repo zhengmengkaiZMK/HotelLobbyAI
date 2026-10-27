@@ -13,8 +13,8 @@ import { HIT_THE_ROAD_HOW_TO_STEPS, type HitTheRoadHowToStep } from './steps';
  * Long-tail landings for the Hit the Road Dude template.
  *
  * To add another keyword: append an entry here (the sitemap reads
- * HIT_THE_ROAD_LONG_TAIL_ROUTES) and add a thin route at
- * src/app/[locale]/(home)/<slug>/page.tsx that renders LongTailRoute.
+ * HIT_THE_ROAD_LONG_TAIL_ROUTES). Public URLs are served by the single
+ * `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
  * Do not reuse the main `hit-the-road-dude-ai-template` slug.
  */
 
