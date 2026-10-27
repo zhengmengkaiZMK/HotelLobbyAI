@@ -127,6 +127,10 @@ const HOW_TO_STEP_SOURCES: Record<
     name: step.name.en,
     text: step.text.en,
   })),
+  'how-to-make-dime-dime-baby-ai-video': BBY_HOW_TO_STEPS.map((step) => ({
+    name: step.name.en,
+    text: step.text.en,
+  })),
   'how-to-make-cat-clapping-ai-video': [
     {
       name: 'Pick a cat template',

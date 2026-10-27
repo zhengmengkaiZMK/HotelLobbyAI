@@ -12,6 +12,7 @@ import type { VideoCostTable } from '@/shared/lib/video-yield';
 
 import { BbyLinkCluster } from './link-cluster';
 import {
+  BBY_POSTS,
   BBY_TEMPLATE_PATH,
   buildLongTailFaq,
   resolveLongTailSteps,
@@ -100,6 +101,10 @@ export function BbyLongTailView({
             ) : null}
             <p className="guide-more">
               <Link href={BBY_TEMPLATE_PATH}>{makeLabel}</Link>
+              {' · '}
+              <Link href={BBY_POSTS.dimeWhat}>{zh ? 'Dime dime baby 是什么' : 'What dime dime baby is'}</Link>
+              {' · '}
+              <Link href={BBY_POSTS.dimeHowTo}>{zh ? '制作并发布' : 'Make and post'}</Link>
               {' · '}
               <Link href="/pricing">{pricingLabel}</Link>
             </p>
