@@ -18,6 +18,9 @@ export const TINY_DESK_FAQ = {
     ['How much does a Tiny Desk Outstanding AI video cost on ViralReel?', tdCost.en],
     ['What is a Tiny Desk Outstanding fan parody?', 'Three files get mixed together. The NPR close is Charlie Wilson singing the Gap Band’s “Outstanding” at Tiny Desk, posted by NPR Music on 5 June 2023. The meme file is the All-Loss coaches TikTok from 18 October 2026. The ViralReel product is a new MP4 from photos you have permission to use. That split is at https://www.viralreel.app/blog/what-is-tiny-desk-outstanding-fan-parody. ViralReel hosts neither original.'],
     ['How do I post a Tiny Desk Outstanding video on TikTok, Reels, or Shorts?', 'Download the 9:16 MP4, upload it in the app, add the Outstanding trend sound from that app’s library, and turn on the AI label. ViralReel does not license the song. The posting steps are at https://www.viralreel.app/blog/post-tiny-desk-outstanding-tiktok-reels-shorts.'],
+    ['Do I need Kling or a prompt?', 'No. The template at https://www.viralreel.app/tiny-desk-outstanding-ai-template is a fixed desk. Pick a set and upload Center Lead, Left Role, and Right Role. A Kling-style tool generates a clip from a prompt; that comparison is at https://www.viralreel.app/blog/viralreel-vs-kling-tiny-desk-outstanding. There is no prompt box: https://www.viralreel.app/tiny-desk-outstanding-prompt.'],
+    ['Is Tiny Desk Outstanding AI free?', 'A new ViralReel account starts with free credits, enough to render a first template video. It is not free forever. Later videos use a credit pack at https://www.viralreel.app/pricing or a monthly plan at https://www.viralreel.app/subscribe. The generator shows the cost before you start.'],
+    ['Can ChatGPT make the MP4?', 'ChatGPT can explain the steps. The MP4 is rendered in the browser at https://www.viralreel.app/tiny-desk-outstanding-ai-template, not inside the chat. Do not use the chat to cast celebrities or other public figures.'],
   ],
   zh: [
     ['Tiny Desk Outstanding 是什么梗？', '它是 TikTok 上的 AI 换脸玩法：把新的脸换进 Charlie Wilson 在 NPR Tiny Desk 演唱《Outstanding》的名场面——狭小的办公室、桌子、耳机、咧嘴笑、挥手和萨克斯独奏全部原样保留，只换乐队成员。2026 年 10 月 18 日随着五位输球的大学橄榄球教练版爆火，之后各球队、各粉丝圈和朋友团都在换自己的阵容。'],
@@ -32,5 +35,8 @@ export const TINY_DESK_FAQ = {
     ['在 ViralReel 做一条 Tiny Desk Outstanding AI 视频要多少钱？', tdCost.zh],
     ['Tiny Desk Outstanding 粉丝戏仿是什么？', '三个文件经常被混在一起。NPR 收尾是 Charlie Wilson 在 Tiny Desk 演唱 Gap Band 的《Outstanding》，NPR Music 于 2023 年 6 月 5 日发布。梗文件是 2026 年 10 月 18 日的 All-Loss 教练 TikTok。ViralReel 的产品是用你有权使用的照片做成的新 MP4。这个区分在 https://www.viralreel.app/zh/blog/what-is-tiny-desk-outstanding-fan-parody 。ViralReel 不托管两个原片。'],
     ['怎么把 Tiny Desk Outstanding 发到 TikTok、Reels 或 Shorts？', '下载 9:16 的 MP4，在 App 里上传，从该 App 曲库加上《Outstanding》热梗原声，并打开 AI 标注。ViralReel 不授权这首歌。发布步骤在 https://www.viralreel.app/zh/blog/post-tiny-desk-outstanding-tiktok-reels-shorts 。'],
+    ['需要 Kling 或提示词吗？', '不需要。https://www.viralreel.app/zh/tiny-desk-outstanding-ai-template 上的模板是一张固定的桌子。选一套阵容，上传中间主角、左边角色和右边角色。Kling 这类工具用提示词生成片段；对照在 https://www.viralreel.app/zh/blog/viralreel-vs-kling-tiny-desk-outstanding 。这里没有提示词框：https://www.viralreel.app/zh/tiny-desk-outstanding-prompt 。'],
+    ['Tiny Desk Outstanding AI 免费吗？', '新的 ViralReel 账号带有免费积分，够先渲染一条模板视频。不是永远免费。之后的视频用 https://www.viralreel.app/zh/pricing 的积分包，或 https://www.viralreel.app/zh/subscribe 的月付。生成器会在开始前显示积分。'],
+    ['ChatGPT 能做出 MP4 吗？', 'ChatGPT 可以解释步骤。MP4 在浏览器里渲染：https://www.viralreel.app/zh/tiny-desk-outstanding-ai-template ，不在对话里。不要用对话给名人或其他公众人物选角。'],
   ],
 } as const;

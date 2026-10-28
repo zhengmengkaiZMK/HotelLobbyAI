@@ -142,6 +142,24 @@ const HOW_TO_STEP_SOURCES: Record<
       text: 'Turn on the AI-generated label where the app asks, then post. A caption that calls the clip a fan parody matches the file.',
     },
   ],
+  'sports-fans-outstanding-tiny-desk-ai': [
+    {
+      name: 'Pick a set as a costume',
+      text: 'Open the Tiny Desk Outstanding template on ViralReel and pick one of six sets. The set is a look for your own group, not a roster of coaches or players.',
+    },
+    {
+      name: 'Fill three photos of people who agreed',
+      text: 'Upload Center Lead, Left Role, and Right Role. Use adults who agreed. Do not upload minors, celebrities, public figures, or the viral coaches clip.',
+    },
+    {
+      name: 'Download a new 9:16 MP4',
+      text: 'Read the credit cost, keep 9:16, and download the MP4. It is a new fan parody, not the NPR concert and not someone else’s upload.',
+    },
+    {
+      name: 'Add the sound and the AI label',
+      text: 'Upload the file on TikTok, Reels, or Shorts. Add the Outstanding sound from that app’s library and turn on the AI label. ViralReel does not license the song.',
+    },
+  ],
   'tiny-desk-outstanding-photo-tips': [
     {
       name: 'Use one clear face per slot',

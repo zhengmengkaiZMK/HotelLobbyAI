@@ -5,14 +5,15 @@ import {
   type TemplateCostContext,
 } from '@/shared/lib/pricing-copy';
 
+import { TINY_DESK_INTENT_TAILS } from './intent-tails';
 import { TINY_DESK_HOW_TO_STEPS, type TinyDeskHowToStep } from './steps';
 
 /**
  * Long-tail landings for the Tiny Desk Outstanding template.
  *
- * To add another keyword: append an entry here (the sitemap reads
- * TINY_DESK_LONG_TAIL_ROUTES) and add a thin route at
- * src/app/[locale]/(home)/<slug>/page.tsx that renders LongTailRoute.
+ * To add another keyword: append an entry here or in `intent-tails.ts`.
+ * The sitemap reads TINY_DESK_LONG_TAIL_ROUTES. Public URLs are served by
+ * the single `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
  * Do not reuse the main `tiny-desk-outstanding-ai-template` slug.
  */
 
@@ -26,6 +27,8 @@ export const TINY_DESK_POSTS = {
   photoTips: '/blog/tiny-desk-outstanding-photo-tips',
   memeExplainer: '/blog/what-is-tiny-desk-outstanding-fan-parody',
   posting: '/blog/post-tiny-desk-outstanding-tiktok-reels-shorts',
+  kling: '/blog/viralreel-vs-kling-tiny-desk-outstanding',
+  sports: '/blog/sports-fans-outstanding-tiny-desk-ai',
 } as const;
 
 const PRODUCT = { en: 'Tiny Desk Outstanding', zh: 'Tiny Desk Outstanding' };
@@ -1875,6 +1878,7 @@ export const TINY_DESK_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  ...TINY_DESK_INTENT_TAILS,
 ];
 
 export function getTinyDeskLongTail(slug: string) {
@@ -1999,7 +2003,26 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
         { href: TINY_DESK_POSTS.photoTips, label: zh ? '三个位置的照片建议' : 'Photo tips for the three slots' },
         { href: TINY_DESK_POSTS.memeExplainer, label: zh ? '粉丝戏仿是什么' : 'What the fan parody is' },
         { href: TINY_DESK_POSTS.posting, label: zh ? '发到 TikTok、Reels、Shorts' : 'Post on TikTok, Reels, and Shorts' },
+        { href: TINY_DESK_POSTS.kling, label: zh ? 'ViralReel 和 Kling' : 'ViralReel vs Kling' },
+        { href: TINY_DESK_POSTS.sports, label: zh ? '体育迷这波' : 'Sports fans and the wave' },
         { href: TINY_DESK_POSTS.roundup, label: zh ? '2026 年 10 月 AI 梗视频' : 'October 2026 AI meme videos' },
+      ],
+    },
+    {
+      title: zh ? '怎么做（ChatGPT 常问）' : 'How to make it',
+      links: [
+        { href: '/how-to-make-outstanding-tiny-desk-ai', label: zh ? '如何制作（歌名在前）' : 'How to make one (song first)' },
+        { href: '/chatgpt-tiny-desk-outstanding', label: zh ? 'ChatGPT 解释，模板出片' : 'ChatGPT explains, the template renders' },
+        { href: '/tiny-desk-outstanding-prompt', label: zh ? '没有提示词框' : 'No prompt box' },
+        { href: '/tiny-desk-outstanding-kling', label: zh ? '和 Kling 对照' : 'Kling comparison' },
+        { href: '/tiny-desk-outstanding-without-kling', label: zh ? '不用 Kling' : 'Without Kling' },
+        { href: '/best-tiny-desk-outstanding-ai', label: zh ? '固定桌子怎么选' : 'When the fixed desk fits' },
+        { href: '/tiny-desk-outstanding-sound', label: zh ? '原声在平台曲库' : 'Sound is in the app library' },
+        { href: '/tiny-desk-outstanding-ai-label', label: zh ? '发布时的 AI 标注' : 'AI label when you post' },
+        { href: '/tiny-desk-outstanding-free', label: zh ? '积分，不是永远免费' : 'Credits, not free forever' },
+        { href: '/tiny-desk-outstanding-with-friends', label: zh ? '和朋友一起' : 'With friends' },
+        { href: '/ai-tiny-desk-band', label: zh ? 'AI Tiny Desk 乐队' : 'AI Tiny Desk band' },
+        { href: '/sports-fan-tiny-desk-outstanding', label: zh ? '体育迷戏仿' : 'Sports-fan parody' },
       ],
     },
     {
