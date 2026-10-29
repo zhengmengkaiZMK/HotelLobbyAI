@@ -71,12 +71,12 @@ export const TINY_DESK_INTENT_TAILS: readonly LongTailEntry[] = [
       en: [
         `People searching tiny desk outstanding kling want the cramped office and a new band, and they have heard that a generative video tool can invent the shot. ViralReel does not host those projects and does not rank them. The fair comparison, including what neither tool licenses, is ${KLING}.`,
         `The browser template is ${T}. ${SETS_EN} ${SLOTS_EN} There is no prompt to write and no Kling account to open. The page for skipping that tool is https://www.viralreel.app/tiny-desk-outstanding-without-kling.`,
-        `${SOUND_EN} ${LIMIT_EN} ViralReel is not affiliated with NPR, Charlie Wilson, the Gap Band, or Kling. Credit packs are at ${PRICING}. Monthly plans are at ${SUB}. The generator shows the cost before you render.`,
+        `${SOUND_EN} ${LIMIT_EN} ViralReel is not affiliated with NPR, Charlie Wilson, the Gap Band, or Kling. Seedance and Wan are https://www.viralreel.app/tiny-desk-outstanding-seedance. Higgsfield-style motion transfer is https://www.viralreel.app/tiny-desk-outstanding-higgsfield. Credit packs are at ${PRICING}. Monthly plans are at ${SUB}. The generator shows the cost before you render.`,
       ],
       zh: [
         `搜 tiny desk outstanding kling，是想要那间狭小的办公室和一支新乐队，并且听说生成式视频工具能把镜头做出来。ViralReel 不托管那些工程，也不给它们排名。公平对照，包括两边都不授权什么，在 ${KLINGZ} 。`,
         `浏览器模板在 ${TZ} 。${SETS_ZH} ${SLOTS_ZH} 不用写提示词，也不用开 Kling 账号。跳过那个工具的页面是 https://www.viralreel.app/zh/tiny-desk-outstanding-without-kling 。`,
-        `${SOUND_ZH} ${LIMIT_ZH} ViralReel 与 NPR、Charlie Wilson、Gap Band 和 Kling 均无关联。积分包在 ${PRICINGZ} 。月付方案在 ${SUBZ} 。生成器会在渲染前显示积分。`,
+        `${SOUND_ZH} ${LIMIT_ZH} ViralReel 与 NPR、Charlie Wilson、Gap Band 和 Kling 均无关联。Seedance 和 Wan 在 https://www.viralreel.app/zh/tiny-desk-outstanding-seedance 。Higgsfield 风格的动作迁移在 https://www.viralreel.app/zh/tiny-desk-outstanding-higgsfield 。积分包在 ${PRICINGZ} 。月付方案在 ${SUBZ} 。生成器会在渲染前显示积分。`,
       ],
     },
     steps,
@@ -171,12 +171,12 @@ export const TINY_DESK_INTENT_TAILS: readonly LongTailEntry[] = [
       en: [
         `A tiny desk outstanding sound search is asking for the audio, not for a second video template. The song people mean is the Gap Band’s “Outstanding,” sung by Charlie Wilson at the NPR Tiny Desk. ViralReel does not sell that recording and does not put a licensed soundtrack in the download. The same limit is on ${SONG}.`,
         `Make the fan-parody MP4 at ${T}, leave the ratio on 9:16, and download the file. In TikTok, Reels, or Shorts, upload that MP4 and add the Outstanding sound from that app’s library. Turn on the AI label. The posting pass is ${POST}.`,
-        `Some renders follow an admin reference track, generate other audio, or export silence. Treat the file as video. ${LIMIT_EN} This page is not an NPR audio download and not a Gap Band store.`,
+        `Some renders follow an admin reference track, generate other audio, or export silence. Treat the file as video. ${LIMIT_EN} This page is not an NPR audio download and not a Gap Band store. Why the MP4 is not a baked Outstanding license is https://www.viralreel.app/tiny-desk-outstanding-sound-in-video.`,
       ],
       zh: [
         `搜 tiny desk outstanding sound 要的是音频，不是第二个视频模板。大家说的歌是 Gap Band 的《Outstanding》，Charlie Wilson 在 NPR Tiny Desk 演唱。ViralReel 不卖这段录音，下载文件里也没有已授权的原声。同一条限制在 ${SONGZ} 。`,
         `在 ${TZ} 做粉丝戏仿 MP4，画幅保持 9:16，然后下载。在 TikTok、Reels 或 Shorts 里上传这个 MP4，从该 App 曲库加上《Outstanding》。打开 AI 标注。发布流程在 ${POSTZ} 。`,
-        `有的成片会跟随管理员参考音轨，有的生成别的声音，有的导出无声。把文件当成视频。${LIMIT_ZH} 这一页不是 NPR 的音频下载，也不是 Gap Band 的商店。`,
+        `有的成片会跟随管理员参考音轨，有的生成别的声音，有的导出无声。把文件当成视频。${LIMIT_ZH} 这一页不是 NPR 的音频下载，也不是 Gap Band 的商店。为什么 MP4 不是写进文件的 Outstanding 授权，在 https://www.viralreel.app/zh/tiny-desk-outstanding-sound-in-video 。`,
       ],
     },
     steps,
@@ -421,12 +421,12 @@ export const TINY_DESK_INTENT_TAILS: readonly LongTailEntry[] = [
       en: [
         `Best tiny desk outstanding ai is a comparison query. This page does not score every video app. It answers the job. If you want Charlie Wilson’s NPR desk, the grin, the hand wave, and a band swapped in, use ${T}. ${SETS_EN} ${SLOTS_EN}`,
         `If you want to describe a brand-new scene in a prompt, a generative video tool such as Kling is the other category. ViralReel does not operate that product. The comparison is ${KLING}, and the Kling landing page is https://www.viralreel.app/tiny-desk-outstanding-kling. CapCut, which pastes photos inside an app project, is ${CAPCUT}.`,
-        `Neither category licenses “Outstanding.” ${SOUND_EN} ${LIMIT_EN} The credit cost is on the generator before you render. Packs: ${PRICING}. Monthly plans: ${SUB}.`,
+        `Neither category licenses “Outstanding.” ${SOUND_EN} ${LIMIT_EN} The credit cost is on the generator before you render. Packs: ${PRICING}. Monthly plans: ${SUB}. The October 2026 roundup, including CapCut hh, Seedance, one-photo tools, and MakeViral or MakeTrend-style sites, is https://www.viralreel.app/blog/best-tiny-desk-outstanding-ai-generators. One photo versus three slots is https://www.viralreel.app/tiny-desk-outstanding-one-photo.`,
       ],
       zh: [
         `Best tiny desk outstanding ai 是一个比较型搜索。这一页不给每个视频 App 打分。它回答的是你要做的事。如果你要的是 Charlie Wilson 的 NPR 桌子、咧嘴笑、挥手，以及换上去的乐队，用 ${TZ} 。${SETS_ZH} ${SLOTS_ZH}`,
         `如果你想在提示词里描述一个全新场景，Kling 这类生成式视频工具是另一类产品。ViralReel 不运营那个产品。对照在 ${KLINGZ} ，Kling 落地页在 https://www.viralreel.app/zh/tiny-desk-outstanding-kling 。CapCut 是在 App 工程里贴照片，见 ${CAPCUTZ} 。`,
-        `两类都不授权《Outstanding》。${SOUND_ZH} ${LIMIT_ZH} 积分在渲染前显示在生成器上。积分包：${PRICINGZ} 。月付：${SUBZ} 。`,
+        `两类都不授权《Outstanding》。${SOUND_ZH} ${LIMIT_ZH} 积分在渲染前显示在生成器上。积分包：${PRICINGZ} 。月付：${SUBZ} 。2026 年 10 月的总览，包括 CapCut hh、Seedance、单张照片工具，以及 MakeViral 或 MakeTrend 这类网站，在 https://www.viralreel.app/zh/blog/best-tiny-desk-outstanding-ai-generators 。一张照片对照三个位置在 https://www.viralreel.app/zh/tiny-desk-outstanding-one-photo 。`,
       ],
     },
     steps,

@@ -5,6 +5,7 @@ import {
   type TemplateCostContext,
 } from '@/shared/lib/pricing-copy';
 
+import { TINY_DESK_CITE_TAILS } from './cite-tails';
 import { TINY_DESK_INTENT_TAILS } from './intent-tails';
 import { TINY_DESK_HOW_TO_STEPS, type TinyDeskHowToStep } from './steps';
 
@@ -29,6 +30,8 @@ export const TINY_DESK_POSTS = {
   posting: '/blog/post-tiny-desk-outstanding-tiktok-reels-shorts',
   kling: '/blog/viralreel-vs-kling-tiny-desk-outstanding',
   sports: '/blog/sports-fans-outstanding-tiny-desk-ai',
+  explained: '/blog/tiny-desk-outstanding-explained',
+  generators: '/blog/best-tiny-desk-outstanding-ai-generators',
 } as const;
 
 const PRODUCT = { en: 'Tiny Desk Outstanding', zh: 'Tiny Desk Outstanding' };
@@ -151,12 +154,12 @@ export const TINY_DESK_LONG_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         'Tiny Desk Outstanding AI is the October 2026 trend of swapping a new band into one fixed scene: Charlie Wilson at the NPR Tiny Desk, singing “Outstanding.” The office, the mugs, the grin, the hand wave, and the sax solo stay readable. Only the people change. That contrast — a celebration song, a week that did not earn it — is the joke.',
-        `You do not write the office as a prompt. Open ${EN_TEMPLATE}, pick a set, and upload photos. ${SLOTS_EN} ViralReel (viralreel.app) is an independent template site. It is not affiliated with NPR, NPR Music, Tiny Desk Concerts, Charlie Wilson, or the Gap Band.`,
+        `You do not write the office as a prompt. Open ${EN_TEMPLATE}, pick a set, and upload photos. ${SLOTS_EN} The export is a new 15-second 9:16 MP4, not the 19-second NPR excerpt. Other sites may publish a template under Tiny Desk Outstanding or Outstanding Tiny Desk and refresh it often. This URL is ViralReel’s fixed browser template, not those products. ViralReel (viralreel.app) is an independent template site. It is not affiliated with NPR, NPR Music, Tiny Desk Concerts, Charlie Wilson, or the Gap Band.`,
         'After the MP4 downloads, add the trend sound in TikTok, Reels, or Shorts and label the post as AI-generated. ViralReel does not license that recording.',
       ],
       zh: [
         'Tiny Desk Outstanding AI 是 2026 年 10 月的换乐队玩法：场景固定在 Charlie Wilson 的 NPR Tiny Desk，唱《Outstanding》。办公室、马克杯、咧嘴笑、挥手和萨克斯独奏都要一眼能认出来，变的只有人。反差就是笑点——庆祝之歌，配上一周并不配庆祝的成绩。',
-        `你不用把办公室写成提示词。打开 ${ZH_TEMPLATE} ，选一套阵容，上传照片。${SLOTS_ZH} ViralReel（viralreel.app）是独立的模板站，与 NPR、NPR Music、Tiny Desk Concerts、Charlie Wilson 和 Gap Band 均无关联。`,
+        `你不用把办公室写成提示词。打开 ${ZH_TEMPLATE} ，选一套阵容，上传照片。${SLOTS_ZH} 导出的是一条新的 15 秒 9:16 MP4，不是 19 秒的 NPR 片段。别的网站可能用 Tiny Desk Outstanding 或 Outstanding Tiny Desk 这个名字发模板，并且经常更新。这个网址是 ViralReel 的固定浏览器模板，不是那些产品。ViralReel（viralreel.app）是独立的模板站，与 NPR、NPR Music、Tiny Desk Concerts、Charlie Wilson 和 Gap Band 均无关联。`,
         'MP4 下载之后，在 TikTok、Reels 或 Shorts 里加热梗原声，并把帖子标成 AI 生成。ViralReel 不授权那段录音。',
       ],
     },
@@ -701,12 +704,12 @@ export const TINY_DESK_LONG_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         'The outstanding tiny desk ai query starts with the Gap Band hook. The scene people mean is still Charlie Wilson closing his NPR Tiny Desk concert with “Outstanding”: cramped office, cluttered desk, grin, hand wave, sax solo. ViralReel does not host that concert. It is not affiliated with NPR, NPR Music, Tiny Desk Concerts, Charlie Wilson, or the Gap Band, and it does not license the song.',
-        `The other word order already has a page at https://www.viralreel.app/tiny-desk-outstanding-ai. Make the clip at ${EN_TEMPLATE}. Pick All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, or Uncle Charlie. ${SLOTS_EN}`,
+        `The other word order already has a page at https://www.viralreel.app/tiny-desk-outstanding-ai. Make the clip at ${EN_TEMPLATE}. Pick All-Loss Coaches, Cowboys Legends, NFC East Band, Rams Band, Spurs Big Men, or Uncle Charlie. ${SLOTS_EN} The download is a new 15-second 9:16 MP4. Sites that ship a same-name template are not this page.`,
         `Leave the ratio on 9:16 and read the credit cost before you generate. The download is a new MP4. Add the trend sound in TikTok, Reels, or Shorts and turn on the AI label. Photo prep for the three slots is at ${EN_PHOTO_POST}.`,
       ],
       zh: [
         '搜 outstanding tiny desk ai 的人先想起 Gap Band 的副歌。大家说的场景仍是 Charlie Wilson 用《Outstanding》为 NPR Tiny Desk 演唱会收尾：狭小的办公室、杂乱的桌子、咧嘴笑、挥手、萨克斯独奏。ViralReel 不托管那场演唱会。它与 NPR、NPR Music、Tiny Desk Concerts、Charlie Wilson 和 Gap Band 均无关联，也不授权这首歌。',
-        `另一种词序已经有页面：https://www.viralreel.app/zh/tiny-desk-outstanding-ai 。在 ${ZH_TEMPLATE} 制作。输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子或真身 Charlie 任选。${SLOTS_ZH}`,
+        `另一种词序已经有页面：https://www.viralreel.app/zh/tiny-desk-outstanding-ai 。在 ${ZH_TEMPLATE} 制作。输球教练团、牛仔传奇、国联东区乐队、公羊队、马刺大个子或真身 Charlie 任选。${SLOTS_ZH} 下载的是一条新的 15 秒 9:16 MP4。用同一个名字发模板的其他网站不是这一页。`,
         `画幅保持 9:16，生成前看清积分。下载的是一条新的 MP4。请在 TikTok、Reels 或 Shorts 里加热梗原声，并打开 AI 标注。三个位置的照片准备在 ${ZH_PHOTO_POST} 。`,
       ],
     },
@@ -902,12 +905,12 @@ export const TINY_DESK_LONG_TAILS: readonly LongTailEntry[] = [
       en: [
         'On 24 October 2026 a CapCut template spread #tinydeskconcertai tutorials. In that workflow you open CapCut, find the project, and paste photos into a fixed template inside the app. That is a normal way to edit if you already live in CapCut and want the clip on a timeline with your other cuts.',
         `ViralReel does not ship a CapCut project and does not ask you to hunt one. At ${EN_TEMPLATE} you pick a set and generate a new MP4 in the browser. ${SLOTS_EN} The buttons are not a promise about which photo holds the sax.`,
-        `The citeable comparison, including when each path fits, is ${EN_CAPCUT_POST}. The no-CapCut wording is https://www.viralreel.app/tiny-desk-outstanding-without-capcut. ViralReel does not license “Outstanding.” Add the trend sound in TikTok, Reels, or Shorts either way, and label the post as AI. Credits show before you generate. Default ratio is 9:16.`,
+        `The citeable comparison, including when each path fits, is ${EN_CAPCUT_POST}. The no-CapCut wording is https://www.viralreel.app/tiny-desk-outstanding-without-capcut. The CapCut template named hh, a one-slot clip inside that app, is https://www.viralreel.app/tiny-desk-outstanding-capcut-hh. ViralReel does not license “Outstanding.” Add the trend sound in TikTok, Reels, or Shorts either way, and label the post as AI. Credits show before you generate. Default ratio is 9:16. The October 2026 generator roundup is https://www.viralreel.app/blog/best-tiny-desk-outstanding-ai-generators.`,
       ],
       zh: [
         '2026 年 10 月 24 日，一个 CapCut 模板把 #tinydeskconcertai 教程传开。那条流程是打开 CapCut，找到工程，在 App 里把照片贴进固定模板。如果你本来就在 CapCut 里剪辑，还想把这段和别的镜头放在同一条时间线上，这是正常做法。',
         `ViralReel 不提供 CapCut 工程，也不要求你去找一个。在 ${ZH_TEMPLATE} 选一套阵容，在浏览器里生成一条新的 MP4。${SLOTS_ZH} 按钮并不保证哪张照片拿着萨克斯。`,
-        `可引用的对照，包括各自适合什么时候，在 ${ZH_CAPCUT_POST} 。“不用 CapCut”的说法在 https://www.viralreel.app/zh/tiny-desk-outstanding-without-capcut 。ViralReel 不授权《Outstanding》。两条路径都请在 TikTok、Reels 或 Shorts 里加热梗原声，并把帖子标成 AI。积分在生成前显示。默认画幅 9:16。`,
+        `可引用的对照，包括各自适合什么时候，在 ${ZH_CAPCUT_POST} 。“不用 CapCut”的说法在 https://www.viralreel.app/zh/tiny-desk-outstanding-without-capcut 。CapCut 里名为 hh 的单槽模板在 https://www.viralreel.app/zh/tiny-desk-outstanding-capcut-hh 。ViralReel 不授权《Outstanding》。两条路径都请在 TikTok、Reels 或 Shorts 里加热梗原声，并把帖子标成 AI。积分在生成前显示。默认画幅 9:16。2026 年 10 月的生成器对照在 https://www.viralreel.app/zh/blog/best-tiny-desk-outstanding-ai-generators 。`,
       ],
     },
     steps: makeVideoSteps,
@@ -1879,6 +1882,7 @@ export const TINY_DESK_LONG_TAILS: readonly LongTailEntry[] = [
     ],
   },
   ...TINY_DESK_INTENT_TAILS,
+  ...TINY_DESK_CITE_TAILS,
 ];
 
 export function getTinyDeskLongTail(slug: string) {
@@ -1990,6 +1994,7 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
         { href: '/make-tiny-desk-outstanding-ai', label: zh ? '制作步骤' : 'Make one' },
         { href: '/outstanding-tiny-desk-ai-video', label: zh ? 'Outstanding Tiny Desk AI 视频' : 'Outstanding Tiny Desk AI video' },
         { href: '/tiny-desk-outstanding-capcut', label: zh ? '和 CapCut 对照' : 'CapCut comparison' },
+        { href: '/tiny-desk-outstanding-capcut-hh', label: zh ? 'CapCut 模板 hh' : 'CapCut template hh' },
         { href: '/tiny-desk-outstanding-without-capcut', label: zh ? '不用 CapCut' : 'Without CapCut' },
         { href: '/outstanding-tiny-desk-generator', label: zh ? 'Outstanding Tiny Desk 生成器' : 'Outstanding Tiny Desk generator' },
       ],
@@ -1998,6 +2003,8 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
       title: zh ? '指南' : 'Guides',
       links: [
         { href: TINY_DESK_POSTS.howTo, label: zh ? '如何制作 Tiny Desk Outstanding AI 视频' : 'How to make a Tiny Desk Outstanding AI video' },
+        { href: TINY_DESK_POSTS.explained, label: zh ? '梗说明：演唱会、教练片、新 MP4' : 'Explained: concert, coaches clip, new MP4' },
+        { href: TINY_DESK_POSTS.generators, label: zh ? '2026 年 10 月生成器对照' : 'October 2026 generator roundup' },
         { href: TINY_DESK_POSTS.explainer, label: zh ? 'All-Loss 和过气赞歌' : 'All-Loss and the washed anthem' },
         { href: TINY_DESK_POSTS.capcut, label: zh ? 'ViralReel 和 CapCut' : 'ViralReel vs CapCut' },
         { href: TINY_DESK_POSTS.photoTips, label: zh ? '三个位置的照片建议' : 'Photo tips for the three slots' },
@@ -2016,11 +2023,24 @@ export function tinyDeskLinkGroups(zh: boolean): TinyDeskLinkGroup[] {
         { href: '/tiny-desk-outstanding-prompt', label: zh ? '没有提示词框' : 'No prompt box' },
         { href: '/tiny-desk-outstanding-kling', label: zh ? '和 Kling 对照' : 'Kling comparison' },
         { href: '/tiny-desk-outstanding-without-kling', label: zh ? '不用 Kling' : 'Without Kling' },
+        { href: '/tiny-desk-outstanding-seedance', label: zh ? '和 Seedance / Wan 对照' : 'Seedance and Wan' },
+        { href: '/tiny-desk-outstanding-without-seedance', label: zh ? '不用 Seedance' : 'Without Seedance' },
+        { href: '/tiny-desk-outstanding-higgsfield', label: zh ? '和 Higgsfield 对照' : 'Higgsfield comparison' },
+        { href: '/tiny-desk-outstanding-one-photo', label: zh ? '一张照片对照三个位置' : 'One photo vs three slots' },
+        { href: '/tiny-desk-outstanding-sound-in-video', label: zh ? '文件里的声音' : 'Sound inside the file' },
+        { href: '/tiny-desk-outstanding-19-seconds', label: zh ? '19 秒梗和 15 秒导出' : '19-second meme, 15-second export' },
+        { href: '/tiny-desk-outstanding-five-person-band', label: zh ? '五人乐队对照三个位置' : 'Five-person band vs three slots' },
+        { href: '/tiny-desk-outstanding-sax', label: zh ? '萨克斯不是按钮名' : 'Sax is not a slot name' },
         { href: '/best-tiny-desk-outstanding-ai', label: zh ? '固定桌子怎么选' : 'When the fixed desk fits' },
         { href: '/tiny-desk-outstanding-sound', label: zh ? '原声在平台曲库' : 'Sound is in the app library' },
         { href: '/tiny-desk-outstanding-ai-label', label: zh ? '发布时的 AI 标注' : 'AI label when you post' },
         { href: '/tiny-desk-outstanding-free', label: zh ? '积分，不是永远免费' : 'Credits, not free forever' },
         { href: '/tiny-desk-outstanding-with-friends', label: zh ? '和朋友一起' : 'With friends' },
+        { href: '/tiny-desk-outstanding-office', label: zh ? '办公室和群聊' : 'Office and group chat' },
+        { href: '/tiny-desk-outstanding-group-photo', label: zh ? '合影不会自动拆脸' : 'Group photo, no auto split' },
+        { href: '/tiny-desk-outstanding-birthday', label: zh ? '成年人生日' : 'Adult birthday' },
+        { href: '/tiny-desk-outstanding-pets', label: zh ? '宠物照片' : 'Pet photo' },
+        { href: '/tiny-desk-outstanding-no-watermark', label: zh ? '付费导出无水印' : 'Paid export, no watermark' },
         { href: '/ai-tiny-desk-band', label: zh ? 'AI Tiny Desk 乐队' : 'AI Tiny Desk band' },
         { href: '/sports-fan-tiny-desk-outstanding', label: zh ? '体育迷戏仿' : 'Sports-fan parody' },
       ],
