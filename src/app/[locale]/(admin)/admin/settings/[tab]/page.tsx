@@ -65,6 +65,7 @@ export default async function SettingsPage({
     'viral_family_models_tiny_desk_outstanding',
     'viral_family_models_baba_dance',
     'viral_family_models_wassup_in_a_minute',
+    'viral_family_models_nostalgia_capcut',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
@@ -77,6 +78,7 @@ export default async function SettingsPage({
     'viral_family_default_model_tiny_desk_outstanding',
     'viral_family_default_model_baba_dance',
     'viral_family_default_model_wassup_in_a_minute',
+    'viral_family_default_model_nostalgia_capcut',
   ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {

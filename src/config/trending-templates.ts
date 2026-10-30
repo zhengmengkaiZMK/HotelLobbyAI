@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'nostalgia',
+    name: ['NostalgIA CapCut', 'NostalgIA CapCut'],
+    pitch: [
+      'One photo puts you inside a recreated retro TV commercial — the bite, the grin, the jingle.',
+      '一张照片走进复刻的怀旧电视广告——咬一口、对镜头笑、jingle 文字。',
+    ],
+    href: '/nostalgia-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'classic'],
+    poster: '/templates/nostalgia-classic-poster.jpg',
+    video: '/templates/nostalgia-classic.mp4',
+    colors: ['#fde68a', '#92400e'],
+  },
+  {
     id: 'wassup-in-a-minute',
     name: ['Wassup in a Minute', 'Wassup in a Minute'],
     pitch: [

@@ -116,6 +116,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     pedra_do_sal: [15],
     hit_the_road_dude: [10],
     wassup_in_a_minute: [15],
+    nostalgia_capcut: [8],
   };
   const durationOptions =
     familyFixedDurations[family] ??
@@ -184,7 +185,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, embedded, template.id]);
   const prompt = allowPromptEdit && promptDraft.trim() ? promptDraft.trim() : effectivePrompt;
-  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'baba_dance', 'wassup_in_a_minute'].includes(family) ? '9:16' : '16:9');
+  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'baba_dance', 'wassup_in_a_minute', 'nostalgia_capcut'].includes(family) ? '9:16' : '16:9');
   const [resolution, setResolution] = useState('720p');
   const [duration, setDuration] = useState(family === 'cat_clapping' ? 4 : 8);
   // transient-safe values: while switching models the state may briefly hold the
