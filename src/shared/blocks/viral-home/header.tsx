@@ -18,11 +18,12 @@ import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { Brand } from './footer';
 import './home.css';
 
-// Top-nav Trending submenu only: keep it to nine entries so the dropdown
-// stays scannable. Templates removed from here (wassup, bulin, ozil) are
+// Top-nav Trending submenu: keep it to ten entries so the dropdown
+// stays scannable. Templates removed from here (bulin, ozil) are
 // still listed in the footer links and on the homepage trending hub.
 const TRENDING_NAV_ORDER = [
   'nostalgia',
+  'wassup-in-a-minute',
   'ba-ba-ba-dance',
   'tiny-desk',
   'window-peeper',
