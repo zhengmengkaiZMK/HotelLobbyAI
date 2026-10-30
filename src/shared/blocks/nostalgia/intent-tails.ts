@@ -31,8 +31,8 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
       zh: 'NostalgIA 模板：复古老广告的五个主角位 | ViralReel',
     },
     description: {
-      en: 'nostalgia template: the five NostalgIA lead roles on ViralReel — Classic Sweetheart, Blonde Bob, Long Hair, Butterfly Necklace, Star 85. One photo, 8 seconds, 9:16, retro ad format built in.',
-      zh: 'nostalgia template：ViralReel 的五个 NostalgIA 主角位——经典女主、金发波波、长发少年、蝴蝶项链、星条 85。一张照片，8 秒，9:16，复古广告格式内置。',
+      en: 'nostalgia template: the five NostalgIA lead roles on ViralReel — Classic Sweetheart, Blonde Bob, Long Hair, Butterfly Necklace, Star 85. One photo, 10 seconds, 9:16, retro ad format built in.',
+      zh: 'nostalgia template：ViralReel 的五个 NostalgIA 主角位——经典女主、金发波波、长发少年、蝴蝶项链、星条 85。一张照片，10 秒，9:16，复古广告格式内置。',
     },
     h1: { en: 'NostalgIA template variants', zh: 'NostalgIA 模板变体' },
     lead: {
@@ -102,7 +102,7 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
       zh: [
         'NostalgIA 趋势是 2026 年 10 月底出现的 TikTok 视频格式：AI 生成的、仿复古老电视广告的片段。黑边 SD 画框、阳光下的郊区后院、包装没有可读标识的巧克力棒、咬一口，然后对镜头来一段推销，红色 jingle 文字卡在屏幕上一闪而过。文案负责抖包袱：「pov: you always wanted to know how you\'d look in this ad」。',
         '它能传开有三个原因。格式是单一固定场景，每条重制一眼就能读懂。变量只有一个人——你——这正好是图生视频最擅长的事。而怀旧本来就是 TikTok 的主流审美：这条趋势把 2000 年代电视广播时代变成了每个人可以认领的私人物品。',
-        `加入的方法是在 ${TZ} 做一条你自己的。一张照片，8 秒，9:16。然后在应用里加趋势原声，带 pov 文案发布。ViralReel 与趋势作者和任何品牌无关。`,
+        `加入的方法是在 ${TZ} 做一条你自己的。一张照片，10 秒，9:16。然后在应用里加趋势原声，带 pov 文案发布。ViralReel 与趋势作者和任何品牌无关。`,
       ],
     },
     steps,
@@ -131,8 +131,8 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
       zh: '不用 CapCut 做 NostalgIA：一张照片，不用剪辑 | ViralReel',
     },
     description: {
-      en: 'nostalgia without capcut: skip the editor entirely. ViralReel generates the whole retro TV-ad scene from one photo in the browser — 8 seconds, 9:16, no app install, no project files.',
-      zh: 'nostalgia without capcut：完全跳过剪辑软件。ViralReel 在浏览器里用一张照片生成整段复古老广告场景——8 秒，9:16，不用装 App，没有工程文件。',
+      en: 'nostalgia without capcut: skip the editor entirely. ViralReel generates the whole retro TV-ad scene from one photo in the browser — 10 seconds, 9:16, no app install, no project files.',
+      zh: 'nostalgia without capcut：完全跳过剪辑软件。ViralReel 在浏览器里用一张照片生成整段复古老广告场景——10 秒，9:16，不用装 App，没有工程文件。',
     },
     h1: { en: 'NostalgIA without CapCut', zh: '不用 CapCut 做 NostalgIA' },
     lead: {
@@ -151,7 +151,7 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
       ],
       zh: [
         'NostalgIA 视频是 AI 生成的画面：模型复刻复古广告，主角是你。剪辑软件只能把素材拼到一起，拍不出「你进了一支不存在的广告」这种画面。所以爆款帖都不是 CapCut 工程——整条视频由模型一次生成。',
-        `免剪辑流程：打开 ${TZ} ，上传一张清晰照片，选一个主角位，点生成。渲染完成后下载 8 秒 9:16 的 MP4。付费导出无水印。`,
+        `免剪辑流程：打开 ${TZ} ，上传一张清晰照片，选一个主角位，点生成。渲染完成后下载 10 秒 9:16 的 MP4。付费导出无水印。`,
         `${SOUND_ZH} 在 TikTok、Reels 或 Shorts 里加——这一步在你平时发布的应用里完成，不在剪辑软件里。${LIMIT_ZH}`,
       ],
     },
@@ -182,7 +182,7 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
     },
     description: {
       en: 'nostalgia online: create the retro TV-ad trend video in your browser. One photo, 8-second 9:16 MP4, no app, no download until the render is done.',
-      zh: 'nostalgia online：在浏览器里做复古电视广告趋势视频。一张照片，8 秒 9:16 MP4，不用装 App，渲染完成才需要下载。',
+      zh: 'nostalgia online：在浏览器里做复古电视广告趋势视频。一张照片，10 秒 9:16 MP4，不用装 App，渲染完成才需要下载。',
     },
     h1: { en: 'NostalgIA video online', zh: '在线制作 NostalgIA 视频' },
     lead: {
@@ -201,7 +201,7 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
       ],
       zh: [
         `在线制作 NostalgIA 视频，就是打开 ${TZ} 在浏览器里完成：上传一张清晰正面照，选五个主角位之一，点生成。不用装任何东西，也没有时间线——AI 会围绕你的脸复刻整支复古电视广告。`,
-        '渲染返回一条 8 秒的 9:16 MP4：黑边 SD 画质、后院布景、咬一口、对镜头笑、jingle 文字。积分在生成前显示，失败的任务会退积分。',
+        '渲染返回一条 10 秒的 9:16 MP4：黑边 SD 画质、后院布景、咬一口、对镜头笑、jingle 文字。积分在生成前显示，失败的任务会退积分。',
         `${SOUND_ZH}`,
       ],
     },
@@ -218,7 +218,7 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
         q: { en: 'How long does a render take?', zh: '渲染要多久？' },
         a: {
           en: 'A few minutes for the 8-second clip, depending on the model. Failed jobs are refunded to your balance.',
-          zh: '8 秒的片段通常几分钟，取决于所选模型。失败的任务会退积分。',
+          zh: '10 秒的片段通常几分钟，取决于所选模型。失败的任务会退积分。',
         },
       },
     ],
@@ -250,7 +250,7 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
         `${SOUND_EN} ${LIMIT_EN}`,
       ],
       zh: [
-        `搜 nostalgia ai generator 要的是照片生成工具，不是梗介绍。打开 ${TZ} 。上传一张清晰正面照，选一个主角位，生成 8 秒 9:16 的 MP4。${ROLES_ZH}`,
+        `搜 nostalgia ai generator 要的是照片生成工具，不是梗介绍。打开 ${TZ} 。上传一张清晰正面照，选一个主角位，生成 10 秒 9:16 的 MP4。${ROLES_ZH}`,
         '你不用写提示词，也不用做任何合成。黑边复古画框、SD 调色、道具动作、红色 jingle 文字都已经在模板里。普通「生成器」页是 https://www.viralreel.app/zh/nostalgia-generator 。',
         `${SOUND_ZH} ${LIMIT_ZH}`,
       ],
@@ -282,7 +282,7 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
     },
     description: {
       en: 'make nostalgia ai: upload one photo on ViralReel, pick a lead role, download the 8-second 9:16 MP4, then add the trend sound yourself. No song license, no brand affiliation.',
-      zh: 'make nostalgia ai：在 ViralReel 上传一张照片，选主角位，下载 8 秒 9:16 MP4，再自己加热梗原声。不授权歌曲，与品牌无关。',
+      zh: 'make nostalgia ai：在 ViralReel 上传一张照片，选主角位，下载 10 秒 9:16 MP4，再自己加热梗原声。不授权歌曲，与品牌无关。',
     },
     h1: { en: 'Make a NostalgIA AI video', zh: '制作 NostalgIA AI 视频' },
     lead: {
@@ -296,12 +296,12 @@ export const NOSTALGIA_INTENT_TAILS: readonly NostalgiaLongTailEntry[] = [
     body: {
       en: [
         `To make a NostalgIA AI video, open ${T} and upload one clear photo of yourself — face toward the camera, chest up. Pick the lead role that matches your photo: ${ROLES_EN}`,
-        'Keep 9:16 and generate. The template recreates the retro TV-ad scene — the letterboxed SD picture, the backyard, the bite, the grin, the jingle text — with you as the star. The length is fixed at 8 seconds so the clip loops like the trend posts.',
+        'Keep 9:16 and generate. The template recreates the retro TV-ad scene — the letterboxed SD picture, the backyard, the bite, the grin, the jingle text — with you as the star. The length is fixed at 10 seconds so the clip loops like the trend posts.',
         `${SOUND_EN} Then post with the "pov: you always wanted to know how you'd look in this ad" caption people recognize. ${LIMIT_EN}`,
       ],
       zh: [
         `制作 NostalgIA AI 视频，打开 ${TZ} 上传一张你的清晰照片——正对镜头、胸像以上。选一个和照片匹配的主角位：${ROLES_ZH}`,
-        '保持 9:16 并生成。模板会复刻复古电视广告场景——黑边 SD 画质、后院、咬一口、对镜头笑、jingle 文字——主角是你。时长固定 8 秒，成片和趋势帖一样适合循环。',
+        '保持 9:16 并生成。模板会复刻复古电视广告场景——黑边 SD 画质、后院、咬一口、对镜头笑、jingle 文字——主角是你。时长固定 10 秒，成片和趋势帖一样适合循环。',
         `${SOUND_ZH} 发布时配上大家熟悉的「pov: you always wanted to know how you'd look in this ad」文案。${LIMIT_ZH}`,
       ],
     },

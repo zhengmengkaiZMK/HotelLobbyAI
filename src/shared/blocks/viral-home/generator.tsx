@@ -116,7 +116,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     pedra_do_sal: [15],
     hit_the_road_dude: [10],
     wassup_in_a_minute: [15],
-    nostalgia_capcut: [8],
+    nostalgia_capcut: [10],
   };
   const durationOptions =
     familyFixedDurations[family] ??
