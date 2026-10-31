@@ -395,3 +395,44 @@ export async function grantCreditsForUser({
 
   return newCredit;
 }
+
+// adjust user credits balance to a target amount (admin operation)
+// computes the delta between target and current balance, then grants or
+// consumes the difference so the credit ledger stays consistent
+export async function adjustUserCreditsTo({
+  user,
+  targetCredits,
+  description,
+}: {
+  user: User;
+  targetCredits: number;
+  description?: string;
+}) {
+  const target = Math.max(0, Math.floor(targetCredits));
+  const current = await getRemainingCredits(user.id);
+  const delta = target - current;
+
+  if (delta === 0) {
+    return { current, delta: 0 };
+  }
+
+  const adjustDescription =
+    description || `admin: adjust credits to ${target}`;
+
+  if (delta > 0) {
+    await grantCreditsForUser({
+      user,
+      credits: delta,
+      description: adjustDescription,
+    });
+  } else {
+    await consumeCredits({
+      userId: user.id,
+      credits: -delta,
+      scene: 'admin',
+      description: adjustDescription,
+    });
+  }
+
+  return { current, delta };
+}

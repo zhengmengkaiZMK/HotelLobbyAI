@@ -25,7 +25,8 @@
       "view": "View User",
       "delete": "Delete User",
       "edit_roles": "Edit Roles",
-      "grant_credits": "Grant Credits"
+      "grant_credits": "Grant Credits",
+      "edit_credits": "Edit Credits"
     },
     "search": {
       "email": {
@@ -72,6 +73,24 @@
       "valid_days_tip": "0 means no expiration",
       "description": "Credits Grant Description",
       "description_placeholder": "Admin grant credits"
+    }
+  },
+  "edit_credits": {
+    "title": "Edit Credits",
+    "crumbs": {
+      "admin": "Admin",
+      "users": "Users",
+      "edit_credits": "Edit Credits"
+    },
+    "buttons": {
+      "submit": "Update Balance"
+    },
+    "fields": {
+      "current_credits": "Current Balance",
+      "credits": "New Balance",
+      "credits_tip": "Set the user's total credits balance to this value. Enter 0 to clear all credits. The difference is granted or consumed automatically and recorded in the credits ledger.",
+      "description": "Description",
+      "description_placeholder": "Admin adjust credits"
     }
   }
 }

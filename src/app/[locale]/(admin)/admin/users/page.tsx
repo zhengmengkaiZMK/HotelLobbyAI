@@ -127,6 +127,12 @@ export default async function AdminUsersPage({
             icon: 'Coins',
             url: `/admin/users/${item.id}/grant-credits`,
           },
+          {
+            name: 'edit-credits',
+            title: t('list.buttons.edit_credits'),
+            icon: 'RiEqualizerLine',
+            url: `/admin/users/${item.id}/edit-credits`,
+          },
         ],
       },
     ],

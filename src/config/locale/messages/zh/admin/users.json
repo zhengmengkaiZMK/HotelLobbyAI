@@ -25,7 +25,8 @@
       "view": "查看用户",
       "delete": "删除用户",
       "edit_roles": "编辑角色",
-      "grant_credits": "授予积分"
+      "grant_credits": "授予积分",
+      "edit_credits": "修改积分"
     },
     "search": {
       "email": {
@@ -72,6 +73,24 @@
       "valid_days_tip": "0 表示永久有效",
       "description": "积分授予描述",
       "description_placeholder": "管理员授予积分"
+    }
+  },
+  "edit_credits": {
+    "title": "修改积分",
+    "crumbs": {
+      "admin": "管理后台",
+      "users": "用户",
+      "edit_credits": "修改积分"
+    },
+    "buttons": {
+      "submit": "更新余额"
+    },
+    "fields": {
+      "current_credits": "当前余额",
+      "credits": "目标余额",
+      "credits_tip": "将该用户的积分总余额直接设置为该数值，填 0 即清空全部积分。差额部分自动走授予或扣减，并记录在积分流水中。",
+      "description": "描述",
+      "description_placeholder": "管理员调整积分"
     }
   }
 }
