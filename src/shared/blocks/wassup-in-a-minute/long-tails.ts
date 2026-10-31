@@ -1,5 +1,6 @@
 import type { TemplateCostContext } from '@/shared/lib/pricing-copy';
 
+import { WASSUP_CITE_TAILS } from './cite-tails';
 import { WASSUP_INTENT_TAILS } from './intent-tails';
 import { WASSUP_HOW_TO_STEPS, type WassupHowToStep } from './steps';
 
@@ -408,12 +409,12 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         'People searching for the wassup in a minute song want the sound behind the swaying anime edits. It is a jersey-club remix built on "From Time", Drake\'s 2013 track with Jhené Aiko. Early in the remix the vocal says "wassup, been a minute", which most listeners hear as "wassup in a minute" — the mishearing that named the trend.',
-        'The song belongs to its creators and rights holders. ViralReel does not license it, and the MP4 you download from ViralReel carries only the picture. That is by design: adding the official sound inside TikTok is what pushes your post into the trend\'s feed.',
+        'The song belongs to its creators and rights holders. ViralReel does not license it, and the MP4 you download from ViralReel carries only the picture. That is the relationship between Drake’s “From Time” and the AI video: the remix is why the trend has a name, and the AI file is a new 15-second sway of your photos. ViralReel does not export the recording, does not sell a cover, and is not affiliated with Drake, Jhené Aiko, or the remix makers. Adding the sound inside TikTok, Reels, or Shorts is what groups your post with the trend.',
         'To use it: search "wassup in a minute" or "wassup been a minute" in the TikTok, Reels, or Shorts sound picker, pick the top trend sound, and start your clip on the first beat. Pair it with your ViralReel sway video and the hashtags #wassupinaminute and #animation.',
       ],
       zh: [
         '搜 wassup in a minute song 的人要的是摇摆动画背后的那段声音。它是一段 jersey club 混音，取自 Drake 与 Jhené Aiko 2013 年的《From Time》。混音开头的人声是「wassup, been a minute」，大多数人听成「wassup in a minute」——这条趋势的名字就来自这个误听。',
-        '这首歌归创作者和版权方所有。ViralReel 不做授权，你从 ViralReel 下载的 MP4 只有画面。这是刻意的设计：在 TikTok 里加官方原声，你的帖子才会进趋势的信息流。',
+        '这首歌归创作者和版权方所有。ViralReel 不做授权，你从 ViralReel 下载的 MP4 只有画面。Drake《From Time》和这条 AI 视频的关系就是这样：混音让趋势有了名字，AI 文件是用你的照片做的一条新的 15 秒摇摆。ViralReel 不导出录音，不出售翻唱，也与 Drake、Jhené Aiko 或混音作者无关。在 TikTok、Reels 或 Shorts 里加上原声，你的帖子才会和趋势归在一起。',
         '用法：在 TikTok、Reels 或 Shorts 的曲库里搜「wassup in a minute」或「wassup been a minute」，选最热的那条趋势原声，让片段从第一拍开始。配上你的 ViralReel 摇摆视频和 #wassupinaminute、#animation 标签。',
       ],
     },
@@ -429,8 +430,15 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Does my ViralReel download include the song?', zh: 'ViralReel 的成片带这首歌吗？' },
         a: {
-          en: 'No. The MP4 is picture only. Add the trend sound inside TikTok, Reels, or Shorts when you post.',
-          zh: '不带。MP4 只有画面。发布时在 TikTok、Reels 或 Shorts 里另加热梗原声。',
+          en: 'No. The MP4 is picture only. Add the trend sound inside TikTok, Reels, or Shorts when you post. The platform-sound page is https://www.viralreel.app/wassup-in-a-minute-sound.',
+          zh: '不带。MP4 只有画面。发布时在 TikTok、Reels 或 Shorts 里另加热梗原声。平台原声说明在 https://www.viralreel.app/zh/wassup-in-a-minute-sound 。',
+        },
+      },
+      {
+        q: { en: 'Does the AI video replace “From Time”?', zh: 'AI 视频会替代《From Time》吗？' },
+        a: {
+          en: 'No. The AI video is a new sway of your photos. It does not license, cover, or export the Drake track or the jersey-club remix.',
+          zh: '不会。AI 视频是用你的照片做的新摇摆。它不授权、不翻唱、也不导出 Drake 的原曲或那段 jersey club 混音。',
         },
       },
     ],
@@ -583,6 +591,13 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
           zh: '在——观感来自造型、白底和摇摆。这三样撑起整条趋势，ViralReel 的每个版本都有。',
         },
       },
+      {
+        q: { en: 'Will Kling, Seedance, or a ChatGPT prompt make ViralReel draw Blue Lock?', zh: 'Kling、Seedance 或 ChatGPT 提示词会让 ViralReel 画出 Blue Lock 吗？' },
+        a: {
+          en: 'No. A model menu only picks an engine for the fixed template. There is no prompt that draws the Blue Lock cast. The output stays an original streetwear character from your photo.',
+          zh: '不会。模型菜单只为固定模板选引擎。没有一段提示词会去画 Blue Lock 阵容。输出仍然是照片里这个人的原创街服角色。',
+        },
+      },
     ],
   },
   {
@@ -686,6 +701,7 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     ],
   },
   ...WASSUP_INTENT_TAILS,
+  ...WASSUP_CITE_TAILS,
 ];
 
 export function getWassupLongTail(slug: string): LongTailEntry | undefined {
@@ -753,6 +769,25 @@ export function wassupLinkGroups(zh: boolean) {
       ],
     },
     {
+      title: zh ? '怎么做（ChatGPT 常问）' : 'How to make it',
+      links: [
+        { href: '/wassup-in-a-minute-how-to', label: zh ? '怎么做' : 'How to make one' },
+        { href: '/wassup-in-a-minute-chatgpt', label: zh ? 'ChatGPT 解释，模板出片' : 'ChatGPT explains, the template renders' },
+        { href: '/wassup-in-a-minute-prompt', label: zh ? '没有空白提示词' : 'No blank prompt' },
+        { href: '/wassup-in-a-minute-best', label: zh ? '固定模板怎么选' : 'When the fixed template fits' },
+        { href: '/wassup-in-a-minute-free', label: zh ? '积分，不是永远免费' : 'Credits, not free forever' },
+        { href: '/wassup-in-a-minute-kling', label: zh ? '和 Kling 对照' : 'Kling comparison' },
+        { href: '/wassup-in-a-minute-seedance', label: zh ? '和 Seedance 对照' : 'Seedance comparison' },
+        { href: '/wassup-in-a-minute-makeviral', label: zh ? '和 MakeViral 对照' : 'MakeViral comparison' },
+        { href: '/wassup-in-a-minute-sound', label: zh ? '原声在平台曲库' : 'Sound is in the app library' },
+        { href: '/wassup-in-a-minute-ai-label', label: zh ? '发布时的 AI 标注' : 'AI label when you post' },
+        { href: '/wassup-in-a-minute-no-watermark', label: zh ? '付费导出无水印' : 'Paid export, no watermark' },
+        { href: '/wassup-in-a-minute-15-seconds', label: zh ? '15 秒导出，不是一分钟' : '15-second export, not one minute' },
+        { href: '/wassup-in-a-minute-with-friends', label: zh ? '和朋友一起，一至四人' : 'With friends, one to four' },
+        { href: '/wassup-in-a-minute-money-fan', label: zh ? '甩钱原版和其他造型' : 'Money Fan and the other outfits' },
+      ],
+    },
+    {
       title: zh ? '其他趋势' : 'Other trends',
       links: [
         { href: '/tiny-desk-outstanding-ai-template', label: 'Tiny Desk Outstanding' },
@@ -768,6 +803,8 @@ export function wassupLinkGroups(zh: boolean) {
         { href: '/blog/what-is-wassup-in-a-minute', label: zh ? 'Wassup in a Minute 是什么' : 'What wassup in a minute is' },
         { href: '/blog/how-to-make-wassup-in-a-minute-ai-video', label: zh ? '如何制作 wassup in a minute AI 视频' : 'How to make a wassup in a minute AI video' },
         { href: '/blog/wassup-in-a-minute-song-and-atlanta-lock', label: zh ? '原声与 Atlanta Lock 画风' : 'The song and the Atlanta Lock style' },
+        { href: '/blog/best-wassup-in-a-minute-ai-generators', label: zh ? '2026 年 10 月生成器对照' : 'October 2026 generator roundup' },
+        { href: '/blog/wassup-in-a-minute-photo-tips', label: zh ? '一至四张照片怎么拍' : 'Photo tips for one to four people' },
         { href: '/blog/october-2026-viral-ai-meme-videos', label: zh ? '2026 年 10 月梗视频盘点' : 'October 2026 meme roundup' },
         { href: '/blog/how-to-make-bby-wow-ai-dance-video', label: zh ? '如何制作 Bby Wow AI 跳舞视频' : 'How to make a Bby Wow AI dance video' },
       ],
