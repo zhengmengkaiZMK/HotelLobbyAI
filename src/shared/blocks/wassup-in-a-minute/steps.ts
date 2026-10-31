@@ -15,8 +15,8 @@ export const WASSUP_HOW_TO_STEPS: readonly WassupHowToStep[] = [
   {
     name: { en: 'Generate', zh: '生成' },
     text: {
-      en: 'Leave the ratio on 9:16, check the credit cost shown before you start, and generate. Everyone is drawn as an original streetwear anime character on a white background, then animated with the side-to-side sway.',
-      zh: '画幅保持 9:16，看清页面上的积分后生成。所有人会被画成白底街服动漫角色，然后按节拍左右摇摆。',
+      en: 'Leave the ratio on 9:16. This template exports 15 seconds. Check the credit cost shown before you start, and generate. Everyone is drawn as an original streetwear anime character on a white background, then animated with the side-to-side sway. “In a minute” is the lyric, not the render time.',
+      zh: '画幅保持 9:16。这条模板导出 15 秒。看清页面上的积分后生成。所有人会被画成白底街服动漫角色，然后按节拍左右摇摆。「in a minute」是歌词，不是渲染时间。',
     },
   },
   {
