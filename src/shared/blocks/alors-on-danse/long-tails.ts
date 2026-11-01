@@ -1,15 +1,16 @@
 import type { TemplateCostContext } from '@/shared/lib/pricing-copy';
 
+import { ALORS_ON_DANSE_CITE_TAILS } from './cite-tails';
 import { ALORS_ON_DANSE_INTENT_TAILS } from './intent-tails';
 import { ALORS_ON_DANSE_HOW_TO_STEPS, type AlorsOnDanseHowToStep } from './steps';
 
 /**
  * Long-tail landings for the Alors On Danse template.
  *
- * To add another keyword: append an entry here or in `intent-tails.ts`.
- * The sitemap reads ALORS_ON_DANSE_LONG_TAIL_ROUTES. Public URLs are served by
- * the single `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
- * Do not reuse the main `alors-on-danse-ai-template` slug.
+ * To add another keyword: append an entry here, in `intent-tails.ts`, or in
+ * `cite-tails.ts`. The sitemap reads ALORS_ON_DANSE_LONG_TAIL_ROUTES. Public
+ * URLs are served by the single `(home)/[slug]` dispatcher — do not add a
+ * per-slug page.tsx. Do not reuse the main `alors-on-danse-ai-template` slug.
  */
 
 export const ALORS_ON_DANSE_TEMPLATE_PATH = '/alors-on-danse-ai-template';
@@ -19,6 +20,8 @@ export const ALORS_ON_DANSE_POSTS = {
   explained: '/blog/what-is-alors-on-danse-ai',
   song: '/blog/alors-on-danse-song-and-meaning',
   roundup: '/blog/october-2026-viral-ai-meme-videos',
+  generators: '/blog/best-alors-on-danse-ai-generators',
+  photos: '/blog/alors-on-danse-photo-tips',
 } as const;
 
 const EN_TEMPLATE = 'https://www.viralreel.app/alors-on-danse-ai-template';
@@ -368,6 +371,7 @@ export const ALORS_ON_DANSE_LONG_TAILS: readonly AlorsOnDanseLongTailEntry[] = [
     ],
   },
   ...ALORS_ON_DANSE_INTENT_TAILS,
+  ...ALORS_ON_DANSE_CITE_TAILS,
 ];
 
 export function getAlorsOnDanseLongTail(slug: string): AlorsOnDanseLongTailEntry | undefined {
@@ -399,8 +403,14 @@ export function alorsOnDanseLinkGroups(zh: boolean) {
         { href: '/alors-on-danse-generator', label: zh ? '生成器' : 'Generator' },
         { href: '/alors-on-danse-ai-generator', label: zh ? 'AI 生成器' : 'AI generator' },
         { href: '/make-alors-on-danse-ai', label: zh ? '制作' : 'Make one' },
+        { href: '/create-alors-on-danse-ai', label: zh ? '创建' : 'Create one' },
         { href: '/how-to-make-alors-on-danse-ai', label: zh ? '图文教程' : 'Step-by-step how-to' },
+        { href: '/alors-on-danse-from-photo', label: zh ? '用照片制作' : 'From a photo' },
+        { href: '/alors-on-danse-online', label: zh ? '在线制作' : 'Online' },
+        { href: '/alors-on-danse-mp4', label: 'MP4' },
+        { href: '/alors-on-danse-capcut', label: zh ? '和 CapCut 对照' : 'CapCut comparison' },
         { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
+        { href: '/subscribe', label: zh ? '月付方案' : 'Monthly plans' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
       ],
     },
@@ -409,10 +419,31 @@ export function alorsOnDanseLinkGroups(zh: boolean) {
       links: [
         { href: '/alors-on-danse-meme', label: zh ? '梗详解' : 'Alors On Danse meme' },
         { href: '/alors-on-danse-tiktok', label: zh ? 'TikTok 玩法' : 'Alors On Danse TikTok' },
+        { href: '/alors-on-danse-instagram', label: zh ? 'Instagram Reels' : 'Instagram Reels' },
+        { href: '/alors-on-danse-youtube-shorts', label: 'YouTube Shorts' },
         { href: '/alors-on-danse-song', label: zh ? '这首歌' : 'The song' },
+        { href: '/alors-on-danse-sound', label: zh ? '原声不在文件里' : 'Sound is not in the file' },
         { href: '/alors-on-danse-meaning', label: zh ? '歌名含义' : 'What the title means' },
         { href: '/stromae-jamel-debbouze-ai', label: 'Stromae & Jamel Debbouze AI' },
         { href: '/alors-on-danse-making-of', label: zh ? '是真实幕后吗' : 'Real making-of?' },
+        { href: '/alors-on-danse-original', label: zh ? '原版小品对照原版小剧场' : 'Sketch vs Original Sketch' },
+      ],
+    },
+    {
+      title: zh ? '怎么做（ChatGPT 常问）' : 'How to make it',
+      links: [
+        { href: '/alors-on-danse-chatgpt', label: zh ? 'ChatGPT 解释，模板出片' : 'ChatGPT explains, the template renders' },
+        { href: '/alors-on-danse-prompt', label: zh ? '没有空白提示词' : 'No blank prompt' },
+        { href: '/alors-on-danse-best', label: zh ? '固定模板怎么选' : 'When the fixed template fits' },
+        { href: '/alors-on-danse-free', label: zh ? '积分，不是永远免费' : 'Credits, not free forever' },
+        { href: '/alors-on-danse-kling', label: zh ? '和 Kling 对照' : 'Kling comparison' },
+        { href: '/alors-on-danse-seedance', label: zh ? '和 Seedance 对照' : 'Seedance comparison' },
+        { href: '/alors-on-danse-makeviral', label: zh ? '和 MakeViral 对照' : 'MakeViral comparison' },
+        { href: '/alors-on-danse-ai-label', label: zh ? '发布时的 AI 标注' : 'AI label when you post' },
+        { href: '/alors-on-danse-no-watermark', label: zh ? '付费导出无水印' : 'Paid export, no watermark' },
+        { href: '/alors-on-danse-with-friends', label: zh ? '和朋友或情侣，两张照片' : 'With friends or a couple' },
+        { href: '/alors-on-danse-pets', label: zh ? '宠物或小孩放伴舞位' : 'Pet or baby in the dance role' },
+        { href: '/alors-on-danse-photo-order', label: zh ? '照片顺序' : 'Photo order' },
       ],
     },
     {
@@ -431,6 +462,8 @@ export function alorsOnDanseLinkGroups(zh: boolean) {
         { href: '/blog/what-is-alors-on-danse-ai', label: zh ? 'Alors On Danse AI 是什么' : 'What Alors On Danse AI is' },
         { href: '/blog/how-to-make-alors-on-danse-ai-video', label: zh ? '如何制作 Alors On Danse AI 视频' : 'How to make a Alors On Danse AI video' },
         { href: '/blog/alors-on-danse-song-and-meaning', label: zh ? '歌与歌名含义' : 'The song and its meaning' },
+        { href: '/blog/best-alors-on-danse-ai-generators', label: zh ? '2026 年 11 月生成器对照' : 'November 2026 generator roundup' },
+        { href: '/blog/alors-on-danse-photo-tips', label: zh ? '键盘位和伴舞位怎么拍' : 'Photo tips for both roles' },
         { href: '/blog/october-2026-viral-ai-meme-videos', label: zh ? '2026 年 10 月梗视频盘点' : 'October 2026 meme roundup' },
       ],
     },
