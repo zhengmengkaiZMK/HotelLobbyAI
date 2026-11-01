@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'alors-on-danse',
+    name: ['Alors On Danse', 'Alors On Danse'],
+    pitch: [
+      'Two photos recast the Stromae white-studio sketch — one plays it straight, one commits far too hard.',
+      '两张照片重排 Stromae 白棚小品——一个一本正经，一个用力过猛。',
+    ],
+    href: '/alors-on-danse-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'dance'],
+    poster: '/templates/alors-on-danse-ai-giant-poster.jpg',
+    video: '/templates/alors-on-danse-ai-giant.mp4',
+    colors: ['#dbeafe', '#1e3a8a'],
+  },
+  {
     id: 'nostalgia',
     name: ['NostalgIA CapCut', 'NostalgIA CapCut'],
     pitch: [

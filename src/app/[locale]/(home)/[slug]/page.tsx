@@ -1,6 +1,11 @@
 import { notFound } from 'next/navigation';
 
 import {
+  generateAlorsOnDanseLongTailMetadata,
+  AlorsOnDanseLongTailRoute,
+} from '@/shared/blocks/alors-on-danse/long-tail-route';
+import { getAlorsOnDanseLongTail } from '@/shared/blocks/alors-on-danse/long-tails';
+import {
   generateLongTailMetadata as generateHitMetadata,
   LongTailRoute as HitLongTailRoute,
 } from '@/shared/blocks/hit-the-road-dude/long-tail-route';
@@ -39,7 +44,8 @@ export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | null {
+function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | null {
+  if (getAlorsOnDanseLongTail(slug)) return 'alors';
   if (getWassupLongTail(slug)) return 'wassup';
   if (getHitTheRoadLongTail(slug)) return 'hit';
   if (getTinyDeskLongTail(slug)) return 'tiny-desk';
@@ -55,6 +61,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   if (kind === 'hit') return generateHitMetadata(localeParams, slug);
   if (kind === 'tiny-desk') return generateTinyDeskMetadata(localeParams, slug);
   if (kind === 'nostalgia') return generateNostalgiaLongTailMetadata(localeParams, slug);
+  if (kind === 'alors') return generateAlorsOnDanseLongTailMetadata(localeParams, slug);
   return generateLandingMetadata({
     params: Promise.resolve({ locale, slug }),
   });
@@ -69,5 +76,6 @@ export default async function Page({ params }: { params: Params }) {
   if (kind === 'hit') return <HitLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'tiny-desk') return <TinyDeskLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'nostalgia') return <NostalgiaLongTailRoute {...localeParams} slug={slug} />;
+  if (kind === 'alors') return <AlorsOnDanseLongTailRoute {...localeParams} slug={slug} />;
   return <LandingDynamicPage params={Promise.resolve({ locale, slug })} />;
 }
