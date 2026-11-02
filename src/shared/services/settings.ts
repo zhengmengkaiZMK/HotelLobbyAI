@@ -45,57 +45,66 @@ export const MULTI_VIDEO_FAMILIES: Record<string, number> = {
   sasha_la_catrina: 7,
 };
 
+// Admin display names for the multi-video families — the slot settings live
+// in their own "多视频AI业务" tab, where titles must say which family a
+// group of slots belongs to (otherwise two multi-video families would both
+// show a bare "多视频模板 1-7").
+export const MULTI_VIDEO_FAMILY_LABELS: Record<string, string> = {
+  sasha_la_catrina: 'Sasha La Catrina',
+};
+
 const MULTI_VIDEO_DURATION_OPTIONS = ['5', '8', '10', '12', '15', '20', '30'];
 
 function multiVideoSettings(): Setting[] {
-  return Object.entries(MULTI_VIDEO_FAMILIES).flatMap(([family, count]) =>
-    Array.from({ length: count }, (_, i) => i + 1).flatMap((n): Setting[] => [
+  return Object.entries(MULTI_VIDEO_FAMILIES).flatMap(([family, count]) => {
+    const label = MULTI_VIDEO_FAMILY_LABELS[family] || family;
+    return Array.from({ length: count }, (_, i) => i + 1).flatMap((n): Setting[] => [
       {
         name: `viral_family_video_${n}_${family}`,
-        title: `多视频模板 ${n} · 参考视频`,
+        title: `${label} · 多视频模板 ${n} · 参考视频`,
         type: 'upload_video',
-        group: 'viral_templates',
-        tab: 'ai',
-        tip: `第 ${n} 个模板视频。上传后前端「选择一个样本」立即出现该样本；留空则不显示。4 个槽位按需填写，不必填满。`,
+        group: 'multi_video_ai',
+        tab: 'multi_video_ai',
+        tip: `第 ${n} 个模板视频。上传后前端「选择一个样本」立即出现该样本；留空则不显示。${count} 个槽位按需填写，不必填满。`,
       },
       {
         name: `viral_family_video_label_${n}_${family}`,
-        title: `多视频模板 ${n} · 标题`,
+        title: `${label} · 多视频模板 ${n} · 标题`,
         type: 'text',
-        group: 'viral_templates',
-        tab: 'ai',
+        group: 'multi_video_ai',
+        tab: 'multi_video_ai',
         placeholder: `样本 ${n}`,
         tip: '样本卡片上显示的名字（可选），留空显示「样本 N」。',
       },
       {
         name: `viral_family_video_prompt_${n}_${family}`,
-        title: `多视频模板 ${n} · 提示词`,
+        title: `${label} · 多视频模板 ${n} · 提示词`,
         type: 'textarea',
         attributes: { rows: 4 },
-        group: 'viral_templates',
-        tab: 'ai',
+        group: 'multi_video_ai',
+        tab: 'multi_video_ai',
         tip: '该视频专属提示词，选中该样本时生成用这份提示词；留空则回退到系列主提示词。',
       },
       {
         name: `viral_family_video_duration_${n}_${family}`,
-        title: `多视频模板 ${n} · 时长（秒）`,
+        title: `${label} · 多视频模板 ${n} · 时长（秒）`,
         type: 'select',
         options: MULTI_VIDEO_DURATION_OPTIONS.map((v) => ({ title: `${v} 秒`, value: v })),
-        group: 'viral_templates',
-        tab: 'ai',
+        group: 'multi_video_ai',
+        tab: 'multi_video_ai',
         tip: '选中该样本后，前端时长档锁定为这里配置的秒数。',
       },
       {
         name: `viral_family_video_slots_${n}_${family}`,
-        title: `多视频模板 ${n} · 照片数`,
+        title: `${label} · 多视频模板 ${n} · 照片数`,
         type: 'select',
         options: ['1', '2', '3'].map((v) => ({ title: `${v} 张`, value: v })),
-        group: 'viral_templates',
-        tab: 'ai',
+        group: 'multi_video_ai',
+        tab: 'multi_video_ai',
         tip: '选中该样本后，用户需要上传的照片张数（1-3 张）。',
       },
-    ])
-  );
+    ]);
+  });
 }
 
 const MULTI_VIDEO_SETTING_NAMES = multiVideoSettings().map((s) => s.name);
@@ -140,6 +149,12 @@ export async function getSettingTabs(tab: string) {
       title: t('edit.tabs.ai'),
       url: '/admin/settings/ai',
       is_active: tab === 'ai',
+    },
+    {
+      name: 'multi_video_ai',
+      title: t('edit.tabs.multi_video_ai'),
+      url: '/admin/settings/multi_video_ai',
+      is_active: tab === 'multi_video_ai',
     },
     {
       name: 'ai_providers',
@@ -347,6 +362,13 @@ export async function getSettingGroups() {
       description:
         'Configure the generation prompt and reference media for each template family (Hotel Lobby, Burning Bridges, Bulin 47, Ozil Goal, Cat Clapping). Users on the landing page cannot edit prompts; generation always uses these values. All models read the family reference video / audio from here.',
       tab: 'ai',
+    },
+    {
+      name: 'multi_video_ai',
+      title: '多视频系列样本配置 / Multi-Video Template Samples',
+      description:
+        '每个多视频系列的样本槽位配置（参考视频 / 标题 / 提示词 / 时长 / 照片数）。上传槽位 1 后前端立即出现「选择一个样本」；各槽位互相独立，按需填写。系列级的提示词兜底、参考音频、可用模型与默认模型仍在「AI业务」标签页。',
+      tab: 'multi_video_ai',
     },
     {
       name: 'minimax_business',

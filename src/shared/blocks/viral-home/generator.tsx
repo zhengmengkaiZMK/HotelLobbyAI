@@ -13,7 +13,7 @@ import { track } from '@/shared/lib/analytics';
 import { TemplateDef } from './templates';
 import { StarterPackDialog } from './starter-pack-dialog';
 import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost, getFalKlingV4VideoCost } from '@/shared/lib/video-cost';
-import { checkKlingV4Image, measureImage, measureImageFile, formatRatio, type ImageMeta, type ImageRequirementIssue } from '@/shared/lib/image-requirements';
+import { checkImageSpec, measureImage, measureImageFile, formatRatio, type ImageMeta, type ImageRequirementIssue } from '@/shared/lib/image-requirements';
 
 const defaults = [
   { value: 'google/veo-3.1', label: 'Veo 3.1 · Replicate', provider: 'replicate' },
@@ -433,11 +433,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     // swaying characters as the uploaded photos; at least one is required.
     const input = single ? usable.slice(0, 1) : family === 'wassup_in_a_minute' ? usable.filter(Boolean) : usable;
     if (!input.length || input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
-    // Kling v4 pre-flight: upstream rejects images with a side under 300px or
-    // an aspect ratio outside 0.4–2.5. Those failures otherwise reach the user
-    // only as an opaque generation error after credits were spent — check the
+    // Image pre-flight for every model: upstream (Kling, and photo-to-video
+    // models generally) rejects photos with a side under 300px or an aspect
+    // ratio outside 0.4–2.5. Those failures otherwise reach the user only as
+    // an opaque generation error after credits were spent — check the
     // uploaded photos here and explain exactly which photo fails and why.
-    if (isFalV4) {
+    {
       const problems: { slot: number; issues: ImageRequirementIssue[] }[] = [];
       for (let i = 0; i < input.length; i++) {
         const src = input[i];
@@ -446,13 +447,13 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         if (!meta) {
           try { meta = await measureImage(src); setImageMeta((s) => ({ ...s, [i]: meta! })); } catch { continue; }
         }
-        const issues = checkKlingV4Image(meta);
+        const issues = checkImageSpec(meta);
         if (issues.length) problems.push({ slot: i + 1, issues });
       }
       if (problems.length) {
         setImageIssues(problems);
         setImageWarnOpen(true);
-        track('image_rejected_kling_v4', { template: family, count: problems.length });
+        track('image_rejected_precheck', { template: family, count: problems.length });
         return;
       }
     }
@@ -560,7 +561,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {(family !== 'tiny_desk_outstanding' && (isFalRef || (isFalWan && (familyRefAudio || wanAllowGenerated)))) && <div className="param-row"><div className="seg" aria-label={text('Audio', '音频')}><button type="button" aria-pressed={keepAudio} className={keepAudio ? 'sel' : ''} onClick={() => setKeepAudio((v) => !v)}>{keepAudio ? (isFalWan ? (familyRefAudio ? text('Use reference audio', '使用参考音频') : text('Generate audio', '生成音频')) : text('Keep original audio', '保留参考视频原声')) : text('No audio', '不带原声')}</button></div></div>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v === 'adaptive' ? text('auto', '自动') : v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => { const hdLocked = isHdTier(v) && !hdAllowed; const modelLocked = !isTaskRelay && v === '1080p' && unsupported1080; return <button key={v} disabled={hdLocked || modelLocked} title={hdLocked ? text('1080p is available on the Popular plan and above', '1080p 为 Popular 及以上方案权益') : modelLocked ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>; })}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     {configs.viral_show_model_selector !== 'false' && <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{allowedModels.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details>}</fieldset>
-    <button className="btn-gen" disabled={busy || checkingAccount || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{checkingAccount ? text('Checking account…', '登录状态检查中…') : busy ? liveLabel(text('Generating…', '生成中…')) : text('Generate', '立即生成')}</button><p className="gen-hint">{text('Minimum image resolution: 240×240 or above', '图片分辨率最低要求 240×240 以上')}</p>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{liveLabel(label)}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{family === 'baba_dance' && ` · ${text('the full video is 30s — the Popular credit pack is recommended', '本视频完整版共 30s，建议购买 Popular 积分包')}`}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
+    <button className="btn-gen" disabled={busy || checkingAccount || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{checkingAccount ? text('Checking account…', '登录状态检查中…') : busy ? liveLabel(text('Generating…', '生成中…')) : text('Generate', '立即生成')}</button><p className="gen-hint">{text('Minimum image resolution: 300×300 or above', '图片分辨率最低要求 300×300 以上')}</p>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{liveLabel(label)}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{family === 'baba_dance' && ` · ${text('the full video is 30s — the Popular credit pack is recommended', '本视频完整版共 30s，建议购买 Popular 积分包')}`}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
     {configs.debug_show_request_payload === 'true' && <div className="result-actions"><button type="button" className="btn btn-outline" style={{ fontSize: 12, opacity: .7 }} onClick={() => { if (debugOpen) { setDebugOpen(false); return; } setDebugPayload(JSON.stringify(buildPayload(images.slice(0, slotCount).filter(Boolean) as string[]), null, 2)); setDebugOpen(true); }}>{text('Debug: request payload', '调试：查看 Request 参数')}</button></div>}
     {configs.debug_show_request_payload === 'true' && debugOpen && <pre style={{ maxHeight: 260, overflow: 'auto', fontSize: 11, lineHeight: 1.5, background: 'rgba(127,127,127,.12)', padding: '8px 10px', borderRadius: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all', textAlign: 'left', margin: 0 }}>{debugPayload}</pre>}
     </div></div>;

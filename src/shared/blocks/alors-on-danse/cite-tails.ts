@@ -599,12 +599,12 @@ export const ALORS_ON_DANSE_CITE_TAILS: readonly AlorsOnDanseLongTailEntry[] = [
     guideTitle: { en: 'Which photos, and which slot', zh: '用哪些照片，放哪个位置' },
     body: {
       en: [
-        `Open ${T}. ${SLOTS_EN} A front-facing photo with even light works for the keyboard. The dance photo can be front-facing or show more of the body, ideally already smiling. JPG, PNG, and WebP work. The generator’s stated minimum is 240×240. The longer photo guide is ${PHOTO}. Order is https://www.viralreel.app/alors-on-danse-photo-order.`,
+        `Open ${T}. ${SLOTS_EN} A front-facing photo with even light works for the keyboard. The dance photo can be front-facing or show more of the body, ideally already smiling. JPG, PNG, and WebP work. The generator’s stated minimum is 300×300. The longer photo guide is ${PHOTO}. Order is https://www.viralreel.app/alors-on-danse-photo-order.`,
         `${LIMIT_EN} A pet or a baby can be Image 2: https://www.viralreel.app/alors-on-danse-pets. ${HISTORY_EN}`,
         `${RATIO_EN} ${SOUND_EN} ${PRICE_EN}`,
       ],
       zh: [
-        `打开 ${TZ} 。${SLOTS_ZH} 弹键盘用一张光线均匀的正面照。伴舞可以是正面，也可以多露出一些身体，最好本来就在笑。支持 JPG、PNG 和 WebP。生成器写明的最低分辨率是 240×240。更长的照片指南在 ${PHOTOZ} 。顺序在 https://www.viralreel.app/zh/alors-on-danse-photo-order 。`,
+        `打开 ${TZ} 。${SLOTS_ZH} 弹键盘用一张光线均匀的正面照。伴舞可以是正面，也可以多露出一些身体，最好本来就在笑。支持 JPG、PNG 和 WebP。生成器写明的最低分辨率是 300×300。更长的照片指南在 ${PHOTOZ} 。顺序在 https://www.viralreel.app/zh/alors-on-danse-photo-order 。`,
         `${LIMIT_ZH} 宠物或小孩可以放照片 2：https://www.viralreel.app/zh/alors-on-danse-pets 。${HISTORY_ZH}`,
         `${RATIO_ZH} ${SOUND_ZH} ${PRICE_ZH}`,
       ],

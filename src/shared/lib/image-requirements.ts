@@ -1,9 +1,11 @@
 /**
- * Kling v4 image requirements + lightweight client-side pre-flight checks.
+ * Image requirements + lightweight client-side pre-flight checks.
  *
- * Kling v4 (incl. fal kling/v4/reference-to-video) rejects reference images
- * that do not meet its upstream rules — verified 2026-11 against the Kling
- * official docs (klingai.com quickstart + API reference) and fal's model page:
+ * These are the generator's universal photo quality gates, applied to every
+ * model when the user hits Generate (not model-specific). Floors chosen from
+ * the strictest real upstream constraint (Kling, incl. fal
+ * kling/v4/reference-to-video — verified 2026-11 against the Kling official
+ * docs and fal's model page):
  *   - formats: JPG / JPEG / PNG (WebP is not documented as supported upstream)
  *   - size: <= 30 MB per image (ViralReel uploads are capped at 10 MB already)
  *   - dimensions: width AND height >= 300 px
@@ -11,14 +13,14 @@
  *   - aspect ratio: 0.4 – 2.5 (i.e. 1:2.5 to 2.5:1)
  *     ("The aspect ratio of the image should be between 0.4 and 2.5.")
  *
- * The generator stores per-slot metadata at upload time and re-checks when the
- * user hits Generate with a Kling v4 model selected, so failures surface as a
- * dialog instead of an opaque upstream error after credits are spent.
+ * The generator stores per-slot metadata at upload time and re-checks on
+ * generate, so failures surface as a friendly dialog instead of an opaque
+ * upstream error after credits are spent.
  */
 
-export const KLING_V4_IMAGE_MIN_SIDE = 300;
-export const KLING_V4_IMAGE_MIN_RATIO = 0.4;
-export const KLING_V4_IMAGE_MAX_RATIO = 2.5;
+export const IMAGE_MIN_SIDE = 300;
+export const IMAGE_MIN_RATIO = 0.4;
+export const IMAGE_MAX_RATIO = 2.5;
 
 export interface ImageMeta {
   width: number;
@@ -31,15 +33,15 @@ export interface ImageRequirementIssue {
   height: number;
 }
 
-export function checkKlingV4Image(meta: ImageMeta): ImageRequirementIssue[] {
+export function checkImageSpec(meta: ImageMeta): ImageRequirementIssue[] {
   const issues: ImageRequirementIssue[] = [];
   const minSide = Math.min(meta.width, meta.height);
-  if (minSide < KLING_V4_IMAGE_MIN_SIDE) {
+  if (minSide < IMAGE_MIN_SIDE) {
     issues.push({ kind: 'too_small', width: meta.width, height: meta.height });
     return issues;
   }
   const ratio = meta.height > 0 ? meta.width / meta.height : 0;
-  if (ratio < KLING_V4_IMAGE_MIN_RATIO || ratio > KLING_V4_IMAGE_MAX_RATIO) {
+  if (ratio < IMAGE_MIN_RATIO || ratio > IMAGE_MAX_RATIO) {
     issues.push({ kind: 'bad_ratio', width: meta.width, height: meta.height });
   }
   return issues;
