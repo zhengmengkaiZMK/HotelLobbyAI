@@ -8,6 +8,7 @@ import { BULIN_LONG_TAIL_ROUTES } from '@/shared/blocks/bulin-47/long-tails';
 import { HIT_THE_ROAD_LONG_TAIL_ROUTES } from '@/shared/blocks/hit-the-road-dude/long-tails';
 import { NOSTALGIA_LONG_TAIL_ROUTES } from '@/shared/blocks/nostalgia/long-tails';
 import { ALORS_ON_DANSE_LONG_TAIL_ROUTES } from '@/shared/blocks/alors-on-danse/long-tails';
+import { SASHA_LA_CATRINA_LONG_TAIL_ROUTES } from '@/shared/blocks/sasha-la-catrina/long-tails';
 import { PEDRA_LONG_TAIL_ROUTES } from '@/shared/blocks/pedra-do-sal/long-tails';
 import { TINY_DESK_LONG_TAIL_ROUTES } from '@/shared/blocks/tiny-desk/long-tails';
 import { WASSUP_LONG_TAIL_ROUTES } from '@/shared/blocks/wassup-in-a-minute/long-tails';
@@ -22,6 +23,8 @@ function safeLastModified(value: string | Date | null | undefined, fallback: Dat
 // indexable landing routes (privacy/terms are disallowed in robots.ts)
 const staticRoutes = [
   { path: '/', priority: 1, changeFrequency: 'daily' as const },
+  { path: '/sasha-la-catrina-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...SASHA_LA_CATRINA_LONG_TAIL_ROUTES,
   { path: '/nostalgia-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/alors-on-danse-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...NOSTALGIA_LONG_TAIL_ROUTES,

@@ -36,10 +36,10 @@ export async function generateMetadata({
   const m = META[locale === 'zh' ? 'zh' : 'en'];
   const canonical =
     locale === 'zh'
-      ? `${envConfigs.app_url}/zh/alorsOnDanse-ai-template`
-      : `${envConfigs.app_url}/alorsOnDanse-ai-template`;
-  const enUrl = `${envConfigs.app_url}/alorsOnDanse-ai-template`;
-  const zhUrl = `${envConfigs.app_url}/zh/alorsOnDanse-ai-template`;
+      ? `${envConfigs.app_url}/zh/alors-on-danse-ai-template`
+      : `${envConfigs.app_url}/alors-on-danse-ai-template`;
+  const enUrl = `${envConfigs.app_url}/alors-on-danse-ai-template`;
+  const zhUrl = `${envConfigs.app_url}/zh/alors-on-danse-ai-template`;
   return {
     title: m.title,
     description: m.description,
@@ -78,7 +78,7 @@ export default async function AlorsOnDanseTemplatePage({
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs(true));
-  const pageUrl = zh ? `${envConfigs.app_url}/zh/alorsOnDanse-ai-template` : `${envConfigs.app_url}/alorsOnDanse-ai-template`;
+  const pageUrl = zh ? `${envConfigs.app_url}/zh/alors-on-danse-ai-template` : `${envConfigs.app_url}/alors-on-danse-ai-template`;
   const faq = getAlorsOnDanseFaq(zh, { videoCosts, creditsPerUsd });
 
   const faqJsonLd = {

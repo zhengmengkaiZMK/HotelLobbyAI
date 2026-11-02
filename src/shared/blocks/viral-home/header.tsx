@@ -19,9 +19,10 @@ import { Brand } from './footer';
 import './home.css';
 
 // Top-nav Trending submenu: keep it to ten entries so the dropdown
-// stays scannable. Templates removed from here (bulin, ozil) are
-// still listed in the footer links and on the homepage trending hub.
+// stays scannable. Templates removed from here (bulin, ozil, hotel)
+// are still listed in the footer links and on the homepage trending hub.
 const TRENDING_NAV_ORDER = [
+  'sasha-la-catrina',
   'alors-on-danse',
   'nostalgia',
   'wassup-in-a-minute',
@@ -31,7 +32,6 @@ const TRENDING_NAV_ORDER = [
   'bby-wow',
   'hit-the-road-dude',
   'burning-bridges',
-  'hotel-lobby',
 ] as const;
 
 function trendingNavItems(): TrendingTemplate[] {

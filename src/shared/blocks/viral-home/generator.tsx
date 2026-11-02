@@ -13,6 +13,7 @@ import { track } from '@/shared/lib/analytics';
 import { TemplateDef } from './templates';
 import { StarterPackDialog } from './starter-pack-dialog';
 import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost, getFalKlingV4VideoCost } from '@/shared/lib/video-cost';
+import { checkKlingV4Image, measureImage, measureImageFile, formatRatio, type ImageMeta, type ImageRequirementIssue } from '@/shared/lib/image-requirements';
 
 const defaults = [
   { value: 'google/veo-3.1', label: 'Veo 3.1 · Replicate', provider: 'replicate' },
@@ -59,6 +60,30 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   // dialog and are accepted by the generate route. Empty/unset → show all
   // (compatibility fallback for families the admin has not configured yet).
   const family = template.family || (template.id.startsWith('party-') ? 'burning_bridges' : 'hotel');
+  // multi-video families: the admin fills up to 4 reference-video slots
+  // (viral_family_video_N_<family>), each with its own prompt, duration,
+  // photo count and label. Presence-driven — a family becomes multi-video as
+  // soon as slot 1 has a video; with zero filled slots this resolves to the
+  // legacy single-video path below (familyRefVideo / family prompt).
+  const variants = Array.from({ length: 12 }, (_, i) => i + 1)
+    .map((n) => {
+      const video = (configs[`viral_family_video_${n}_${family}`] as string | undefined)?.trim() || '';
+      if (!video) return null;
+      return {
+        n,
+        video,
+        label: (configs[`viral_family_video_label_${n}_${family}`] as string | undefined)?.trim() || '',
+        prompt: (configs[`viral_family_video_prompt_${n}_${family}`] as string | undefined)?.trim() || '',
+        duration: Number(configs[`viral_family_video_duration_${n}_${family}`]) || 0,
+        slots: Number(configs[`viral_family_video_slots_${n}_${family}`]) || 0,
+      };
+    })
+    .filter((v): v is NonNullable<typeof v> => v !== null);
+  const isMultiVideo = variants.length > 0;
+  // a card of a multi-video family can preselect its own sample slot
+  // (template.variantSlot, 1-based) so the preview matches the clicked card
+  const [variantIdx, setVariantIdx] = useState(() => (template.variantSlot && template.variantSlot > 1 ? template.variantSlot - 1 : 0));
+  const activeVariant = isMultiVideo ? variants[Math.min(variantIdx, variants.length - 1)] : null;
   const familyAllowedModels: string[] = (() => {
     const raw = (configs[`viral_family_models_${family}`] as string | undefined)?.trim();
     if (!raw) return [];
@@ -118,9 +143,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     wassup_in_a_minute: [15],
     nostalgia_capcut: [10],
     alors_on_danse: [30],
+    sasha_la_catrina: [5, 10, 15],
   };
   const durationOptions =
-    familyFixedDurations[family] ??
+    activeVariant?.duration
+      ? [activeVariant.duration]
+      : familyFixedDurations[family] ??
     (isFalV4 || isBaiduSeedance
       ? [5, 10, 15, 20, 30]
       : isFalWan ? [5, 10, 15] : isFalRef ? [3, 5, 8, 10, 12, 15] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]);
@@ -141,12 +169,25 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   const [debugOpen, setDebugOpen] = useState(false);
   const [debugPayload, setDebugPayload] = useState('');
   const effectivePrompt = (configs[`viral_family_prompt_${family}`] as string | undefined)?.trim() || template.prompt;
+  // active variant overrides: the selected slot's reference video wins over
+  // the legacy single-video setting; its prompt falls back to the family
+  // prompt, then to the template's built-in one
+  const refVideo = activeVariant?.video || familyRefVideo;
+  const effectiveVariantPrompt = activeVariant ? (activeVariant.prompt || effectivePrompt) : effectivePrompt;
   // prompt is sent to the model VERBATIM — no hidden suffixes are appended.
   // The admin-configured family prompt (or the user's own edit) is the whole
   // instruction; casting/motion guidance belongs in the admin prompt itself.
   const maxSlots = template.slots ?? 2;
+  // the widest photo requirement across the family's variants — upload
+  // arrays are padded to this so any slot count the admin picks works
+  const totalSlots = Math.max(maxSlots, ...variants.map((v) => v.slots));
   const previewVideo = template.previewVideo === undefined ? `/templates/${template.id}.mp4` : template.previewVideo;
   const defaultImages = template.images ? [...template.images] : [`/templates/frames/${template.id}-a.jpg`, `/templates/frames/${template.id}-b.jpg`];
+  while (defaultImages.length < totalSlots) defaultImages.push(null);
+  const activePreviewVideo = activeVariant?.video || previewVideo;
+  // how many upload cards show right now: the selected variant's photo
+  // count when it has one, otherwise the template's own slot count
+  const slotCount = activeVariant?.slots || maxSlots;
   const [images, setImages] = useState<(string | null)[]>(defaultImages);
   const [custom, setCustom] = useState<boolean[]>(defaultImages.map(() => false));
   const imageCacheKey = `viral-gen-images:${template.id}`;
@@ -179,16 +220,27 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     document.getElementById('generator')?.scrollIntoView({ behavior: 'smooth', block: 'start' });
   }, [fetchUserCredits]);
   const [uploading, setUploading] = useState<boolean[]>(defaultImages.map(() => false));
+  // per-slot pixel size recorded at upload time — used by the Kling v4
+  // pre-flight check so image-spec failures surface before credits are spent
+  const [imageMeta, setImageMeta] = useState<Record<number, ImageMeta>>({});
+  const [imageIssues, setImageIssues] = useState<{ slot: number; issues: ImageRequirementIssue[] }[]>([]);
+  const [imageWarnOpen, setImageWarnOpen] = useState(false);
   const [promptDraft, setPromptDraft] = useState('');
-  // keep the editable prompt in sync with the template / config override
+  // keep the editable prompt in sync with the template / config override /
+  // selected multi-video sample
   useEffect(() => {
-    if (embedded || open) setPromptDraft(effectivePrompt);
+    if (embedded || open) setPromptDraft(effectiveVariantPrompt);
     // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open, embedded, template.id]);
-  const prompt = allowPromptEdit && promptDraft.trim() ? promptDraft.trim() : effectivePrompt;
-  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'baba_dance', 'wassup_in_a_minute', 'nostalgia_capcut'].includes(family) ? '9:16' : '16:9');
+  }, [open, embedded, template.id, variantIdx]);
+  const prompt = allowPromptEdit && promptDraft.trim() ? promptDraft.trim() : effectiveVariantPrompt;
+  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'baba_dance', 'wassup_in_a_minute', 'nostalgia_capcut', 'sasha_la_catrina'].includes(family) ? '9:16' : '16:9');
   const [resolution, setResolution] = useState('720p');
-  const [duration, setDuration] = useState(family === 'cat_clapping' ? 4 : 8);
+  const [duration, setDuration] = useState(activeVariant?.duration || (family === 'cat_clapping' ? 4 : 8));
+  // switching multi-video sample: lock the duration to the new sample's own
+  useEffect(() => {
+    if (activeVariant?.duration) setDuration(activeVariant.duration);
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [variantIdx, isMultiVideo]);
   // transient-safe values: while switching models the state may briefly hold the
   // previous model's tier (the reset effects run after render) — cost functions
   // throw on invalid tiers, so always compute from clamped values, never in-render raw state
@@ -324,6 +376,12 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       setError(text('Use a JPG, PNG or WebP image under 10 MB.', '请上传 10 MB 以内的 JPG、PNG 或 WebP 图片。')); return;
     }
     setUploading((s) => s.map((v, i) => i === index ? true : v)); setError('');
+    // record the pixel size now — the generate-time Kling v4 pre-flight uses
+    // it; a failed read is not fatal, generate() re-measures from the URL
+    try {
+      const meta = await measureImageFile(file);
+      setImageMeta((s) => ({ ...s, [index]: meta }));
+    } catch { /* size unknown; generate-time fallback re-measures */ }
     try {
       const body = new FormData(); body.append('files', file);
       const response = await fetch('/api/storage/upload-image', { method: 'POST', body });
@@ -370,15 +428,38 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     }
     if (unsupported1080 && activeResolution === '1080p') { setError(text('This model supports up to 720p. Choose another model for 1080p.', '当前模型最高支持 720p，1080p 请切换其他模型。')); return; }
     if (!hdAllowed && isHdTier(activeResolution)) { setError(text('1080p export is available on the Popular plan and above — your plan supports 480p and 720p.', '1080p 导出为 Popular 及以上方案权益，当前方案支持 480p 和 720p。')); return; }
-    const usable = images.slice(0, maxSlots);
+    const usable = images.slice(0, slotCount);
     // wassup_in_a_minute: 1–4 photos, position-free — a row of as many
     // swaying characters as the uploaded photos; at least one is required.
     const input = single ? usable.slice(0, 1) : family === 'wassup_in_a_minute' ? usable.filter(Boolean) : usable;
     if (!input.length || input.some((v) => !v)) { setError(text('Please upload the reference images.', '请先上传参考图片。')); return; }
+    // Kling v4 pre-flight: upstream rejects images with a side under 300px or
+    // an aspect ratio outside 0.4–2.5. Those failures otherwise reach the user
+    // only as an opaque generation error after credits were spent — check the
+    // uploaded photos here and explain exactly which photo fails and why.
+    if (isFalV4) {
+      const problems: { slot: number; issues: ImageRequirementIssue[] }[] = [];
+      for (let i = 0; i < input.length; i++) {
+        const src = input[i];
+        if (!src) continue;
+        let meta = imageMeta[i];
+        if (!meta) {
+          try { meta = await measureImage(src); setImageMeta((s) => ({ ...s, [i]: meta! })); } catch { continue; }
+        }
+        const issues = checkKlingV4Image(meta);
+        if (issues.length) problems.push({ slot: i + 1, issues });
+      }
+      if (problems.length) {
+        setImageIssues(problems);
+        setImageWarnOpen(true);
+        track('image_rejected_kling_v4', { template: family, count: problems.length });
+        return;
+      }
+    }
     // 2b) reference models (Kling / Wan / Baidu Seedance): the family's
-    // admin-configured reference video is required — never fall back to a
-    // built-in clip silently
-    if ((isFalRef || isFalWan || isFalV4 || isBaiduSeedance) && !familyRefVideo) {
+    // admin-configured reference video (multi-video sample or single-video
+    // setting) is required — never fall back to a built-in clip silently
+    if ((isFalRef || isFalWan || isFalV4 || isBaiduSeedance) && !refVideo) {
       setError(text('This template has no reference video configured yet. Please try again later.', '该模板尚未配置参考视频，请稍后再试。'));
       return;
     }
@@ -408,6 +489,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
         resolution: activeResolution,
         duration: activeDuration,
         credits: costCredits,
+        ...(activeVariant ? { sample: activeVariant.label || activeVariant.n } : {}),
       });
       setTask({ id: payload.data.id, start: Date.now() });
       void creditsRef.current();
@@ -420,9 +502,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   function buildPayload(resolved: string[]) {
     if (!model) return null;
     const videoInput = isFalRef || isFalWan || isFalV4 || isBaiduSeedance
-      ? [familyRefVideo]
-      : isTaskRelay && !isOmni && familyRefVideo
-        ? [familyRefVideo]
+      ? [refVideo]
+      : isTaskRelay && !isOmni && refVideo
+        ? [refVideo]
         : [];
     const isMinimax = isTaskRelay && model.value === 'MiniMax-H3';
     const audioRef = isMinimax && configs.minimax_h3_reference_audio_enabled !== 'false' ? familyRefAudio : '';
@@ -456,15 +538,30 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     const base = value.replace(/[.…]+$/u, '');
     return <>{base}<span className="gp-dots" aria-hidden="true"><span>.</span><span>.</span><span>.</span></span></>;
   };
+  // multi-video sample rail (left column): thumbnail + duration badge +
+  // selected highlight — mirrors the reference layout (picker left, preview
+  // right). Hidden when the family has fewer than 2 filled samples.
+  const sampleRail = variants.length >= 2 ? (
+    <div className="mv-rail" role="listbox" aria-label={text('Pick a sample', '选择一个样本')}>
+      <p className="mv-title">{text('Pick a sample', '选择一个样本')}</p>
+      {variants.map((v, i) => (
+        <button key={v.n} type="button" role="option" aria-selected={i === variantIdx} className={`mv-card ${i === variantIdx ? 'sel' : ''}`} onClick={() => { if (i !== variantIdx) { setVariantIdx(i); track('select_sample', { template: family, sample: v.label || v.n }); } }}>
+          <video src={`${v.video}#t=1`} muted playsInline preload="metadata" />
+          {!!v.duration && <span className="mv-dur">{text(`${v.duration}s`, `${v.duration}秒`)}</span>}
+          <span className="mv-name">{v.label || text(`Sample ${v.n}`, `样本 ${v.n}`)}</span>
+        </button>
+      ))}
+    </div>
+  ) : null;
   const panel = <div className="gen-modal">
-    <div className="gen-left">{embedded ? <h2>{template.name[zh ? 1 : 0]}</h2> : <DialogTitle>{template.name[zh ? 1 : 0]}</DialogTitle>}<div className="gp-video">{result ? <video ref={resultRef} src={result} controls autoPlay playsInline /> : previewVideo ? <video ref={previewRef} src={previewVideo} muted={previewMuted} loop autoPlay playsInline preload="metadata" style={{ background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }}/> : <div className="gp-placeholder" style={{ width: '100%', height: '100%', minHeight: 380, display: 'grid', placeItems: 'center', background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }} role="img" aria-label={text('Preview media not available yet', '预览媒体暂未提供')}><span style={{ color: '#fff', background: '#0008', padding: '8px 14px', borderRadius: 8 }}>{text('Preview coming soon', '预览即将提供')}</span></div>}{!result && <><span className="gp-badge">{previewVideo ? text('TEMPLATE PREVIEW', '模板示意') : text('PREVIEW COMING SOON', '预览待上线')}</span>{previewVideo && <span className="gp-sound" role="button" tabIndex={0} aria-label={previewMuted ? text('Unmute video', '开启声音') : text('Mute video', '关闭声音')} onClick={togglePreviewSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') togglePreviewSound(); }}>{previewMuted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span>}</>}</div>{result && <div className="result-actions"><button className="btn btn-primary" disabled={downloading} onClick={download}><Download size={16}/>{text('Download', '下载视频')}</button></div>}</div>
-    <div className="gen-right"><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{Array.from({ length: maxSlots }).map((_, index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index > 0 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><span className="up-txt"><b>{single ? text('Reference image', '参考图片') : maxSlots === 1 ? text(family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? 'Your photo' : family === 'cat_clapping' ? 'Your cat' : 'Main dancer photo', family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? '你的照片' : family === 'cat_clapping' ? '你的猫' : '领舞主角照片') : family === 'cat_clapping' ? text(index === 0 ? 'Your photo' : 'Your cat', index === 0 ? '你的照片' : '你的猫') : family === 'tiny_desk_outstanding' ? text(['Center Lead', 'Left Role', 'Right Role'][index] ?? `Performer ${index + 1}`, ['中间主角', '左边角色', '右边角色'][index] ?? `主角 ${index + 1}`) : family === 'alors_on_danse' ? text(['Keyboard Player', 'Dance Partner'][index] ?? `Performer ${index + 1}`, ['弹键盘的人', '伴舞的人'][index] ?? `主角 ${index + 1}`) : family === 'baba_dance' ? text(['Left Dancer', 'Right Dancer'][index] ?? `Dancer ${index + 1}`, ['左舞者', '右舞者'][index] ?? `舞者 ${index + 1}`) : family === 'wassup_in_a_minute' ? text(`Character ${index + 1}`, `角色 ${index + 1}`) : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></span></label>)}</div>
+    <div className={`gen-left${sampleRail ? ' mv' : ''}`}>{embedded ? <h2>{template.name[zh ? 1 : 0]}</h2> : <DialogTitle>{template.name[zh ? 1 : 0]}</DialogTitle>}<div className="mv-wrap">{sampleRail}<div className="gp-video">{result ? <video ref={resultRef} src={result} controls autoPlay playsInline /> : activePreviewVideo ? <video ref={previewRef} src={activePreviewVideo} muted={previewMuted} loop autoPlay playsInline preload="metadata" style={{ background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }}/> : <div className="gp-placeholder" style={{ width: '100%', height: '100%', minHeight: 380, display: 'grid', placeItems: 'center', background: `linear-gradient(135deg, ${template.colors[0]}, ${template.colors[1]})` }} role="img" aria-label={text('Preview media not available yet', '预览媒体暂未提供')}><span style={{ color: '#fff', background: '#0008', padding: '8px 14px', borderRadius: 8 }}>{text('Preview coming soon', '预览即将提供')}</span></div>}{!result && <><span className="gp-badge">{activeVariant ? `${text('REFERENCE VIDEO', '参考视频')}${activeVariant.label ? ` · ${activeVariant.label}` : ''}` : previewVideo ? text('TEMPLATE PREVIEW', '模板示意') : text('PREVIEW COMING SOON', '预览待上线')}</span>{(previewVideo || activeVariant) && <span className="gp-sound" role="button" tabIndex={0} aria-label={previewMuted ? text('Unmute video', '开启声音') : text('Mute video', '关闭声音')} onClick={togglePreviewSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') togglePreviewSound(); }}>{previewMuted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span>}</>}</div>{sampleRail && !result && <p className="mv-hint">{text('Your photos replace the people in the sample — its motion, camera and sound are kept.', '你的照片会替换样本中的人物，动作、镜头和声音都会保留。')}</p>}</div>{result && <div className="result-actions"><button className="btn btn-primary" disabled={downloading} onClick={download}><Download size={16}/>{text('Download', '下载视频')}</button></div>}</div>
+    <div className="gen-right"><p className="g-label">{text('Upload Image', '上传照片')}</p><fieldset disabled={busy} className="border-0 p-0"><div className="up-row">{Array.from({ length: slotCount }).map((_, index) => <label key={index} className={`up-card ${images[index] ? 'upfilled' : ''}`} style={single && index > 0 ? { opacity: .4, pointerEvents: 'none' } : undefined}><input className="sr-only" type="file" accept="image/jpeg,image/png,image/webp" disabled={uploading[index] || (single && index === 1)} onChange={(e) => { void upload(e.target.files?.[0], index); e.target.value = ''; }}/><div className="up-ph">{images[index] ? <img src={images[index]!} alt={text('Reference image', '参考图片')}/> : <Camera size={28}/>}</div><span className="up-txt"><b>{single ? text('Reference image', '参考图片') : maxSlots === 1 && !activeVariant ? text(family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? 'Your photo' : family === 'cat_clapping' ? 'Your cat' : 'Main dancer photo', family === 'bulin_47' || family === 'ozil_goal' || family === 'hit_the_road_dude' ? '你的照片' : family === 'cat_clapping' ? '你的猫' : '领舞主角照片') : activeVariant ? text(`Photo ${index + 1}`, `照片 ${index + 1}`) : family === 'cat_clapping' ? text(index === 0 ? 'Your photo' : 'Your cat', index === 0 ? '你的照片' : '你的猫') : family === 'tiny_desk_outstanding' ? text(['Center Lead', 'Left Role', 'Right Role'][index] ?? `Performer ${index + 1}`, ['中间主角', '左边角色', '右边角色'][index] ?? `主角 ${index + 1}`) : family === 'alors_on_danse' ? text(['Keyboard Player', 'Dance Partner'][index] ?? `Performer ${index + 1}`, ['弹键盘的人', '伴舞的人'][index] ?? `主角 ${index + 1}`) : family === 'baba_dance' ? text(['Left Dancer', 'Right Dancer'][index] ?? `Dancer ${index + 1}`, ['左舞者', '右舞者'][index] ?? `舞者 ${index + 1}`) : family === 'wassup_in_a_minute' ? text(`Character ${index + 1}`, `角色 ${index + 1}`) : text(`Performer ${index + 1}`, `主角 ${index === 0 ? 'A' : 'B'}`)}</b><small>{uploading[index] ? text('Uploading…', '上传中…') : images[index] ? (custom[index] ? text('uploaded · tap to replace', '已上传 · 点击更换') : text('template cast · tap to replace', '模板角色 · 点击更换')) : text('tap to upload', '点击上传')}</small></span></label>)}</div>
     {allowPromptEdit && <div className="prompt-edit"><p className="g-label">{text('Prompt', '文字提示词')}</p><textarea className="prompt-input" rows={4} value={promptDraft} onChange={(e) => setPromptDraft(e.target.value)} placeholder={text('Describe the scene or how to cast your photo — the template prompt is pre-filled.', '描述场景或如何使用你的照片——已预填模板提示词。')}/><p className="notice">{text('The template prompt is pre-filled. Add casting notes like "put my dad in the suit as the main dancer".', '已预填模板提示词，可追加说明，例如"把照片里的爸爸换成领舞者、穿上西装"。')}</p></div>}
     {(family !== 'tiny_desk_outstanding' && (isFalRef || (isFalWan && (familyRefAudio || wanAllowGenerated)))) && <div className="param-row"><div className="seg" aria-label={text('Audio', '音频')}><button type="button" aria-pressed={keepAudio} className={keepAudio ? 'sel' : ''} onClick={() => setKeepAudio((v) => !v)}>{keepAudio ? (isFalWan ? (familyRefAudio ? text('Use reference audio', '使用参考音频') : text('Generate audio', '生成音频')) : text('Keep original audio', '保留参考视频原声')) : text('No audio', '不带原声')}</button></div></div>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => setRatio(v)}>{v === 'adaptive' ? text('auto', '自动') : v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => { const hdLocked = isHdTier(v) && !hdAllowed; const modelLocked = !isTaskRelay && v === '1080p' && unsupported1080; return <button key={v} disabled={hdLocked || modelLocked} title={hdLocked ? text('1080p is available on the Popular plan and above', '1080p 为 Popular 及以上方案权益') : modelLocked ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>; })}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     {configs.viral_show_model_selector !== 'false' && <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{allowedModels.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details>}</fieldset>
     <button className="btn-gen" disabled={busy || checkingAccount || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{checkingAccount ? text('Checking account…', '登录状态检查中…') : busy ? liveLabel(text('Generating…', '生成中…')) : text('Generate', '立即生成')}</button><p className="gen-hint">{text('Minimum image resolution: 240×240 or above', '图片分辨率最低要求 240×240 以上')}</p>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{liveLabel(label)}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits">{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{family === 'baba_dance' && ` · ${text('the full video is 30s — the Popular credit pack is recommended', '本视频完整版共 30s，建议购买 Popular 积分包')}`}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
-    {configs.debug_show_request_payload === 'true' && <div className="result-actions"><button type="button" className="btn btn-outline" style={{ fontSize: 12, opacity: .7 }} onClick={() => { if (debugOpen) { setDebugOpen(false); return; } setDebugPayload(JSON.stringify(buildPayload(images.slice(0, maxSlots).filter(Boolean) as string[]), null, 2)); setDebugOpen(true); }}>{text('Debug: request payload', '调试：查看 Request 参数')}</button></div>}
+    {configs.debug_show_request_payload === 'true' && <div className="result-actions"><button type="button" className="btn btn-outline" style={{ fontSize: 12, opacity: .7 }} onClick={() => { if (debugOpen) { setDebugOpen(false); return; } setDebugPayload(JSON.stringify(buildPayload(images.slice(0, slotCount).filter(Boolean) as string[]), null, 2)); setDebugOpen(true); }}>{text('Debug: request payload', '调试：查看 Request 参数')}</button></div>}
     {configs.debug_show_request_payload === 'true' && debugOpen && <pre style={{ maxHeight: 260, overflow: 'auto', fontSize: 11, lineHeight: 1.5, background: 'rgba(127,127,127,.12)', padding: '8px 10px', borderRadius: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all', textAlign: 'left', margin: 0 }}>{debugPayload}</pre>}
     </div></div>;
   const starter = (
@@ -476,5 +573,26 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     />
   );
   if (embedded) return <><div id="generator" className="viral-dialog viral-embed">{panel}</div>{starter}</>;
-  return <><Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="viral-dialog"><DialogDescription className="sr-only">{text('Create a video from your reference photos', '上传参考照片生成视频')}</DialogDescription>{panel}</DialogContent></Dialog>{starter}</>;
+  const imageWarnDialog = (
+    <Dialog open={imageWarnOpen} onOpenChange={setImageWarnOpen}>
+      <DialogContent className="viral-dialog" style={{ maxWidth: 420 }}>
+        <DialogDescription className="sr-only">{text('A photo needs a small tweak', '照片需要小小调整')}</DialogDescription>
+        <DialogTitle>{text('A quick photo tweak', '照片需要小小调整')}</DialogTitle>
+        <ul style={{ listStyle: 'none', margin: '12px 0 0', padding: 0, display: 'grid', gap: 10 }}>
+          {imageIssues.map(({ slot, issues }) => issues.map((issue) => (
+            <li key={`${slot}-${issue.kind}`} style={{ fontSize: 14, lineHeight: 1.55, background: 'rgba(239,68,68,.08)', border: '1px solid rgba(239,68,68,.25)', borderRadius: 10, padding: '10px 12px' }}>
+              {issue.kind === 'too_small'
+                ? text(`Photo ${slot} is too small (${issue.width}×${issue.height}) — try one of 300×300 or larger.`, `第 ${slot} 张照片太小啦（${issue.width}×${issue.height}），换张 300×300 以上的吧。`)
+                : text(`Photo ${slot} is too stretched (ratio ${formatRatio(issue.width, issue.height)}) — keep it between 1:2.5 and 2.5:1.`, `第 ${slot} 张照片太长或太宽啦，比例调到 1:2.5 ~ 2.5:1 就好。`)}
+            </li>
+          )))}
+        </ul>
+        <p style={{ fontSize: 14, margin: '14px 0 0' }}>{text('Swap the photo and try again.', '换张照片再试试～')}</p>
+        <button className="btn btn-primary" style={{ marginTop: 14, width: '100%' }} onClick={() => setImageWarnOpen(false)}>
+          {text('Got it', '知道了')}
+        </button>
+      </DialogContent>
+    </Dialog>
+  );
+  return <><Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="viral-dialog"><DialogDescription className="sr-only">{text('Create a video from your reference photos', '上传参考照片生成视频')}</DialogDescription>{panel}</DialogContent></Dialog>{starter}{imageWarnDialog}</>;
 }

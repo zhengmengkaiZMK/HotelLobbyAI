@@ -67,6 +67,7 @@ export default async function SettingsPage({
     'viral_family_models_wassup_in_a_minute',
     'viral_family_models_nostalgia_capcut',
   'viral_family_models_alors_on_danse',
+    'viral_family_models_sasha_la_catrina',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
@@ -81,6 +82,7 @@ export default async function SettingsPage({
     'viral_family_default_model_wassup_in_a_minute',
     'viral_family_default_model_nostalgia_capcut',
   'viral_family_default_model_alors_on_danse',
+  'viral_family_default_model_sasha_la_catrina',
   ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {

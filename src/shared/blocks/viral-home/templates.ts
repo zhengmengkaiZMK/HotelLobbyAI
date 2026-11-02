@@ -31,6 +31,11 @@ export interface TemplateDef {
   /** Optional source attribution shown as a small badge on preview media (e.g. '@isabellacapcut'). */
   credit?: string;
   /**
+   * Multi-video families: which admin sample slot (1-based) this card maps to.
+   * Clicking the card opens the generator with that sample preselected.
+   */
+  variantSlot?: number;
+  /**
    * Admin config family (`viral_family_*_{family}`).
    * Omitted templates stay on the historical rule: `party-*` → burning_bridges, everything else → hotel.
    */

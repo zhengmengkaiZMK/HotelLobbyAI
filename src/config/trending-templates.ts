@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'sasha-la-catrina',
+    name: ['Sasha La Catrina', 'Sasha La Catrina'],
+    pitch: [
+      'One photo turns you into the fairy-tale Catrina — sugar-skull makeup, marigold crown, and the Adiós señora bonita reveal.',
+      '一张照片变身童话版 Catrina——糖骷髅妆、万寿菊花冠，配「Adiós señora bonita」揭晓。',
+    ],
+    href: '/sasha-la-catrina-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'classic'],
+    poster: '/templates/catrina-flower-toss-poster.jpg',
+    video: '/templates/catrina-flower-toss.mp4',
+    credit: '@thybui.__',
+    colors: ['#fdba74', '#6b21a8'],
+  },
+  {
     id: 'alors-on-danse',
     name: ['Alors On Danse', 'Alors On Danse'],
     pitch: [

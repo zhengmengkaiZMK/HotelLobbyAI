@@ -6,6 +6,11 @@ import {
 } from '@/shared/blocks/alors-on-danse/long-tail-route';
 import { getAlorsOnDanseLongTail } from '@/shared/blocks/alors-on-danse/long-tails';
 import {
+  generateSashaLaCatrinaLongTailMetadata,
+  SashaLaCatrinaLongTailRoute,
+} from '@/shared/blocks/sasha-la-catrina/long-tail-route';
+import { getSashaLaCatrinaLongTail } from '@/shared/blocks/sasha-la-catrina/long-tails';
+import {
   generateLongTailMetadata as generateHitMetadata,
   LongTailRoute as HitLongTailRoute,
 } from '@/shared/blocks/hit-the-road-dude/long-tail-route';
@@ -44,7 +49,8 @@ export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | null {
+function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | null {
+  if (getSashaLaCatrinaLongTail(slug)) return 'catrina';
   if (getAlorsOnDanseLongTail(slug)) return 'alors';
   if (getWassupLongTail(slug)) return 'wassup';
   if (getHitTheRoadLongTail(slug)) return 'hit';
@@ -62,6 +68,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   if (kind === 'tiny-desk') return generateTinyDeskMetadata(localeParams, slug);
   if (kind === 'nostalgia') return generateNostalgiaLongTailMetadata(localeParams, slug);
   if (kind === 'alors') return generateAlorsOnDanseLongTailMetadata(localeParams, slug);
+  if (kind === 'catrina') return generateSashaLaCatrinaLongTailMetadata(localeParams, slug);
   return generateLandingMetadata({
     params: Promise.resolve({ locale, slug }),
   });
@@ -77,5 +84,6 @@ export default async function Page({ params }: { params: Params }) {
   if (kind === 'tiny-desk') return <TinyDeskLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'nostalgia') return <NostalgiaLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'alors') return <AlorsOnDanseLongTailRoute {...localeParams} slug={slug} />;
+  if (kind === 'catrina') return <SashaLaCatrinaLongTailRoute {...localeParams} slug={slug} />;
   return <LandingDynamicPage params={Promise.resolve({ locale, slug })} />;
 }

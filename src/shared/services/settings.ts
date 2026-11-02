@@ -25,6 +25,81 @@ export interface SettingGroup {
   tab: string;
 }
 
+// ---------------------------------------------------------------------------
+// Multi-video template families
+//
+// A family listed here gets N reference-video slots in the admin (业务素材
+// group), each slot with its own prompt, duration, photo count and label:
+//   viral_family_video_N_<family>          upload_video  (N = 1..count)
+//   viral_family_video_label_N_<family>    text
+//   viral_family_video_prompt_N_<family>   textarea
+//   viral_family_video_duration_N_<family> select (seconds)
+//   viral_family_video_slots_N_<family>    select (photo count 1-3)
+//
+// Presence-driven on the front end: as soon as slot 1 has a video the family
+// renders the multi-sample picker (left rail + preview) and generation uses
+// the selected slot's video/prompt/duration/slots. Empty map here = legacy
+// single-video families are untouched.
+// ---------------------------------------------------------------------------
+export const MULTI_VIDEO_FAMILIES: Record<string, number> = {
+  sasha_la_catrina: 7,
+};
+
+const MULTI_VIDEO_DURATION_OPTIONS = ['5', '8', '10', '12', '15', '20', '30'];
+
+function multiVideoSettings(): Setting[] {
+  return Object.entries(MULTI_VIDEO_FAMILIES).flatMap(([family, count]) =>
+    Array.from({ length: count }, (_, i) => i + 1).flatMap((n): Setting[] => [
+      {
+        name: `viral_family_video_${n}_${family}`,
+        title: `多视频模板 ${n} · 参考视频`,
+        type: 'upload_video',
+        group: 'viral_templates',
+        tab: 'ai',
+        tip: `第 ${n} 个模板视频。上传后前端「选择一个样本」立即出现该样本；留空则不显示。4 个槽位按需填写，不必填满。`,
+      },
+      {
+        name: `viral_family_video_label_${n}_${family}`,
+        title: `多视频模板 ${n} · 标题`,
+        type: 'text',
+        group: 'viral_templates',
+        tab: 'ai',
+        placeholder: `样本 ${n}`,
+        tip: '样本卡片上显示的名字（可选），留空显示「样本 N」。',
+      },
+      {
+        name: `viral_family_video_prompt_${n}_${family}`,
+        title: `多视频模板 ${n} · 提示词`,
+        type: 'textarea',
+        attributes: { rows: 4 },
+        group: 'viral_templates',
+        tab: 'ai',
+        tip: '该视频专属提示词，选中该样本时生成用这份提示词；留空则回退到系列主提示词。',
+      },
+      {
+        name: `viral_family_video_duration_${n}_${family}`,
+        title: `多视频模板 ${n} · 时长（秒）`,
+        type: 'select',
+        options: MULTI_VIDEO_DURATION_OPTIONS.map((v) => ({ title: `${v} 秒`, value: v })),
+        group: 'viral_templates',
+        tab: 'ai',
+        tip: '选中该样本后，前端时长档锁定为这里配置的秒数。',
+      },
+      {
+        name: `viral_family_video_slots_${n}_${family}`,
+        title: `多视频模板 ${n} · 照片数`,
+        type: 'select',
+        options: ['1', '2', '3'].map((v) => ({ title: `${v} 张`, value: v })),
+        group: 'viral_templates',
+        tab: 'ai',
+        tip: '选中该样本后，用户需要上传的照片张数（1-3 张）。',
+      },
+    ])
+  );
+}
+
+const MULTI_VIDEO_SETTING_NAMES = multiVideoSettings().map((s) => s.name);
+
 export async function getSettingTabs(tab: string) {
   const t = await getTranslations('admin.settings');
 
@@ -362,6 +437,7 @@ export async function getSettingGroups() {
 
 export async function getSettings() {
   const settings: Setting[] = [
+    ...multiVideoSettings(),
     {
       name: 'app_name',
       title: 'App Name',
@@ -1882,6 +1958,42 @@ export async function getSettings() {
       tip: '用户打开生成弹窗时默认选中的模型。若所选模型不在上方「可用模型」勾选清单里，则回退为第一个可用模型。',
     },
     {
+      name: 'viral_family_prompt_sasha_la_catrina',
+      title: 'Sasha La Catrina 系列提示词',
+      type: 'textarea',
+      attributes: { rows: 4 },
+      group: 'viral_templates',
+      tab: 'ai',
+      tip: 'Sasha La Catrina 系列生成视频时的兜底提示词（童话版 Catrina 变身：糖骷髅妆、万寿菊花冠、烛光花瓣）。多视频模式下每个槽位有独立提示词配置，槽位提示词留空时回退到这里；这里也留空则用模板内置提示词。',
+    },
+    {
+      name: 'viral_family_reference_audio_sasha_la_catrina',
+      title: 'Sasha La Catrina 系列参考音频',
+      type: 'upload_audio',
+      group: 'viral_templates',
+      tab: 'ai',
+      tip: 'Sasha La Catrina 系列的原声音频（WAV/MP3，总时长≤15 秒，如《Adiós señora bonita》）。选 Wan 3.0 Reference 生成时作为 reference_audio_urls 传入，让输出沿用趋势原声；留空则由模型生成音频。',
+    },
+    {
+      name: 'viral_family_models_sasha_la_catrina',
+      title: 'Sasha La Catrina 系列可用模型',
+      type: 'checkbox',
+      group: 'viral_templates',
+      tab: 'ai',
+      options: [],
+      tip: '勾选该系列允许使用的模型；前端生成弹窗只显示勾选的模型，生成接口同步校验。全部不勾选时前端显示全部模型（兼容兜底）。',
+    },
+    {
+      name: 'viral_family_default_model_sasha_la_catrina',
+      title: 'Sasha La Catrina 系列默认模型',
+      type: 'select',
+      group: 'viral_templates',
+      tab: 'ai',
+      options: [],
+      placeholder: '自动（第一个可用模型）',
+      tip: '用户打开生成弹窗时默认选中的模型。若所选模型不在上方「可用模型」勾选清单里，则回退为第一个可用模型。',
+    },
+    {
       name: 'viral_show_model_selector',
       title: '显示模型选择器 / Show Model Selector in Generation Dialog',
       type: 'switch',
@@ -2381,6 +2493,11 @@ export const publicSettingNames = [
   'viral_family_reference_audio_alors_on_danse',
   'viral_family_models_alors_on_danse',
   'viral_family_default_model_alors_on_danse',
+  'viral_family_prompt_sasha_la_catrina',
+  'viral_family_reference_audio_sasha_la_catrina',
+  'viral_family_models_sasha_la_catrina',
+  'viral_family_default_model_sasha_la_catrina',
+  ...MULTI_VIDEO_SETTING_NAMES,
   'debug_show_request_payload',
   'viral_show_model_selector',
   'fal_kling_reference_enabled',
