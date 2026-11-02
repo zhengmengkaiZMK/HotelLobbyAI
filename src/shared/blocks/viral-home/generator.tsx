@@ -573,7 +573,9 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       balance={user?.credits?.remainingCredits ?? 0}
     />
   );
-  if (embedded) return <><div id="generator" className="viral-dialog viral-embed">{panel}</div>{starter}</>;
+  // Image pre-flight warning dialog — must be defined before the embedded
+  // early-return below, otherwise the embedded generator (landing pages)
+  // never renders it and a rejected photo looks like a dead Generate button.
   const imageWarnDialog = (
     <Dialog open={imageWarnOpen} onOpenChange={setImageWarnOpen}>
       <DialogContent className="viral-dialog" style={{ maxWidth: 420 }}>
@@ -595,5 +597,6 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       </DialogContent>
     </Dialog>
   );
+  if (embedded) return <><div id="generator" className="viral-dialog viral-embed">{panel}</div>{starter}{imageWarnDialog}</>;
   return <><Dialog open={open} onOpenChange={onOpenChange}><DialogContent className="viral-dialog"><DialogDescription className="sr-only">{text('Create a video from your reference photos', '上传参考照片生成视频')}</DialogDescription>{panel}</DialogContent></Dialog>{starter}{imageWarnDialog}</>;
 }

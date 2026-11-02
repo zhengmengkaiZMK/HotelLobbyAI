@@ -37,18 +37,22 @@ function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' | 'x'
 function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, string] }) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const [muted, setMuted] = useState(true);
+  // lazy video loading: only poster (100-300KB) is served until the card
+  // scrolls near the viewport — keeps the 7-sample grid from pulling 40+MB
+  const [active, setActive] = useState(false);
   useEffect(() => {
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) el.play().catch(() => {});
+      if (entry.isIntersecting) { setActive(true); el.play().catch(() => {}); }
       else el.pause();
-    }, { threshold: 0.3 });
+    }, { threshold: 0.3, rootMargin: '150px' });
     observer.observe(el);
     return () => observer.disconnect();
   }, []);
   const toggleSound = (e: { preventDefault: () => void; stopPropagation: () => void }) => {
     e.preventDefault(); e.stopPropagation();
+    setActive(true);
     setMuted((m) => {
       const next = !m;
       const el = ref.current;
@@ -57,7 +61,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
     });
   };
   return <>
-    <video ref={ref} className="tv-video" src={`/templates/${id}.mp4`} poster={`/templates/${id}-poster.jpg`} muted={muted} loop autoPlay playsInline preload="metadata" style={{ background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})` }}/>
+    <video ref={ref} className="tv-video" src={active ? `/templates/${id}.mp4` : undefined} poster={`/templates/${id}-poster.jpg`} muted={muted} loop autoPlay playsInline preload="none" style={{ background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})` }}/>
     <span className="tv-sound" role="button" tabIndex={0} aria-label={muted ? 'Unmute video' : 'Mute video'} onClick={toggleSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleSound(e); }}>{muted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span>
   </>;
 }
