@@ -1,15 +1,16 @@
 import type { TemplateCostContext } from '@/shared/lib/pricing-copy';
 
+import { SASHA_LA_CATRINA_CITE_TAILS } from './cite-tails';
 import { SASHA_LA_CATRINA_INTENT_TAILS } from './intent-tails';
 import { SASHA_LA_CATRINA_HOW_TO_STEPS, type SashaLaCatrinaHowToStep } from './steps';
 
 /**
  * Long-tail landings for the Sasha La Catrina template.
  *
- * To add another keyword: append an entry here or in `intent-tails.ts`.
- * The sitemap reads SASHA_LA_CATRINA_LONG_TAIL_ROUTES. Public URLs are served by
- * the single `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
- * Do not reuse the main `sasha-la-catrina-ai-template` slug.
+ * To add another keyword: append an entry here, in `intent-tails.ts`, or in
+ * `cite-tails.ts`. The sitemap reads SASHA_LA_CATRINA_LONG_TAIL_ROUTES. Public
+ * URLs are served by the single `(home)/[slug]` dispatcher — do not add a
+ * per-slug page.tsx. Do not reuse the main `sasha-la-catrina-ai-template` slug.
  */
 
 export const SASHA_LA_CATRINA_TEMPLATE_PATH = '/sasha-la-catrina-ai-template';
@@ -19,6 +20,8 @@ export const SASHA_LA_CATRINA_POSTS = {
   explained: '/blog/what-is-sasha-la-catrina',
   song: '/blog/sasha-la-catrina-song-and-meaning',
   roundup: '/blog/october-2026-viral-ai-meme-videos',
+  generators: '/blog/best-sasha-la-catrina-ai-generators',
+  photos: '/blog/sasha-la-catrina-photo-tips',
 } as const;
 
 const EN_TEMPLATE = 'https://www.viralreel.app/sasha-la-catrina-ai-template';
@@ -368,6 +371,7 @@ export const SASHA_LA_CATRINA_LONG_TAILS: readonly SashaLaCatrinaLongTailEntry[]
     ],
   },
   ...SASHA_LA_CATRINA_INTENT_TAILS,
+  ...SASHA_LA_CATRINA_CITE_TAILS,
 ];
 
 export function getSashaLaCatrinaLongTail(slug: string): SashaLaCatrinaLongTailEntry | undefined {
@@ -400,7 +404,12 @@ export function sashaLaCatrinaLinkGroups(zh: boolean) {
         { href: '/catrina-ai', label: 'Catrina AI' },
         { href: '/catrina-ai-filter', label: zh ? 'Catrina AI 滤镜' : 'Catrina AI filter' },
         { href: '/how-to-make-catrina-ai', label: zh ? '图文教程' : 'Step-by-step how-to' },
+        { href: '/create-sasha-la-catrina-ai', label: zh ? '创建' : 'Create one' },
+        { href: '/sasha-la-catrina-from-photo', label: zh ? '用照片制作' : 'From a photo' },
+        { href: '/sasha-la-catrina-capcut', label: zh ? '和 CapCut 对照' : 'CapCut comparison' },
+        { href: '/sasha-la-catrina-no-watermark', label: zh ? '付费导出无水印' : 'Paid export, no watermark' },
         { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
+        { href: '/subscribe', label: zh ? '月付方案' : 'Monthly plans' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
       ],
     },
@@ -409,10 +418,29 @@ export function sashaLaCatrinaLinkGroups(zh: boolean) {
       links: [
         { href: '/sasha-la-catrina-meme', label: zh ? '梗详解' : 'The meme, explained' },
         { href: '/sasha-la-catrina-tiktok', label: zh ? 'TikTok 发布指南' : 'TikTok posting guide' },
+        { href: '/sasha-la-catrina-instagram', label: 'Instagram Reels' },
+        { href: '/sasha-la-catrina-youtube-shorts', label: 'YouTube Shorts' },
         { href: '/sasha-la-catrina-song', label: zh ? '原声与含义' : 'The song and meaning' },
+        { href: '/sasha-la-catrina-sound', label: zh ? '样本原声，没有授权' : 'Sample audio, no license' },
         { href: '/la-catrina-history', label: zh ? 'La Catrina 百年史' : 'La Catrina history' },
-        { href: '/catrina-makeup-vs-ai', label: zh ? '真妆 vs AI' : 'Makeup vs AI' },
-        { href: '/catrina-day-of-the-dead-pet', label: zh ? '宠物版与纪念版' : 'Pet & memorial versions' },
+        { href: '/catrina-makeup-vs-ai', label: zh ? '真妆 vs 变身' : 'Makeup vs the reveal' },
+        { href: '/sasha-la-catrina-pets', label: zh ? '在世宠物换装' : 'Living-pet costume' },
+        { href: '/catrina-day-of-the-dead-pet', label: zh ? '宠物纪念不是换装' : 'Memorial is not the costume' },
+        { href: '/fairytale-catrina-ai', label: zh ? 'Fairytale Catrina' : 'Fairytale Catrina' },
+        { href: '/catrin-ai', label: zh ? '男版 Catrín' : 'Catrín, the male reveal' },
+      ],
+    },
+    {
+      title: zh ? '怎么做（ChatGPT 常问）' : 'How to make it',
+      links: [
+        { href: '/sasha-la-catrina-chatgpt', label: zh ? 'ChatGPT 解释，模板出片' : 'ChatGPT explains, the template renders' },
+        { href: '/sasha-la-catrina-prompt', label: zh ? '没有空白提示词' : 'No blank prompt' },
+        { href: '/sasha-la-catrina-best', label: zh ? '固定模板怎么选' : 'When the fixed template fits' },
+        { href: '/sasha-la-catrina-free', label: zh ? '积分，不是永远免费' : 'Credits, not free forever' },
+        { href: '/sasha-la-catrina-kling', label: zh ? '和 Kling O3 对照' : 'Kling O3 comparison' },
+        { href: '/sasha-la-catrina-seedance', label: zh ? '和 Seedance 对照' : 'Seedance comparison' },
+        { href: '/sasha-la-catrina-makeviral', label: zh ? 'ViralRemix 与妆容静帧' : 'ViralRemix and the makeup still' },
+        { href: '/sasha-la-catrina-ai-label', label: zh ? '发布时的 AI 标注' : 'AI label when you post' },
       ],
     },
     {
@@ -431,6 +459,8 @@ export function sashaLaCatrinaLinkGroups(zh: boolean) {
         { href: '/blog/what-is-sasha-la-catrina', label: zh ? 'Sasha La Catrina 是什么' : 'What Sasha La Catrina is' },
         { href: '/blog/how-to-make-catrina-ai-video', label: zh ? '如何制作 Catrina AI 视频' : 'How to make a Catrina AI video' },
         { href: '/blog/sasha-la-catrina-song-and-meaning', label: zh ? '原声与 La Catrina 的故事' : 'The song and La Catrina\'s story' },
+        { href: '/blog/best-sasha-la-catrina-ai-generators', label: zh ? '2026 年 11 月生成器对照' : 'November 2026 generator roundup' },
+        { href: '/blog/sasha-la-catrina-photo-tips', label: zh ? '照片怎么拍' : 'Photo tips' },
         { href: '/blog/october-2026-viral-ai-meme-videos', label: zh ? '2026 年 10 月梗视频盘点' : 'October 2026 meme roundup' },
       ],
     },
