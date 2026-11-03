@@ -53,8 +53,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute AI', zh: 'Wassup in a Minute AI' },
     lead: {
-      en: 'Wassup in a Minute AI on ViralReel is a new animation from one photo: you as a streetwear anime character, swaying on the beat. It is not the original edit and not the song.',
-      zh: 'ViralReel 上的 Wassup in a Minute AI 是用一张照片做的新动画：你被画成街服动漫角色，按节拍摇摆。这不是原片，也不是那首歌。',
+      en: 'Wassup in a minute AI on ViralReel is a new 15-second 9:16 sway from one to four photos. It is not the original edit, and the MP4 does not include the song. A render usually takes 2–3 minutes.',
+      zh: 'ViralReel 上的 wassup in a minute AI 是用一至四张照片做的新 15 秒、9:16 摇摆。这不是原片，MP4 也不含那首歌。渲染通常要 2–3 分钟。',
     },
     guideTitle: {
       en: 'How to make a Wassup in a Minute AI video',
@@ -84,8 +84,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Which AI model makes the sway?', zh: '摇摆动画用什么 AI 模型？' },
         a: {
-          en: 'ViralReel runs the scene through the video models configured for this family (image-to-video models such as Kling reference and Seedance). You pick the model in the generator; the credit cost is shown before you start.',
-          zh: 'ViralReel 用该系列配置的视频模型跑这个场景（Kling reference、Seedance 等图生视频模型）。生成器里可以选模型，积分在生成前显示。',
+          en: 'If a model menu is visible, it only picks an engine for this wassup in a minute template. You do not write a Kling or Seedance prompt. The credit cost is shown before you start.',
+          zh: '如果看得到模型菜单，它只为这条 wassup in a minute 模板选引擎。你不用写 Kling 或 Seedance 提示词。积分在生成前显示。',
         },
       },
     ],
@@ -103,8 +103,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute AI video', zh: 'Wassup in a Minute AI 视频' },
     lead: {
-      en: 'A Wassup in a Minute AI video on ViralReel is an MP4 made from one photo: a full-body streetwear anime character on white, swaying side to side.',
-      zh: 'ViralReel 上的 Wassup in a Minute AI 视频是用一张照片做成的 MP4：白底全身街服动漫角色左右摇摆。',
+      en: 'A wassup in a minute AI video on ViralReel is a 15-second 9:16 MP4 from one to four photos: streetwear characters swaying on white. The file does not include the song.',
+      zh: 'ViralReel 上的 wassup in a minute AI 视频是用一至四张照片做成的 15 秒、9:16 MP4：白底街服角色左右摇摆。文件不含那首歌。',
     },
     guideTitle: {
       en: 'How to make a Wassup in a Minute AI video',
@@ -151,8 +151,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute template', zh: 'Wassup in a Minute 模板' },
     lead: {
-      en: 'The Wassup in a Minute template on ViralReel packages the trend: the white background, the streetwear anime look, and the sway are pre-built. You bring one photo.',
-      zh: 'ViralReel 的 Wassup in a Minute 模板把这条趋势打包好了：白底、街服动漫造型和摇摆动作都是现成的。你只需要一张照片。',
+      en: 'The wassup in a minute template is five outfits and one sway: upload one to four photos and export 15 seconds at 9:16. You do not write a prompt. A render usually takes 2–3 minutes.',
+      zh: 'Wassup in a minute 模板是五套造型、同一种摇摆：上传一至四张照片，导出 15 秒、9:16。不用写提示词。渲染通常要 2–3 分钟。',
     },
     guideTitle: {
       en: 'What the Wassup in a Minute template includes',
@@ -162,12 +162,12 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       en: [
         'A wassup in a minute template saves you the two-step workflow creators used in late October 2026: an AI image prompt to draw the character, then keyframing the sway by hand in an editor. ViralReel folds both steps into one generation from one photo.',
         'The template family has five variants: Money Fan (the fanned stack of banknotes from the original edit), Puffer Classic (glossy black puffer over a white tee and cap), All Black (hoodie, chains, cargos), Jersey Look (oversized sports jersey), and Heavyweight (a broad imposing build). Each variant is the same white-background sway in a different outfit.',
-        'Prompt editing stays open: if you want a different jacket color or pose, edit the pre-filled prompt before you generate. The ratio stays 9:16 and the length stays 15 seconds so the result still reads as this trend.',
+        'The public wassup in a minute page has no prompt box. You pick the outfit from the five cards. The ratio stays 9:16 and the length stays 15 seconds. A render usually takes 2–3 minutes.',
       ],
       zh: [
         'wassup in a minute template 替你省掉了 2026 年 10 月底创作者们用的两步流程：先用 AI 图像提示词画出角色，再在剪辑软件里手动打关键帧做摇摆。ViralReel 把两步合并成一次生成，只需要一张照片。',
         '模板系列有五个变体：甩钱原版（原片里挥开的那沓钞票）、黑羽绒经典（亮面黑羽绒服配白 T 和棒球帽）、全黑装（连帽衫、链子、工装裤）、球衣版（宽松运动球衣）和大块头（宽厚的壮硕身形）。每个变体都是同一套白底摇摆，换的是造型。',
-        '提示词保持可编辑：想换外套颜色或姿势，生成前直接改预填的提示词。画幅保持 9:16，时长保持 15 秒，成片才能被认成这条趋势。',
+        '公开的 wassup in a minute 页面没有提示词框。造型从五张卡片里选。画幅保持 9:16，时长保持 15 秒。渲染通常要 2–3 分钟。',
       ],
     },
     steps: makeVideoSteps,
@@ -180,10 +180,10 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
         },
       },
       {
-        q: { en: 'Can I edit the template prompt?', zh: '可以改模板提示词吗？' },
+        q: { en: 'Do I write a prompt for the wassup in a minute template?', zh: 'wassup in a minute 模板要写提示词吗？' },
         a: {
-          en: 'Yes. The prompt is pre-filled for each variant and stays editable before you generate. Keep the white background and the sway so the result still reads as the trend.',
-          zh: '可以。每个变体的提示词已预填，生成前可编辑。保留白底和摇摆动作，成片才能被认成这条趋势。',
+          en: 'No. The public wassup in a minute page has no prompt box. Pick one of the five outfits and upload one to four photos. The sway stays 15 seconds at 9:16.',
+          zh: '不用。公开的 wassup in a minute 页面没有提示词框。从五套造型里选一套，上传一至四张照片。摇摆保持 15 秒、9:16。',
         },
       },
     ],
@@ -201,8 +201,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute meme', zh: 'Wassup in a Minute 梗' },
     lead: {
-      en: 'The wassup in a minute meme is a row of swaying streetwear anime characters on a white background — Atlanta Lock drawings moving to a two-word hook.',
-      zh: 'wassup in a minute 梗就是一排在白底上摇摆的街服动漫角色——Atlanta Lock 画风配两词hook。',
+      en: 'The wassup in a minute meme is a row of streetwear characters swaying on white, usually posted as a 15-second 9:16 clip. “In a minute” is the lyric people heard, not the length.',
+      zh: 'Wassup in a minute 梗是白底上摇摆的一排街服角色，通常发成 15 秒、9:16。「in a minute」是大家听成的歌词，不是片长。',
     },
     guideTitle: {
       en: 'Where the Wassup in a Minute meme comes from',
@@ -251,8 +251,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute on TikTok', zh: 'Wassup in a Minute 上的 TikTok' },
     lead: {
-      en: 'Here is how to join the wassup in a minute trend on TikTok: make your character, download the MP4, add the trend sound, post with the right hashtags.',
-      zh: '上 wassup in a minute 趋势的四步：做你的角色、下载 MP4、加热梗原声、带对标签发布。',
+      en: 'Post wassup in a minute on TikTok by downloading the 15-second 9:16 MP4, then adding the trend sound inside TikTok and turning on the AI label. The file does not include the song. A render usually takes 2–3 minutes.',
+      zh: '把 wassup in a minute 发到 TikTok：先下载 15 秒、9:16 的 MP4，再在 TikTok 里加热梗原声并打开 AI 标注。文件不含那首歌。渲染通常要 2–3 分钟。',
     },
     guideTitle: {
       en: 'How to post a wassup in a minute TikTok',
@@ -301,8 +301,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup been a minute', zh: 'Wassup been a minute' },
     lead: {
-      en: '"Wassup, been a minute" is the line in the trend sound. "Wassup in a minute" is what people heard. Same trend, two spellings.',
-      zh: '「Wassup, been a minute」是趋势原声里的歌词。「Wassup in a minute」是大家听出来的版本。同一条趋势，两种拼法。',
+      en: '“Wassup, been a minute” is the lyric. “Wassup in a minute” is the mishearing that named the trend. The ViralReel clip is still 15 seconds at 9:16, and it does not include that line.',
+      zh: '「Wassup, been a minute」是歌词。「Wassup in a minute」是给趋势定名的听法。ViralReel 的成片仍是 15 秒、9:16，而且不含这句歌词。',
     },
     guideTitle: {
       en: 'Why the trend has two names',
@@ -349,8 +349,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup wait a minute', zh: 'Wassup wait a minute' },
     lead: {
-      en: '"Wassup wait a minute" is one of the three ways people hear the same trend sound. Same edit, same sway, same hashtag.',
-      zh: '「Wassup wait a minute」是同一段趋势声音的三种听法之一。同一条剪辑，同一种摇摆，同一个话题标签。',
+      en: '“Wassup wait a minute” is another way people hear the wassup in a minute hook. Same 15-second sway, same #wassupinaminute tag. The ViralReel MP4 does not include the sound.',
+      zh: '「Wassup wait a minute」是 wassup in a minute 这句 hook 的另一种听法。同一条 15 秒摇摆，同一个 #wassupinaminute。ViralReel 的 MP4 不含这段声音。',
     },
     guideTitle: {
       en: 'Why the trend sound has three names',
@@ -399,8 +399,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'The wassup in a minute song', zh: 'wassup in a minute 的歌' },
     lead: {
-      en: 'The wassup in a minute song is a jersey-club remix of "From Time" by Drake with Jhené Aiko — the line "wassup, been a minute" is the hook the whole trend sways to.',
-      zh: 'wassup in a minute 的歌是《From Time》（Drake 与 Jhené Aiko）的 jersey club 混音——「wassup, been a minute」这句就是全趋势跟着摇摆的 hook。',
+      en: 'The wassup in a minute song is a jersey-club remix of Drake’s “From Time” with Jhené Aiko. The lyric is “wassup, been a minute.” ViralReel’s 15-second file does not include it.',
+      zh: 'Wassup in a minute 的歌是 Drake 与 Jhené Aiko《From Time》的 jersey club 混音。歌词是「wassup, been a minute」。ViralReel 的 15 秒文件不含它。',
     },
     guideTitle: {
       en: 'What the wassup in a minute song is',
@@ -456,8 +456,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'The wassup in a minute original', zh: 'wassup in a minute 原版' },
     lead: {
-      en: "The original wassup in a minute edit is @ristyisvalid's 22 October 2026 animation: streetwear anime drawings swaying on a white background. Make your own version instead of reposting it.",
-      zh: 'wassup in a minute 的原版是 @ristyisvalid 2026 年 10 月 22 日的动画：街服动漫形象在白底上摇摆。做你自己的版本，不要转载原片。',
+      en: 'The original wassup in a minute edit is @ristyisvalid’s 22 October 2026 post. ViralReel does not reupload it. You make a new 15-second 9:16 sway from one to four photos.',
+      zh: 'Wassup in a minute 的原版是 @ristyisvalid 2026 年 10 月 22 日的帖子。ViralReel 不转载它。你用一至四张照片做一条新的 15 秒、9:16 摇摆。',
     },
     guideTitle: {
       en: 'The original posts behind the trend',
@@ -506,8 +506,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a minute filter', zh: 'wassup in a minute 滤镜' },
     lead: {
-      en: 'People search for a wassup in a minute filter expecting a TikTok effect. There is none — here is the AI way that actually produces the clip.',
-      zh: '很多人搜 wassup in a minute 滤镜，以为 TikTok 有个特效。其实没有——真正能出片的是 AI 流程。',
+      en: 'There is no wassup in a minute filter on TikTok. The working path is a 15-second 9:16 template from one to four photos. A render usually takes 2–3 minutes, and the MP4 does not include the song.',
+      zh: 'TikTok 上没有 wassup in a minute 滤镜。能出片的是用一至四张照片做的 15 秒、9:16 模板。渲染通常要 2–3 分钟，MP4 不含那首歌。',
     },
     guideTitle: {
       en: 'How the "wassup in a minute filter" actually works',
@@ -556,8 +556,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a minute Blue Lock', zh: 'wassup in a minute 与 Blue Lock' },
     lead: {
-      en: 'The wassup in a minute trend grew out of Blue Lock fan art — but the AI version that works for posting draws you, not a show character.',
-      zh: 'wassup in a minute 趋势脱胎于 Blue Lock 粉丝画——但真正适合发布的 AI 版画的是你，不是动漫角色。',
+      en: 'Wassup in a minute does not give you a Blue Lock character. ViralReel draws the person in the photo as an original streetwear character in a new 15-second 9:16 sway.',
+      zh: 'Wassup in a minute 不会给你一个 Blue Lock 角色。ViralReel 把照片里的人画成原创街服角色，做成新的 15 秒、9:16 摇摆。',
     },
     guideTitle: {
       en: 'The Blue Lock connection, explained',
@@ -613,8 +613,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Atlanta Lock AI', zh: 'Atlanta Lock AI' },
     lead: {
-      en: 'Atlanta Lock is the fan art style behind the wassup in a minute trend: anime characters drawn as Atlanta rappers. The AI version on ViralReel draws you in that style.',
-      zh: 'Atlanta Lock 是 wassup in a minute 趋势背后的粉丝画风：把动漫角色画成亚特兰大说唱歌手。ViralReel 的 AI 版用这种画风画你。',
+      en: 'Wassup in a minute is the sway people mean by Atlanta Lock AI: your photo, streetwear on white, 15 seconds at 9:16. It does not draw the Blue Lock cast.',
+      zh: 'Wassup in a minute 就是人们说的 Atlanta Lock AI：你的照片、白底街服、15 秒、9:16。它不画 Blue Lock 阵容。',
     },
     guideTitle: {
       en: 'How to make an Atlanta Lock AI video of yourself',
@@ -663,8 +663,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a minute generator', zh: 'wassup in a minute 生成器' },
     lead: {
-      en: 'The wassup in a minute generator on ViralReel runs the whole trend for you: draw the character, animate the sway, export the MP4.',
-      zh: 'ViralReel 的 wassup in a minute 生成器替你跑完整条趋势：画角色、做摇摆、导出 MP4。',
+      en: 'The wassup in a minute generator makes a 15-second 9:16 MP4 from one to four photos. You do not write a prompt. A render usually takes 2–3 minutes. The file does not include the song.',
+      zh: 'Wassup in a minute 生成器用一至四张照片做出 15 秒、9:16 的 MP4。不用写提示词。渲染通常要 2–3 分钟。文件不含那首歌。',
     },
     guideTitle: {
       en: 'Using the wassup in a minute generator',
@@ -687,15 +687,15 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Is the wassup in a minute generator free?', zh: 'wassup in a minute 生成器免费吗？' },
         a: {
-          en: 'It runs on credits. The exact cost shows on the generator before you start, and failed jobs are refunded.',
-          zh: '按积分计费。确切的积分在生成前显示在生成器上，失败的任务会退积分。',
+          en: 'A new account can try wassup in a minute with free starter credits. It is not free forever. On the default table a 15-second 720p clip is 18 credits (about $1.50 at 12 credits = $1). The generator shows the exact number before you start, and failed jobs are refunded.',
+          zh: '新账号可以用免费起始积分试一条 wassup in a minute。这不是永远免费。默认表上，15 秒 720p 是 18 积分（按 12 积分 = 1 美元，约 $1.50）。生成器会在开始前显示确切数字，失败的任务会退积分。',
         },
       },
       {
         q: { en: 'Do I need to write a prompt in the generator?', zh: '生成器里需要写提示词吗？' },
         a: {
-          en: 'No. The prompt is pre-filled per template variant and the admin settings tune it. You only upload photos and generate.',
-          zh: '不需要。每个模板变体的提示词已预填，后台配置统一调优。你只管上传照片然后生成。',
+          en: 'No. The public wassup in a minute page has no prompt box. Pick an outfit, upload one to four photos, and generate.',
+          zh: '不需要。公开的 wassup in a minute 页面没有提示词框。选一套造型，上传一至四张照片，然后生成。',
         },
       },
     ],

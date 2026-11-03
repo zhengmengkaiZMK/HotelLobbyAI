@@ -40,8 +40,8 @@ const LIMIT_EN =
   'No minors, no celebrities, and no Blue Lock or other show characters. ViralReel is not affiliated with Drake, Jhené Aiko, the remix makers, or the trend originators.';
 const LIMIT_ZH =
   '不要未成年人、名人，也不要 Blue Lock 或其他影视角色。ViralReel 与 Drake、Jhené Aiko、混音作者或趋势发起者无关。';
-const PRICE_EN = `The generator shows the credit cost before you render. A new account starts with free credits for a first template video. That is not free forever. Packs are at ${PRICING}. This page does not invent other sites’ prices.`;
-const PRICE_ZH = `生成器会在渲染前显示积分。新账号的免费积分够先做一条模板视频。这不是永远免费。积分包在 ${PRICINGZ} 。这一页不编造别的网站的价格。`;
+const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 720p is 18 credits (about $1.50 at 12 credits = $1); 480p is 9 credits and 1080p is 36 credits. The generator shows the exact number before you start. A new account starts with free credits for a first template video. That is not free forever. Packs start at $9.9 for 90 credits on ${PRICING}. This page does not invent other sites’ prices.`;
+const PRICE_ZH = `一条 wassup in a minute 成片固定 15 秒。默认积分表上，720p 是 18 积分（按 12 积分 = 1 美元，约 $1.50）；480p 是 9 积分，1080p 是 36 积分。生成器会在开始前显示确切数字。新账号的免费积分够先做一条模板视频。这不是永远免费。积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。这一页不编造别的网站的价格。`;
 
 export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
   {
@@ -997,8 +997,8 @@ export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
     },
     h1: { en: '“In a minute” is not one minute', zh: '「in a minute」不是一分钟' },
     lead: {
-      en: 'Three different clocks get mashed into the title. The lyric is “been a minute.” The generator usually takes 2–3 minutes. The ViralReel clip is 15 seconds.',
-      zh: '标题里混进了三种时间。歌词是「been a minute」。生成器通常要 2–3 分钟。ViralReel 的片子是 15 秒。',
+      en: 'Three clocks get mixed up in wassup in a minute. The lyric is “been a minute.” A render usually takes 2–3 minutes. The clip is 15 seconds, and the default 720p charge is 18 credits.',
+      zh: 'Wassup in a minute 里混了三只钟。歌词是「been a minute」。渲染通常要 2–3 分钟。成片是 15 秒，默认 720p 是 18 积分。',
     },
     guideTitle: { en: 'Lyric, render, length', zh: '歌词、渲染、片长' },
     body: {

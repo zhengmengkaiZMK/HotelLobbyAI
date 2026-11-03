@@ -2,26 +2,24 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { WassupInAMinuteHome } from '@/shared/blocks/wassup-in-a-minute/home';
+import { WassupHubAnswer } from '@/shared/blocks/wassup-in-a-minute/hub-answer';
 import { getWassupFaq } from '@/shared/blocks/wassup-in-a-minute/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
+import { wassupFifteenSecondCosts, wassupHubLead } from '@/shared/lib/wassup-cost';
 
 export const dynamic = 'force-dynamic';
 
 const META = {
   en: {
-    title: 'How to Make a Wassup in a Minute AI Video on ViralReel',
-    description:
-      'How to make a wassup in a minute AI video on ViralReel from one to four photos. Money Fan, Puffer Classic, All Black, Jersey Look, and Heavyweight redraw your crew as the swaying streetwear anime characters. Download the MP4, add the trend sound in TikTok.',
+    title: 'Wassup in a Minute AI Template — 15s 9:16 Sway',
     keywords:
       'wassup in a minute, wassup in a minute ai, wassup in a minute template, wassup in a minute meme, wassup been a minute, atlanta lock ai, wassup in a minute ai video, viralreel',
   },
   zh: {
-    title: '如何在 ViralReel 制作 Wassup in a Minute AI 视频',
-    description:
-      '在 ViralReel 用一至四张照片制作 wassup in a minute AI 视频。甩钱原版、黑羽绒经典、全黑装、球衣版和大块头，把你们画成白底摇摆的街服动漫角色。下载 MP4 后，在 TikTok、Reels 或 Shorts 加上热梗原声和 AI 标注。',
+    title: 'Wassup in a Minute AI 模板 — 15 秒 9:16 摇摆',
     keywords:
       'wassup in a minute, wassup in a minute ai, wassup in a minute 模板, wassup in a minute 梗, wassup been a minute, atlanta lock ai, wassup in a minute ai 视频, viralreel',
   },
@@ -33,7 +31,16 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const m = META[locale === 'zh' ? 'zh' : 'en'];
+  const zh = locale === 'zh';
+  const m = META[zh ? 'zh' : 'en'];
+  const creditsPerUsd = await getCreditsPerUsdFromConfigs();
+  const costs = wassupFifteenSecondCosts({
+    videoCosts: getVideoCostTable(await getAllConfigs(true)),
+    creditsPerUsd,
+  });
+  const description = zh
+    ? `Wassup in a minute 是用一至四张照片做的 15 秒、9:16 摇摆。默认 720p 是 ${costs.p720} 积分（约 ${costs.usd720}）。渲染通常要 2–3 分钟。MP4 不含那首歌。`
+    : `Wassup in a minute is a 15-second 9:16 sway from one to four photos. Default 720p is ${costs.p720} credits (about ${costs.usd720}). A render usually takes 2–3 minutes. The MP4 does not include the song.`;
   const canonical =
     locale === 'zh'
       ? `${envConfigs.app_url}/zh/wassup-in-a-minute-ai-template`
@@ -42,7 +49,7 @@ export async function generateMetadata({
   const zhUrl = `${envConfigs.app_url}/zh/wassup-in-a-minute-ai-template`;
   return {
     title: m.title,
-    description: m.description,
+    description,
     keywords: m.keywords,
     alternates: {
       canonical,
@@ -56,13 +63,13 @@ export async function generateMetadata({
       type: 'website' as const,
       url: canonical,
       title: m.title,
-      description: m.description,
+      description,
       images: [`${envConfigs.app_url}/templates/wassup-in-a-minute-og.jpg`],
     },
     twitter: {
       card: 'summary_large_image' as const,
       title: m.title,
-      description: m.description,
+      description,
       images: [`${envConfigs.app_url}/templates/wassup-in-a-minute-og.jpg`],
     },
   };
@@ -102,10 +109,15 @@ export default async function WassupInAMinuteTemplatePage({
         dangerouslySetInnerHTML={{ __html: JSON.stringify(buildTemplateSoftwareJsonLd({
           appUrl: envConfigs.app_url,
           pageUrl,
-          description: META[zh ? 'zh' : 'en'].description,
+          description: wassupHubLead(zh, { videoCosts, creditsPerUsd }),
         })) }}
       />
-      <WassupInAMinuteHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} pageUrl={pageUrl} />
+      <WassupInAMinuteHome
+        creditsPerUsd={creditsPerUsd}
+        videoCosts={videoCosts}
+        pageUrl={pageUrl}
+        answer={<WassupHubAnswer zh={zh} ctx={{ videoCosts, creditsPerUsd }} />}
+      />
     </>
   );
 }
