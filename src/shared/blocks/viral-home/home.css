@@ -50,6 +50,7 @@
 .viral-home .hero h1{font-size:56px;line-height:1.1;letter-spacing:-.025em;font-weight:600;margin-top:44px;text-wrap:balance}
 .viral-home .hl{color:#ea580c}
 .viral-home .hero .lead{color:#71717a;font-size:18px;margin:32px auto;max-width:640px;text-wrap:balance}
+.viral-home .hero .wassup-answer{color:#3f3f46;font-size:17px;line-height:1.55;margin:18px auto 8px;max-width:760px;text-wrap:pretty}
 .viral-home .hero-cta{display:flex;align-items:center;justify-content:center;gap:16px;flex-wrap:wrap}
 .viral-home .hero-proof{margin-top:32px;display:flex;align-items:center;justify-content:center;gap:10px;font-size:14px;color:#71717a}
 .viral-home .avatars{display:flex}

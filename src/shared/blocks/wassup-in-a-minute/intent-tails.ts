@@ -37,8 +37,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute AI generator', zh: 'Wassup in a Minute AI 生成器' },
     lead: {
-      en: 'The Wassup in a Minute AI generator is the same browser template as the one-tap generator: your photo becomes an original streetwear character that sways. It is not a blank prompt box.',
-      zh: 'Wassup in a Minute AI 生成器和一键生成器是同一个浏览器模板：你的照片变成会摇摆的原创街服角色。它不是空白提示词框。',
+      en: 'The wassup in a minute AI generator is the same 15-second 9:16 template: one to four photos, no blank prompt box. A render usually takes 2–3 minutes. The MP4 does not include the song.',
+      zh: 'Wassup in a minute AI 生成器就是同一条 15 秒、9:16 模板：一至四张照片，没有空白提示词框。渲染通常要 2–3 分钟。MP4 不含那首歌。',
     },
     guideTitle: {
       en: 'What the AI generator actually runs',
@@ -87,8 +87,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Make a Wassup in a Minute AI video', zh: '制作 Wassup in a Minute AI 视频' },
     lead: {
-      en: 'To make a Wassup in a Minute AI video, use the ViralReel template. One photo is enough. Four photos put a row of original characters on the white background.',
-      zh: '制作 Wassup in a Minute AI 视频，用 ViralReel 模板。一张照片就够。四张照片会在白底上排出一排原创角色。',
+      en: 'To make a wassup in a minute video, open the template, upload one to four photos, and download a 15-second 9:16 MP4. A render usually takes 2–3 minutes. Then add the sound in the app you post to.',
+      zh: '制作 wassup in a minute：打开模板，上传一至四张照片，下载 15 秒、9:16 的 MP4。渲染通常要 2–3 分钟。然后在你发布的 App 里另加原声。',
     },
     guideTitle: {
       en: 'How to make the sway',
@@ -137,8 +137,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Create a Wassup in a Minute AI clip', zh: '创建 Wassup in a Minute AI 短片' },
     lead: {
-      en: 'Create a Wassup in a Minute AI clip means a new file with your photos in it. It does not mean downloading the viral edit.',
-      zh: '创建 Wassup in a Minute AI 短片，指的是一条放了你照片的新文件。不是去下载那条爆火剪辑。',
+      en: 'Create a wassup in a minute clip means a new 15-second 9:16 file from one to four photos. It does not mean downloading the original edit, and the MP4 does not include the song.',
+      zh: '创建一条 wassup in a minute，指的是用一至四张照片做的新 15 秒、9:16 文件。不是去下载原片，MP4 也不含那首歌。',
     },
     guideTitle: {
       en: 'Create a new clip, not a reupload',
@@ -187,8 +187,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute from a photo', zh: '用照片做 Wassup in a Minute' },
     lead: {
-      en: 'Wassup in a Minute from a photo starts with a face you have permission to use. The template draws that person as an original streetwear character and sways them.',
-      zh: '用照片做 Wassup in a Minute，起点是一张你有权使用的脸。模板把这个人画成原创街服角色并让他摇摆。',
+      en: 'Wassup in a minute from a photo uses one to four faces you have permission to use and exports a 15-second 9:16 sway. One photo is one character. The minimum the generator states is 300×300.',
+      zh: '用照片做 wassup in a minute：一至四张你有权使用的脸，导出 15 秒、9:16 的摇摆。一张照片是一个角色。生成器写的最低分辨率是 300×300。',
     },
     guideTitle: {
       en: 'Which photo to upload',
@@ -237,8 +237,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute online', zh: '在线 Wassup in a Minute' },
     lead: {
-      en: 'Wassup in a Minute online means the ViralReel page in your browser. There is no app to install and no project file to hunt down.',
-      zh: '在线 Wassup in a Minute 指的是浏览器里的 ViralReel 页面。不用安装 App，也不用去找工程文件。',
+      en: 'Wassup in a minute online is the browser template: no app install, one to four photos, a 15-second 9:16 MP4. A render usually takes 2–3 minutes. The file does not include the song.',
+      zh: '在线 wassup in a minute 就是浏览器模板：不用装 App，一至四张照片，15 秒、9:16 的 MP4。渲染通常要 2–3 分钟。文件不含那首歌。',
     },
     guideTitle: {
       en: 'The browser path',
@@ -287,8 +287,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute CapCut', zh: 'Wassup in a Minute CapCut' },
     lead: {
-      en: 'Wassup in a Minute CapCut is the in-app paste. ViralReel is the browser path to a new sway MP4. Neither one is the original TikTok, and neither one licenses the song.',
-      zh: 'Wassup in a Minute CapCut 是 App 里的贴图。ViralReel 是在浏览器里做新摇摆 MP4 的路径。两者都不是原始 TikTok，也都不授权歌曲。',
+      en: 'Wassup in a minute on CapCut is a 10-clip paste inside the app. On ViralReel it is a new 15-second 9:16 MP4 from one to four photos. Neither file includes a licensed song.',
+      zh: 'CapCut 上的 wassup in a minute 是 App 里的 10 段贴素材。在 ViralReel 上，它是用一至四张照片做的新 15 秒、9:16 MP4。两边的文件都不含已授权的歌曲。',
     },
     guideTitle: {
       en: 'CapCut template versus a browser MP4',
@@ -337,8 +337,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute without CapCut', zh: '不用 CapCut 的 Wassup in a Minute' },
     lead: {
-      en: 'You can make the Wassup in a Minute sway without opening CapCut. ViralReel generates a new MP4 in the browser.',
-      zh: '不打开 CapCut 也能做 Wassup in a Minute 摇摆。ViralReel 在浏览器里生成一条新的 MP4。',
+      en: 'You can make wassup in a minute without opening CapCut. The browser template takes one to four photos and exports a 15-second 9:16 MP4. A render usually takes 2–3 minutes.',
+      zh: '不打开 CapCut 也能做 wassup in a minute。浏览器模板用一至四张照片，导出 15 秒、9:16 的 MP4。渲染通常要 2–3 分钟。',
     },
     guideTitle: {
       en: 'The path that never opens CapCut',
@@ -387,8 +387,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute on Instagram', zh: 'Instagram 上的 Wassup in a Minute' },
     lead: {
-      en: 'Post Wassup in a Minute on Instagram as a Reel. The file from ViralReel is the picture. Instagram’s sound picker is where the trend audio goes.',
-      zh: '把 Wassup in a Minute 发到 Instagram，用 Reel。ViralReel 的文件是画面。热梗原声加在 Instagram 的曲库里。',
+      en: 'Post wassup in a minute on Instagram as a Reel: upload the 15-second 9:16 MP4, then add Instagram’s sound and the AI label. The download does not include the song.',
+      zh: '把 wassup in a minute 发到 Instagram，用 Reel：上传 15 秒、9:16 的 MP4，再加 Instagram 的原声和 AI 标注。下载文件不含那首歌。',
     },
     guideTitle: {
       en: 'How to post the Reel',
@@ -437,8 +437,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute YouTube Shorts', zh: 'Wassup in a Minute YouTube Shorts' },
     lead: {
-      en: 'A Wassup in a Minute YouTube Short is your new MP4, uploaded as a Short. The download is not a soundtrack.',
-      zh: 'Wassup in a Minute YouTube Short 是你的新 MP4，作为 Short 上传。下载文件不是原声带。',
+      en: 'A wassup in a minute YouTube Short is your new 15-second 9:16 MP4, uploaded as a Short. The download is not a soundtrack. Add YouTube’s sound and the AI disclosure there.',
+      zh: 'Wassup in a minute 的 YouTube Short 是你的新 15 秒、9:16 MP4，作为 Short 上传。下载文件不是原声带。在 YouTube 里另加原声和 AI 披露。',
     },
     guideTitle: {
       en: 'How to post the Short',
@@ -487,8 +487,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute MP4', zh: 'Wassup in a Minute MP4' },
     lead: {
-      en: 'The Wassup in a Minute MP4 is a new video file of your character swaying. It is not the song and not the original edit.',
-      zh: 'Wassup in a Minute MP4 是你的角色在摇摆的新视频文件。不是那首歌，也不是原剪辑。',
+      en: 'The wassup in a minute MP4 is a new 15-second 9:16 file of your characters swaying. It is not the song, not a GIF, and not the original edit. A render usually takes 2–3 minutes.',
+      zh: 'Wassup in a minute 的 MP4 是角色在摇摆的新 15 秒、9:16 文件。不是那首歌，不是 GIF，也不是原片。渲染通常要 2–3 分钟。',
     },
     guideTitle: {
       en: 'What the download contains',
