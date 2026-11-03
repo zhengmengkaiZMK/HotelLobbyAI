@@ -296,12 +296,12 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     body: {
       en: [
-        'A wassup in a minute capcut search usually wants a template inside CapCut: open the app, find the project, paste photos into fixed slots. That is reasonable if the rest of your edit already lives on a CapCut timeline. ViralReel does not operate CapCut and does not host or rank its templates.',
+        'A wassup in a minute capcut search usually wants a template inside CapCut: open the app, find the project, paste photos into fixed slots. That is reasonable if the rest of your edit already lives on a CapCut timeline. ViralReel does not operate CapCut and does not host or rank its templates. The public WASSUP template-detail is a 10-clip paste, not this anime sway: https://www.capcut.com/template-detail/WASSUP/7513659410535681333. This page does not quote CapCut use counts. The longer note is https://www.viralreel.app/blog/viralreel-vs-capcut-wassup-in-a-minute.',
         `ViralReel stays in the browser at ${T}. ${OUTFITS_EN} You upload one to four photos and download a new 9:16 MP4. The no-CapCut wording is https://www.viralreel.app/wassup-in-a-minute-without-capcut.`,
         `You can use both: generate on ViralReel, then import the MP4 into CapCut if you still want a timeline. ${SOUND_EN} ${LIMIT_EN}`,
       ],
       zh: [
-        '搜 wassup in a minute capcut 通常是想要 CapCut 里的模板：打开 App，找到工程，把照片贴进固定槽位。如果你其余的剪辑已经在 CapCut 时间线上，这很合理。ViralReel 不运营 CapCut，也不托管或给它的模板排名。',
+        '搜 wassup in a minute capcut 通常是想要 CapCut 里的模板：打开 App，找到工程，把照片贴进固定槽位。如果你其余的剪辑已经在 CapCut 时间线上，这很合理。ViralReel 不运营 CapCut，也不托管或给它的模板排名。公开的 WASSUP 模板详情是 10 段贴素材，不是这条动漫摇摆：https://www.capcut.com/template-detail/WASSUP/7513659410535681333 。这一页不引用 CapCut 的使用次数。更长的说明在 https://www.viralreel.app/zh/blog/viralreel-vs-capcut-wassup-in-a-minute 。',
         `ViralReel 留在浏览器里：${TZ} 。${OUTFITS_ZH} 上传一至四张照片，下载一条新的 9:16 MP4。不用 CapCut 的说法在 https://www.viralreel.app/zh/wassup-in-a-minute-without-capcut 。`,
         `两条路可以一起用：在 ViralReel 生成，如果还想要时间线，再把 MP4 导入 CapCut。${SOUND_ZH} ${LIMIT_ZH}`,
       ],
