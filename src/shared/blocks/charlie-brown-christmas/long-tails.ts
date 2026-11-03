@@ -5,14 +5,15 @@ import {
   type TemplateCostContext,
 } from '@/shared/lib/pricing-copy';
 
+import { CHARLIE_BROWN_CITE_TAILS } from './cite-tails';
 import { CHARLIE_BROWN_HOW_TO_STEPS, type CharlieBrownHowToStep } from './steps';
 
 /**
  * Long-tail landings for the A Charlie Brown Christmas template.
  *
- * To add another keyword: append an entry here. The sitemap reads
- * CHARLIE_BROWN_LONG_TAIL_ROUTES. Public URLs are served by the single
- * `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
+ * To add another keyword: append an entry here or in `cite-tails.ts`.
+ * The sitemap reads CHARLIE_BROWN_LONG_TAIL_ROUTES. Public URLs are served
+ * by the single `(home)/[slug]` dispatcher — do not add a per-slug page.tsx.
  * Do not reuse the main `charlie-brown-christmas-ai-template` slug.
  */
 
@@ -24,6 +25,8 @@ export const CHARLIE_BROWN_POSTS = {
   capcut: '/blog/charlie-brown-christmas-filter-vs-capcut',
   song: '/blog/charlie-brown-christmas-song-and-history',
   roundup: '/blog/october-2026-viral-ai-meme-videos',
+  generators: '/blog/best-charlie-brown-christmas-ai-generators',
+  photos: '/blog/charlie-brown-christmas-photo-tips',
 } as const;
 
 const PRODUCT = { en: 'A Charlie Brown Christmas', zh: 'A Charlie Brown Christmas' };
@@ -719,6 +722,7 @@ export const CHARLIE_BROWN_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  ...CHARLIE_BROWN_CITE_TAILS,
 ];
 
 export function getCharlieBrownLongTail(slug: string) {
@@ -814,6 +818,32 @@ export function charlieBrownLinkGroups(zh: boolean): CharlieBrownLinkGroup[] {
         { href: '/charlie-brown-christmas-song', label: zh ? '趋势原声 vs Guaraldi' : 'Trend sound vs Guaraldi' },
         { href: CHARLIE_BROWN_POSTS.capcut, label: zh ? '长文对照：ViralReel 和 CapCut' : 'Long read: ViralReel vs CapCut' },
         { href: CHARLIE_BROWN_POSTS.song, label: zh ? '长文：歌与历史' : 'Long read: the song and the history' },
+        { href: '/charlie-brown-christmas-without-capcut', label: zh ? '不用 CapCut' : 'Without CapCut' },
+        { href: '/charlie-brown-christmas-kling', label: zh ? '和 Kling 对照' : 'Kling comparison' },
+        { href: '/charlie-brown-christmas-seedance', label: zh ? '不是 Seedance 提示词' : 'Not a Seedance prompt' },
+      ],
+    },
+    {
+      title: zh ? '怎么做（ChatGPT 常问）' : 'How to make it',
+      links: [
+        { href: '/charlie-brown-christmas-chatgpt', label: zh ? 'ChatGPT 解释，模板出片' : 'ChatGPT explains, the template renders' },
+        { href: '/charlie-brown-christmas-prompt', label: zh ? '没有空白提示词' : 'No blank prompt' },
+        { href: '/charlie-brown-christmas-how-to', label: zh ? '怎么做' : 'How to make it' },
+        { href: '/charlie-brown-christmas-best', label: zh ? '固定模板怎么选' : 'When the fixed template fits' },
+        { href: '/charlie-brown-christmas-free', label: zh ? '积分，不是永远免费' : 'Credits, not free forever' },
+        { href: '/charlie-brown-christmas-sound', label: zh ? '原声没有授权' : 'Sound, no license' },
+        { href: '/charlie-brown-christmas-no-watermark', label: zh ? '付费导出无水印' : 'Paid export, no watermark' },
+        { href: '/charlie-brown-christmas-ai-label', label: zh ? '发布时的 AI 标注' : 'AI label when you post' },
+        { href: '/charlie-brown-christmas-pets', label: zh ? '宠物，不是纪念' : 'Pets, not a memorial' },
+        { href: '/snoopy-ai-photo', label: zh ? 'Snoopy 静帧不是这条视频' : 'A Snoopy still is not this video' },
+        { href: '/make-charlie-brown-christmas-ai', label: zh ? '制作一条新 MP4' : 'Make a new MP4' },
+        { href: '/charlie-brown-christmas-from-photo', label: zh ? '用一张照片' : 'From a photo' },
+        { href: '/charlie-brown-christmas-online', label: zh ? '浏览器里做' : 'Make it online' },
+        { href: '/charlie-brown-christmas-mp4', label: zh ? '8 秒 9:16 MP4' : '8-second 9:16 MP4' },
+        { href: '/charlie-brown-christmas-instagram', label: 'Instagram Reels' },
+        { href: '/charlie-brown-christmas-youtube-shorts', label: 'YouTube Shorts' },
+        { href: '/charlie-brown-christmas-with-friends', label: zh ? '和朋友一起' : 'With friends' },
+        { href: '/charlie-brown-christmas-original', label: zh ? '原版指哪一个文件' : 'Which file “original” means' },
       ],
     },
     {
@@ -821,6 +851,8 @@ export function charlieBrownLinkGroups(zh: boolean): CharlieBrownLinkGroup[] {
       links: [
         { href: CHARLIE_BROWN_POSTS.howTo, label: zh ? '如何制作 A Charlie Brown Christmas AI 视频' : 'How to make an A Charlie Brown Christmas AI video' },
         { href: CHARLIE_BROWN_POSTS.explained, label: zh ? '趋势是什么、从哪来' : 'What the trend is and where it came from' },
+        { href: CHARLIE_BROWN_POSTS.generators, label: zh ? '2026 年 11 月生成器对照' : 'November 2026 generator roundup' },
+        { href: CHARLIE_BROWN_POSTS.photos, label: zh ? '照片怎么拍' : 'Photo tips' },
         { href: CHARLIE_BROWN_POSTS.roundup, label: zh ? '2026 年 10 月 AI 梗视频盘点' : 'October 2026 AI meme videos' },
         { href: '/tiny-desk-outstanding-ai-template', label: zh ? 'Tiny Desk Outstanding AI 模板' : 'Tiny Desk Outstanding AI template' },
       ],
