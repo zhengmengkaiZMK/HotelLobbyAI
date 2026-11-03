@@ -1,5 +1,7 @@
 import type { LongTailEntry } from './long-tails';
 
+import { WASSUP_CITE_WAVE2 } from './cite-wave2';
+
 /**
  * Wassup in a Minute cite pages (ChatGPT-first intents and competitor queries).
  * Served by `(home)/[slug]` through LongTailRoute. Do not add a per-slug page.tsx.
@@ -127,12 +129,12 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         `Best wassup in a minute is a comparison query. This page does not score every video app. If you want original streetwear anime characters swaying on white, open ${T}. ${OUTFITS_EN} ${CREW_EN}`,
-        `MakeViral’s template is a one-photo, 10-second file with sound baked in, driven as Kling 3.0. Smew AI is described as a near-clone on Seedance 2.5, with sound added on the platform. SceneFlare offers Seedance Mini or Kling 4.0 options. CapCut “WASSUP” projects paste shots inside the CapCut app. The fair October 2026 write-up, with no invented prices, is ${ROUNDUP}. The MakeViral landing is https://www.viralreel.app/wassup-in-a-minute-makeviral.`,
+        `MakeViral’s template is a one-photo, about 10-second file with sound baked in, driven as Kling 3.0. Smew’s page may label the model as Seedance 2.5 in one place and Kling 3.0 in another. SceneFlare offers Seedance Mini or Kling 4.0 and can keep the clothes in the photo. CapCut’s public WASSUP template-detail is a 10-clip paste, not this anime sway. The 3 November 2026 write-up, with no invented prices, is ${ROUNDUP}. The MakeViral landing is https://www.viralreel.app/wassup-in-a-minute-makeviral.`,
         `${MODEL_EN} ${SOUND_EN} ${LIMIT_EN} ${PRICE_EN}`,
       ],
       zh: [
         `Best wassup in a minute 是一个比较型搜索。这一页不给每个视频 App 打分。如果你要的是白底上摇摆的原创街服动漫角色，打开 ${TZ} 。${OUTFITS_ZH} ${CREW_ZH}`,
-        `MakeViral 的模板是一张照片、10 秒、声音写进文件，按 Kling 3.0 来做。Smew AI 被描述成走 Seedance 2.5 的近克隆，声音在平台上另加。SceneFlare 提供 Seedance Mini 或 Kling 4.0。CapCut 里的「WASSUP」工程是在 CapCut App 里贴镜头。2026 年 10 月的公平对照、不编造价格，在 ${ROUNDUPZ} 。MakeViral 落地页在 https://www.viralreel.app/zh/wassup-in-a-minute-makeviral 。`,
+        `MakeViral 的模板是一张照片、大约 10 秒、声音写进文件，按 Kling 3.0 来做。Smew 的页面可能一处标 Seedance 2.5、另一处标 Kling 3.0。SceneFlare 提供 Seedance Mini 或 Kling 4.0，也可以保留照片里的衣服。CapCut 公开的 WASSUP 模板详情是 10 段贴素材，不是这条动漫摇摆。2026 年 11 月 3 日的对照、不编造价格，在 ${ROUNDUPZ} 。MakeViral 落地页在 https://www.viralreel.app/zh/wassup-in-a-minute-makeviral 。`,
         `${MODEL_ZH} ${SOUND_ZH} ${LIMIT_ZH} ${PRICE_ZH}`,
       ],
     },
@@ -527,12 +529,12 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         `Wassup in a minute kling means “make the sway with that model.” Kling 3.0 is how MakeViral’s one-photo, 10-second, sound-baked template is described. Kling 4.0 is one of the options SceneFlare lists next to Seedance Mini. ViralReel does not host those projects and does not quote their prices. The category comparison is ${ROUNDUP}. MakeViral specifically is https://www.viralreel.app/wassup-in-a-minute-makeviral.`,
-        `The browser template is ${T}. ${MODEL_EN} ${CREW_EN} ${OUTFITS_EN} “Without Kling” is the same page: you are already not opening a Kling prompt.`,
+        `The browser template is ${T}. ${MODEL_EN} ${CREW_EN} ${OUTFITS_EN} “Without Kling” is the same template, answered on its own at https://www.viralreel.app/wassup-in-a-minute-without-kling. Kling O3 is another model name people type. It is not a separate ViralReel product and not a prompt box on this page.`,
         `${SOUND_EN} ${LIMIT_EN} Asking Kling, in a prompt elsewhere, to draw Blue Lock characters is not something this template will do. https://www.viralreel.app/wassup-in-a-minute-blue-lock.`,
       ],
       zh: [
         `Wassup in a minute kling 的意思是「用那个模型做摇摆」。Kling 3.0 是 MakeViral 那张一张照片、10 秒、声音写进文件的模板被描述的方式。Kling 4.0 是 SceneFlare 列在 Seedance Mini 旁边的选项之一。ViralReel 不托管那些工程，也不引用它们的价格。类别对照在 ${ROUNDUPZ} 。MakeViral 单独的一页在 https://www.viralreel.app/zh/wassup-in-a-minute-makeviral 。`,
-        `浏览器模板在 ${TZ} 。${MODEL_ZH} ${CREW_ZH} ${OUTFITS_ZH} 「不用 Kling」就是这一页：你本来就不是去开一个 Kling 提示词。`,
+        `浏览器模板在 ${TZ} 。${MODEL_ZH} ${CREW_ZH} ${OUTFITS_ZH} 「不用 Kling」还是这个模板，单独的短回答在 https://www.viralreel.app/zh/wassup-in-a-minute-without-kling 。Kling O3 是另一个被拿来搜索的模型名。它不是单独的 ViralReel 产品，这一页上也没有提示词框。`,
         `${SOUND_ZH} ${LIMIT_ZH} 在别的地方用提示词让 Kling 去画 Blue Lock 角色，不是这个模板会做的事。https://www.viralreel.app/zh/wassup-in-a-minute-blue-lock 。`,
       ],
     },
@@ -576,13 +578,13 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     },
     body: {
       en: [
-        `Wassup in a minute seedance means “make the sway with that model.” Smew AI is described as a near-clone that runs on Seedance 2.5 and expects you to add the sound on the platform. SceneFlare lists Seedance Mini next to Kling 4.0. ViralReel does not host those projects and does not quote their prices. The roundup is ${ROUNDUP}. Kling is a separate page: https://www.viralreel.app/wassup-in-a-minute-kling.`,
-        `The browser template is ${T}. ${MODEL_EN} “Without Seedance” is the same template. ${CREW_EN} ${OUTFITS_EN}`,
+        `Wassup in a minute seedance means “make the sway with that model.” Smew AI is a near-clone. As shown on their current page, model labels may conflict: a table says Seedance 2.5, and a Standard option says Kling 3.0. SceneFlare lists Seedance Mini next to Kling 4.0. ViralReel does not host those projects and does not quote their prices. The roundup is ${ROUNDUP}. Kling is a separate page: https://www.viralreel.app/wassup-in-a-minute-kling.`,
+        `The browser template is ${T}. ${MODEL_EN} “Without Seedance” is the same template, with a short answer at https://www.viralreel.app/wassup-in-a-minute-without-seedance. Seedance Mini is one of the model names on other sites. ${CREW_EN} ${OUTFITS_EN}`,
         `${SOUND_EN} ${LIMIT_EN} A Seedance prompt that names Blue Lock characters is not this product. https://www.viralreel.app/wassup-in-a-minute-blue-lock.`,
       ],
       zh: [
-        `Wassup in a minute seedance 的意思是「用那个模型做摇摆」。Smew AI 被描述成走 Seedance 2.5 的近克隆，声音要你在平台上另加。SceneFlare 把 Seedance Mini 和 Kling 4.0 列在一起。ViralReel 不托管那些工程，也不引用它们的价格。总览在 ${ROUNDUPZ} 。Kling 是另一页：https://www.viralreel.app/zh/wassup-in-a-minute-kling 。`,
-        `浏览器模板在 ${TZ} 。${MODEL_ZH} 「不用 Seedance」就是同一个模板。${CREW_ZH} ${OUTFITS_ZH}`,
+        `Wassup in a minute seedance 的意思是「用那个模型做摇摆」。Smew AI 是近克隆。按他们当前页面的显示，模型标注可能互相打架：表里写 Seedance 2.5，Standard 选项又写 Kling 3.0。SceneFlare 把 Seedance Mini 和 Kling 4.0 列在一起。ViralReel 不托管那些工程，也不引用它们的价格。总览在 ${ROUNDUPZ} 。Kling 是另一页：https://www.viralreel.app/zh/wassup-in-a-minute-kling 。`,
+        `浏览器模板在 ${TZ} 。${MODEL_ZH} 「不用 Seedance」还是同一个模板，短回答在 https://www.viralreel.app/zh/wassup-in-a-minute-without-seedance 。Seedance Mini 是别的网站上的模型名之一。${CREW_ZH} ${OUTFITS_ZH}`,
         `${SOUND_ZH} ${LIMIT_ZH} 一段点名 Blue Lock 角色的 Seedance 提示词不是这个产品。https://www.viralreel.app/zh/wassup-in-a-minute-blue-lock 。`,
       ],
     },
@@ -698,8 +700,8 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Do Puffer, Jersey, All Black, and Heavyweight need other pages?', zh: '黑羽绒、球衣、全黑和大块头需要别的页面吗？' },
         a: {
-          en: `No. They are the other four cards on ${T}. This page is the outfit cluster.`,
-          zh: `不需要。它们是 ${TZ} 上的另外四张卡片。这一页就是造型这一组。`,
+          en: 'They are the other four cards on the same template. Short pages: https://www.viralreel.app/wassup-in-a-minute-puffer, https://www.viralreel.app/wassup-in-a-minute-jersey-look, https://www.viralreel.app/wassup-in-a-minute-all-black, and https://www.viralreel.app/wassup-in-a-minute-heavyweight.',
+          zh: '它们是同一模板上的另外四张卡片。短页面：https://www.viralreel.app/zh/wassup-in-a-minute-puffer 、https://www.viralreel.app/zh/wassup-in-a-minute-jersey-look 、https://www.viralreel.app/zh/wassup-in-a-minute-all-black 、https://www.viralreel.app/zh/wassup-in-a-minute-heavyweight 。',
         },
       },
     ],
@@ -728,12 +730,12 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
       en: [
         `Wassup in a minute makeviral compares two different jobs. MakeViral’s template path is /templates/wassup-in-a-minute-ai-trend. As described publicly for this comparison: one photo becomes a streetwear anime character with a cash fan, swaying on white; the file is 10 seconds with sound baked in; the engine is Kling 3.0; it uses credits, no prompt, and no watermark on their terms; the page also talks about Atlanta Lock and the lyric. ViralReel does not operate that site.`,
         `ViralReel is ${T}. ${CREW_EN} The export is 15 seconds, not 10. ${SOUND_EN} ${MODEL_EN} ${WATER_EN} ${OUTFITS_EN}`,
-        `Smew AI is a near-clone described as Seedance 2.5, with sound added on the platform. SceneFlare lists Seedance Mini or Kling 4.0, and its FAQ says “in a minute” is not the generation time; a demo beat there is not the viral track. CapCut “WASSUP” multi-shot templates paste inside CapCut and are not this AI anime sway. MakeTrend and apt had no Wassup template in this October 2026 pass. That absence can change. The full table, still with no invented prices, is ${ROUNDUP}.`,
+        `Smew AI is a near-clone. As shown on their current page, model labels may conflict: a table says Seedance 2.5, and a Standard option on the generate button says Kling 3.0. Sound is added on their platform. SceneFlare lists Seedance Mini or Kling 4.0, keeps the clothes from the photo, and its FAQ says “in a minute” is not the generation time. A demo beat there is not the viral track. The 3 November 2026 table, still with no invented prices, is ${ROUNDUP}. Smew: https://www.viralreel.app/wassup-in-a-minute-smew. SceneFlare: https://www.viralreel.app/wassup-in-a-minute-sceneflare.`,
       ],
       zh: [
         `Wassup in a minute makeviral 比较的是两件不同的事。MakeViral 的模板路径是 /templates/wassup-in-a-minute-ai-trend。这次对照里公开描述的是：一张照片变成带现金扇的街服动漫角色，在白底上摇摆；文件是 10 秒，声音写进文件；引擎是 Kling 3.0；按他们的说法用积分、不写提示词、无水印；页面也会谈到 Atlanta Lock 和歌词。ViralReel 不运营那个网站。`,
         `ViralReel 在 ${TZ} 。${CREW_ZH} 导出是 15 秒，不是 10 秒。${SOUND_ZH} ${MODEL_ZH} ${WATER_ZH} ${OUTFITS_ZH}`,
-        `Smew AI 是被描述成 Seedance 2.5 的近克隆，声音在平台上另加。SceneFlare 列出 Seedance Mini 或 Kling 4.0，它的 FAQ 说「in a minute」不是生成时间；那里的演示节拍不是热梗原声。CapCut 的「WASSUP」多镜头模板是在 CapCut 里贴素材，不是这条 AI 动漫摇摆。MakeTrend 和 apt 在这次 2026 年 10 月的查看里没有 Wassup 模板。这个空缺以后可能变。完整的表、仍然不编造价格，在 ${ROUNDUPZ} 。`,
+        `Smew AI 是近克隆。按他们当前页面上的显示，模型标注可能互相打架：表里写 Seedance 2.5，生成按钮上的 Standard 又写 Kling 3.0。声音在他们的平台上另加。SceneFlare 列出 Seedance Mini 或 Kling 4.0，保留照片里的衣服，FAQ 说「in a minute」不是生成时间。那里的演示节拍不是热梗原声。2026 年 11 月 3 日的表、仍然不编造价格，在 ${ROUNDUPZ} 。Smew：https://www.viralreel.app/zh/wassup-in-a-minute-smew 。SceneFlare：https://www.viralreel.app/zh/wassup-in-a-minute-sceneflare 。`,
       ],
     },
     steps,
@@ -754,4 +756,5 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  ...WASSUP_CITE_WAVE2,
 ];
