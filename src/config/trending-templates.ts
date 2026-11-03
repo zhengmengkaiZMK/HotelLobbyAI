@@ -50,6 +50,20 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
     colors: ['#fdba74', '#6b21a8'],
   },
   {
+    id: 'charlie-brown',
+    name: ['A Charlie Brown Christmas', 'A Charlie Brown Christmas'],
+    pitch: [
+      'One photo, one scan line — you become a 1965 Peanuts-style cartoon on Snoopy\'s red doghouse.',
+      '一张照片一道扫描线——你变成站在 Snoopy 红狗屋上的 1965 花生漫画风卡通。',
+    ],
+    href: '/charlie-brown-christmas-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'classic'],
+    poster: '/templates/charlie-glasses-poster.jpg',
+    video: '/templates/charlie-glasses.mp4',
+    colors: ['#dc2626', '#14532d'],
+  },
+  {
     id: 'alors-on-danse',
     name: ['Alors On Danse', 'Alors On Danse'],
     pitch: [

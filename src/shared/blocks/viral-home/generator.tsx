@@ -136,6 +136,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     cat_clapping: [4, 6],
     baba_dance: [20, 30],
     tiny_desk_outstanding: [15],
+    charlie_brown_christmas: [8],
     window_peeper: [15],
     bby_wow: [10],
     pedra_do_sal: [15],
@@ -233,7 +234,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, embedded, template.id, variantIdx]);
   const prompt = allowPromptEdit && promptDraft.trim() ? promptDraft.trim() : effectiveVariantPrompt;
-  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'baba_dance', 'wassup_in_a_minute', 'nostalgia_capcut', 'sasha_la_catrina'].includes(family) ? '9:16' : '16:9');
+  const [ratio, setRatio] = useState(['bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'charlie_brown_christmas', 'baba_dance', 'wassup_in_a_minute', 'nostalgia_capcut', 'sasha_la_catrina'].includes(family) ? '9:16' : '16:9');
   const [resolution, setResolution] = useState('720p');
   const [duration, setDuration] = useState(activeVariant?.duration || (family === 'cat_clapping' ? 4 : 8));
   // switching multi-video sample: lock the duration to the new sample's own
