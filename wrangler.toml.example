@@ -41,3 +41,9 @@ DB_MAX_CONNECTIONS = "1"
 # auth secret
 # openssl rand -base64 32
 AUTH_SECRET = ""
+
+# OpenNext incremental cache (persists unstable_cache / ISR; without it
+# every request re-reads D1)
+[[r2_buckets]]
+binding = "NEXT_INC_CACHE_R2_BUCKET"
+bucket_name = "your-r2-bucket"

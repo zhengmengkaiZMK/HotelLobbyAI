@@ -42,3 +42,8 @@ NEXT_PUBLIC_APPEARANCE = "system"
 DATABASE_PROVIDER = "d1"
 DB_SINGLETON_ENABLED = "true"
 DB_MAX_CONNECTIONS = "1"
+
+# OpenNext 增量缓存（unstable_cache / ISR 持久化；无此项时每请求都会重查 D1）
+[[r2_buckets]]
+binding = "NEXT_INC_CACHE_R2_BUCKET"
+bucket_name = "viralreel-next-cache"
