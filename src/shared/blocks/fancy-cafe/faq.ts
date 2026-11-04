@@ -21,7 +21,6 @@ export function getFancyCafeFaq(
     return [
       ['「your first time in a fancy cafe」是什么梗？', '它是一条 15 秒的 TikTok 场景：男人把齐膝高的小圆钢桌当凳子坐，直到有人把咖啡放上那张桌子，他爬下来。@leehoustonx 在 2026 年 11 月 1 日发布，配 Steve Lacy 的《Oh Yeah?》，两天播放破 980 万、点赞 130 万。'],
       ['怎么做 fancy cafe 视频？', '2 张全身照，大约几分钟。浏览器打开 https://www.viralreel.app/zh/first-time-in-a-fancy-cafe-ai-template ，6 条咖啡馆片段选 1 条，第 1 张坐桌、第 2 张进店，下载 15 秒 9:16 的 MP4，付费导出无水印。另一条路是 CapCut：2026 年 11 月 2 日上线了 2 个模板。'],
-      ['能免费试吗？', `新账号的免费积分够先做 1 条，不是永远免费。${cost}`],
       ['做一条 fancy cafe AI 视频要多少钱？', cost],
       ['渲染要多久？视频多长？', '渲染通常几分钟，成片本身是 15 秒、9:16。这 15 秒覆盖坐上桌、抿一口、进店、那个眼神和爬下来。做好的片子在「历史记录」里取。'],
       ['fancy cafe 趋势是谁带起来的？', '大家翻拍的场景由 @leehoustonx 在 2026 年 11 月 1 日发上 TikTok，两天破 980 万播放、130 万点赞。同一天早几小时，@stevenwommack 发了同款配文的真咖啡馆版——唱片墙下的壁挂桌——播放 220 万。第二天 @kevkevkiwi（Kevin Winnik）的脸换版、@boby.biggsjohnson 的奶油西装版（470 万）和 @kkubi99 的韩国情侣版（290 万）把趋势推爆。'],
@@ -38,7 +37,6 @@ export function getFancyCafeFaq(
   return [
     ['What is the "your first time in a fancy cafe" trend?', 'It is a 15-second TikTok scene: a man perches on a knee-high round steel table in a bare concrete cafe until someone sets a cup on that table and he climbs down. @leehoustonx posted it on 1 November 2026 to Steve Lacy\'s "Oh Yeah?", and it passed 9.8 million plays and 1.3 million likes in two days.'],
     ['How do I make a first time in a fancy cafe video?', 'Two full-body photos, and a few minutes. In the browser, open https://www.viralreel.app/first-time-in-a-fancy-cafe-ai-template, pick 1 of 6 cafe clips, put photo 1 on the table and photo 2 as the walk-in, and download a 15-second 9:16 MP4. Paid exports have no watermark. The other route is CapCut: 2 templates went up on 2 November 2026.'],
-    ['Is it free to try?', `Starter credits cover 1 video. It is not free forever. ${cost}`],
     ['How much does a fancy cafe AI video cost?', cost],
     ['How long does rendering take, and how long is the video?', 'Rendering usually takes a few minutes, and the file itself is 15 seconds at 9:16. Those 15 seconds cover the perch, the sip, the walk-in, the sideways look, and the climb-down. Finished clips land in History.'],
     ['Who started the fancy cafe trend?', 'The scene everyone swaps into was posted by @leehoustonx on TikTok on 1 November 2026 and passed 9.8M plays and 1.3M likes in two days. A real-cafe version with the same caption by @stevenwommack — a wall-mounted table under a shelf of records — went up hours earlier the same day and reached 2.2M plays. Face-swap versions by @kevkevkiwi (Kevin Winnik), @boby.biggsjohnson\'s cream suit (4.7M) and @kkubi99\'s Korean couple (2.9M) spread it the next day.'],

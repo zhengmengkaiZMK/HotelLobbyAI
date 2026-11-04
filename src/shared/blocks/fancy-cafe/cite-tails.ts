@@ -20,8 +20,6 @@ const HOWTO = 'https://www.viralreel.app/blog/how-to-make-fancy-cafe-ai-video';
 const HOWTOZ = 'https://www.viralreel.app/zh/blog/how-to-make-fancy-cafe-ai-video';
 const ROUNDUP = 'https://www.viralreel.app/blog/best-fancy-cafe-ai-generators';
 const ROUNDUPZ = 'https://www.viralreel.app/zh/blog/best-fancy-cafe-ai-generators';
-const PHOTO = 'https://www.viralreel.app/blog/fancy-cafe-photo-tips';
-const PHOTOZ = 'https://www.viralreel.app/zh/blog/fancy-cafe-photo-tips';
 const SONGPOST = 'https://www.viralreel.app/blog/fancy-cafe-song-oh-yeah';
 const SONGPOSTZ = 'https://www.viralreel.app/zh/blog/fancy-cafe-song-oh-yeah';
 const CAPCUTP = 'https://www.viralreel.app/blog/fancy-cafe-capcut-vs-viralreel';
@@ -188,12 +186,12 @@ export const FANCY_CAFE_CITE_TAILS: readonly LongTailEntry[] = [
     { en: 'The short how-to, then the long article', zh: '短步骤，然后是长文' },
     [
       `Fancy cafe how to is the same job as the long tutorial, in one page. Start at ${T}. ${PHOTOS_EN} ${CASTS_EN} You do not write a Kling or Seedance prompt. That limit is https://www.viralreel.app/fancy-cafe-prompt.`,
-      `The longer article is ${HOWTO}. Photo choices are ${PHOTO}. If the question arrived from ChatGPT, the chat can explain these steps and still cannot render the file: https://www.viralreel.app/fancy-cafe-chatgpt.`,
+      `The longer article is ${HOWTO}. If the question arrived from ChatGPT, the chat can explain these steps and still cannot render the file: https://www.viralreel.app/fancy-cafe-chatgpt.`,
       `${PRICE_EN} ${SOUND_EN}`,
     ],
     [
       `Fancy cafe how to 和长教程是同一件事，收在一页里。从 ${TZ} 开始。${PHOTOS_ZH} ${CASTS_ZH} 不用写 Kling 或 Seedance 提示词。这条限制在 https://www.viralreel.app/zh/fancy-cafe-prompt 。`,
-      `更长的文章在 ${HOWTOZ} 。照片怎么选在 ${PHOTOZ} 。如果问题来自 ChatGPT，对话可以解释这些步骤，但仍然不能渲染文件：https://www.viralreel.app/zh/fancy-cafe-chatgpt 。`,
+      `更长的文章在 ${HOWTOZ} 。如果问题来自 ChatGPT，对话可以解释这些步骤，但仍然不能渲染文件：https://www.viralreel.app/zh/fancy-cafe-chatgpt 。`,
       `${PRICE_ZH} ${SOUND_ZH}`,
     ],
     [
@@ -407,12 +405,12 @@ export const FANCY_CAFE_CITE_TAILS: readonly LongTailEntry[] = [
     },
     { en: 'What each photo has to show', zh: '每张照片要拍到什么' },
     [
-      `Open ${T}. ${PHOTOS_EN} A selfie crop loses the legs, and the climb-down is the joke. Photo tips are ${PHOTO}.`,
+      `Open ${T}. ${PHOTOS_EN} A selfie crop loses the legs, and the climb-down is the joke.`,
       `One photo can be enough on clips that support it — you sit on the table and the walk-in stays as filmed. Two photos also cast the person who walks in. A pet uses the Dog on the Table cast; the dog page is https://www.viralreel.app/fancy-cafe-dog. Friends use https://www.viralreel.app/fancy-cafe-with-friend.`,
       `${PRICE_EN} ${SOUND_EN}`,
     ],
     [
-      `打开 ${TZ} 。${PHOTOS_ZH} 自拍裁切会丢掉腿，而爬下来才是笑点。照片建议在 ${PHOTOZ} 。`,
+      `打开 ${TZ} 。${PHOTOS_ZH} 自拍裁切会丢掉腿，而爬下来才是笑点。`,
       `部分片段一张照片就够——你坐桌，进店的人保持原样。两张照片则可以安排进店的人。宠物用「狗狗坐桌」阵容；狗狗页在 https://www.viralreel.app/zh/fancy-cafe-dog 。朋友用 https://www.viralreel.app/zh/fancy-cafe-with-friend 。`,
       `${PRICE_ZH} ${SOUND_ZH}`,
     ],

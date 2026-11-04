@@ -25,7 +25,6 @@ export const FANCY_CAFE_POSTS = {
   song: '/blog/fancy-cafe-song-oh-yeah',
   roundup: '/blog/october-2026-viral-ai-meme-videos',
   best: '/blog/best-fancy-cafe-ai-generators',
-  photo: '/blog/fancy-cafe-photo-tips',
 } as const;
 
 const PRODUCT = { en: 'Your First Time in a Fancy Cafe', zh: 'Your First Time in a Fancy Cafe' };
@@ -895,7 +894,6 @@ export function fancyCafeLinkGroups(zh: boolean): FancyCafeLinkGroup[] {
         { href: FANCY_CAFE_POSTS.howTo, label: zh ? '如何制作 fancy cafe AI 视频' : 'How to make a fancy cafe AI video' },
         { href: FANCY_CAFE_POSTS.explained, label: zh ? '趋势是什么、从哪来' : 'What the trend is and where it came from' },
         { href: FANCY_CAFE_POSTS.best, label: zh ? '最好的 fancy cafe AI 生成器' : 'Best fancy cafe AI generators' },
-        { href: FANCY_CAFE_POSTS.photo, label: zh ? '照片怎么拍' : 'Photo tips' },
         { href: FANCY_CAFE_POSTS.roundup, label: zh ? '2026 年 10 月 AI 梗视频盘点' : 'October 2026 AI meme videos' },
         { href: '/tiny-desk-outstanding-ai-template', label: zh ? 'Tiny Desk Outstanding AI 模板' : 'Tiny Desk Outstanding AI template' },
       ],
