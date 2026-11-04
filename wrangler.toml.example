@@ -6,6 +6,11 @@ compatibility_flags = ["nodejs_compat"]
 # 新版 wrangler 默认上传 sourcemap（~77MB）会超过 Cloudflare 60MB 上限，关闭
 upload_source_maps = false
 
+# Smart Placement: 把 Worker 执行位置自动迁移到离 D1 最近的机房，
+# 降低 DB round-trip 抖动（实测 get-session 4~27s）
+[placement]
+mode = "smart"
+
 [assets]
 binding = "ASSETS"
 directory = ".open-next/assets"

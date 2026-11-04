@@ -1,6 +1,7 @@
 import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
+import { locales } from '@/config/locale';
 import { FancyCafeHome } from '@/shared/blocks/fancy-cafe/home';
 import { getFancyCafeFaq } from '@/shared/blocks/fancy-cafe/faq';
 import { getAllConfigs } from '@/shared/models/config';
@@ -8,7 +9,18 @@ import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 
-export const dynamic = 'force-dynamic';
+// ISR pilot: full-page HTML cached in R2 (via OpenNext incremental cache).
+// First request renders and caches; subsequent hits serve cached HTML in
+// ~100ms instead of a 4-40s full SSR. Marketing page — no user-specific
+// content in the shell; pricing snapshot refreshes on revalidate.
+export const revalidate = 300;
+
+// Enumerate the [locale] dynamic segment so Next can prerender this page at
+// build time and serve ISR HTML (revalidated every 300s). Without this, the
+// dynamic segment forces on-demand SSR for every request.
+export async function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
 
 const META = {
   en: {
@@ -76,7 +88,7 @@ export default async function FirstTimeInAFancyCafeAiTemplatePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const zh = locale === 'zh';
-  // Cached read (unstable_cache, 3 min) instead of getAllConfigs(true): the
+  // Cached reads (unstable_cache, 3 min) instead of getAllConfigs(true): the
   // fresh read hits D1 on every request and dominated this page's TTFB.
   // Displayed prices may lag admin edits by up to 3 minutes; billing paths
   // still read fresh configs.

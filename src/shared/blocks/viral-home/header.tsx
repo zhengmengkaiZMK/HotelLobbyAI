@@ -2,6 +2,7 @@
 
 /* eslint-disable @next/next/no-img-element */
 
+import { Suspense } from 'react';
 import { ChevronDown, Flame, Menu, Video } from 'lucide-react';
 import { useLocale } from 'next-intl';
 
@@ -124,7 +125,12 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
             <GenerationsLink />
           </nav>
           <div className="right">
-            <LocaleSelector type="button" />
+            {/* Suspense boundary: LocaleSelector reads useSearchParams, which
+                cannot be prerendered without one (Next.js CSR bailout). It
+                hydrates right after mount; nav rendering is unaffected. */}
+            <Suspense fallback={null}>
+              <LocaleSelector type="button" />
+            </Suspense>
             <div className="signin">
               <SignUser
                 userNav={{
