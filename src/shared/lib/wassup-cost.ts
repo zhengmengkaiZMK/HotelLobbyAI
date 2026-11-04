@@ -1,20 +1,25 @@
 import { CANONICAL_PRICING, type TemplateCostContext } from '@/shared/lib/pricing-copy';
-import { getVideoCostTable } from '@/shared/lib/video-cost';
-import {
-  formatCreditCount,
-  usdFromCredits,
-  videoCreditCost,
-} from '@/shared/lib/video-yield';
+import { formatCreditCount, usdFromCredits } from '@/shared/lib/video-yield';
 
 /**
  * Wassup in a minute is locked to 15 seconds in the generator
- * (`familyFixedDurations.wassup_in_a_minute`). The default button is 720p.
- * Those cells come from the same Wan reference table as pricing
- * (`getVideoCostTable`): 0.6 / 1.2 / 2.4 credits per second, rounded up.
- * At the code defaults that is 9 / 18 / 36 credits. The live button wins if
- * an admin rate or a different model changes the charge.
- * Do not quote 8-second rows, or the retired 32 / 40 / 90 figures, for this clip.
+ * (`familyFixedDurations.wassup_in_a_minute`). The default resolution is 720p.
+ *
+ * Public copy quotes the live hub/FAQ table: 60 / 75 / 90 credits at
+ * 480p / 720p / 1080p. At 12 credits = $1, 75 credits is about $6.25.
+ * That is the published 15-second table, not the code-default Wan formula
+ * (0.6 / 1.2 / 2.4 credits per second → 9 / 18 / 36). Do not quote
+ * 8-second rows, or the retired 32 / 40 / 90 figures, for this clip.
+ *
+ * This helper is display copy only. It does not change what the generator
+ * charges. The button still shows the exact number for the selected model
+ * before a render starts. Packs stay $9.9 for 90 credits.
  */
+export const WASSUP_15S_CREDITS = {
+  p480: 60,
+  p720: 75,
+  p1080: 90,
+} as const;
 
 function pricingUrl(zh: boolean, path: '/pricing' | '/subscribe') {
   return zh
@@ -23,14 +28,11 @@ function pricingUrl(zh: boolean, path: '/pricing' | '/subscribe') {
 }
 
 export function wassupFifteenSecondCosts(ctx: TemplateCostContext = {}) {
-  const table = ctx.videoCosts?.length ? ctx.videoCosts : getVideoCostTable();
   const creditsPerUsd =
     ctx.creditsPerUsd && ctx.creditsPerUsd > 0
       ? ctx.creditsPerUsd
       : CANONICAL_PRICING.creditsPerUsd;
-  const p480 = videoCreditCost(table, '480p', 15);
-  const p720 = videoCreditCost(table, '720p', 15);
-  const p1080 = videoCreditCost(table, '1080p', 15);
+  const { p480, p720, p1080 } = WASSUP_15S_CREDITS;
   return {
     p480,
     p720,

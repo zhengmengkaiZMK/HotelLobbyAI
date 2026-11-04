@@ -52,8 +52,8 @@ const TIME_ZH =
   '「in a minute」是大家听成的歌词。它不是「生成会在六十秒内完成」的承诺。生成器写的是视频通常需要 2–3 分钟。';
 const WATER_EN = `Paid credit packs and monthly plans export without a ViralReel watermark, at 720p and 1080p. Packs are at ${PRICING}. Monthly plans are at ${SUB}.`;
 const WATER_ZH = `付费积分包和月付方案导出时没有 ViralReel 水印，720p 和 1080p 都支持。积分包在 ${PRICINGZ} 。月付在 ${SUBZ} 。`;
-const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 480p is 9 credits, 720p is 18 credits (about $1.50 at 12 credits = $1), and 1080p is 36 credits. The generator shows the exact number before you start. A new account starts with free credits for a first template video. That is not free forever. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Other tools’ prices change. This page does not quote them.`;
-const PRICE_ZH = `一条 wassup in a minute 成片固定 15 秒。默认积分表上，480p 是 9 积分，720p 是 18 积分（按 12 积分 = 1 美元，约 $1.50），1080p 是 36 积分。生成器会在开始前显示确切数字。新账号的免费积分够先做一条模板视频。这不是永远免费。一次性积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付在 ${SUBZ} 上 $9.9/月起，每月 90 积分。别的工具的价格会变。这一页不引用那些数字。`;
+const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number before you start. A new account starts with free credits for a first template video. That is not free forever. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Other tools’ prices change. This page does not quote them.`;
+const PRICE_ZH = `一条 wassup in a minute 成片固定 15 秒。默认积分表上，480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。生成器会在开始前显示确切数字。新账号的免费积分够先做一条模板视频。这不是永远免费。一次性积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付在 ${SUBZ} 上 $9.9/月起，每月 90 积分。别的工具的价格会变。这一页不引用那些数字。`;
 
 export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
   {
@@ -69,8 +69,8 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Is Wassup in a Minute free?', zh: 'Wassup in a Minute 免费吗？' },
     lead: {
-      en: 'Wassup in a minute is not free forever. A new account’s free credits cover a first template video. After that, a 15-second clip is 18 credits at the default 720p (about $1.50 at 12 credits = $1), or a pack from $9.9 for 90 credits.',
-      zh: 'Wassup in a minute 不是永远免费。新账号的免费积分够先做一条模板视频。之后，15 秒成片在默认 720p 是 18 积分（按 12 积分 = 1 美元，约 $1.50），或用 $9.9 起、90 积分的积分包。',
+      en: 'Wassup in a minute is not free forever. A new account’s free credits cover a first template video. After that, a 15-second clip is 75 credits at the default 720p (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits. Packs start at $9.9 for 90 credits.',
+      zh: 'Wassup in a minute 不是永远免费。新账号的免费积分够先做一条模板视频。之后，15 秒成片在默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。积分包 $9.9 起，含 90 积分。',
     },
     guideTitle: {
       en: 'What “free” does and does not mean',
@@ -419,8 +419,8 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute is 15 seconds', zh: 'Wassup in a Minute 是 15 秒' },
     lead: {
-      en: 'The wassup in a minute export is 15 seconds at 9:16. “In a minute” is the lyric. A render usually takes 2–3 minutes, and the default 720p charge is 18 credits.',
-      zh: 'Wassup in a minute 的导出是 15 秒、9:16。「in a minute」是歌词。渲染通常要 2–3 分钟，默认 720p 是 18 积分。',
+      en: 'The wassup in a minute export is 15 seconds at 9:16. “In a minute” is the lyric. A render usually takes 2–3 minutes, and the default 720p charge is 75 credits (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits.',
+      zh: 'Wassup in a minute 的导出是 15 秒、9:16。「in a minute」是歌词。渲染通常要 2–3 分钟，默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。',
     },
     guideTitle: {
       en: 'Clip length, lyric, and render time',

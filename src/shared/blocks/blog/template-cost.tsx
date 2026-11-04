@@ -7,7 +7,8 @@ import { wassupFifteenSecondCostAnswer } from '@/shared/lib/wassup-cost';
 
 /**
  * Shared credit answer so blog copy cannot drift from pricing.
- * `seconds={15}` is the wassup in a minute lock: 15-second cells, not the 8s rows.
+ * `seconds={15}` is the wassup in a minute lock: the published 15-second
+ * cells (60 / 75 / 90), not the 8-second rows and not 9 / 18 / 36.
  */
 export function TemplateCostParagraph({
   en,
