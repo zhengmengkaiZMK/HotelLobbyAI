@@ -22,6 +22,7 @@ import './home.css';
 // stays scannable. Templates removed from here (bulin, ozil, hotel)
 // are still listed in the footer links and on the homepage trending hub.
 const TRENDING_NAV_ORDER = [
+  'fancy-cafe',
   'charlie-brown',
   'sasha-la-catrina',
   'alors-on-danse',
@@ -31,7 +32,6 @@ const TRENDING_NAV_ORDER = [
   'tiny-desk',
   'pedra-do-sal',
   'bby-wow',
-  'hit-the-road-dude',
 ] as const;
 
 function trendingNavItems(): TrendingTemplate[] {

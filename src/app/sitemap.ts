@@ -6,6 +6,7 @@ import { BABA_LONG_TAIL_ROUTES } from '@/shared/blocks/baba-dance/long-tails';
 import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
 import { BULIN_LONG_TAIL_ROUTES } from '@/shared/blocks/bulin-47/long-tails';
 import { CHARLIE_BROWN_LONG_TAIL_ROUTES } from '@/shared/blocks/charlie-brown-christmas/long-tails';
+import { FANCY_CAFE_LONG_TAIL_ROUTES } from '@/shared/blocks/fancy-cafe/long-tails';
 import { HIT_THE_ROAD_LONG_TAIL_ROUTES } from '@/shared/blocks/hit-the-road-dude/long-tails';
 import { NOSTALGIA_LONG_TAIL_ROUTES } from '@/shared/blocks/nostalgia/long-tails';
 import { ALORS_ON_DANSE_LONG_TAIL_ROUTES } from '@/shared/blocks/alors-on-danse/long-tails';
@@ -26,6 +27,8 @@ const staticRoutes = [
   { path: '/', priority: 1, changeFrequency: 'daily' as const },
   { path: '/sasha-la-catrina-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...SASHA_LA_CATRINA_LONG_TAIL_ROUTES,
+  { path: '/first-time-in-a-fancy-cafe-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...FANCY_CAFE_LONG_TAIL_ROUTES,
   { path: '/charlie-brown-christmas-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...CHARLIE_BROWN_LONG_TAIL_ROUTES,
   { path: '/nostalgia-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },

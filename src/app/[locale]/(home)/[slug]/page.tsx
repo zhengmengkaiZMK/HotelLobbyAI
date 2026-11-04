@@ -1,6 +1,11 @@
 import { notFound } from 'next/navigation';
 
 import {
+  generateLongTailMetadata as generateFancyCafeMetadata,
+  LongTailRoute as FancyCafeLongTailRoute,
+} from '@/shared/blocks/fancy-cafe/long-tail-route';
+import { getFancyCafeLongTail } from '@/shared/blocks/fancy-cafe/long-tails';
+import {
   generateLongTailMetadata as generateCharlieBrownMetadata,
   LongTailRoute as CharlieBrownLongTailRoute,
 } from '@/shared/blocks/charlie-brown-christmas/long-tail-route';
@@ -54,7 +59,8 @@ export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | null {
+function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | null {
+  if (getFancyCafeLongTail(slug)) return 'fancy-cafe';
   if (getSashaLaCatrinaLongTail(slug)) return 'catrina';
   if (getAlorsOnDanseLongTail(slug)) return 'alors';
   if (getCharlieBrownLongTail(slug)) return 'charlie-brown';
@@ -76,6 +82,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   if (kind === 'alors') return generateAlorsOnDanseLongTailMetadata(localeParams, slug);
   if (kind === 'catrina') return generateSashaLaCatrinaLongTailMetadata(localeParams, slug);
   if (kind === 'charlie-brown') return generateCharlieBrownMetadata(localeParams, slug);
+  if (kind === 'fancy-cafe') return generateFancyCafeMetadata(localeParams, slug);
   return generateLandingMetadata({
     params: Promise.resolve({ locale, slug }),
   });
@@ -93,5 +100,6 @@ export default async function Page({ params }: { params: Params }) {
   if (kind === 'alors') return <AlorsOnDanseLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'catrina') return <SashaLaCatrinaLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'charlie-brown') return <CharlieBrownLongTailRoute {...localeParams} slug={slug} />;
+  if (kind === 'fancy-cafe') return <FancyCafeLongTailRoute {...localeParams} slug={slug} />;
   return <LandingDynamicPage params={Promise.resolve({ locale, slug })} />;
 }

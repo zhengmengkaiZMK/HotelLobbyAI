@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'fancy-cafe',
+    name: ['First Time in a Fancy Cafe', '第一次进高级咖啡馆'],
+    pitch: [
+      'Two photos put you in the viral cafe scene — perched on the tiny table until someone puts a coffee on it.',
+      '两张照片进爆火咖啡馆场景——坐在小桌上，直到有人把咖啡放上你的桌子。',
+    ],
+    href: '/first-time-in-a-fancy-cafe-ai-template',
+    badge: 'hot',
+    vibes: ['couples', 'meme'],
+    poster: '/templates/fancycafe-original-poster.jpg',
+    video: '/templates/fancycafe-original.mp4',
+    credit: '@leehoustonx',
+    colors: ['#a8a29e', '#1c1917'],
+  },
+  {
     id: 'sasha-la-catrina',
     name: ['Sasha La Catrina', 'Sasha La Catrina'],
     pitch: [
