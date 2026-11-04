@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'pimpwalk-entrance',
+    name: ['Pimpwalk Entrance', 'Pimpwalk Entrance'],
+    pitch: [
+      'A friend holds the door, you strut through low — the hold-the-door entrance of autumn 2026, cast with your photos.',
+      '朋友拉门，你低姿进场——2026 年秋天的扶门梗，用你的照片出镜。',
+    ],
+    href: '/pimpwalk-entrance-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'couples'],
+    poster: '/templates/pimpwalk-burger-poster.jpg',
+    video: '/templates/pimpwalk-burger.mp4',
+    credit: '@mrmiltonfrost',
+    colors: ['#166534', '#fde68a'],
+  },
+  {
     id: 'fancy-cafe',
     name: ['First Time in a Fancy Cafe', '第一次进高级咖啡馆'],
     pitch: [

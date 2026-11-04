@@ -1,6 +1,11 @@
 import { notFound } from 'next/navigation';
 
 import {
+  generateLongTailMetadata as generatePimpwalkMetadata,
+  LongTailRoute as PimpwalkLongTailRoute,
+} from '@/shared/blocks/pimpwalk-entrance/long-tail-route';
+import { getPimpwalkLongTail } from '@/shared/blocks/pimpwalk-entrance/long-tails';
+import {
   generateLongTailMetadata as generateFancyCafeMetadata,
   LongTailRoute as FancyCafeLongTailRoute,
 } from '@/shared/blocks/fancy-cafe/long-tail-route';
@@ -59,7 +64,8 @@ export const dynamic = 'force-dynamic';
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | null {
+function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | 'pimpwalk' | null {
+  if (getPimpwalkLongTail(slug)) return 'pimpwalk';
   if (getFancyCafeLongTail(slug)) return 'fancy-cafe';
   if (getSashaLaCatrinaLongTail(slug)) return 'catrina';
   if (getAlorsOnDanseLongTail(slug)) return 'alors';
@@ -83,6 +89,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   if (kind === 'catrina') return generateSashaLaCatrinaLongTailMetadata(localeParams, slug);
   if (kind === 'charlie-brown') return generateCharlieBrownMetadata(localeParams, slug);
   if (kind === 'fancy-cafe') return generateFancyCafeMetadata(localeParams, slug);
+  if (kind === 'pimpwalk') return generatePimpwalkMetadata(localeParams, slug);
   return generateLandingMetadata({
     params: Promise.resolve({ locale, slug }),
   });
@@ -101,5 +108,6 @@ export default async function Page({ params }: { params: Params }) {
   if (kind === 'catrina') return <SashaLaCatrinaLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'charlie-brown') return <CharlieBrownLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'fancy-cafe') return <FancyCafeLongTailRoute {...localeParams} slug={slug} />;
+  if (kind === 'pimpwalk') return <PimpwalkLongTailRoute {...localeParams} slug={slug} />;
   return <LandingDynamicPage params={Promise.resolve({ locale, slug })} />;
 }
