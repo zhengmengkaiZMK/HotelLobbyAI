@@ -1,10 +1,10 @@
+import { fancyCafeFifteenSecondCostAnswer } from '@/shared/lib/fancy-cafe-cost';
 import {
-  failedJobCreditRefundAnswer,
   paidExportWatermarkAnswer,
-  templateLiveCostAnswer,
   type TemplateCostContext,
 } from '@/shared/lib/pricing-copy';
 
+import { FANCY_CAFE_CITE_TAILS } from './cite-tails';
 import { FANCY_CAFE_HOW_TO_STEPS, type FancyCafeHowToStep } from './steps';
 
 /**
@@ -24,6 +24,8 @@ export const FANCY_CAFE_POSTS = {
   capcut: '/blog/fancy-cafe-capcut-vs-viralreel',
   song: '/blog/fancy-cafe-song-oh-yeah',
   roundup: '/blog/october-2026-viral-ai-meme-videos',
+  best: '/blog/best-fancy-cafe-ai-generators',
+  photo: '/blog/fancy-cafe-photo-tips',
 } as const;
 
 const PRODUCT = { en: 'Your First Time in a Fancy Cafe', zh: 'Your First Time in a Fancy Cafe' };
@@ -763,6 +765,7 @@ export const FANCY_CAFE_LONG_TAILS: readonly LongTailEntry[] = [
       },
     ],
   },
+  ...FANCY_CAFE_CITE_TAILS,
 ];
 
 export function getFancyCafeLongTail(slug: string) {
@@ -791,8 +794,8 @@ export function buildLongTailFaq(
           '照片有什么要求？',
           '两张全身照，每张一个人，姿势放松：第 1 张坐桌，第 2 张进店。不要证件照式的僵硬姿势，也不要一张照片塞两张脸。不要用未成年人、名人或未经同意的人。',
         ],
-        ['能免费试吗？', '能。每个新注册的 ViralReel 账号都自带免费积分，足够先做第一条再决定付费。'],
-        ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx)],
+        ['能免费试吗？', `新账号的免费积分够先做 1 条。之后不是永远免费。${fancyCafeFifteenSecondCostAnswer(PRODUCT, true, ctx)}`],
+        ['要多少积分？', fancyCafeFifteenSecondCostAnswer(PRODUCT, true, ctx)],
         ['渲染要多久？', '通常几分钟，视模型和队列而定；成片在「历史记录」里取，失败任务自动退积分。'],
         ['付费导出有水印吗？', paidExportWatermarkAnswer(true)],
         [
@@ -809,8 +812,8 @@ export function buildLongTailFaq(
           'What do the photos need?',
           'Two full-body photos, one person each, relaxed poses: photo 1 sits on the table, photo 2 walks in. No passport-stiff poses and no two faces in one photo. Do not use minors, celebrities, or people who did not agree.',
         ],
-        ['Can I try it free?', 'Yes. Every new ViralReel account starts with free credits — enough to render your first video before paying.'],
-        ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx)],
+        ['Can I try it free?', `Starter credits cover 1 video. It is not free forever. ${fancyCafeFifteenSecondCostAnswer(PRODUCT, false, ctx)}`],
+        ['How many credits does it cost?', fancyCafeFifteenSecondCostAnswer(PRODUCT, false, ctx)],
         ['How long does rendering take?', 'Typically a few minutes depending on the model and queue; finished clips land in History and failed jobs are refunded automatically.'],
         ['Are paid exports watermark-free?', paidExportWatermarkAnswer(false)],
         [
@@ -869,10 +872,30 @@ export function fancyCafeLinkGroups(zh: boolean): FancyCafeLinkGroup[] {
       ],
     },
     {
+      title: zh ? 'ChatGPT 会问的问题' : 'Questions ChatGPT asks',
+      links: [
+        { href: '/fancy-cafe-free', label: zh ? '是否免费：60 / 75 / 90' : 'Is it free? 60 / 75 / 90' },
+        { href: '/fancy-cafe-best', label: zh ? '什么时候用这个模板' : 'When this template fits' },
+        { href: '/fancy-cafe-how-to', label: zh ? '短教程' : 'Short how-to' },
+        { href: '/fancy-cafe-chatgpt', label: 'ChatGPT' },
+        { href: '/fancy-cafe-prompt', label: zh ? '没有提示词框' : 'No prompt box' },
+        { href: '/fancy-cafe-sound', label: zh ? '原声：Oh Yeah?' : 'The sound: Oh Yeah?' },
+        { href: '/fancy-cafe-no-watermark', label: zh ? '无水印' : 'No watermark' },
+        { href: '/fancy-cafe-without-capcut', label: zh ? '不用 CapCut' : 'Without CapCut' },
+        { href: '/fancy-cafe-kling', label: 'Kling' },
+        { href: '/fancy-cafe-seedance', label: 'Seedance' },
+        { href: '/kevkevkiwi-fancy-cafe', label: '@kevkevkiwi' },
+        { href: '/first-time-at-a-fancy-cafe', label: zh ? 'at 和 in 是同一条' : '“at” is the same clip' },
+        { href: '/fancy-cafe-first-time', label: zh ? '颠倒词序' : 'Flipped word order' },
+      ],
+    },
+    {
       title: zh ? '指南' : 'Guides',
       links: [
         { href: FANCY_CAFE_POSTS.howTo, label: zh ? '如何制作 fancy cafe AI 视频' : 'How to make a fancy cafe AI video' },
         { href: FANCY_CAFE_POSTS.explained, label: zh ? '趋势是什么、从哪来' : 'What the trend is and where it came from' },
+        { href: FANCY_CAFE_POSTS.best, label: zh ? '最好的 fancy cafe AI 生成器' : 'Best fancy cafe AI generators' },
+        { href: FANCY_CAFE_POSTS.photo, label: zh ? '照片怎么拍' : 'Photo tips' },
         { href: FANCY_CAFE_POSTS.roundup, label: zh ? '2026 年 10 月 AI 梗视频盘点' : 'October 2026 AI meme videos' },
         { href: '/tiny-desk-outstanding-ai-template', label: zh ? 'Tiny Desk Outstanding AI 模板' : 'Tiny Desk Outstanding AI template' },
       ],

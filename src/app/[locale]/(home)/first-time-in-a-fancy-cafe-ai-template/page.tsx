@@ -2,7 +2,7 @@ import { setRequestLocale } from 'next-intl/server';
 
 import { envConfigs } from '@/config';
 import { FancyCafeHome } from '@/shared/blocks/fancy-cafe/home';
-import { FANCY_CAFE_FAQ } from '@/shared/blocks/fancy-cafe/faq';
+import { getFancyCafeFaq } from '@/shared/blocks/fancy-cafe/faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
@@ -78,7 +78,7 @@ export default async function FirstTimeInAFancyCafeAiTemplatePage({
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs(true));
-  const faq = FANCY_CAFE_FAQ[zh ? 'zh' : 'en'];
+  const faq = getFancyCafeFaq(zh, { creditsPerUsd, videoCosts });
 
   const faqJsonLd = {
     '@context': 'https://schema.org',
