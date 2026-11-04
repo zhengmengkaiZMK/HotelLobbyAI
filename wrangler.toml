@@ -3,6 +3,9 @@ main = ".open-next/worker.js"
 compatibility_date = "2025-03-01"
 compatibility_flags = ["nodejs_compat"]
 
+# 新版 wrangler 默认上传 sourcemap（~77MB）会超过 Cloudflare 60MB 上限，关闭
+upload_source_maps = false
+
 # CPU 限额（毫秒/请求）。付费版默认 30 秒，显式提高到 2 分钟以排除限额不足
 [limits]
 cpu_ms = 120000
