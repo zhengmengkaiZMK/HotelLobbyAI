@@ -76,9 +76,9 @@ export default async function FirstTimeInAFancyCafeAiTemplatePage({
   const { locale } = await params;
   setRequestLocale(locale);
   const zh = locale === 'zh';
-  // Cached read (unstable_cache, 1h) instead of getAllConfigs(true): the
+  // Cached read (unstable_cache, 3 min) instead of getAllConfigs(true): the
   // fresh read hits D1 on every request and dominated this page's TTFB.
-  // Displayed prices may lag admin edits by up to an hour; billing paths
+  // Displayed prices may lag admin edits by up to 3 minutes; billing paths
   // still read fresh configs.
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const videoCosts = getVideoCostTable(await getAllConfigs());

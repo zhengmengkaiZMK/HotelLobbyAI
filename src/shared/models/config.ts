@@ -98,7 +98,9 @@ export const getConfigs = unstable_cache(
   loadConfigsFromDb,
   ['configs'],
   {
-    revalidate: 3600,
+    // 3-minute staleness window: admin edits surface on public pages within
+    // ~3 minutes, at the cost of one D1 read per isolate per 3 minutes.
+    revalidate: 180,
     tags: [CACHE_TAG_CONFIGS],
   }
 );
