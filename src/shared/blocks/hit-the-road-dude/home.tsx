@@ -19,6 +19,8 @@ import { HIT_THE_ROAD_HOW_TO_STEPS } from './steps';
 import { hitTheRoadDudeTemplates, type HitTheRoadDudeTemplate } from './templates';
 import '@/shared/blocks/viral-home/home.css';
 
+const activeVideos: HTMLVideoElement[] = [];
+
 function TemplateVideo({ item, zh }: { item: HitTheRoadDudeTemplate; zh: boolean }) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const [muted, setMuted] = useState(true);
@@ -26,8 +28,7 @@ function TemplateVideo({ item, zh }: { item: HitTheRoadDudeTemplate; zh: boolean
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !window.matchMedia('(hover: none), (pointer: coarse)').matches) el.play().catch(() => {});
-      else el.pause();
+      if (entry.isIntersecting) { activeVideos.push(el); while (activeVideos.length > 3) { const v = activeVideos.shift(); if (v && v !== el) v.pause(); } el.play().catch(() => {}); }else { const vi = activeVideos.indexOf(el); if (vi >= 0) activeVideos.splice(vi, 1); el.pause(); }
     }, { threshold: 0.3 });
     observer.observe(el);
     return () => observer.disconnect();

@@ -75,6 +75,8 @@ function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' }) {
   );
 }
 
+const activeVideos: HTMLVideoElement[] = [];
+
 function TrendVideo({
   src,
   poster,
@@ -90,8 +92,7 @@ function TrendVideo({
     if (!el) return;
     const observer = new IntersectionObserver(
       ([entry]) => {
-        if (entry.isIntersecting && !window.matchMedia('(hover: none), (pointer: coarse)').matches) el.play().catch(() => {});
-        else el.pause();
+        if (entry.isIntersecting) { activeVideos.push(el); while (activeVideos.length > 3) { const v = activeVideos.shift(); if (v && v !== el) v.pause(); } el.play().catch(() => {}); }else { const vi = activeVideos.indexOf(el); if (vi >= 0) activeVideos.splice(vi, 1); el.pause(); }
       },
       { threshold: 0.3 }
     );

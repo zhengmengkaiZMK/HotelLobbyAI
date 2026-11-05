@@ -28,6 +28,8 @@ function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' | 'x'
   return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{paths[type]}</svg>;
 }
 
+const activeVideos: HTMLVideoElement[] = [];
+
 function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, string] }) {
   const ref = useRef<HTMLVideoElement | null>(null);
   const [muted, setMuted] = useState(true);
@@ -35,8 +37,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting && !window.matchMedia('(hover: none), (pointer: coarse)').matches) el.play().catch(() => {});
-      else el.pause();
+      if (entry.isIntersecting) { activeVideos.push(el); while (activeVideos.length > 3) { const v = activeVideos.shift(); if (v && v !== el) v.pause(); } el.play().catch(() => {}); }else { const vi = activeVideos.indexOf(el); if (vi >= 0) activeVideos.splice(vi, 1); el.pause(); }
     }, { threshold: 0.3 });
     observer.observe(el);
     return () => observer.disconnect();
