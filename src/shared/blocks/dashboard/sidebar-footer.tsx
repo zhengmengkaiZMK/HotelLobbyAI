@@ -1,5 +1,7 @@
 'use client';
 
+import { Suspense } from 'react';
+
 import { Link } from '@/core/i18n/navigation';
 import { SmartIcon } from '@/shared/blocks/common/smart-icon';
 import { Separator } from '@/shared/components/ui/separator';
@@ -36,7 +38,12 @@ export function SidebarFooter({ footer }: { footer: SidebarFooterType }) {
             <Separator orientation="vertical" className="h-4" />
           )}
           {footer.show_theme && <ThemeToggler />}
-          {footer.show_locale && <LocaleSelector />}
+          {/* Suspense: LocaleSelector reads useSearchParams (prerender CSR bailout). */}
+          {footer.show_locale && (
+            <Suspense fallback={null}>
+              <LocaleSelector />
+            </Suspense>
+          )}
         </div>
       ) : null}
     </>

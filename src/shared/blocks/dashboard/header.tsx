@@ -1,4 +1,4 @@
-import { Fragment } from 'react';
+import { Fragment, Suspense } from 'react';
 
 import { Link } from '@/core/i18n/navigation';
 import {
@@ -84,7 +84,12 @@ export function Header({
             </div>
           )}
           {show_theme && <ThemeToggler />}
-          {show_locale !== false && <LocaleSelector type="button" />}
+          {/* Suspense: LocaleSelector reads useSearchParams (prerender CSR bailout). */}
+          {show_locale !== false ? (
+            <Suspense fallback={null}>
+              <LocaleSelector type="button" />
+            </Suspense>
+          ) : null}
         </div>
       </div>
     </header>

@@ -1,3 +1,5 @@
+import { Suspense } from 'react';
+
 import { Link } from '@/core/i18n/navigation';
 import {
   BrandLogo,
@@ -58,8 +60,11 @@ export function Footer({ footer }: { footer: FooterType }) {
           {footer.show_built_with !== false ? <BuiltWith /> : null}
           <div className="min-w-0 flex-1" />
           {footer.show_theme !== false ? <ThemeToggler type="toggle" /> : null}
+          {/* Suspense: LocaleSelector reads useSearchParams (prerender CSR bailout). */}
           {footer.show_locale !== false ? (
-            <LocaleSelector type="button" />
+            <Suspense fallback={null}>
+              <LocaleSelector type="button" />
+            </Suspense>
           ) : null}
         </div>
 

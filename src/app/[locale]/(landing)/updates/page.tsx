@@ -1,5 +1,11 @@
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
+// Reads posts from the DB at render time. In CI the build has no
+// DATABASE_URL, so prerendering would commit an empty-posts snapshot to the
+// ISR cache (it would self-heal on revalidate, but show empty for minutes
+// after every deploy). Render on demand instead.
+export const dynamic = 'force-dynamic';
+
 import { getThemePage } from '@/core/theme';
 import { getMetadata } from '@/shared/lib/seo';
 import {

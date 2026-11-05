@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useState } from 'react';
+import { Suspense, useEffect, useState } from 'react';
 import { UIMessage, UseChatHelpers } from '@ai-sdk/react';
 import { useLocale, useTranslations } from 'next-intl';
 import { toast } from 'sonner';
@@ -103,7 +103,10 @@ export function ChatGenerator() {
       <header className="bg-background sticky top-0 z-10 flex w-full items-center gap-2 px-4 py-3">
         <SidebarTrigger className="size-7" />
         <div className="flex-1"></div>
-        <LocaleSelector />
+        {/* Suspense: LocaleSelector reads useSearchParams (prerender CSR bailout). */}
+        <Suspense fallback={null}>
+          <LocaleSelector />
+        </Suspense>
       </header>
       <div className="mx-auto -mt-16 flex h-screen w-full flex-1 flex-col items-center justify-center px-4 pb-6 md:max-w-2xl">
         <h2 className="mb-4 text-center text-3xl font-bold">{t('title')}</h2>
