@@ -1,8 +1,98 @@
-import { ComponentType, lazy, Suspense } from 'react';
+import { ComponentType } from 'react';
 
-const iconCache: { [key: string]: ComponentType<any> } = {};
+import {
+  RiAddLine,
+  RiArrowRightLine,
+  RiCloseLine,
+  RiDeleteBinLine,
+  RiDiscordFill,
+  RiEditLine,
+  RiEqualizerLine,
+  RiEyeLine,
+  RiGithubFill,
+  RiGlobalLine,
+  RiGoogleFill,
+  RiHome4Line,
+  RiLockPasswordLine,
+  RiMailLine,
+  RiMenuLine,
+  RiQuestionLine,
+  RiRefreshLine,
+  RiTelegramFill,
+  RiTwitterXFill,
+  RiUserLine,
+  RiYoutubeFill,
+} from 'react-icons/ri';
+import {
+  ArrowLeft,
+  ArrowUpRight,
+  Ban,
+  Coins,
+  HelpCircle,
+  Mail,
+  Menu,
+  Newspaper,
+  Pencil,
+  Plus,
+  Search,
+  Settings,
+  Users,
+  Video,
+} from 'lucide-react';
 
-// Function to automatically detect icon library
+/**
+ * Static, curated icon maps.
+ *
+ * IMPORTANT: never `import('react-icons/ri')` / `import('lucide-react')`
+ * dynamically here. A dynamic barrel import defeats tree-shaking and ships
+ * the ENTIRE icon set (~1.9 MB for react-icons/ri) to every visitor.
+ * Static named imports are tree-shaken to only the icons listed below.
+ *
+ * If a name from admin config is missing from these maps, the fallback
+ * question-mark icon is rendered instead. When adding new icon-driven
+ * features, register the icon in the matching map below.
+ */
+const riIcons: { [key: string]: ComponentType<any> } = {
+  RiAddLine,
+  RiArrowRightLine,
+  RiCloseLine,
+  RiDeleteBinLine,
+  RiDiscordFill,
+  RiEditLine,
+  RiEqualizerLine,
+  RiEyeLine,
+  RiGithubFill,
+  RiGlobalLine,
+  RiGoogleFill,
+  RiHome4Line,
+  RiLockPasswordLine,
+  RiMailLine,
+  RiMenuLine,
+  RiQuestionLine,
+  RiRefreshLine,
+  RiTelegramFill,
+  RiTwitterXFill,
+  RiUserLine,
+  RiYoutubeFill,
+};
+
+const lucideIcons: { [key: string]: ComponentType<any> } = {
+  ArrowLeft,
+  ArrowUpRight,
+  Ban,
+  Coins,
+  HelpCircle,
+  Mail,
+  Menu,
+  Newspaper,
+  Pencil,
+  Plus,
+  Search,
+  Settings,
+  Users,
+  Video,
+};
+
 function detectIconLibrary(name: string): 'ri' | 'lucide' {
   if (name && name.startsWith('Ri')) {
     return 'ri';
@@ -23,59 +113,16 @@ export function SmartIcon({
   [key: string]: any;
 }) {
   const library = detectIconLibrary(name);
-  const cacheKey = `${library}-${name}`;
 
-  if (!iconCache[cacheKey]) {
-    if (library === 'ri') {
-      // React Icons (Remix Icons)
-      iconCache[cacheKey] = lazy(async () => {
-        try {
-          const module = await import('react-icons/ri');
-          const IconComponent = module[name as keyof typeof module];
-          if (IconComponent) {
-            return { default: IconComponent as ComponentType<any> };
-          } else {
-            console.warn(
-              `Icon "${name}" not found in react-icons/ri, using fallback`
-            );
-            return { default: module.RiQuestionLine as ComponentType<any> };
-          }
-        } catch (error) {
-          console.error(`Failed to load react-icons/ri:`, error);
-          const fallbackModule = await import('react-icons/ri');
-          return {
-            default: fallbackModule.RiQuestionLine as ComponentType<any>,
-          };
-        }
-      });
-    } else {
-      // Lucide React (default)
-      iconCache[cacheKey] = lazy(async () => {
-        try {
-          const module = await import('lucide-react');
-          const IconComponent = module[name as keyof typeof module];
-          if (IconComponent) {
-            return { default: IconComponent as ComponentType<any> };
-          } else {
-            console.warn(
-              `Icon "${name}" not found in lucide-react, using fallback`
-            );
-            return { default: module.HelpCircle as ComponentType<any> };
-          }
-        } catch (error) {
-          console.error(`Failed to load lucide-react:`, error);
-          const fallbackModule = await import('lucide-react');
-          return { default: fallbackModule.HelpCircle as ComponentType<any> };
-        }
-      });
-    }
+  const map = library === 'ri' ? riIcons : lucideIcons;
+  const Fallback = library === 'ri' ? RiQuestionLine : HelpCircle;
+  const IconComponent = map[name] || Fallback;
+
+  if (!map[name]) {
+    console.warn(
+      `Icon "${name}" not found in the ${library} icon map, using fallback. Add it to src/shared/blocks/common/smart-icon.tsx.`
+    );
   }
 
-  const IconComponent = iconCache[cacheKey];
-
-  return (
-    <Suspense fallback={<div style={{ width: size, height: size }} />}>
-      <IconComponent size={size} className={className} {...props} />
-    </Suspense>
-  );
+  return <IconComponent size={size} className={className} {...props} />;
 }

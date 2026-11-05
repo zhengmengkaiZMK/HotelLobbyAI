@@ -104,7 +104,14 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                   >
                     {showThumbs && item.poster ? (
                       <span className="sub-thumb" aria-hidden="true">
-                        <img src={item.poster} alt="" width={36} height={52} />
+                        <img
+                          src={item.poster}
+                          alt=""
+                          width={36}
+                          height={52}
+                          loading="lazy"
+                          decoding="async"
+                        />
                       </span>
                     ) : null}
                     <span>{item.name[zh ? 1 : 0]}</span>
