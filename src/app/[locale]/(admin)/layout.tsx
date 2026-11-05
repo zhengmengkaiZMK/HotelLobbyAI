@@ -1,5 +1,9 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
+
+// Admin does session-based redirects in this layout: never prerender or
+// cache it (a build-time render has no cookies and would cache a redirect).
+export const dynamic = 'force-dynamic';
 
 import { requireAdminAccess } from '@/core/rbac/permission';
 import { LocaleDetector } from '@/shared/blocks/common';
@@ -47,7 +51,10 @@ export default async function AdminLayout({
 
   return (
     <DashboardLayout sidebar={sidebar}>
-      <LocaleDetector />
+      {/* Suspense: LocaleDetector reads useSearchParams (prerender CSR bailout). */}
+      <Suspense fallback={null}>
+        <LocaleDetector />
+      </Suspense>
       {children}
     </DashboardLayout>
   );

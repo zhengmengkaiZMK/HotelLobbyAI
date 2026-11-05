@@ -5,7 +5,7 @@ import {
 
 const SLUG = 'dame-hombro-ai';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export function generateMetadata(props: {
   params: Promise<{ locale: string }>;

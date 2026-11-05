@@ -14,7 +14,7 @@ import {
   getPricingPlans,
 } from '@/shared/services/pricing';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 const META = {
   en: {

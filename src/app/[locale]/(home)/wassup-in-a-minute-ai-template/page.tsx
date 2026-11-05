@@ -10,7 +10,7 @@ import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 import { wassupFifteenSecondCosts, wassupHubLead } from '@/shared/lib/wassup-cost';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 const META = {
   en: {

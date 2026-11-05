@@ -1,4 +1,4 @@
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { getTranslations } from 'next-intl/server';
 
 import { getThemeLayout } from '@/core/theme';
@@ -62,7 +62,11 @@ export default async function LandingLayout({
 
   return (
     <Layout header={header}>
-      <LocaleDetector />
+      {/* Suspense: LocaleDetector reads useSearchParams (CSR bailout during
+          prerender). Its SSR output is always null, so this is a no-op. */}
+      <Suspense fallback={null}>
+        <LocaleDetector />
+      </Suspense>
       {bannerEnabled && bannerText && (
         <TopBanner
           id={bannerCacheId(bannerText)}

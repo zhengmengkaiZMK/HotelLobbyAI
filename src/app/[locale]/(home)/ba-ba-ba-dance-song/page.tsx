@@ -2,7 +2,7 @@ import { generateBabaLongTailMetadata, BabaLongTailRoute } from '@/shared/blocks
 
 const SLUG = 'ba-ba-ba-dance-song';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export function generateMetadata(props: { params: Promise<{ locale: string }> }) {
   return generateBabaLongTailMetadata(props, SLUG);

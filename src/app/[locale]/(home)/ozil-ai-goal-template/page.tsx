@@ -8,7 +8,7 @@ import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
 import { getCreditsPerUsdFromConfigs } from '@/shared/services/pricing';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 const META = {
   en: {

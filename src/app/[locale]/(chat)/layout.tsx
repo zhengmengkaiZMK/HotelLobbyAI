@@ -1,6 +1,6 @@
 'use client';
 
-import { ReactNode } from 'react';
+import { ReactNode, Suspense } from 'react';
 import { useTranslations } from 'next-intl';
 
 import { ChatLibrary } from '@/shared/blocks/chat/library';
@@ -19,7 +19,10 @@ export default function ChatLayout({ children }: { children: ReactNode }) {
   return (
     <ChatContextProvider>
       <DashboardLayout sidebar={sidebar}>
-        <LocaleDetector />
+        {/* Suspense: LocaleDetector reads useSearchParams (prerender CSR bailout). */}
+        <Suspense fallback={null}>
+          <LocaleDetector />
+        </Suspense>
         {children}
       </DashboardLayout>
     </ChatContextProvider>

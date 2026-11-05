@@ -14,7 +14,7 @@ import { getCurrentSubscription } from '@/shared/models/subscription';
 import { getUserInfo } from '@/shared/models/user';
 import { getSubscribeFaq } from '@/shared/lib/pricing-copy';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 const META = {
   en: {

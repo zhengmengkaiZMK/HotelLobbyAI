@@ -49,6 +49,21 @@ const jetbrainsMono = localFont({
 
 export const generateMetadata = getMetadata();
 
+// Site-wide ISR (default 5 min): enumerating the [locale] segment lets Next
+// prerender every static-compatible page at build time and serve cached HTML
+// via the OpenNext R2 incremental cache, instead of full SSR per request.
+// Pages that use dynamic APIs (cookies()/headers(), session reads) bail out
+// to on-demand rendering automatically at build time — no behavior change
+// for dashboard/auth/payment routes.
+// Marketing pages read configs through unstable_cache (3 min), so displayed
+// prices may lag admin edits by up to ~5 min; billing paths still read fresh
+// configs.
+export const revalidate = 300;
+
+export function generateStaticParams() {
+  return locales.map((locale) => ({ locale }));
+}
+
 export default async function LocaleLayout({
   children,
   params,

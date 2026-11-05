@@ -2,7 +2,7 @@ import { generateLongTailMetadata, LongTailRoute } from '@/shared/blocks/bby-wow
 
 const SLUG = 'dime-dime-baby-generator';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 export function generateMetadata(props: { params: Promise<{ locale: string }> }) {
   return generateLongTailMetadata(props, SLUG);

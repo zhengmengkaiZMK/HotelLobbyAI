@@ -8,7 +8,7 @@ import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { BB_FAQ } from '@/shared/blocks/burning-bridges/faq';
 
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 const META = {
   en: {

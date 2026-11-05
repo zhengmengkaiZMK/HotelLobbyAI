@@ -60,7 +60,7 @@ import LandingDynamicPage, {
  *
  * No generateStaticParams: OpenNext should keep a single [slug] route entry.
  */
-export const dynamic = 'force-dynamic';
+export const revalidate = 300;
 
 type Params = Promise<{ locale: string; slug: string }>;
 
