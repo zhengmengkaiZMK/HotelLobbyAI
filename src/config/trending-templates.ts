@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'bicep-heart',
+    name: ['Bicep Heart', 'Bicep Heart 比心'],
+    pitch: [
+      'One photo flexes a tiny heart against the bicep — the late-October trend, pets included.',
+      '一张照片，弯起手臂比出一颗肱二头肌小心心——10 月底爆火的梗，宠物也能玩。',
+    ],
+    href: '/bicep-heart-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'pets'],
+    poster: '/templates/bicep-buff-poster.jpg',
+    video: '/templates/bicep-buff.mp4',
+    colors: ['#2563eb', '#1e3a8a'],
+  },
+  {
     id: 'pimpwalk-entrance',
     name: ['Pimpwalk Entrance', 'Pimpwalk Entrance'],
     pitch: [

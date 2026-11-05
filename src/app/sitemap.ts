@@ -3,6 +3,7 @@ import type { MetadataRoute } from 'next';
 import { envConfigs } from '@/config';
 import { defaultLocale, locales } from '@/config/locale';
 import { BABA_LONG_TAIL_ROUTES } from '@/shared/blocks/baba-dance/long-tails';
+import { BICEP_HEART_LONG_TAIL_ROUTES } from '@/shared/blocks/bicep-heart/long-tails';
 import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
 import { BULIN_LONG_TAIL_ROUTES } from '@/shared/blocks/bulin-47/long-tails';
 import { CHARLIE_BROWN_LONG_TAIL_ROUTES } from '@/shared/blocks/charlie-brown-christmas/long-tails';
@@ -46,6 +47,8 @@ const staticRoutes = [
   { path: '/burning-bridges-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/bulin-47-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...BULIN_LONG_TAIL_ROUTES,
+  { path: '/bicep-heart-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...BICEP_HEART_LONG_TAIL_ROUTES,
   { path: '/tiny-desk-outstanding-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...TINY_DESK_LONG_TAIL_ROUTES,
   { path: '/window-peeper-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },

@@ -69,6 +69,7 @@ export default async function SettingsPage({
     'viral_family_models_baba_dance',
     'viral_family_models_wassup_in_a_minute',
     'viral_family_models_nostalgia_capcut',
+    'viral_family_models_bicep_heart',
   'viral_family_models_alors_on_danse',
     'viral_family_models_sasha_la_catrina',
     'viral_family_default_model_hotel',
@@ -87,6 +88,7 @@ export default async function SettingsPage({
     'viral_family_default_model_baba_dance',
     'viral_family_default_model_wassup_in_a_minute',
     'viral_family_default_model_nostalgia_capcut',
+    'viral_family_default_model_bicep_heart',
   'viral_family_default_model_alors_on_danse',
   'viral_family_default_model_sasha_la_catrina',
   ]);

@@ -1,6 +1,11 @@
 import { notFound } from 'next/navigation';
 
 import {
+  generateBicepHeartLongTailMetadata,
+  BicepHeartLongTailRoute,
+} from '@/shared/blocks/bicep-heart/long-tail-route';
+import { getBicepHeartLongTail } from '@/shared/blocks/bicep-heart/long-tails';
+import {
   generateLongTailMetadata as generatePimpwalkMetadata,
   LongTailRoute as PimpwalkLongTailRoute,
 } from '@/shared/blocks/pimpwalk-entrance/long-tail-route';
@@ -64,7 +69,8 @@ export const revalidate = 300;
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-function series(slug: string): 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | 'pimpwalk' | null {
+function series(slug: string): 'bicep-heart' | 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | 'pimpwalk' | null {
+  if (getBicepHeartLongTail(slug)) return 'bicep-heart';
   if (getPimpwalkLongTail(slug)) return 'pimpwalk';
   if (getFancyCafeLongTail(slug)) return 'fancy-cafe';
   if (getSashaLaCatrinaLongTail(slug)) return 'catrina';
@@ -81,6 +87,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   const { locale, slug } = await params;
   const kind = series(slug);
   const localeParams = { params: Promise.resolve({ locale }) };
+  if (kind === 'bicep-heart') return generateBicepHeartLongTailMetadata(localeParams, slug);
   if (kind === 'wassup') return generateWassupMetadata(localeParams, slug);
   if (kind === 'hit') return generateHitMetadata(localeParams, slug);
   if (kind === 'tiny-desk') return generateTinyDeskMetadata(localeParams, slug);
@@ -100,6 +107,7 @@ export default async function Page({ params }: { params: Params }) {
   if (!slug || slug.includes('/') || slug.includes('.')) notFound();
   const kind = series(slug);
   const localeParams = { params: Promise.resolve({ locale }) };
+  if (kind === 'bicep-heart') return <BicepHeartLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'wassup') return <WassupLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'hit') return <HitLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'tiny-desk') return <TinyDeskLongTailRoute {...localeParams} slug={slug} />;
