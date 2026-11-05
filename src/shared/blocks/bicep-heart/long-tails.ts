@@ -67,9 +67,9 @@ const SOUND_EN =
 const SOUND_ZH =
   '导出无声。发布时在 TikTok、Reels 或 Shorts 里从应用曲库加上 bicep heart 热梗原声，并打开 AI 生成标注。ViralReel 不授权热梗音频。';
 const SETS_EN =
-  'The five sets are Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, and Original Trend.';
+  'The nine sets are Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, and four new trend replays (the have-you-heard opener, the trend boy, the tattoo girl, and the black tank heart).';
 const SETS_ZH =
-  '五套阵容是健身猛男、日常小心心、猫咪比心、狗狗比心和原梗复刻。';
+  '九套阵容是健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻，以及四款新复刻（听说过吗开场、门口 trend 男生、纹身女生、黑背心男生）。';
 
 export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
   {
@@ -80,8 +80,8 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
       zh: 'Bicep Heart AI：一张照片在 ViralReel 比出一颗小心心',
     },
     description: {
-      en: 'bicep heart ai: ViralReel turns one photo into a 7-second clip — shy smile, one-arm flex, and a hand curled against the bicep into a small heart. Five sets, people and pets. Silent export, add the trend sound in the app.',
-      zh: 'bicep heart ai：ViralReel 把一张照片变成 7 秒视频——害羞一笑、单臂弯举、另一只手扣在肱二头肌上合成小心心。五套阵容，人和宠物都行。导出无声，热梗原声在 App 里加。',
+      en: 'bicep heart ai: ViralReel turns one photo into a 7-second clip — shy smile, one-arm flex, and a hand curled against the bicep into a small heart. Nine sets, people and pets. Silent export, add the trend sound in the app.',
+      zh: 'bicep heart ai：ViralReel 把一张照片变成 7 秒视频——害羞一笑、单臂弯举、另一只手扣在肱二头肌上合成小心心。九套阵容，人和宠物都行。导出无声，热梗原声在 App 里加。',
     },
     h1: { en: 'Bicep heart AI', zh: 'Bicep heart AI' },
     lead: {
@@ -95,12 +95,12 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
     body: {
       en: [
         'The bicep heart is the pose that took over TikTok and X in late October 2026: flex one arm with the fist beside the head, curl the other hand against the bicep, and hand plus muscle close into one small heart. People send it as a bit of love, captioned "send bicep hearts".',
-        `Bicep heart AI replays the whole pose with the person from your photo. Open ${EN_TEMPLATE}, pick one of five sets, and upload one waist-up photo. ${PHOTO_EN} The export is a new silent 7-second 9:16 MP4 — not a download of somebody else\'s clip.`,
+        `Bicep heart AI replays the whole pose with the person from your photo. Open ${EN_TEMPLATE}, pick one of nine sets, and upload one waist-up photo. ${PHOTO_EN} The export is a new silent 7-second 9:16 MP4 — not a download of somebody else\'s clip.`,
         `After it downloads, ${SOUND_EN} A new ViralReel account starts with free credits for a first template video, then a credit pack or a monthly plan; the generator shows the cost before you start.`,
       ],
       zh: [
         'Bicep heart 是 2026 年 10 月底刷屏 TikTok 和 X 的姿势：一条手臂弯起、拳头靠在头边，另一只手扣在肱二头肌上，手和肌肉合成一颗小心心。人们把它当一份小心意发出去，文案写「send bicep hearts」。',
-        `Bicep heart AI 用你照片里的人重演整套动作。打开 ${ZH_TEMPLATE} ，五套阵容里选一套，上传一张半身照。${PHOTO_ZH} 导出是一条新的无声 7 秒 9:16 MP4——不是别人视频的下载。`,
+        `Bicep heart AI 用你照片里的人重演整套动作。打开 ${ZH_TEMPLATE} ，九套阵容里选一套，上传一张半身照。${PHOTO_ZH} 导出是一条新的无声 7 秒 9:16 MP4——不是别人视频的下载。`,
         `下载之后，${SOUND_ZH} 新账号带有免费积分，够先做一条模板视频，之后用积分包或月付；生成器会在开始前显示积分。`,
       ],
     },
@@ -130,8 +130,8 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
       zh: 'Bicep Heart AI 视频：在 ViralReel 制作 7 秒 MP4',
     },
     description: {
-      en: 'bicep heart ai video: ViralReel renders a new 7-second 9:16 MP4 from one photo. Five sets including cat and dog versions. Silent export, add the trend sound on TikTok, Reels, or Shorts.',
-      zh: 'bicep heart ai video：ViralReel 用一张照片渲染新的 7 秒 9:16 MP4。五套阵容，含猫狗版本。导出无声，热梗原声在 TikTok、Reels 或 Shorts 里另加。',
+      en: 'bicep heart ai video: ViralReel renders a new 7-second 9:16 MP4 from one photo. Nine sets including cat and dog versions. Silent export, add the trend sound on TikTok, Reels, or Shorts.',
+      zh: 'bicep heart ai video：ViralReel 用一张照片渲染新的 7 秒 9:16 MP4。九套阵容，含猫狗版本。导出无声，热梗原声在 TikTok、Reels 或 Shorts 里另加。',
     },
     h1: { en: 'Bicep heart AI video', zh: 'Bicep heart AI 视频' },
     lead: {
@@ -176,8 +176,8 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
     keyword: 'bicep heart ai generator',
     slug: 'bicep-heart-ai-generator',
     title: {
-      en: 'Bicep Heart AI Generator – One Photo, Five Sets, 7 Seconds',
-      zh: 'Bicep Heart AI 生成器：一张照片，五套阵容，7 秒',
+      en: 'Bicep Heart AI Generator – One Photo, Nine Sets, 7 Seconds',
+      zh: 'Bicep Heart AI 生成器：一张照片，九套阵容，7 秒',
     },
     description: {
       en: 'bicep heart ai generator: the ViralReel generator takes one photo and renders the full bicep heart pose in the browser. No prompt box, no app, no CapCut template. Credit cost shown before you start.',

@@ -304,12 +304,12 @@ export const BICEP_HEART_CITE_TAILS: readonly BicepHeartLongTailEntry[] = [
     },
     body: {
       en: [
-        `Open ${T} in any modern browser, on desktop or phone. Pick one of five sets — Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, or Original Trend. Upload one photo into the slot labeled Your Photo. ${PHOTO_EN}`,
+        `Open ${T} in any modern browser, on desktop or phone. Pick one of nine sets — Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, or a new trend replay. Upload one photo into the slot labeled Your Photo. ${PHOTO_EN}`,
         'Keep 9:16 and the fixed 7-second length, check the credit line, and generate. The render takes about 2–3 minutes; the finished MP4 waits in My generations, and the same photo can be re-run in another set without re-uploading.',
         `${SOUND_EN} From opening the page to having a postable file, the whole loop is one page — there is no second tool in the chain.`,
       ],
       zh: [
-        `在任何现代浏览器的 ${TZ} 打开，桌面手机都行。五套阵容选一套——健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻。把一张照片传进「你的照片」。${PHOTO_ZH}`,
+        `在任何现代浏览器的 ${TZ} 打开，桌面手机都行。九套阵容选一套——健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻或新复刻版本。把一张照片传进「你的照片」。${PHOTO_ZH}`,
         '保持 9:16 和固定 7 秒时长，核对积分行，生成。渲染约 2-3 分钟；成片 MP4 在「我的生成」里等下载，同一张照片换阵容重跑不用重新上传。',
         `${SOUND_ZH} 从打开页面到拿到可发布文件，全程只有这一个页面——链路里没有第二个工具。`,
       ],
@@ -340,13 +340,13 @@ export const BICEP_HEART_CITE_TAILS: readonly BicepHeartLongTailEntry[] = [
       zh: 'Create a Bicep Heart AI：从一张照片开始',
     },
     description: {
-      en: 'create bicep heart ai: create a new 7-second bicep heart clip on ViralReel from one photo — five sets including pets, credit cost shown before you start, sound added in the app.',
-      zh: 'create bicep heart ai：在 ViralReel 用一张照片创建新的 7 秒比心——五套阵容含宠物，开始前显示积分，原声在 App 里加。',
+      en: 'create bicep heart ai: create a new 7-second bicep heart clip on ViralReel from one photo — nine sets including pets, credit cost shown before you start, sound added in the app.',
+      zh: 'create bicep heart ai：在 ViralReel 用一张照片创建新的 7 秒比心——九套阵容含宠物，开始前显示积分，原声在 App 里加。',
     },
     h1: { en: 'Create a bicep heart AI video', zh: 'Create a bicep heart AI 视频' },
     lead: {
-      en: 'To create a bicep heart AI video you need one photo and one decision: which of the five sets flexes it.',
-      zh: '创建 bicep heart AI 视频需要一张照片和一个决定：让五套阵容里的哪一套来演它。',
+      en: 'To create a bicep heart AI video you need one photo and one decision: which of the nine sets flexes it.',
+      zh: '创建 bicep heart AI 视频需要一张照片和一个决定：让九套阵容里的哪一套来演它。',
     },
     guideTitle: {
       en: 'Creating your clip',

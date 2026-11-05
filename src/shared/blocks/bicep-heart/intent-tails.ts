@@ -57,12 +57,12 @@ export const BICEP_HEART_INTENT_TAILS: readonly BicepHeartLongTailEntry[] = [
     body: {
       en: [
         `Step zero is the photo. ${PHOTO_EN} A vertical original beats a recompressed screenshot.`,
-        `Then the render. Open ${T}, pick one of five sets — Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, or Original Trend — and upload the photo into the single slot labeled Your Photo. Keep the ratio on 9:16 and the length on 7 seconds, read the credit line, and press Generate. The clip lands in My generations in about 2–3 minutes; failed jobs refund automatically.`,
+        `Then the render. Open ${T}, pick one of nine sets — Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, or a new trend replay — and upload the photo into the single slot labeled Your Photo. Keep the ratio on 9:16 and the length on 7 seconds, read the credit line, and press Generate. The clip lands in My generations in about 2–3 minutes; failed jobs refund automatically.`,
         `Then the posting. ${SOUND_EN} The pose, the timing, and the beat-by-beat breakdown are at ${POSE} if you want to understand what the render is doing.`,
       ],
       zh: [
         `第零步是照片。${PHOTO_ZH} 竖版原图胜过反复压缩的截图。`,
-        `然后是渲染。打开 ${TZ} ，五套阵容里选一套——健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻——把照片传进唯一的「你的照片」位置。画幅保持 9:16、时长 7 秒，看清积分行，点「立即生成」。约 2-3 分钟后出片在「我的生成」里；失败任务自动退积分。`,
+        `然后是渲染。打开 ${TZ} ，九套阵容里选一套——健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻或新复刻版本——把照片传进唯一的「你的照片」位置。画幅保持 9:16、时长 7 秒，看清积分行，点「立即生成」。约 2-3 分钟后出片在「我的生成」里；失败任务自动退积分。`,
         `最后是发布。${SOUND_ZH} 想理解渲染在做什么，姿势与逐拍拆解在 ${POSEZ} 。`,
       ],
     },

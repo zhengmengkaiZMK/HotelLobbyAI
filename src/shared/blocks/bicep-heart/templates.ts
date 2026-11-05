@@ -8,7 +8,10 @@ import type { TemplateDef } from '@/shared/blocks/viral-home/templates';
  * and muscle close into one small heart. The pose holds to the end.
  * Preview videos live at /templates/{id}.mp4. The ex-* samples are
  * AI-generated from fictional adults / pets and carry no TikTok audio,
- * so no credit handle is required. All templates share the
+ * so no credit handle is required. The four replay cards at the top
+ * (have-you-heard / trend-boy / tattoo-girl / tank-boy) are preview
+ * clips sourced from public TikTok posts and carry a `credit` handle.
+ * All templates share the
  * `bicep_heart` admin family. One photo, 7-second export, 9:16.
  */
 const family = 'bicep_heart';
@@ -18,6 +21,46 @@ const scene =
   "One continuous single take, static camera, vertical video. Recreate the reference video with the subject from the reference image: same face, hair, skin tone, body and clothes, in the same setting and framing as the reference image, waist-up. The subject gives the camera a soft smile, one hand crosses the chest and pushes up the other sleeve, then that arm bends up into a bicep flex with the fist closed beside the head, and the crossing hand rises and curls against the bicep — fingers hooking under the fist, thumb resting on the muscle — so the hand and the curve of the arm close into one small heart. The heart holds still to the end with a proud little smile and a slow blink. Preserve the subject's face and appearance exactly. Keep the shy-to-proud expression, the timing and the static selfie-style camera of the reference video unchanged.";
 
 export const bicepHeartTemplates = [
+  {
+    id: 'bicep-have-you-heard',
+    family,
+    name: ['Have You Heard Heart', '「听说过吗」开场版'],
+    colors: ['#0ea5e9', '#0c4a6e'],
+    slots: 1,
+    credit: '@kavithageorge',
+    images: [null],
+    prompt: `${scene} The subject is a fit young woman with an athletic build in a dark sleeveless top, filmed in a dim teal-toned room, opening on a soft knowing smile before the sleeve push and the flex — the classic have-you-ever-heard-of-a-bicep-heart opener.`,
+  },
+  {
+    id: 'bicep-trend-boy',
+    family,
+    name: ['Trend Boy Heart', '门口 trend 男生版'],
+    colors: ['#94a3b8', '#334155'],
+    slots: 1,
+    credit: '@in_the_nic_of_time',
+    images: [null],
+    prompt: `${scene} The subject is a young man in a gray tank top standing in front of a white interior door, grinning through the sleeve push and landing the flex-and-heart on the beat like the door doorway trend clips.`,
+  },
+  {
+    id: 'bicep-tattoo-girl',
+    family,
+    name: ['Tattoo Girl Heart', '纹身女生版'],
+    colors: ['#f472b6', '#9d174d'],
+    slots: 1,
+    credit: '@hannahinthegym',
+    images: [null],
+    prompt: `${scene} The subject is a young woman with arm tattoos in a striped tank top sitting on a bed: she lifts one arm into the flex, then curls the other hand against the bicep so the heart closes in front of her face. Preserve the tattoos exactly.`,
+  },
+  {
+    id: 'bicep-tank-boy',
+    family,
+    name: ['Black Tank Heart', '黑背心男生版'],
+    colors: ['#fbbf24', '#92400e'],
+    slots: 1,
+    credit: '@seantristan_',
+    images: [null],
+    prompt: `${scene} The subject is a young man in a black tank top with a leafy plant behind him: the flex rises slowly, the hand hooks under the fist, and the heart holds with a calm confident smile, trend-caption style.`,
+  },
   {
     id: 'bicep-buff',
     family,
