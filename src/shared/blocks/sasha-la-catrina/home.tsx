@@ -44,7 +44,7 @@ function TemplateVideo({ id, colors }: { id: string; colors: readonly [string, s
     const el = ref.current;
     if (!el) return;
     const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { setActive(true); el.play().catch(() => {}); }
+      if (entry.isIntersecting) { setActive(true); if (!window.matchMedia('(hover: none), (pointer: coarse)').matches) el.play().catch(() => {}); }
       else el.pause();
     }, { threshold: 0.3, rootMargin: '150px' });
     observer.observe(el);

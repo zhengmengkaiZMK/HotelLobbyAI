@@ -62,8 +62,12 @@ export async function middleware(request: NextRequest) {
   ) {
     intlResponse.headers.delete('Set-Cookie');
 
-    // Cache-Control header for public pages
-    const cacheControl = 'public, s-maxage=3600, stale-while-revalidate=14400';
+    // Cache-Control header for public pages.
+    // Keep this SHORT: Cloudflare Workers deployments atomically replace
+    // static chunks, so a long CDN cache on HTML makes every deploy serve
+    // stale HTML that references deleted chunks (broken hydration for up
+    // to the cache TTL). 5 min matches the ISR revalidate window.
+    const cacheControl = 'public, s-maxage=300, stale-while-revalidate=300';
 
     intlResponse.headers.set('Cache-Control', cacheControl);
     intlResponse.headers.set('CDN-Cache-Control', cacheControl);
