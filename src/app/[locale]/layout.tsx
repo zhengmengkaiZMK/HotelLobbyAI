@@ -12,6 +12,7 @@ import { routing } from '@/core/i18n/config';
 import { ThemeProvider } from '@/core/theme/provider';
 import { UtmCapture } from '@/shared/blocks/common/utm-capture';
 import { GaEvents } from '@/shared/blocks/common/ga-events';
+import { AdsConversionListener } from '@/shared/blocks/common/ads-conversion-listener';
 import { Toaster } from '@/shared/components/ui/sonner';
 import { AppContextProvider } from '@/shared/contexts/app';
 import { getMetadata } from '@/shared/lib/seo';
@@ -164,6 +165,7 @@ export default async function LocaleLayout({
 
         <UtmCapture />
         <GaEvents />
+        <AdsConversionListener />
 
         <NextIntlClientProvider>
           <ThemeProvider>

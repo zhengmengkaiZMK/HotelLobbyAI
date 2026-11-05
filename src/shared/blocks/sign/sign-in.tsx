@@ -8,6 +8,7 @@ import { toast } from 'sonner';
 import { authClient, signIn } from '@/core/auth/client';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { defaultLocale } from '@/config/locale';
+import { trackAdsSignupLogin } from '@/shared/lib/ads-conversion';
 import { Button } from '@/shared/components/ui/button';
 import {
   Card,
@@ -93,6 +94,8 @@ export function SignIn({
             // Do NOT reset loading here; navigation may not have completed yet.
           },
           onSuccess: (ctx) => {
+            // Google Ads 注册/登录 conversion (deduped per session)
+            trackAdsSignupLogin();
             // Keep loading=true until navigation completes.
           },
           onError: (e: any) => {

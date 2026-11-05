@@ -3,8 +3,15 @@
 import { useEffect } from 'react';
 import { Loader2 } from 'lucide-react';
 
+import { trackAdsSignupLogin } from '@/shared/lib/ads-conversion';
+
 export default function AuthCallbackPage() {
   useEffect(() => {
+    // Social sign-in completed (session cookie is being written) — fire the
+    // Google Ads 注册/登录 conversion. The dataLayer push queues even if the
+    // Google tag has not finished loading, and survives until window.close().
+    trackAdsSignupLogin();
+
     // Small delay to ensure the session cookie is fully written
     const timer = setTimeout(() => {
       // Use localStorage event to notify the main page (works even when COOP blocks window.opener)

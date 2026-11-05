@@ -2,6 +2,7 @@ import {
   AnalyticsManager,
   ClarityAnalyticsProvider,
   GoogleAnalyticsProvider,
+  GoogleAdsProvider,
   OpenPanelAnalyticsProvider,
   PlausibleAnalyticsProvider,
   VercelAnalyticsProvider,
@@ -20,6 +21,10 @@ export function getAnalyticsManagerWithConfigs(configs: Configs) {
       new GoogleAnalyticsProvider({ gaId: configs.google_analytics_id })
     );
   }
+
+  // google ads (GTM-KXD6GQQT + conversion events; IDs are hardcoded in the
+  // provider — production only, gated by the layout's isProduction/isDebug)
+  analytics.addProvider(new GoogleAdsProvider());
 
   // clarity
   if (configs.clarity_id) {

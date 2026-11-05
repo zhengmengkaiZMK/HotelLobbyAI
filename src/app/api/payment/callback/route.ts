@@ -2,7 +2,7 @@ import { redirect } from 'next/navigation';
 
 import { envConfigs } from '@/config';
 import { PaymentType } from '@/extensions/payment/types';
-import { findOrderByOrderNo } from '@/shared/models/order';
+import { findOrderByOrderNo, OrderStatus } from '@/shared/models/order';
 import { getUserInfo } from '@/shared/models/user';
 import {
   getPaymentService,
@@ -66,6 +66,36 @@ export async function GET(req: Request) {
       (order.paymentType === PaymentType.SUBSCRIPTION
         ? `${envConfigs.app_url}/settings/billing`
         : `${envConfigs.app_url}/settings/payments`);
+
+    // Attach real payment facts to the return URL so the client-side
+    // Google Ads purchase conversion fires with the actual amount and the
+    // site order number (AdsConversionListener; GaEvents reuses them too).
+    // Only when the order is verified PAID — never for failed checkouts.
+    try {
+      const paidOrder = await findOrderByOrderNo(orderNo);
+      if (paidOrder && paidOrder.status === OrderStatus.PAID) {
+        const url = new URL(redirectUrl);
+        // paymentAmount is stored in cents (actual charged amount, incl. provider captures)
+        const paidValue =
+          paidOrder.paymentAmount && paidOrder.paymentAmount > 0
+            ? paidOrder.paymentAmount / 100
+            : paidOrder.amount > 0
+              ? paidOrder.amount / 100
+              : 0;
+        if (paidValue > 0) {
+          url.searchParams.set('value', paidValue.toFixed(2));
+          url.searchParams.set(
+            'currency',
+            (paidOrder.paymentCurrency || paidOrder.currency || 'usd').toUpperCase()
+          );
+          url.searchParams.set('order_id', orderNo);
+          redirectUrl = url.toString();
+        }
+      }
+    } catch (e) {
+      // attribution params are best-effort; never block the redirect
+      console.log('append payment attribution params failed:', e);
+    }
   } catch (e: any) {
     console.log('checkout callback failed:', e);
     redirectUrl = `${envConfigs.app_url}/subscribe`;

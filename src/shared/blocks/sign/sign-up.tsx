@@ -9,6 +9,7 @@ import { toast } from 'sonner';
 import { authClient, signUp } from '@/core/auth/client';
 import { Link } from '@/core/i18n/navigation';
 import { defaultLocale } from '@/config/locale';
+import { trackAdsSignupLogin } from '@/shared/lib/ads-conversion';
 import { Button } from '@/shared/components/ui/button';
 import {
   Card,
@@ -116,6 +117,8 @@ export function SignUp({
             // Do NOT reset loading here; navigation may not have completed yet.
           },
           onSuccess: (ctx) => {
+            // Google Ads 注册/登录 conversion (deduped per session)
+            trackAdsSignupLogin();
             // report affiliate
             reportAffiliate({ userEmail: email });
 
