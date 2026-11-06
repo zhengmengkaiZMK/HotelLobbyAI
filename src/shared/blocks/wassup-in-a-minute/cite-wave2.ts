@@ -40,8 +40,8 @@ const LIMIT_EN =
   'No minors, no celebrities, and no Blue Lock or other show characters. ViralReel is not affiliated with Drake, Jhené Aiko, the remix makers, or the trend originators.';
 const LIMIT_ZH =
   '不要未成年人、名人，也不要 Blue Lock 或其他影视角色。ViralReel 与 Drake、Jhené Aiko、混音作者或趋势发起者无关。';
-const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 720p is 75 credits (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits. The generator shows the exact number before you start. A new account starts with free credits for a first template video. That is not free forever. Packs start at $9.9 for 90 credits on ${PRICING}. This page does not invent other sites’ prices.`;
-const PRICE_ZH = `一条 wassup in a minute 成片固定 15 秒。默认积分表上，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。生成器会在开始前显示确切数字。新账号的免费积分够先做一条模板视频。这不是永远免费。积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。这一页不编造别的网站的价格。`;
+const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 720p is 75 credits (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits. The generator shows the exact number before you start. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. Packs start at $9.9 for 90 credits on ${PRICING}. This page does not invent other sites’ prices.`;
+const PRICE_ZH = `一条 wassup in a minute 成片固定 15 秒。默认积分表上，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。生成器会在开始前显示确切数字。没有免费积分或免费试用：每次渲染都计费，生成器会在开始前显示确切费用，失败或取消的任务会退回积分。积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。这一页不编造别的网站的价格。`;
 
 export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
   {
@@ -360,7 +360,7 @@ export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
       {
         q: { en: 'Is Jump’s free preview a free Wassup MP4?', zh: 'Jump 的免费预览是免费的 Wassup MP4 吗？' },
         a: {
-          en: 'No. Their public page’s free preview is a frame, not unlimited free MP4 downloads. ViralReel’s starter credits cover a first template video, not free forever.',
+          en: 'No. Their public page’s free preview is a frame, not unlimited free MP4 downloads. ViralReel renders are paid per credit: the cost shows before you start, and there is no free trial.',
           zh: '不是。他们公开页面的免费预览是一帧，不是无限免费的 MP4。ViralReel 的起始积分够先做一条模板视频，不是永远免费。',
         },
       },

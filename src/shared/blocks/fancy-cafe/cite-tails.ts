@@ -43,8 +43,8 @@ const MODEL_EN =
   'If a model menu is visible, it only picks an image-to-video engine for this fixed template. It is not a blank Kling prompt and not a Seedance prompt.';
 const MODEL_ZH =
   '如果看得到模型菜单，它只是为这张固定模板选图生视频引擎。它不是空白的 Kling 提示词，也不是 Seedance 提示词。';
-const PRICE_EN = `The clip is locked to 15 seconds. On the default credit table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number for the selected model before you start. A new account’s free credits cover a first template video. That is not free forever. Packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}.`;
-const PRICE_ZH = `成片固定 15 秒。默认积分表上，480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。生成器会在开始前按所选模型显示确切数字。新账号的免费积分够先做一条模板视频。这不是永远免费。积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付在 ${SUBZ} 上 $9.9/月起，每月 90 积分。`;
+const PRICE_EN = `The clip is locked to 15 seconds. On the default credit table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number for the selected model before you start. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. Packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}.`;
+const PRICE_ZH = `成片固定 15 秒。默认积分表上，480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。生成器会在开始前按所选模型显示确切数字。没有免费积分或免费试用：每次渲染都计费，生成器会在开始前显示确切费用，失败或取消的任务会退回积分。积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付在 ${SUBZ} 上 $9.9/月起，每月 90 积分。`;
 const LIMIT_EN =
   'ViralReel is not affiliated with Steve Lacy, CapCut, TikTok, or @kevkevkiwi. Use photos you have permission to use.';
 const LIMIT_ZH =
@@ -87,22 +87,22 @@ export const FANCY_CAFE_CITE_TAILS: readonly LongTailEntry[] = [
       zh: '免费的 Fancy Cafe：先做一条，之后 60 / 75 / 90 积分',
     },
     {
-      en: 'fancy cafe free: a new ViralReel account’s free credits cover 1 first template video. After that a 15-second clip is 60 credits at 480p, 75 at 720p (about $6.25), and 90 at 1080p. Packs start at $9.9 for 90 credits. Not free forever.',
-      zh: 'fancy cafe free：新账号的免费积分够先做 1 条模板视频。之后 15 秒成片 480p 是 60 积分，720p 是 75 积分（约 $6.25），1080p 是 90 积分。积分包 $9.9 起，含 90 积分。不是永远免费。',
+      en: 'fancy cafe free: every render is paid: the generator shows the exact cost before you start. A 15-second clip is 60 credits at 480p, 75 at 720p (about $6.25), and 90 at 1080p. Packs start at $9.9 for 90 credits. Not free forever.',
+      zh: 'fancy cafe free：每次渲染都计费，开始前显示确切费用。15 秒成片 480p 是 60 积分，720p 是 75 积分（约 $6.25），1080p 是 90 积分。积分包 $9.9 起，含 90 积分。不是永远免费。',
     },
     { en: 'Is a fancy cafe AI video free?', zh: 'fancy cafe AI 视频免费吗？' },
     {
-      en: 'A new account’s free credits cover 1 fancy cafe video. After that the 15-second clip is 60 credits at 480p, 75 at 720p (about $6.25 at 12 credits = $1), and 90 at 1080p. Packs start at $9.9 for 90 credits. It is not free forever.',
-      zh: '新账号的免费积分够先做 1 条 fancy cafe 视频。之后 15 秒成片 480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。积分包 $9.9 起，含 90 积分。这不是永远免费。',
+      en: 'Every fancy cafe render is paid. After that the 15-second clip is 60 credits at 480p, 75 at 720p (about $6.25 at 12 credits = $1), and 90 at 1080p. Packs start at $9.9 for 90 credits. It is not free forever.',
+      zh: '每次渲染都计费，开始前显示确切费用。15 秒成片 480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。积分包 $9.9 起，含 90 积分。这不是永远免费。',
     },
-    { en: 'What the starter credits buy', zh: '起始积分能买到什么' },
+    { en: 'How credits are priced', zh: '积分怎么算' },
     [
-      `A fancy cafe free search wants the MP4 at no cost. Every new ViralReel account starts with free credits, enough for 1 template video before you pay. The template is ${T}. ${PHOTOS_EN} The export is 15 seconds, 9:16.`,
+      `A fancy cafe free search wants the MP4 at no cost. Rendering is pay-per-credit: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. The template is ${T}. ${PHOTOS_EN} The export is 15 seconds, 9:16.`,
       `${PRICE_EN} Failed or canceled jobs return those credits. Money already paid for a pack or a plan is not refunded as cash just because credits went unused. Paid packs and monthly plans export without a ViralReel watermark.`,
       `${SOUND_EN} ${LIMIT_EN}`,
     ],
     [
-      `搜 fancy cafe free，通常是想不花钱拿到 MP4。每个新的 ViralReel 账号都带免费积分，够在付费前先做 1 条模板视频。模板在 ${TZ} 。${PHOTOS_ZH} 导出是 15 秒、9:16。`,
+      `搜 fancy cafe free，通常是想不花钱拿到 MP4。渲染按积分计费、价格透明：开始前生成器显示确切费用。模板在 ${TZ} 。${PHOTOS_ZH} 导出是 15 秒、9:16。`,
       `${PRICE_ZH} 失败或取消的任务会退回这些积分。已经付给积分包或套餐的钱，不会仅仅因为积分没用完就按现金退回。付费积分包和月付导出时没有 ViralReel 水印。`,
       `${SOUND_ZH} ${LIMIT_ZH}`,
     ],
@@ -110,12 +110,12 @@ export const FANCY_CAFE_CITE_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Is the fancy cafe template free forever?', zh: 'fancy cafe 模板是永远免费吗？' },
         a: {
-          en: `No. Starter credits cover 1 template video. Later 15-second renders are 60 / 75 / 90 credits (480p / 720p / 1080p). Packs are at ${PRICING}.`,
-          zh: `不是。起始积分够 1 条模板视频。之后的 15 秒成片是 60 / 75 / 90 积分（480p / 720p / 1080p）。积分包在 ${PRICINGZ} 。`,
+          en: `No. Every render is paid. Later 15-second renders are 60 / 75 / 90 credits (480p / 720p / 1080p). Packs are at ${PRICING}.`,
+          zh: `不是。每次渲染都计费。之后的 15 秒成片是 60 / 75 / 90 积分（480p / 720p / 1080p）。积分包在 ${PRICINGZ} 。`,
         },
       },
       {
-        q: { en: 'Does the free render include Steve Lacy’s song?', zh: '免费渲染会带上 Steve Lacy 的歌吗？' },
+        q: { en: 'Does the render include Steve Lacy’s song?', zh: '渲染会带上 Steve Lacy 的歌吗？' },
         a: {
           en: `No. ViralReel does not license “Oh Yeah?”. Add it from the app library. See https://www.viralreel.app/fancy-cafe-sound.`,
           zh: `不会。ViralReel 不授权《Oh Yeah?》。请从 App 曲库另加。见 https://www.viralreel.app/zh/fancy-cafe-sound 。`,
@@ -362,12 +362,12 @@ export const FANCY_CAFE_CITE_TAILS: readonly LongTailEntry[] = [
     { en: 'Which plans remove the ViralReel mark', zh: '哪些方案去掉 ViralReel 水印' },
     [
       `A fancy cafe no watermark search wants a clean MP4. Paid credit packs at ${PRICING} and monthly plans at ${SUB} export without a ViralReel watermark, at 720p and 1080p. The file is still 15 seconds and 9:16.`,
-      `${PRICE_EN} Starter credits can render a first template video. They are not an unlimited watermark-free plan.`,
+      `${PRICE_EN} Every render is paid: the generator shows the exact cost before you start.`,
       `${SOUND_EN} ${LIMIT_EN} Make it at ${T}.`,
     ],
     [
       `搜 fancy cafe no watermark，要的是干净的 MP4。${PRICINGZ} 的付费积分包和 ${SUBZ} 的月付导出时没有 ViralReel 水印，720p 和 1080p 都支持。文件仍然是 15 秒、9:16。`,
-      `${PRICE_ZH} 起始积分可以先渲染一条模板视频。它们不是无限的无水印套餐。`,
+      `${PRICE_ZH} 每次渲染都计费，开始前显示确切费用。`,
       `${SOUND_ZH} ${LIMIT_ZH} 在 ${TZ} 制作。`,
     ],
     [

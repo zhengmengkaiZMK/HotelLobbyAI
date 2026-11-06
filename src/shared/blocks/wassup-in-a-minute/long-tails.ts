@@ -687,8 +687,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Is the wassup in a minute generator free?', zh: 'wassup in a minute 生成器免费吗？' },
         a: {
-          en: 'A new account can try wassup in a minute with free starter credits. It is not free forever. On the default 15-second table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number before you start, and failed jobs are refunded.',
-          zh: '新账号可以用免费起始积分试一条 wassup in a minute。这不是永远免费。默认 15 秒积分表上，480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。生成器会在开始前显示确切数字，失败的任务会退积分。',
+          en: 'Every wassup in a minute render is paid: the generator shows the exact cost before you start, and failed jobs are refunded. On the default 15-second table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number before you start, and failed jobs are refunded.',
+          zh: 'wassup in a minute 每次渲染都计费，没有免费试用。默认 15 秒积分表上，480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。生成器会在开始前显示确切数字，失败的任务会退积分。',
         },
       },
       {

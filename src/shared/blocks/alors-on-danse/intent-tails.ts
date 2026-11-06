@@ -368,8 +368,8 @@ export const ALORS_ON_DANSE_INTENT_TAILS: readonly AlorsOnDanseLongTailEntry[] =
       {
         q: { en: 'Is it free?', zh: '免费吗？' },
         a: {
-          en: 'A new ViralReel account starts with free credits, enough for a first render. After that, credit packs or a monthly plan cover it. The cost shows before you generate.',
-          zh: '新的 ViralReel 账号带有免费积分，够先渲染一条。之后用积分包或月付。费用在生成前显示。',
+          en: 'Every render is paid: the exact cost shows before you generate. After that, credit packs or a monthly plan cover it, and failed renders are refunded automatically.',
+          zh: '每次渲染都计费，开始前显示确切费用。之后用积分包或月付。费用在生成前显示。',
         },
       },
     ],

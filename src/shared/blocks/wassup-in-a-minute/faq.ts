@@ -22,8 +22,8 @@ export function getWassupFaq(
     return [
       ['Wassup in a minute 是什么趋势？', `Wassup in a minute 是 2026 年 10 月下旬的白底摇摆：街服角色左右摇摆，成片是 15 秒、9:16。在 ViralReel 用一至四张照片做一条新的：${template} 。Atlanta Lock 只是这种街服观感的粉丝昵称，不是会画出来的 Blue Lock 角色。`],
       ['怎么制作 wassup in a minute？', `制作 wassup in a minute 就四步：打开 ${template} ，上传一至四张照片，在五种造型里选一套，下载 15 秒 9:16 的 MP4。渲染通常要 2–3 分钟。然后在 TikTok、Reels 或 Shorts 里加热梗原声和 AI 标注。公开页面没有空白提示词框。`],
-      ['Wassup in a minute 能免费试吗？', '可以先试。新的 ViralReel 账号带有免费积分，够先做一条模板视频。之后的 wassup in a minute 消耗积分。'],
-      ['Wassup in a minute 是永远免费吗？', '不是。Wassup in a minute 不是永远免费。起始积分只够先做一条模板视频。之后用 $9.9 起、90 积分的一次性积分包，或 $9.9/月起、每月 90 积分的月付。'],
+      ['Wassup in a minute 能免费试吗？', '可以先试。ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后的 wassup in a minute 消耗积分。'],
+      ['Wassup in a minute 是永远免费吗？', '不是。Wassup in a minute 不是永远免费。没有免费积分或免费试用：每次渲染都计费，开始前显示确切费用。之后用 $9.9 起、90 积分的一次性积分包，或 $9.9/月起、每月 90 积分的月付。'],
       ['Wassup in a minute 要多少钱？', cost],
       ['Wassup in a minute 要等多久才好？', '一条 wassup in a minute 通常要 2–3 分钟才渲染完。「in a minute」是歌词，不是等待时间。做好的成片是 15 秒。'],
       ['Wassup in a minute 的片长是多少？', 'ViralReel 上的 wassup in a minute 是 15 秒、9:16。不是 10 秒，不是 8 秒，也不是一分钟。'],
@@ -48,7 +48,7 @@ export function getWassupFaq(
   return [
     ['What is the wassup in a minute trend?', `Wassup in a minute is the late-October 2026 sway: streetwear characters rocking side to side on white, as a 15-second 9:16 clip. On ViralReel you make a new one from one to four photos at ${template}. Atlanta Lock is only the fan nickname for that streetwear look, not a Blue Lock character the template will draw.`],
     ['How do I make a wassup in a minute video?', `Make a wassup in a minute video in four steps: open ${template}, upload one to four photos, pick one of five outfits, and download the 15-second 9:16 MP4. A render usually takes 2–3 minutes. Then add the trend sound and the AI label in TikTok, Reels, or Shorts. The public page has no blank prompt box.`],
-    ['Can I try wassup in a minute for free?', 'Yes, you can try it. A new ViralReel account starts with free credits, enough for a first template video. Later wassup in a minute clips spend credits.'],
+    ['Can I try wassup in a minute for free?', 'No — rendering is pay-per-credit: the exact cost shows in the generator before every render, and failed renders are refunded automatically.'],
     ['Is wassup in a minute free forever?', 'No. Wassup in a minute is not free forever. Starter credits cover a first template video. After that, use a one-time pack from $9.9 for 90 credits or a monthly plan from $9.9/month for 90 credits.'],
     ['How much does a wassup in a minute video cost?', cost],
     ['How long until a wassup in a minute video is ready?', 'A wassup in a minute render usually takes 2–3 minutes. “In a minute” is the lyric, not the wait. The finished clip is 15 seconds.'],

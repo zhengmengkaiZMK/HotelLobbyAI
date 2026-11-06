@@ -352,16 +352,16 @@ export const TINY_DESK_INTENT_TAILS: readonly LongTailEntry[] = [
     slug: 'tiny-desk-outstanding-free',
     title: {
       en: 'Tiny Desk Outstanding Free – Credits, Not Free Forever',
-      zh: '免费的 Tiny Desk Outstanding：有起始积分，不是永远免费',
+      zh: '免费的 Tiny Desk Outstanding：每次渲染都计费，没有免费试用',
     },
     description: {
-      en: 'tiny desk outstanding free: a new ViralReel account starts with free credits for a first template video. Later renders use a credit pack or a monthly plan. Not free forever. No Outstanding license.',
-      zh: 'tiny desk outstanding free：新的 ViralReel 账号带有免费积分，够先做一条模板视频。之后的成片用积分包或月付。不是永远免费。不授权《Outstanding》。',
+      en: 'tiny desk outstanding free: every render is paid: the generator shows the exact cost before you start. Later renders use a credit pack or a monthly plan. Not free forever. No Outstanding license.',
+      zh: 'tiny desk outstanding free：ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后的成片用积分包或月付。不是永远免费。不授权《Outstanding》。',
     },
     h1: { en: 'Is Tiny Desk Outstanding free?', zh: 'Tiny Desk Outstanding 免费吗？' },
     lead: {
-      en: 'Tiny Desk Outstanding on ViralReel is not free forever. A new account starts with free credits so you can render a first template video. After that, videos spend credits.',
-      zh: 'ViralReel 上的 Tiny Desk Outstanding 不是永远免费。新账号带有免费积分，可以先渲染一条模板视频。之后的视频消耗积分。',
+      en: 'Tiny Desk Outstanding on ViralReel is not free forever. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically.',
+      zh: 'ViralReel 上的 Tiny Desk Outstanding 不是永远免费。每次渲染都计费，开始前显示确切费用。之后的视频继续消耗积分。',
     },
     guideTitle: {
       en: 'What “free” does and does not mean',
@@ -371,12 +371,12 @@ export const TINY_DESK_INTENT_TAILS: readonly LongTailEntry[] = [
       en: [
         `A tiny desk outstanding free search usually wants the MP4 at no cost. The honest split is: every new ViralReel account starts with free credits, enough to render a first template video before you pay. That starter balance is not an unlimited plan. The template is ${T}.`,
         `One-time credit packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. The generator shows the exact credit cost for the resolution and length you pick before you start. Failed or canceled jobs return those credits. Money already paid for a pack or a plan is not refunded as cash just because credits went unused.`,
-        `${SETS_EN} ${SLOTS_EN} ${SOUND_EN} ${LIMIT_EN} A free render is still a fan parody, not an NPR file and not a licensed song.`,
+        `${SETS_EN} ${SLOTS_EN} ${SOUND_EN} ${LIMIT_EN} A render is still a fan parody, not an NPR file and not a licensed song.`,
       ],
       zh: [
-        `搜 tiny desk outstanding free，通常是想不花钱拿到 MP4。老实的分法是：每个新的 ViralReel 账号都带免费积分，够在付费前先渲染一条模板视频。这份起始积分不是无限套餐。模板在 ${TZ} 。`,
+        `搜 tiny desk outstanding free，通常是想不花钱拿到 MP4。老实的分法是：渲染按积分计费、价格透明：开始前生成器显示确切费用，失败自动退积分。模板在 ${TZ} 。`,
         `一次性积分包 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付 ${SUBZ} 上 $9.9/月起，每月 90 积分。生成器会在开始前按你选的分辨率和时长显示本次积分。失败或取消的任务会退回这些积分。已经付给积分包或套餐的钱，不会仅仅因为积分没用完就按现金退回。`,
-        `${SETS_ZH} ${SLOTS_ZH} ${SOUND_ZH} ${LIMIT_ZH} 一次免费渲染仍然是粉丝戏仿，不是 NPR 的文件，也不是已授权的歌曲。`,
+        `${SETS_ZH} ${SLOTS_ZH} ${SOUND_ZH} ${LIMIT_ZH} 一次渲染仍然是粉丝戏仿，不是 NPR 的文件，也不是已授权的歌曲。`,
       ],
     },
     steps,
@@ -384,8 +384,8 @@ export const TINY_DESK_INTENT_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Is Tiny Desk Outstanding free forever?', zh: 'Tiny Desk Outstanding 是永远免费吗？' },
         a: {
-          en: `No. New accounts start with free credits for a first template video. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
-          zh: `不是。新账号的免费积分够先做一条模板视频。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
+          en: `No. Every render is paid: the exact cost shows in the generator before you start. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
+          zh: `不是。每次渲染都计费。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
         },
       },
       {

@@ -92,15 +92,6 @@ export default async function BicepHeartAiTemplatePage({
     })),
   };
 
-  // Signup free credits come from admin config so the page never contradicts
-  // what a new user actually receives (GEO: verifiable, consistent numbers).
-  const signupCredits = configs.initial_credits_enabled === 'true'
-    ? {
-        amount: parseInt(String(configs.initial_credits_amount ?? '0'), 10) || 0,
-        validDays: parseInt(String(configs.initial_credits_valid_days ?? '0'), 10) || 0,
-      }
-    : null;
-
   // VideoObject JSON-LD for the nine template preview videos.
   const videoJsonLd = {
     '@context': 'https://schema.org',
@@ -139,7 +130,7 @@ export default async function BicepHeartAiTemplatePage({
           description: META[zh ? 'zh' : 'en'].description,
         })) }}
       />
-      <BicepHeartHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} signupCredits={signupCredits} pageUrl={zh ? `${envConfigs.app_url}/zh/bicep-heart-ai-template` : `${envConfigs.app_url}/bicep-heart-ai-template`} />
+      <BicepHeartHome creditsPerUsd={creditsPerUsd} videoCosts={videoCosts} pageUrl={zh ? `${envConfigs.app_url}/zh/bicep-heart-ai-template` : `${envConfigs.app_url}/bicep-heart-ai-template`} />
     </>
   );
 }

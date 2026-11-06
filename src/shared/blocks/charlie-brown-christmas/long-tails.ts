@@ -266,8 +266,8 @@ export const CHARLIE_BROWN_LONG_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Is the filter free?', zh: '滤镜免费吗？' },
         a: {
-          en: 'The CapCut template is free inside CapCut. A new ViralReel account starts with free credits — enough for a first template video — and later videos use a credit pack or a monthly plan. The generator shows the cost before you render.',
-          zh: 'CapCut 模板在 App 内免费。新的 ViralReel 账号自带免费积分——够先做一条模板视频——之后的视频用积分包或月付。生成前会显示积分。',
+          en: 'The CapCut template is free inside CapCut. Every render is paid and the generator shows the cost before you render — later videos use a credit pack or a monthly plan. The generator shows the cost before you render.',
+          zh: 'CapCut 模板在 App 内免费。每次渲染都计费，开始前显示确切费用——之后的视频用积分包或月付。生成前会显示积分。',
         },
       },
     ],

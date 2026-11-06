@@ -88,31 +88,31 @@ export const BICEP_HEART_INTENT_TAILS: readonly BicepHeartLongTailEntry[] = [
     keyword: 'bicep heart ai free',
     slug: 'bicep-heart-ai-free',
     title: {
-      en: 'Bicep Heart AI Free – Starter Credits and What They Cover',
-      zh: 'Bicep Heart AI 免费：新手积分能做什么',
+      en: 'Is Bicep Heart AI Free? Credits, Pricing, and How Rendering Works',
+      zh: 'Bicep Heart AI 免费吗？积分、定价与渲染机制',
     },
     description: {
-      en: 'bicep heart ai free: new ViralReel accounts include starter credits that cover a first 7-second bicep heart render. Not free forever — packs and plans after that, cost shown before every render.',
-      zh: 'bicep heart ai free：新 ViralReel 账号自带新手积分，够渲染第一条 7 秒比心。不是永远免费——之后用积分包或月付，每次渲染前显示费用。',
+      en: 'bicep heart ai free: ViralReel does not offer free credits or a free trial. Rendering is pay-per-credit with transparent pricing — the exact cost shows in the generator before every render, and failed renders are refunded automatically.',
+      zh: 'bicep heart ai free：ViralReel 不提供免费积分或免费试用。按积分计费、价格透明——每次渲染前生成器都会显示确切费用，渲染失败自动退还积分。',
     },
-    h1: { en: 'Bicep heart AI free', zh: 'Bicep heart AI 免费' },
+    h1: { en: 'Is Bicep Heart AI free?', zh: 'Bicep Heart AI 免费吗？' },
     lead: {
-      en: 'Yes, there is a free start: sign-up credits cover a first bicep heart render. It is not a daily free video, and it is not free forever.',
-      zh: '有免费的开始：注册积分够做第一条 bicep heart。不是每日免费一条，也不是永远免费。',
+      en: 'No — ViralReel does not offer free credits or a free trial. Rendering is pay-per-credit with transparent pricing, and failed renders are refunded automatically.',
+      zh: '不免费——ViralReel 不提供免费积分或免费试用。按积分计费、价格透明，渲染失败自动退还积分。',
     },
     guideTitle: {
-      en: 'What free covers, and what comes after',
-      zh: '免费覆盖什么，之后是什么',
+      en: 'What rendering costs, and how pricing works',
+      zh: '渲染要花多少积分，定价怎么运作',
     },
     body: {
       en: [
-        'ViralReel runs on credits. The starter credits at sign-up are a one-time grant — enough to render a first template video at 720p, which covers the bicep heart\'s fixed 7-second format. The generator always shows the credit cost before you press Generate, so nothing is charged blind.',
-        `After the starter credits: one-time credit packs at the pricing page or a monthly plan on the subscribe page. Failed renders refund automatically. The full cost picture is at ${FREE}.`,
+        'ViralReel runs on credits, and there are no free signup credits: every render is paid. The exact credit cost for your model and resolution shows live in the generator before you press Generate — nothing is charged blind. The lowest current per-video price is listed on the bicep heart page.',
+        `Pay with one-time credit packs at the pricing page or a monthly plan on the subscribe page. Failed renders refund automatically. The full cost picture is at ${FREE}.`,
         `Try it at ${T}. ${SOUND_EN}`,
       ],
       zh: [
-        'ViralReel 按积分运行。注册时的新手积分是一次性发放——够在 720p 渲染第一条模板视频，覆盖 bicep heart 固定 7 秒的格式。生成器在你点「立即生成」之前总会显示积分费用，不会盲扣。',
-        `新手积分之后：在定价页买一次性积分包，或在订阅页订月付。失败渲染自动退积分。完整的费用说明在 ${FREEZ} 。`,
+        'ViralReel 按积分运行，没有免费注册积分：每次渲染都计费。所用模型和清晰度的确切费用在点「立即生成」前实时显示——不会盲扣。当前最低单条价格见 bicep heart 页面。',
+        `支付方式：在定价页买一次性积分包，或在订阅页订月付。失败渲染自动退积分。完整的费用说明在 ${FREEZ} 。`,
         `在 ${TZ} 试第一条。${SOUND_ZH}`,
       ],
     },
@@ -121,15 +121,15 @@ export const BICEP_HEART_INTENT_TAILS: readonly BicepHeartLongTailEntry[] = [
       {
         q: { en: 'Is there a free trial without signing up?', zh: '不注册能免费试用吗？' },
         a: {
-          en: 'No. Renders need an account so the output has somewhere to land and failed jobs can refund. Sign-up is one minute.',
-          zh: '不能。渲染需要账号，这样成片有地方存、失败任务能退积分。注册只要一分钟。',
+          en: 'No — and there is no free trial with an account either. Every render is paid; the cost shows before you start, and failed renders are refunded automatically.',
+          zh: '没有——注册账号后也没有免费试用。每次渲染都计费；开始前显示费用，失败渲染自动退款。',
         },
       },
       {
-        q: { en: 'Do free credits expire?', zh: '新手积分会过期吗？' },
+        q: { en: 'Why is there no free trial?', zh: '为什么没有免费试用？' },
         a: {
-          en: 'Starter credits are granted once at sign-up; current pack and expiry terms are listed on the pricing page.',
-          zh: '新手积分在注册时一次性发放；当前积分包与有效期条款以定价页为准。',
+          en: 'Because pricing is per render: each generation uses model compute, so every video costs credits. What ViralReel guarantees instead is transparent pricing up front and automatic refunds on failed renders.',
+          zh: '因为定价是按次计费：每次生成都消耗模型算力，所以每条视频都要积分。ViralReel 给你的替代保障是：费用提前透明展示、失败渲染自动退款。',
         },
       },
     ],

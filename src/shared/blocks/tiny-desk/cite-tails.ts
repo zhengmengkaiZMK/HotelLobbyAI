@@ -519,7 +519,7 @@ export const TINY_DESK_CITE_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         `Tiny desk outstanding no watermark is a pricing question, not a second video. Paid credit packs and monthly plans export without a ViralReel watermark, at 720p and 1080p. Every pack and plan is listed at ${PRICING}. Monthly plans are at ${SUB}. The live credit table is what you are billed. This page does not offer a discount code.`,
-        `Some one-photo tools advertise a single video or a short weekly trial. Those prices move. Read that site’s pricing page before you compare. ViralReel’s cost is the credit line on ${T} for the 15-second render. A new account can start with free credits for a first template video. That is not free forever: https://www.viralreel.app/tiny-desk-outstanding-free.`,
+        `Some one-photo tools advertise a single video or a short weekly trial. Those prices move. Read that site’s pricing page before you compare. ViralReel’s cost is the credit line on ${T} for the 15-second render. Every render is paid: https://www.viralreel.app/tiny-desk-outstanding-free.`,
         `${EXPORT_EN} ${LIMIT_EN} A platform may still add its own mark when you post. ViralReel does not control that.`,
       ],
       zh: [

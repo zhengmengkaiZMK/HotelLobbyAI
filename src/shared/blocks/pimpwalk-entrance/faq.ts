@@ -12,7 +12,7 @@ export const PIMPWALK_FAQ = {
   en: [
     ['What is the Pimpwalk Entrance trend?', 'It is the TikTok "hold the door" trend of autumn 2026: a friend pulls a shop door open at night and grooves beside it, while someone comes through in a slow, low, leaned-back pimp walk — knees bent, shoulders rolled back — drops almost to a crouch, then rises into a close-up like they own the place. First posted by @mrdanielkimchi on 17 October 2026; the burger-shop dandy version passed 592K plays.'],
     ['How do I make a Pimpwalk Entrance video?', 'Two routes. TikTok/CapCut: find a post using the trend, tap one of the two CapCut template links (8,387 and 4,694 uses by 3 November), and drop in a photo. Browser: open https://www.viralreel.app/pimpwalk-entrance-ai-template, pick one of three doorway clips, upload two full-body photos — photo 1 walks in, photo 2 holds the door — and generate a 15-second 9:16 MP4 with no app.'],
-    ['Is Pimpwalk Entrance free to try?', 'Yes. Every new ViralReel account starts with free credits — enough to render your first pimpwalk entrance video before you pay. Sign up, upload your photos, and generate; credit packs are on the pricing page when you need more.'],
+    ['Is Pimpwalk Entrance free to try?', 'No. Rendering is pay-per-credit — the exact cost shows in the generator before you render, and failed renders are refunded automatically. Sign up, upload your photos, and generate; credit packs are on the pricing page.'],
     ['How much does a Pimpwalk Entrance AI video cost?', pwCost.en],
     ['How long does rendering take, and how long is the video?', 'Rendering typically takes a few minutes depending on the model and queue — finished clips land in History. The clip is 15 seconds at 9:16, the full scene: the door opening, the strut, the drop, and the rise into the close-up.'],
     ['Is Pimpwalk Entrance a real place? Where is it located?', 'No — there is no venue called Pimpwalk Entrance. It is a TikTok meme scene: a shop doorway at night, originally a fast-food shop in the AI-generated clip @mrdanielkimchi posted on 17 October 2026. The doorway is drawn, not addressable — the "entrance" people search for is the walk through it, and you can put anyone in it from two photos.'],
@@ -28,7 +28,7 @@ export const PIMPWALK_FAQ = {
   zh: [
     ['Pimpwalk Entrance 是什么梗？', '2026 年秋天的 TikTok「扶门」趋势：朋友在夜里拉开一扇小店门、在门边跟着节奏摇摆，有人用慢、低、后仰的 pimp walk 走进来——屈膝、塌肩——几乎蹲到底，再起身给一个特写，像全场都是他的。@mrdanielkimchi 2026 年 10 月 17 日首发；汉堡店花花公子版播放破 59 万。'],
     ['怎么做 Pimpwalk Entrance 视频？', '两条路线。TikTok/CapCut：找一条用趋势的帖子，点两个 CapCut 模板链接之一（截至 11 月 3 日分别 8,387 和 4,694 次使用），丢进照片。浏览器：打开 https://www.viralreel.app/zh/pimpwalk-entrance-ai-template ，三条门口片段选一，上传两张全身照——第 1 张进场、第 2 张拉门——生成 15 秒 9:16 的 MP4，不用装 App。'],
-    ['能免费试吗？', '能。每个新注册的 ViralReel 账号都自带免费积分——足够先做完第一条再决定付费。注册、传照片、直接生成；需要更多时在定价页买积分包。'],
+    ['能免费试吗？', '不免费。每次渲染都计费，开始前显示确切费用。注册、传照片、直接生成；开始前在定价页买好积分包。'],
     ['做一条 Pimpwalk Entrance AI 视频要多少钱？', pwCost.zh],
     ['渲染要多久？视频多长？', '渲染通常几分钟，视模型和队列而定——成片在「历史记录」里取。视频本身 15 秒、9:16 竖屏，是完整的一幕：开门、进场、下蹲、起身特写。'],
     ['Pimpwalk Entrance 是真实场所吗？在哪里？', '不是——没有一个叫 Pimpwalk Entrance 的店。它是 TikTok 梗场景：夜晚的小店门口，最初是 @mrdanielkimchi 2026 年 10 月 17 日发的 AI 生成片段里那家快餐店。那扇门是画出来的，没有地址——大家搜的「entrance」其实是穿过它的那一步，而任何人都能用两张照片走进去。'],

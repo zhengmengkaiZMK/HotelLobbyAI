@@ -77,8 +77,8 @@ export function PimpwalkLongTailView({
             <p>
               {entry.lead[lang]}{' '}
               {zh
-                ? `在 ViralReel 制作：${ZH_TEMPLATE} 。新账号自带免费积分；渲染通常几分钟。这是粉丝作品，不是官方页面，也不授权趋势原声。`
-                : `Make it on ViralReel: ${EN_TEMPLATE}. New accounts start with free credits; rendering takes a few minutes. This is fan work, not an official page, and it does not license the trend sound.`}
+                ? `在 ViralReel 制作：${ZH_TEMPLATE} 。每次渲染都计费，开始前显示确切费用；渲染通常几分钟。这是粉丝作品，不是官方页面，也不授权趋势原声。`
+                : `Make it on ViralReel: ${EN_TEMPLATE}. Every render is paid and the cost shows before you start; rendering takes a few minutes. This is fan work, not an official page, and it does not license the trend sound.`}
             </p>
             <figure className="guide-fig">
               <img

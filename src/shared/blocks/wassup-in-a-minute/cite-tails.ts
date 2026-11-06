@@ -52,8 +52,8 @@ const TIME_ZH =
   '「in a minute」是大家听成的歌词。它不是「生成会在六十秒内完成」的承诺。生成器写的是视频通常需要 2–3 分钟。';
 const WATER_EN = `Paid credit packs and monthly plans export without a ViralReel watermark, at 720p and 1080p. Packs are at ${PRICING}. Monthly plans are at ${SUB}.`;
 const WATER_ZH = `付费积分包和月付方案导出时没有 ViralReel 水印，720p 和 1080p 都支持。积分包在 ${PRICINGZ} 。月付在 ${SUBZ} 。`;
-const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number before you start. A new account starts with free credits for a first template video. That is not free forever. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Other tools’ prices change. This page does not quote them.`;
-const PRICE_ZH = `一条 wassup in a minute 成片固定 15 秒。默认积分表上，480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。生成器会在开始前显示确切数字。新账号的免费积分够先做一条模板视频。这不是永远免费。一次性积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付在 ${SUBZ} 上 $9.9/月起，每月 90 积分。别的工具的价格会变。这一页不引用那些数字。`;
+const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number before you start. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Other tools’ prices change. This page does not quote them.`;
+const PRICE_ZH = `一条 wassup in a minute 成片固定 15 秒。默认积分表上，480p 是 60 积分，720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25），1080p 是 90 积分。生成器会在开始前显示确切数字。没有免费积分或免费试用：每次渲染都计费，生成器会在开始前显示确切费用，失败或取消的任务会退回积分。一次性积分包在 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付在 ${SUBZ} 上 $9.9/月起，每月 90 积分。别的工具的价格会变。这一页不引用那些数字。`;
 
 export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
   {
@@ -61,16 +61,16 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     slug: 'wassup-in-a-minute-free',
     title: {
       en: 'Wassup in a Minute Free – Starter Credits, Not Free Forever',
-      zh: '免费的 Wassup in a Minute：起始积分，不是永远免费',
+      zh: '免费的 Wassup in a Minute：每次渲染都计费，没有免费试用',
     },
     description: {
-      en: 'wassup in a minute free: a new ViralReel account starts with free credits for a first template video. Later renders use a credit pack or a monthly plan. 1–4 photos, 15 seconds, no song in the file.',
-      zh: 'wassup in a minute free：新的 ViralReel 账号带有免费积分，够先做一条模板视频。之后的成片用积分包或月付。一至四张照片，15 秒，文件里没有那首歌。',
+      en: 'wassup in a minute free: every render is paid: the generator shows the exact cost before you start. Later renders use a credit pack or a monthly plan. 1–4 photos, 15 seconds, no song in the file.',
+      zh: 'wassup in a minute free：ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后的成片用积分包或月付。一至四张照片，15 秒，文件里没有那首歌。',
     },
     h1: { en: 'Is Wassup in a Minute free?', zh: 'Wassup in a Minute 免费吗？' },
     lead: {
-      en: 'Wassup in a minute is not free forever. A new account’s free credits cover a first template video. After that, a 15-second clip is 75 credits at the default 720p (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits. Packs start at $9.9 for 90 credits.',
-      zh: 'Wassup in a minute 不是永远免费。新账号的免费积分够先做一条模板视频。之后，15 秒成片在默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。积分包 $9.9 起，含 90 积分。',
+      en: 'Wassup in a minute is not free forever. Every render is paid: the generator shows the exact cost before you start. After that, a 15-second clip is 75 credits at the default 720p (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits. Packs start at $9.9 for 90 credits.',
+      zh: 'Wassup in a minute 不是永远免费。每次渲染都计费。之后，15 秒成片在默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。积分包 $9.9 起，含 90 积分。',
     },
     guideTitle: {
       en: 'What “free” does and does not mean',
@@ -78,12 +78,12 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     },
     body: {
       en: [
-        `A wassup in a minute free search usually wants the MP4 at no cost. Every new ViralReel account starts with free credits, enough to render a first template video before you pay. That starter balance is not an unlimited plan. The template is ${T}. ${CREW_EN} The export is 15 seconds, 9:16.`,
+        `A wassup in a minute free search usually wants the MP4 at no cost. Rendering is pay-per-credit: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. That starter balance is not an unlimited plan. The template is ${T}. ${CREW_EN} The export is 15 seconds, 9:16.`,
         `One-time credit packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. The generator shows the exact credit cost before you start. Failed or canceled jobs return those credits. Money already paid for a pack or a plan is not refunded as cash just because credits went unused. ${WATER_EN}`,
         `${SOUND_EN} ${LIMIT_EN} ${TIME_EN} The October 2026 roundup, with no competitor prices, is ${ROUNDUP}.`,
       ],
       zh: [
-        `搜 wassup in a minute free，通常是想不花钱拿到 MP4。每个新的 ViralReel 账号都带免费积分，够在付费前先渲染一条模板视频。这份起始积分不是无限套餐。模板在 ${TZ} 。${CREW_ZH} 导出是 15 秒、9:16。`,
+        `搜 wassup in a minute free，通常是想不花钱拿到 MP4。渲染按积分计费、价格透明：开始前生成器显示确切费用，失败自动退积分。模板在 ${TZ} 。${CREW_ZH} 导出是 15 秒、9:16。`,
         `一次性积分包 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付 ${SUBZ} 上 $9.9/月起，每月 90 积分。生成器会在开始前显示本次积分。失败或取消的任务会退回这些积分。已经付给积分包或套餐的钱，不会仅仅因为积分没用完就按现金退回。${WATER_ZH}`,
         `${SOUND_ZH} ${LIMIT_ZH} ${TIME_ZH} 2026 年 10 月的对照、不引用竞品价格，在 ${ROUNDUPZ} 。`,
       ],
@@ -93,12 +93,12 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Is Wassup in a Minute free forever?', zh: 'Wassup in a Minute 是永远免费吗？' },
         a: {
-          en: `No. New accounts start with free credits for a first template video. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
-          zh: `不是。新账号的免费积分够先做一条模板视频。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
+          en: `No. Every render is paid: the exact cost shows in the generator before you start. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
+          zh: `不是。每次渲染都计费。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
         },
       },
       {
-        q: { en: 'Does the free render include the song?', zh: '免费渲染会带上那首歌吗？' },
+        q: { en: 'Does the render include the song?', zh: '渲染会带上那首歌吗？' },
         a: {
           en: 'No render on ViralReel includes that audio. Add the trend sound on TikTok, Reels, or Shorts. See https://www.viralreel.app/wassup-in-a-minute-sound.',
           zh: 'ViralReel 的任何一次渲染都不包含那段音频。请在 TikTok、Reels 或 Shorts 上加热梗原声。见 https://www.viralreel.app/zh/wassup-in-a-minute-sound 。',
@@ -379,12 +379,12 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         `Wassup in a minute no watermark means the ViralReel mark, not a promise about every other app. ${WATER_EN} The template is ${T}. The length is 15 seconds. Read the credit cost on the generator before you start.`,
-        `A new account can start with free credits for a first template video. That starter balance is not a statement that every export, including unpaid ones, is watermark-free. The free page is https://www.viralreel.app/wassup-in-a-minute-free. Other tools advertise their own watermark policy. This page does not quote their prices or restate a policy it has not checked line by line.`,
+        `Every render is paid. That is not a statement that every export, including unpaid ones, is watermark-free. The free page is https://www.viralreel.app/wassup-in-a-minute-free. Other tools advertise their own watermark policy. This page does not quote their prices or restate a policy it has not checked line by line.`,
         `${SOUND_EN} Removing a watermark does not put the remix in the file. ${LIMIT_EN}`,
       ],
       zh: [
         `Wassup in a minute no watermark 指的是 ViralReel 的标记，不是对每个其他 App 的承诺。${WATER_ZH} 模板在 ${TZ} 。时长是 15 秒。生成前在生成器上看清积分。`,
-        `新账号可以用免费积分先做一条模板视频。这份起始积分不是在说每一次导出、包括未付费的，都没有水印。免费说明在 https://www.viralreel.app/zh/wassup-in-a-minute-free 。别的工具有自己的水印政策。这一页不引用它们的价格，也不逐条复述没有核对过的政策。`,
+        `每次渲染都计费，开始前显示确切费用。这不是在说每一次导出、包括未付费的，都没有水印。免费说明在 https://www.viralreel.app/zh/wassup-in-a-minute-free 。别的工具有自己的水印政策。这一页不引用它们的价格，也不逐条复述没有核对过的政策。`,
         `${SOUND_ZH} 去掉水印不会把混音放进文件。${LIMIT_ZH}`,
       ],
     },

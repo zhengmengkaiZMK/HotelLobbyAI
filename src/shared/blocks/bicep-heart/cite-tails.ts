@@ -369,8 +369,8 @@ export const BICEP_HEART_CITE_TAILS: readonly BicepHeartLongTailEntry[] = [
       {
         q: { en: 'What do I need before I start?', zh: '开始前需要准备什么？' },
         a: {
-          en: 'One photo that meets the checklist, an account, and enough credits (starter credits cover the first video). Nothing else.',
-          zh: '一张符合清单的照片、一个账号、足够的积分（新手积分够第一条）。其他都不需要。',
+          en: 'One photo that meets the checklist, an account, and enough credits — buy a credit pack or a plan in advance, since every render is paid and the generator shows the exact cost before you start. Nothing else.',
+          zh: '一张符合清单的照片、一个账号、足够的积分——提前买好积分包或月付，每次渲染都计费，开始前生成器会显示确切费用。其他都不需要。',
         },
       },
       {

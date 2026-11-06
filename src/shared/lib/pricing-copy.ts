@@ -182,7 +182,7 @@ export function getSubscribeFaq(
       ],
       [
         '有免费试用吗？',
-        '每个新账号都赠送免费积分——不花一分钱就能先做出第一条 ViralReel 模板视频。',
+        '不提供免费试用——按积分计费：每次渲染前生成器显示确切费用，渲染失败自动退还积分。',
       ],
       [
         '只想买一次积分，不订阅可以吗？',
@@ -205,7 +205,7 @@ export function getSubscribeFaq(
     ],
     [
       'Do you offer a free trial?',
-      'Every new account starts with free credits — enough to render your first ViralReel template video before you pay.',
+      'No — there is no free trial. Rendering is pay-per-credit: the exact cost shows in the generator before every render, and failed renders are refunded automatically.',
     ],
     [
       'Can I buy credits once instead of subscribing?',

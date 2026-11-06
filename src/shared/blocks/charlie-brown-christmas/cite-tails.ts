@@ -69,8 +69,8 @@ const LIMIT_EN =
 const LIMIT_ZH =
   '用你本人、同意出镜的成年人，或你自己在世宠物的照片。宠物要全身入画；效果会有差别，而且这不是纪念。ViralReel 与 Peanuts Worldwide、Charles M. Schulz 遗产管理方、Apple、CapCut、TikTok、MakeViral 或 ViralRemix 均无关联。';
 
-const PRICE_EN = `The generator shows the credit cost before you render. A new account starts with free credits for a first template video. That is not free forever. One-time packs start at $9.9 on ${PRICING}. Monthly plans start at $9.9/month on ${SUB}. Failed or canceled jobs return those credits. This page does not say ViralReel is cheaper than another tool. That would need the same settings on both.`;
-const PRICE_ZH = `生成器会在渲染前显示积分。新账号带有免费积分，够先做一条模板视频。这不是永远免费。一次性积分包在 ${PRICINGZ} ，$9.9 起。月付在 ${SUBZ} ，$9.9/月起。失败或取消的任务会退回这些积分。这一页不说 ViralReel 比别的工具更便宜。那需要两边用同一套设置来比。`;
+const PRICE_EN = `The generator shows the credit cost before you render. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. One-time packs start at $9.9 on ${PRICING}. Monthly plans start at $9.9/month on ${SUB}. Failed or canceled jobs return those credits. This page does not say ViralReel is cheaper than another tool. That would need the same settings on both.`;
+const PRICE_ZH = `生成器会在渲染前显示积分。没有免费积分或免费试用：每次渲染都计费，生成器会在开始前显示确切费用，失败或取消的任务会退回积分。一次性积分包在 ${PRICINGZ} ，$9.9 起。月付在 ${SUBZ} ，$9.9/月起。失败或取消的任务会退回这些积分。这一页不说 ViralReel 比别的工具更便宜。那需要两边用同一套设置来比。`;
 
 const WATER_EN = `Paid credit packs and monthly plans export without a ViralReel watermark. Packs are at ${PRICING}. Monthly plans are at ${SUB}.`;
 const WATER_ZH = `付费积分包和月付方案导出时没有 ViralReel 水印。积分包在 ${PRICINGZ} 。月付在 ${SUBZ} 。`;
@@ -123,25 +123,25 @@ export const CHARLIE_BROWN_CITE_TAILS: readonly LongTailEntry[] = [
     'charlie-brown-christmas-free',
     {
       en: 'Charlie Brown Christmas Free – Starter Credits, Not Free Forever',
-      zh: '免费的 Charlie Brown Christmas：起始积分，不是永远免费',
+      zh: '免费的 Charlie Brown Christmas：每次渲染都计费，没有免费试用',
     },
     {
-      en: 'charlie brown christmas free: a new ViralReel account starts with free credits for a first template video. Later renders use a pack from $9.9 or a monthly plan. One photo, 8-second 9:16 MP4. No Peanuts license and no song license.',
-      zh: 'charlie brown christmas free：新的 ViralReel 账号带有免费积分，够先做一条模板视频。之后用 $9.9 起的积分包或月付。一张照片，8 秒 9:16 MP4。没有 Peanuts 授权，也没有歌曲授权。',
+      en: 'charlie brown christmas free: every render is paid: the generator shows the exact cost before you start. Later renders use a pack from $9.9 or a monthly plan. One photo, 8-second 9:16 MP4. No Peanuts license and no song license.',
+      zh: 'charlie brown christmas free：ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后用 $9.9 起的积分包或月付。一张照片，8 秒 9:16 MP4。没有 Peanuts 授权，也没有歌曲授权。',
     },
     { en: 'Is A Charlie Brown Christmas free?', zh: 'A Charlie Brown Christmas 免费吗？' },
     {
-      en: 'A Charlie Brown Christmas on ViralReel is not free forever. A new account starts with free credits so you can render a first template video. After that, videos spend credits.',
-      zh: 'ViralReel 上的 A Charlie Brown Christmas 不是永远免费。新账号带有免费积分，可以先渲染一条模板视频。之后的视频消耗积分。',
+      en: 'A Charlie Brown Christmas on ViralReel is not free forever. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically.',
+      zh: 'ViralReel 上的 A Charlie Brown Christmas 不是永远免费。每次渲染都计费，开始前显示确切费用。之后的视频继续消耗积分。',
     },
     { en: 'What “free” does and does not mean', zh: '「免费」包括什么、不包括什么' },
     [
-      `A charlie brown christmas free search usually wants the MP4 at no cost. Every new ViralReel account starts with free credits, enough for a first template video before you pay. That starter balance is not an unlimited plan. ${PHOTO_EN} ${OUT_EN}`,
+      `A charlie brown christmas free search usually wants the MP4 at no cost. Rendering is pay-per-credit: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. That starter balance is not an unlimited plan. ${PHOTO_EN} ${OUT_EN}`,
       `${PRICE_EN} ${WATER_EN} CapCut’s “A Charlie Brown” template is free inside the CapCut app. Checked 3 November 2026 it showed 25,852 uses and needs 2 clips: ${CAPCUT_DETAIL}. MakeViral lists a pack example at $9.99 for 100 credits on ${MV}. ViralRemix lists about 700 credits as $9.90 a use on ${REMIX}. Those are their buttons, not ViralReel prices, and this page does not pick a winner.`,
       `${SOUND_EN} ${LIMIT_EN} The 3 November 2026 roundup is ${ROUNDUP}.`,
     ],
     [
-      `搜 charlie brown christmas free，通常是想不花钱拿到 MP4。每个新的 ViralReel 账号都带免费积分，够在付费前先做一条模板视频。这份起始积分不是无限套餐。${PHOTO_ZH} ${OUT_ZH}`,
+      `搜 charlie brown christmas free，通常是想不花钱拿到 MP4。渲染按积分计费、价格透明：开始前生成器显示确切费用，失败自动退积分。${PHOTO_ZH} ${OUT_ZH}`,
       `${PRICE_ZH} ${WATER_ZH} CapCut 的「A Charlie Brown」模板在 CapCut App 里免费。2026 年 11 月 3 日核对，它显示 25,852 次使用，需要 2 段素材：${CAPCUT_DETAIL} 。MakeViral 在 ${MV} 的积分包示例是 $9.99 / 100 积分。ViralRemix 在 ${REMIX} 把大约 700 积分标成一次 $9.90。那是他们的按钮，不是 ViralReel 的价格，这一页不选赢家。`,
       `${SOUND_ZH} ${LIMIT_ZH} 2026 年 11 月 3 日的对照在 ${ROUNDUPZ} 。`,
     ],
@@ -149,12 +149,12 @@ export const CHARLIE_BROWN_CITE_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Is A Charlie Brown Christmas free forever?', zh: 'A Charlie Brown Christmas 是永远免费吗？' },
         a: {
-          en: `No. New accounts start with free credits for a first template video. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
-          zh: `不是。新账号的免费积分够先做一条模板视频。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
+          en: `No. Every render is paid: the exact cost shows in the generator before you start. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
+          zh: `不是。每次渲染都计费。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
         },
       },
       {
-        q: { en: 'Does the free render include a licensed song?', zh: '免费渲染会带上已授权的歌吗？' },
+        q: { en: 'Does the render include a licensed song?', zh: '渲染会带上已授权的歌吗？' },
         a: {
           en: 'No. ViralReel does not license the trend sound or “Christmas Time Is Here” or “Linus and Lucy”. Add a platform-library sound if you want audio. See https://www.viralreel.app/charlie-brown-christmas-sound.',
           zh: '不会。ViralReel 不授权趋势原声，也不授权《Christmas Time Is Here》或《Linus and Lucy》。想要声音就从平台曲库加。见 https://www.viralreel.app/zh/charlie-brown-christmas-sound 。',

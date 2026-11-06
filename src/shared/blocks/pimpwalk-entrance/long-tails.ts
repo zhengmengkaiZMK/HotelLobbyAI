@@ -72,8 +72,8 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
       zh: 'Pimpwalk Entrance AI：两张照片走进那扇门',
     },
     description: {
-      en: 'pimpwalk entrance ai: two photos put you through the viral hold-the-door doorway — 15-second 9:16 MP4 in the browser. New accounts start with free credits.',
-      zh: 'pimpwalk entrance ai：两张照片把你送进爆火扶门场景——浏览器直出 15 秒 9:16 MP4，新账号自带免费积分。',
+      en: 'pimpwalk entrance ai: two photos put you through the viral hold-the-door doorway — 15-second 9:16 MP4 in the browser. Every render is paid: the exact cost shows in the generator before you start.',
+      zh: 'pimpwalk entrance ai：两张照片把你送进爆火扶门场景——浏览器直出 15 秒 9:16 MP4，每次渲染都计费，开始前显示确切费用。',
     },
     h1: { en: 'Pimpwalk Entrance AI', zh: 'Pimpwalk Entrance AI' },
     lead: {
@@ -87,12 +87,12 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         'The trend runs on AI renders of the scene @mrdanielkimchi posted on 17 October 2026 — the one whose sound carries the whole trend — and the breakout @mrmiltonfrost burger-shop dandy passed 592K plays. You do not need the app: the Pimpwalk Entrance AI page on ViralReel runs the same doorway in the browser from two photos.',
-        `Make it at ${EN_TEMPLATE}. ${PHOTOS_EN} Pick the cast — Burger Shop Dandy, Walter White on the Door, or Yellow Shirt Strut — and the page opens on 9:16 with the length fixed at 15 seconds. Rendering typically takes a few minutes, and every new account starts with free credits.`,
+        `Make it at ${EN_TEMPLATE}. ${PHOTOS_EN} Pick the cast — Burger Shop Dandy, Walter White on the Door, or Yellow Shirt Strut — and the page opens on 9:16 with the length fixed at 15 seconds. Rendering typically takes a few minutes, and every render is paid: the exact cost shows in the generator before you start.`,
         'The download is a new MP4 of a new scene. ViralReel does not license the trend sound ("original sound - mrdanielkimchi"). Post with #pimpwalkentrance and #holdthedoor, caption the destination — "me walking into the barbershop" — and turn on the AI-generated label.',
       ],
       zh: [
         '趋势跑在 @mrdanielkimchi 2026 年 10 月 17 日发布的场景的 AI 渲染上——他的原声带火了整个趋势，破圈的 @mrmiltonfrost 汉堡店花花公子播放破 59 万。你不需要那个 App：ViralReel 的 Pimpwalk Entrance AI 页面在浏览器里用两张照片跑同一扇门。',
-        `制作入口：${ZH_TEMPLATE} 。${PHOTOS_ZH} 阵容任选——汉堡店花花公子、门后老白、黄衫进场——页面默认 9:16，时长固定 15 秒。渲染通常几分钟，新账号自带免费积分。`,
+        `制作入口：${ZH_TEMPLATE} 。${PHOTOS_ZH} 阵容任选——汉堡店花花公子、门后老白、黄衫进场——页面默认 9:16，时长固定 15 秒。渲染通常几分钟；每次渲染都计费，开始前显示确切费用。`,
         '下载的是一条新场景的新 MP4。ViralReel 不授权趋势原声（「original sound - mrdanielkimchi」）。带 #pimpwalkentrance 和 #holdthedoor 发布，配文写「走进了哪里」——「me walking into the barbershop」——并打开 AI 生成标注。',
       ],
     },
@@ -122,8 +122,8 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
       zh: '怎么做 Pimpwalk Entrance 视频（两张照片，15 秒）',
     },
     description: {
-      en: 'How to make a pimpwalk entrance video: pick a doorway cast, upload walker first and door holder second, generate a 15-second 9:16 MP4 in minutes. Free credits for new accounts.',
-      zh: '怎么做 pimpwalk entrance 视频：选门口阵容、进门照放第一张拉门照放第二张、几分钟生成 15 秒 9:16 MP4。新账号送免费积分。',
+      en: 'How to make a pimpwalk entrance video: pick a doorway cast, upload walker first and door holder second, generate a 15-second 9:16 MP4 in minutes. Transparent pay-per-credit pricing.',
+      zh: '怎么做 pimpwalk entrance 视频：选门口阵容、进门照放第一张拉门照放第二张、几分钟生成 15 秒 9:16 MP4。按积分计费、价格透明。',
     },
     h1: { en: 'How to Make a Pimpwalk Entrance Video', zh: '怎么做 Pimpwalk Entrance 视频' },
     lead: {
@@ -172,13 +172,13 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
       zh: 'Pimpwalk Entrance 免费吗？「进场」到底要花什么',
     },
     description: {
-      en: 'Is pimpwalk entrance free? There is no venue to pay for — it is a meme. On ViralReel every new account starts with free credits; then videos cost credits from X per render.',
-      zh: 'pimpwalk entrance 免费吗？没有场所可付钱——它是梗。ViralReel 新账号自带免费积分；之后每条视频按积分计费。',
+      en: 'Is pimpwalk entrance free? There is no venue to pay for — it is a meme. On ViralReel every render is paid: the exact credit cost shows on the button before you render.',
+      zh: 'pimpwalk entrance 免费吗？没有场所可付钱——它是梗。ViralReel 每次渲染都按积分计费，开始前显示确切费用。',
     },
     h1: { en: 'Is Pimpwalk Entrance Free?', zh: 'Pimpwalk Entrance 免费吗？' },
     lead: {
-      en: 'Short answer: there is nothing to buy a ticket for — Pimpwalk Entrance is a TikTok meme, not a venue. Making your own version on ViralReel starts free: every new account gets free credits.',
-      zh: '简短回答：没有门票可买——Pimpwalk Entrance 是 TikTok 梗，不是场所。在 ViralReel 做你自己的版本从免费开始：每个新账号都送免费积分。',
+      en: 'Short answer: there is nothing to buy a ticket for — Pimpwalk Entrance is a TikTok meme, not a venue. Making your own version on ViralReel is pay-per-credit: the exact cost shows before you render.',
+      zh: '简短回答：没有门票可买——Pimpwalk Entrance 是 TikTok 梗，不是场所。在 ViralReel 做你自己的版本按次计费：开始前显示确切积分。',
     },
     guideTitle: {
       en: 'What Pimpwalk Entrance costs, honestly',
@@ -187,12 +187,12 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         'If you searched "is pimpwalk entrance free" expecting a club door and a cover charge: there is no venue. The pimpwalk entrance is the hold-the-door meme — a drawn shop doorway from an AI clip posted on 17 October 2026 — and "getting in" means making your own version of the entrance, not entering anywhere.',
-        'On ViralReel, the free part is real: every new account starts with free credits, enough to render your first doorway video before you pay anything. After that, each video costs credits — the exact number is shown on the button before you generate, and pricing scales with credit packs on the pricing page. Rendering typically takes a few minutes, and failed jobs are refunded automatically.',
+        'On ViralReel every render is paid. Each video costs credits — the exact number is shown on the button before you generate, and pricing scales with credit packs on the pricing page. Rendering typically takes a few minutes, and failed jobs are refunded automatically.',
         'The other routes are free too, with catches: the two CapCut templates (8,387 and 4,694 uses by 3 November) cost nothing but export with a CapCut watermark unless you pay CapCut, and most hold a single photo. Whatever route you take, the sound is free to add from your posting app\'s library — nobody licenses "original sound - mrdanielkimchi".',
       ],
       zh: [
         '如果你搜「pimpwalk entrance 免费吗」以为有一扇俱乐部大门和入场费：没有场所。pimpwalk entrance 是扶门梗——2026 年 10 月 17 日一条 AI 片段里画出来的小店门口——「进场」的意思是做一条你自己的进场视频，不是进入任何地方。',
-        '在 ViralReel，免费的部分是真的：每个新账号自带免费积分，够你先渲染第一条门口视频再掏钱。之后每条视频消耗积分——具体数字在生成前的按钮上标明，积分包定价见定价页。渲染通常几分钟，失败任务自动退积分。',
+        '在 ViralReel，每次渲染都计费：确切积分在生成前的按钮上标明，积分包定价见定价页。渲染通常几分钟，失败任务自动退积分。',
         '其他路线也免费，但有代价：两个 CapCut 模板（截至 11 月 3 日 8,387 和 4,694 次使用）不花钱，但导出带 CapCut 水印（付费去），且多数一次只能放一张照片。无论走哪条，原声都能在发布 App 曲库免费加——没有人授权「original sound - mrdanielkimchi」。',
       ],
     },
@@ -422,8 +422,8 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
       zh: 'Pimpwalk Entrance 模板：三条门口阵容，两个照片位',
     },
     description: {
-      en: 'The pimpwalk entrance template on ViralReel: three doorway casts, two photo slots (walker and door holder), 15-second 9:16 MP4. Free credits for new accounts.',
-      zh: 'ViralReel 的 pimpwalk entrance 模板：三条门口阵容、两个照片位（进场的和拉门的）、15 秒 9:16 MP4。新账号送免费积分。',
+      en: 'The pimpwalk entrance template on ViralReel: three doorway casts, two photo slots (walker and door holder), 15-second 9:16 MP4. Transparent pay-per-credit pricing.',
+      zh: 'ViralReel 的 pimpwalk entrance 模板：三条门口阵容、两个照片位（进场的和拉门的）、15 秒 9:16 MP4。按积分计费、价格透明。',
     },
     h1: { en: 'Pimpwalk Entrance Template', zh: 'Pimpwalk Entrance 模板' },
     lead: {
@@ -638,12 +638,12 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
       en: [
         'The 2026 hold the door trend is the pimpwalk entrance: 17 October 2026, @mrdanielkimchi posts a tank-top doorman and a blue-suited guest; 25 October, the burger-shop dandy passes 592K plays; 31 October, the CapCut tutorials adopt the name "hold the door". The names "doorway entrance trend" and "pimpwalk entrance hold the door" come from those tutorial titles.',
         'Do not confuse it with older hold-the-door memes: the Game of Thrones "Hodor" edits, or door-closing pranks. And not with "then I walk in", the deadpan selfie walk. This one is specifically a two-person scene at a drawn shop door — one grooves, one struts — with the original sound carrying it.',
-        'Make your version of the hold the door trend at ' + EN_TEMPLATE + ': two full-body photos, three doorway casts, 15 seconds at 9:16, free credits for new accounts. Post it with #holdthedoor and #pimpwalkentrance.',
+        'Make your version of the hold the door trend at ' + EN_TEMPLATE + ': two full-body photos, three doorway casts, 15 seconds at 9:16, transparent pay-per-credit pricing. Post it with #holdthedoor and #pimpwalkentrance.',
       ],
       zh: [
         '2026 年的扶门趋势就是 pimpwalk entrance：2026 年 10 月 17 日 @mrdanielkimchi 发出背心门童和蓝西装客人；10 月 25 日汉堡店花花公子破 59 万播放；10 月 31 日 CapCut 教程采用了「hold the door」这个名字。「doorway entrance trend」「pimpwalk entrance hold the door」都来自那些教程标题。',
         '别和更早的扶门梗搞混：《权力的游戏》Hodor 剪辑、关门整蛊。也别和「then I walk in」的自拍走搞混。这一条特指画出来的店门口的双人戏——一个摇摆、一个低姿进场——原声贯穿。',
-        '到 ' + ZH_TEMPLATE + ' 做你的扶门趋势版本：两张全身照、三条门口阵容、15 秒 9:16，新账号送免费积分。发布带 #holdthedoor 和 #pimpwalkentrance。',
+        '到 ' + ZH_TEMPLATE + ' 做你的扶门趋势版本：两张全身照、三条门口阵容、15 秒 9:16，按积分计费、价格透明。发布带 #holdthedoor 和 #pimpwalkentrance。',
       ],
     },
     steps: makeVideoSteps,
@@ -687,12 +687,12 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         'The CapCut route: find a post using either template, tap the template link, drop in a photo, and CapCut edits inside the app. Free and fast, but you get whichever scene the template holds, most versions take one photo, and exports carry the CapCut watermark unless you pay CapCut. The tutorial posts ("how to make the viral doorway entrance pimpwalk hold the door trend") show the flow: render, then screen-recorded steps.',
-        `The ViralReel route at ${EN_TEMPLATE}: three doorway casts to choose from, two photo slots so you can cast the door holder, the full 15-second scene rendered by an image-to-video model in minutes, paid exports with no watermark, failed jobs refunded automatically, and free credits for new accounts.`,
+        `The ViralReel route at ${EN_TEMPLATE}: three doorway casts to choose from, two photo slots so you can cast the door holder, the full 15-second scene rendered by an image-to-video model in minutes, paid exports with no watermark, failed jobs refunded automatically, and transparent pay-per-credit pricing.`,
         'Both routes are fan work on an AI-generated scene; neither is official. Whichever you use, add the trend sound from your posting app\'s library and turn on the AI-generated label.',
       ],
       zh: [
         'CapCut 路线：找一条用任一模板的帖子，点模板链接，丢进照片，CapCut 在 App 里完成。免费又快，但场景就是模板固定那一个，多数版本一次一张照片，导出带 CapCut 水印（付费去）。教程帖（「how to make the viral doorway entrance pimpwalk hold the door trend」）展示了流程：先成片、后录屏步骤。',
-        `ViralReel 路线（${ZH_TEMPLATE} ）：三条门口阵容可选、两个照片位可以安排拉门人、图生视频模型几分钟渲染完整 15 秒场景、付费导出无水印、失败任务自动退积分、新账号送免费积分。`,
+        `ViralReel 路线（${ZH_TEMPLATE} ）：三条门口阵容可选、两个照片位可以安排拉门人、图生视频模型几分钟渲染完整 15 秒场景、付费导出无水印、失败任务自动退积分、按积分计费、价格透明。`,
         '两条路线都是基于 AI 生成场景的粉丝作品；都不是官方。无论用哪条，发帖时在发布 App 曲库加原声，并打开 AI 生成标注。',
       ],
     },
@@ -722,8 +722,8 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
       zh: 'Pimpwalk Entrance AI 视频生成器：两张照片，不用装 App',
     },
     description: {
-      en: 'A pimpwalk entrance AI video generator that runs in the browser: two photos into the doorway scene, 15-second 9:16 MP4, renders in minutes, free credits on signup.',
-      zh: '浏览器里跑的 pimpwalk entrance AI 视频生成器：两张照片进门口场景，15 秒 9:16 MP4，几分钟出片，注册送免费积分。',
+      en: 'A pimpwalk entrance AI video generator that runs in the browser: two photos into the doorway scene, 15-second 9:16 MP4, renders in minutes, transparent pay-per-credit pricing.',
+      zh: '浏览器里跑的 pimpwalk entrance AI 视频生成器：两张照片进门口场景，15 秒 9:16 MP4，几分钟出片，按积分计费、价格透明。',
     },
     h1: { en: 'Pimpwalk Entrance AI Video Generator', zh: 'Pimpwalk Entrance AI 视频生成器' },
     lead: {
@@ -737,12 +737,12 @@ export const PIMPWALK_LONG_TAILS: readonly LongTailEntry[] = [
     body: {
       en: [
         'The generator at ' + EN_TEMPLATE + ' works without a prompt box: the scene prompt is pre-filled from the reference clip, and your two photos are the only input. Photo 1 walks in; photo 2 holds the door. You pick the cast — Burger Shop Dandy, Walter White on the Door, or Yellow Shirt Strut — and the model renders the full 15-second scene.',
-        'Rendering typically takes a few minutes; finished clips land in History, failed jobs are refunded automatically, and paid exports carry no watermark. New accounts start with free credits, so your first pimpwalk entrance does not require a payment method.',
+        'Rendering typically takes a few minutes; finished clips land in History, failed jobs are refunded automatically, and paid exports carry no watermark. Every render is paid, so buy a credit pack or a plan before your first pimpwalk entrance.',
         'Compared with writing a raw image-to-video prompt yourself, the fixed template keeps the timing that makes the joke land: the door swinging wide, the drop to the crouch, and the rise into the close-up. That timing is the hard part of this trend, and it is what a blank prompt usually gets wrong.',
       ],
       zh: [
         ZH_TEMPLATE + ' 的生成器不用写提示词：场景提示词已按参考片段预填，你唯一的输入就是两张照片。第 1 张进场；第 2 张拉门。阵容任选——汉堡店花花公子、门后老白、黄衫进场——模型渲染完整的 15 秒场景。',
-        '渲染通常几分钟；成片在「历史记录」，失败任务自动退积分，付费导出无水印。新账号自带免费积分，你的第一次 pimpwalk entrance 不需要绑卡。',
+        '渲染通常几分钟；成片在「历史记录」，失败任务自动退积分，付费导出无水印。每次渲染都计费，第一次 pimpwalk entrance 前先买好积分包或月付。',
         '比起自己从零写图生视频提示词，固定模板保住了让笑点成立的节奏：门拉开、蹲到底、起身特写。这个节奏是本趋势最难的部分，也正是空白提示词经常做错的地方。',
       ],
     },
@@ -792,7 +792,7 @@ export function buildLongTailFaq(
           '照片有什么要求？',
           '两张全身照，每张一个人，照片清晰：第 1 张进场，第 2 张拉门。不要墨镜和美颜——最后一秒是一张脸填满画面。不要用未成年人、名人或未经同意的人。',
         ],
-        ['能免费试吗？', '能。每个新注册的 ViralReel 账号都自带免费积分，足够先做第一条再决定付费。'],
+        ['能免费试吗？', '不免费。每次渲染都计费，开始前生成器显示确切费用，失败自动退积分。'],
         ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx)],
         ['渲染要多久？', '通常几分钟，视模型和队列而定；成片在「历史记录」里取，失败任务自动退积分。'],
         ['付费导出有水印吗？', paidExportWatermarkAnswer(true)],
@@ -810,7 +810,7 @@ export function buildLongTailFaq(
           'What do the photos need?',
           'Two full-body photos, one person each, sharp: photo 1 walks in, photo 2 holds the door. No sunglasses and no beauty filter — the last second is a face filling the frame. Do not use minors, celebrities, or people who did not agree.',
         ],
-        ['Can I try it free?', 'Yes. Every new ViralReel account starts with free credits — enough to render your first video before paying.'],
+        ['Can I try it free?', 'No. Rendering is pay-per-credit — the exact cost shows in the generator before every render, and failed renders are refunded automatically.'],
         ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx)],
         ['How long does rendering take?', 'Typically a few minutes depending on the model and queue; finished clips land in History and failed jobs are refunded automatically.'],
         ['Are paid exports watermark-free?', paidExportWatermarkAnswer(false)],

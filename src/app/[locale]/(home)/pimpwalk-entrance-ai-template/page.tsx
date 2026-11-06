@@ -14,14 +14,14 @@ const META = {
   en: {
     title: 'Pimpwalk Entrance AI Template – Two Photos Through the Hold-the-Door Doorway',
     description:
-      'Fan-made Pimpwalk Entrance (hold the door) template. Two photos put you through the viral doorway — the low strut, the drop, the close-up — with a friend on the door. Three casts, 15-second 9:16 MP4, renders in minutes, free credits for new accounts. Not affiliated with the creators behind the trend, CapCut, or TikTok.',
+      'Fan-made Pimpwalk Entrance (hold the door) template. Two photos put you through the viral doorway — the low strut, the drop, the close-up — with a friend on the door. Three casts, 15-second 9:16 MP4, renders in minutes, transparent pay-per-credit pricing. Not affiliated with the creators behind the trend, CapCut, or TikTok.',
     keywords:
       'pimpwalk entrance, pimpwalk entrance ai, pimpwalk entrance template, pimpwalk entrance tiktok, pimpwalk entrance video, pimpwalk entrance meme, pimpwalk entrance trend, pimpwalk entrance song, pimpwalk entrance capcut, pimpwalk barbershop, pimpwalk into barbershop, hold the door trend, doorway entrance trend, pimp walk entrance, pimpwalk entrance generator',
   },
   zh: {
     title: 'Pimpwalk Entrance AI 模板：两张照片走进爆火扶门场景',
     description:
-      '粉丝向 Pimpwalk Entrance（扶门）模板。两张照片把你送进爆火的店门口场景——低姿进场、下蹲、特写，朋友拉门。三条阵容，15 秒 9:16 MP4，几分钟出片，新账号送免费积分。与趋势背后的创作者、CapCut 或 TikTok 无关。',
+      '粉丝向 Pimpwalk Entrance（扶门）模板。两张照片把你送进爆火的店门口场景——低姿进场、下蹲、特写，朋友拉门。三条阵容，15 秒 9:16 MP4，几分钟出片，按积分计费、价格透明。与趋势背后的创作者、CapCut 或 TikTok 无关。',
     keywords:
       'pimpwalk entrance, pimpwalk entrance ai, pimpwalk entrance 模板, pimpwalk entrance 视频, pimpwalk entrance 梗, pimpwalk entrance 趋势, pimpwalk entrance 原声, pimpwalk barbershop, pimpwalk 理发店, hold the door trend, 扶门趋势, 门口进场 梗, pimpwalk entrance 生成器, pimp walk',
   },

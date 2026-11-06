@@ -160,8 +160,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
     {
       q: { en: 'Do I get free credits?', zh: '有免费积分吗？' },
       a: {
-        en: `New accounts may include free starter credits so you can try a template before you pay. The generator always shows the credit cost before you render, and failed or canceled generations are refunded. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingEn}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits); the monthly detail page is ${subscribeEn}. Top-ups are ${ctx.creditsPerUsd} credits = $1.`,
-        zh: `新账号可能会附带一些起始积分，方便你在付费前试一个模板。生成器总会在渲染前显示本次积分，失败或取消的生成会退回积分。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingZh}。月付套餐 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），月付详情页是 ${subscribeZh}。加购为 ${ctx.creditsPerUsd} 积分 = 1 美元。`,
+        en: `No — ViralReel does not offer free credits or a free trial; every render is paid. The generator always shows the credit cost before you render, and failed or canceled generations are refunded. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingEn}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits); the monthly detail page is ${subscribeEn}. Top-ups are ${ctx.creditsPerUsd} credits = $1.`,
+        zh: `没有。ViralReel 不提供免费积分或免费试用——每次渲染都计费。生成器总会在渲染前显示本次积分，失败或取消的生成会退回积分。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingZh}。月付套餐 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），月付详情页是 ${subscribeZh}。加购为 ${ctx.creditsPerUsd} 积分 = 1 美元。`,
       },
     },
   ];

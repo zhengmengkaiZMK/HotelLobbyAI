@@ -96,12 +96,12 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
       en: [
         'The bicep heart is the pose that took over TikTok and X in late October 2026: flex one arm with the fist beside the head, curl the other hand against the bicep, and hand plus muscle close into one small heart. People send it as a bit of love, captioned "send bicep hearts".',
         `Bicep heart AI replays the whole pose with the person from your photo. Open ${EN_TEMPLATE}, pick one of nine sets, and upload one waist-up photo. ${PHOTO_EN} The export is a new silent 7-second 9:16 MP4 — not a download of somebody else\'s clip.`,
-        `After it downloads, ${SOUND_EN} A new ViralReel account starts with free credits for a first template video, then a credit pack or a monthly plan; the generator shows the cost before you start.`,
+        `After it downloads, ${SOUND_EN} ViralReel is pay-per-credit with no free credits: the generator shows the exact cost before you start, and failed renders are refunded automatically.`,
       ],
       zh: [
         'Bicep heart 是 2026 年 10 月底刷屏 TikTok 和 X 的姿势：一条手臂弯起、拳头靠在头边，另一只手扣在肱二头肌上，手和肌肉合成一颗小心心。人们把它当一份小心意发出去，文案写「send bicep hearts」。',
         `Bicep heart AI 用你照片里的人重演整套动作。打开 ${ZH_TEMPLATE} ，九套阵容里选一套，上传一张半身照。${PHOTO_ZH} 导出是一条新的无声 7 秒 9:16 MP4——不是别人视频的下载。`,
-        `下载之后，${SOUND_ZH} 新账号带有免费积分，够先做一条模板视频，之后用积分包或月付；生成器会在开始前显示积分。`,
+        `下载之后，${SOUND_ZH} ViralReel 按积分计费、没有免费积分：生成器会在开始前显示确切费用，渲染失败自动退还。`,
       ],
     },
     steps: makeVideoSteps,
@@ -580,27 +580,27 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
       zh: 'Bicep Heart AI 免费吗？积分、费用，和第一条视频',
     },
     description: {
-      en: 'bicep heart free: new ViralReel accounts start with free credits that cover a first bicep heart render. After that, credit packs or a monthly plan — the generator shows the cost every time.',
-      zh: 'bicep heart free：新的 ViralReel 账号带有免费积分，够渲染第一条 bicep heart。之后用积分包或月付——生成器每次都会显示费用。',
+      en: 'bicep heart free: ViralReel does not offer free credits — rendering is pay-per-credit with transparent pricing. The exact cost shows before every render, and failed renders are refunded automatically.',
+      zh: 'bicep heart free：ViralReel 不提供免费积分——按积分计费、价格透明。每次渲染前显示确切费用，渲染失败自动退还。',
     },
     h1: { en: 'Is bicep heart AI free?', zh: 'Bicep heart AI 免费吗？' },
     lead: {
-      en: 'Short answer: a new ViralReel account starts with free credits — enough for a first bicep heart render. It is not free forever; later videos use credits.',
-      zh: '简短回答：新的 ViralReel 账号带有免费积分——够渲染第一条 bicep heart。不是永远免费；之后的视频用积分。',
+      en: 'Short answer: no, there are no free credits. ViralReel is pay-per-credit with transparent pricing — the exact cost shows in the generator before every render, and failed renders are refunded automatically.',
+      zh: '简短回答：没有免费积分。ViralReel 按积分计费、价格透明——每次渲染前生成器显示确切费用，渲染失败自动退还。',
     },
     guideTitle: {
-      en: 'Free start, credits after',
-      zh: '免费开始，之后按积分',
+      en: 'Pay per render, priced transparently',
+      zh: '按次计费，价格透明',
     },
     body: {
       en: [
-        'ViralReel is credit-based. A new account includes starter credits that cover a first template video, so you can test the bicep heart render before paying anything. The generator shows the exact credit cost under the Generate button before you start — for this template it is the 7-second fixed length times the resolution you pick.',
-        `After the starter credits, top up with a credit pack at https://www.viralreel.app/pricing or a monthly plan at https://www.viralreel.app/subscribe. ${creditsPerUsdNoteEn()}`,
+        'ViralReel is credit-based and pay-per-render: there are no starter credits and no free trial, so buy a credit pack or a plan before your first render. The generator shows the exact credit cost under the Generate button before you start — for this template it is the 7-second fixed length times the resolution you pick.',
+        `Top up with a credit pack at https://www.viralreel.app/pricing or a monthly plan at https://www.viralreel.app/subscribe. ${creditsPerUsdNoteEn()}`,
         `Make the first one at ${EN_TEMPLATE}. ${SETS_EN} Failed jobs are refunded automatically, so a failed render never eats your credits.`,
       ],
       zh: [
-        'ViralReel 按积分计费。新账号自带新手积分，够做第一条模板视频，所以你可以先试 bicep heart 渲染再决定付费。生成器会在「立即生成」按钮下方显示本次的确切积分——这个模板是固定 7 秒时长乘以你选的分辨率。',
-        `新手积分用完后，在 https://www.viralreel.app/zh/pricing 买积分包，或在 https://www.viralreel.app/zh/subscribe 订月付。${creditsPerUsdNoteZh()}`,
+        'ViralReel 按积分计费、按次付费：没有新手积分，也没有免费试用，第一次渲染前先购买积分包或月付。生成器会在「立即生成」按钮下方显示本次的确切积分——这个模板是固定 7 秒时长乘以你选的分辨率。',
+        `在 https://www.viralreel.app/zh/pricing 买积分包，或在 https://www.viralreel.app/zh/subscribe 订月付。${creditsPerUsdNoteZh()}`,
         `第一条在 ${ZH_TEMPLATE} 做。${SETS_ZH} 失败任务自动退积分，渲染失败不会吞掉你的积分。`,
       ],
     },
@@ -609,8 +609,8 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
       {
         q: { en: 'Is there a daily free video?', zh: '有每天免费一条吗？' },
         a: {
-          en: 'No. ViralReel gives starter credits once at sign-up, then credit packs or a monthly plan. There is no daily free render.',
-          zh: '没有。ViralReel 在注册时给一次新手积分，之后是积分包或月付。没有每日免费渲染。',
+          en: 'No. There are no free credits at all — every render is paid at the credit price shown in the generator, with packs or a plan. There is no daily free render.',
+          zh: '没有。完全没有免费积分——每次渲染都按生成器显示的积分价格计费，用积分包或月付支付。没有每日免费渲染。',
         },
       },
       {
@@ -988,7 +988,7 @@ export function bicepHeartLinkGroups(zh: boolean): BicepHeartLinkGroup[] {
       title: zh ? '怎么做（ChatGPT 常问）' : 'How to make it',
       links: [
         { href: '/how-to-make-bicep-heart-ai-video', label: zh ? '如何制作 AI 视频' : 'How to make an AI video' },
-        { href: '/bicep-heart-free', label: zh ? '免费额度与积分' : 'Free credits and costs' },
+        { href: '/bicep-heart-free', label: zh ? '积分与费用' : 'Credits and costs' },
         { href: '/bicep-heart-prompt', label: zh ? '没有提示词框' : 'No prompt box' },
         { href: '/bicep-heart-kling', label: zh ? '和 Kling 对照' : 'Kling comparison' },
         { href: '/bicep-heart-capcut', label: zh ? '和 CapCut 对照' : 'CapCut comparison' },

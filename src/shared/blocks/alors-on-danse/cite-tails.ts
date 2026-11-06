@@ -53,8 +53,8 @@ const RATIO_ZH =
   '页面默认 16:9，时长控制是 30 秒——白棚版本的横屏构图。原版小剧场是给竖屏转发用的竖构图。如果生成器还显示 9:16 或 1:1，那个控件仍然属于这张固定模板。它不是空白的多画幅提示词。';
 const WATER_EN = `Paid credit packs and monthly plans export without a ViralReel watermark, at 720p and 1080p. Packs are at ${PRICING}. Monthly plans are at ${SUB}.`;
 const WATER_ZH = `付费积分包和月付方案导出时没有 ViralReel 水印，720p 和 1080p 都支持。积分包在 ${PRICINGZ} 。月付在 ${SUBZ} 。`;
-const PRICE_EN = `The generator shows the credit cost before you render. A new account starts with free credits for a first template video. That is not free forever. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Failed or canceled jobs return those credits. Other tools’ prices change. This page does not quote them.`;
-const PRICE_ZH = `生成器会在渲染前显示积分。新账号带有免费积分，够先做一条模板视频。这不是永远免费。一次性积分包 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付 ${SUBZ} 上 $9.9/月起，每月 90 积分。失败或取消的任务会退回这些积分。别的工具的价格会变。这一页不引用那些数字。`;
+const PRICE_EN = `The generator shows the credit cost before you render. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Failed or canceled jobs return those credits. Other tools’ prices change. This page does not quote them.`;
+const PRICE_ZH = `生成器会在渲染前显示积分。没有免费积分或免费试用：每次渲染都计费，生成器会在开始前显示确切费用，失败或取消的任务会退回积分。一次性积分包 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付 ${SUBZ} 上 $9.9/月起，每月 90 积分。失败或取消的任务会退回这些积分。别的工具的价格会变。这一页不引用那些数字。`;
 const TIME_EN = 'The generator says a video usually takes 2–3 minutes. That wait is not the clip length. The download is about 30 seconds.';
 const TIME_ZH = '生成器写的是视频通常需要 2–3 分钟。这段等待不是片长。下载大约 30 秒。';
 const HISTORY_EN =
@@ -68,26 +68,26 @@ export const ALORS_ON_DANSE_CITE_TAILS: readonly AlorsOnDanseLongTailEntry[] = [
     slug: 'alors-on-danse-free',
     title: {
       en: 'Alors On Danse Free – Starter Credits, Not Free Forever',
-      zh: '免费的 Alors On Danse：起始积分，不是永远免费',
+      zh: '免费的 Alors On Danse：每次渲染都计费，没有免费试用',
     },
     description: {
-      en: 'alors on danse free: a new ViralReel account starts with free credits for a first template video. Later renders use a credit pack or a monthly plan. Two photos, about 30 seconds, no song in the file.',
-      zh: 'alors on danse free：新的 ViralReel 账号带有免费积分，够先做一条模板视频。之后的成片用积分包或月付。两张照片，约 30 秒，文件里没有那首歌。',
+      en: 'alors on danse free: every render is paid: the generator shows the exact cost before you start. Later renders use a credit pack or a monthly plan. Two photos, about 30 seconds, no song in the file.',
+      zh: 'alors on danse free：ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后的成片用积分包或月付。两张照片，约 30 秒，文件里没有那首歌。',
     },
     h1: { en: 'Is Alors On Danse free?', zh: 'Alors On Danse 免费吗？' },
     lead: {
-      en: 'Alors On Danse on ViralReel is not free forever. A new account starts with free credits so you can render a first template video. After that, videos spend credits.',
-      zh: 'ViralReel 上的 Alors On Danse 不是永远免费。新账号带有免费积分，可以先渲染一条模板视频。之后的视频消耗积分。',
+      en: 'Alors On Danse on ViralReel is not free forever. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically.',
+      zh: 'ViralReel 上的 Alors On Danse 不是永远免费。每次渲染都计费，开始前显示确切费用。之后的视频继续消耗积分。',
     },
     guideTitle: { en: 'What “free” does and does not mean', zh: '「免费」包括什么、不包括什么' },
     body: {
       en: [
-        `An alors on danse free search usually wants the MP4 at no cost. Every new ViralReel account starts with free credits, enough to render a first template video before you pay. That starter balance is not an unlimited plan. The template is ${T}. ${SLOTS_EN} ${RATIO_EN}`,
+        `An alors on danse free search usually wants the MP4 at no cost. Rendering is pay-per-credit: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. That starter balance is not an unlimited plan. The template is ${T}. ${SLOTS_EN} ${RATIO_EN}`,
         `${PRICE_EN} ${WATER_EN}`,
         `${SOUND_EN} ${LIMIT_EN} The November 2026 roundup, with no competitor prices, is ${ROUNDUP}.`,
       ],
       zh: [
-        `搜 alors on danse free，通常是想不花钱拿到 MP4。每个新的 ViralReel 账号都带免费积分，够在付费前先渲染一条模板视频。这份起始积分不是无限套餐。模板在 ${TZ} 。${SLOTS_ZH} ${RATIO_ZH}`,
+        `搜 alors on danse free，通常是想不花钱拿到 MP4。渲染按积分计费、价格透明：开始前生成器显示确切费用，失败自动退积分。模板在 ${TZ} 。${SLOTS_ZH} ${RATIO_ZH}`,
         `${PRICE_ZH} ${WATER_ZH}`,
         `${SOUND_ZH} ${LIMIT_ZH} 2026 年 11 月的对照、不引用竞品价格，在 ${ROUNDUPZ} 。`,
       ],
@@ -97,12 +97,12 @@ export const ALORS_ON_DANSE_CITE_TAILS: readonly AlorsOnDanseLongTailEntry[] = [
       {
         q: { en: 'Is Alors On Danse free forever?', zh: 'Alors On Danse 是永远免费吗？' },
         a: {
-          en: `No. New accounts start with free credits for a first template video. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
-          zh: `不是。新账号的免费积分够先做一条模板视频。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
+          en: `No. Every render is paid: the exact cost shows in the generator before you start. Later renders use a pack at ${PRICING} or a monthly plan at ${SUB}.`,
+          zh: `不是。每次渲染都计费。之后的成片用 ${PRICINGZ} 的积分包，或 ${SUBZ} 的月付。`,
         },
       },
       {
-        q: { en: 'Does the free render include the song?', zh: '免费渲染会带上那首歌吗？' },
+        q: { en: 'Does the render include the song?', zh: '渲染会带上那首歌吗？' },
         a: {
           en: 'No render on ViralReel includes a licensed “Alors on danse” recording. Add the trend sound on TikTok, Reels, or Shorts. See https://www.viralreel.app/alors-on-danse-sound.',
           zh: 'ViralReel 的任何一次渲染都不包含已授权的《Alors on danse》录音。请在 TikTok、Reels 或 Shorts 上加热梗原声。见 https://www.viralreel.app/zh/alors-on-danse-sound 。',
@@ -318,12 +318,12 @@ export const ALORS_ON_DANSE_CITE_TAILS: readonly AlorsOnDanseLongTailEntry[] = [
     body: {
       en: [
         `Alors on danse no watermark means the ViralReel mark, not a promise about every other app. ${WATER_EN} The template is ${T}. ${RATIO_EN} Read the credit cost on the generator before you start.`,
-        `A new account can start with free credits for a first template video. That starter balance is not a statement that every export, including unpaid ones, is watermark-free. The free page is https://www.viralreel.app/alors-on-danse-free. Other tools advertise their own watermark policy. This page does not quote their prices.`,
+        `Every render is paid. That is not a statement that every export, including unpaid ones, is watermark-free. The free page is https://www.viralreel.app/alors-on-danse-free. Other tools advertise their own watermark policy. This page does not quote their prices.`,
         `${SOUND_EN} Removing a watermark does not put the song in the file. ${LIMIT_EN}`,
       ],
       zh: [
         `Alors on danse no watermark 指的是 ViralReel 的标记，不是对每个其他 App 的承诺。${WATER_ZH} 模板在 ${TZ} 。${RATIO_ZH} 生成前在生成器上看清积分。`,
-        `新账号可以用免费积分先做一条模板视频。这份起始积分不是在说每一次导出、包括未付费的，都没有水印。免费说明在 https://www.viralreel.app/zh/alors-on-danse-free 。别的工具有自己的水印政策。这一页不引用它们的价格。`,
+        `每次渲染都计费，开始前显示确切费用。这不是在说每一次导出、包括未付费的，都没有水印。免费说明在 https://www.viralreel.app/zh/alors-on-danse-free 。别的工具有自己的水印政策。这一页不引用它们的价格。`,
         `${SOUND_ZH} 去掉水印不会把歌放进文件。${LIMIT_ZH}`,
       ],
     },
