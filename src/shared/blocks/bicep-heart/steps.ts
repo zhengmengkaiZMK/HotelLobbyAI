@@ -8,8 +8,8 @@ export const BICEP_HEART_HOW_TO_STEPS: readonly BicepHeartHowToStep[] = [
   {
     name: { en: 'Pick a heart set', zh: '选一套比心阵容' },
     text: {
-      en: 'On ViralReel, open the Bicep Heart template and pick one of nine sets: Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, or one of the four new trend replays. The pose stays the same; who flexes changes.',
-      zh: '在 ViralReel 打开 Bicep Heart 模板，九套阵容里选一套：健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻，或四款新复刻版本。动作不变，换的是比心的那个人（或宠物）。',
+      en: 'On ViralReel, open the Bicep Heart Trend template and pick one of nine sets: Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, or one of the four new trend replays. The pose stays the same; who flexes changes.',
+      zh: '在 ViralReel 打开 Bicep Heart Trend 模板，九套阵容里选一套：健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻，或四款新复刻版本。动作不变，换的是比心的那个人（或宠物）。',
     },
   },
   {

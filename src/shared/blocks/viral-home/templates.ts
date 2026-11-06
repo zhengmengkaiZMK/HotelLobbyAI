@@ -30,6 +30,8 @@ export interface TemplateDef {
   previewVideo?: string | null;
   /** Optional source attribution shown as a small badge on preview media (e.g. '@isabellacapcut'). */
   credit?: string;
+  /** Optional per-card "best photo type" copy shown in the template gallery ([en, zh]). */
+  bestFor?: readonly [string, string];
   /**
    * Multi-video families: which admin sample slot (1-based) this card maps to.
    * Clicking the card opens the generator with that sample preselected.
