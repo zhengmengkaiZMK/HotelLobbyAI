@@ -23,6 +23,7 @@ const scene =
 export const bicepHeartTemplates = [
   {
     id: 'bicep-have-you-heard',
+    family,
     name: ['Have You Heard Heart', '「听说过吗」开场版'],
     bestFor: ['Best for: anyone — the dim-room opener that started the wave; works with any waist-up photo.', '适用：任何人——带火这波趋势的昏暗房间开场版，任意半身照都能用。'],
     colors: ['#0ea5e9', '#0c4a6e'],
@@ -33,6 +34,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-trend-boy',
+    family,
     name: ['Trend Boy Heart', '门口 trend 男生版'],
     bestFor: ['Best for: casual everyday photos; recreates the white-doorway street take.', '适用：日常休闲照片，复刻白门口街拍版本。'],
     colors: ['#94a3b8', '#334155'],
@@ -43,6 +45,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-tattoo-girl',
+    family,
     name: ['Tattoo Girl Heart', '纹身女生版'],
     bestFor: ['Best for: portraits with visible tattoos or bold personal style; the cozy bedroom take.', '适用：有纹身或个性穿搭的半身照，居家卧室场景。'],
     colors: ['#f472b6', '#9d174d'],
@@ -53,6 +56,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-tank-boy',
+    family,
     name: ['Black Tank Heart', '黑背心男生版'],
     bestFor: ['Best for: gym and sporty photos; the black-tank TikTok Live style take.', '适用：健身房和运动风照片，黑背心直播风场景。'],
     colors: ['#fbbf24', '#92400e'],
@@ -63,6 +67,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-buff',
+    family,
     name: ['Gym Buff Heart', '健身猛男版'],
     bestFor: ['Best for: athletic or muscular physiques — the gym-buff version that leans hardest into the flex.', '适用：健美或肌肉线条明显的身材——最突出弯举力量的版本。'],
     colors: ['#2563eb', '#1e3a8a'],
@@ -72,6 +77,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-normal',
+    family,
     name: ['Everyday Heart', '日常小心心版'],
     bestFor: ['Best for: regular everyday photos of any build — the safe default for first tries.', '适用：任意身材的日常照片——第一次尝试的稳妥之选。'],
     colors: ['#86efac', '#15803d'],
@@ -81,6 +87,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-cat',
+    family,
     name: ['Cat Bicep Heart', '猫咪比心版'],
     bestFor: ['Best for: cat photos — one clear side or front view where the front leg is visible.', '适用：猫咪照片——一张能看清前腿的正脸或侧脸照。'],
     colors: ['#fda4af', '#be123c'],
@@ -90,6 +97,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-dog',
+    family,
     name: ['Dog Bicep Heart', '狗狗比心版'],
     bestFor: ['Best for: dog photos — sitting or standing, front legs visible, face toward the camera.', '适用：狗狗照片——坐姿或站姿、前腿可见、面向镜头。'],
     colors: ['#fcd34d', '#b45309'],
@@ -99,6 +107,7 @@ export const bicepHeartTemplates = [
   },
   {
     id: 'bicep-original',
+    family,
     name: ['Original Trend', '原梗复刻版'],
     bestFor: ['Best for: recreating the original wave as closely as possible, human or pet.', '适用：尽可能贴近原梗的复刻，人和宠物都行。'],
     colors: ['#a5b4fc', '#4338ca'],
