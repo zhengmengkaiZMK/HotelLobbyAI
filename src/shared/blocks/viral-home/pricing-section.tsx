@@ -127,7 +127,7 @@ export function PricingSection({
               const features = planFeatureLines(item, videoCosts, zh);
               const featured = !!item.is_featured;
               return (
-                <article className={`pcard ${featured ? 'pro' : ''}`} key={item.product_id}>
+                <article className={`pcard ${featured ? 'pro' : ''}`} key={item.product_id} id={showingPacks && featured ? 'popular-pack' : undefined}>
                   {featured && <span className="tag">{t('Most popular', '最受欢迎')}</span>}
                   {item.label && !featured && (
                     <span className="tag">{t(item.label, item.label === 'Most popular' ? '最受欢迎' : item.label)}</span>

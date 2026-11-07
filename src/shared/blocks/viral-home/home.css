@@ -135,7 +135,7 @@
 .viral-home .guide li{margin:0 0 8px}
 .viral-home .guide li::marker{color:#ea580c;font-weight:600}
 .viral-home .guide-fig{margin:24px 0 8px}
-.viral-home .guide-fig img{width:100%;border-radius:14px;border:1px solid #e4e4e7}
+.viral-home .guide-fig img{width:100%;height:auto;border-radius:14px;border:1px solid #e4e4e7}
 .viral-home .guide-fig figcaption{font-size:13px;color:#71717a;margin-top:8px;text-align:center}
 .viral-home .guide-more{margin-top:20px}
 .viral-home .guide-more a,.viral-home .guide a{color:#ea580c;font-weight:600}
@@ -159,7 +159,7 @@
 .viral-home .price-grid.cols-4{grid-template-columns:repeat(4,1fr);max-width:none;gap:16px;padding-top:16px}
 .viral-home .price-grid.cols-4 .pcard{padding:24px 18px}
 .viral-home .price-grid.cols-4 .price{font-size:32px}
-.viral-home .pcard{background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:32px}
+.viral-home .pcard{background:#fff;border:1px solid #e4e4e7;border-radius:12px;padding:32px;scroll-margin-top:96px}
 .viral-home .pcard.pro{border:1.5px solid #ea580c;box-shadow:0 8px 30px #ea580c1a;position:relative}
 .viral-home .pcard .tag{position:absolute;top:-12px;left:50%;transform:translateX(-50%);background:var(--grad);color:#fff;font-size:12px;font-weight:600;padding:3px 14px;border-radius:999px;white-space:nowrap}
 .viral-home .pcard h3{font-size:16px;font-weight:600}

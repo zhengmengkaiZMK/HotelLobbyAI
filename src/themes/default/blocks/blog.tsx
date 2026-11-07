@@ -79,6 +79,8 @@ export function Blog({
                         src={item.image}
                         alt={item.title || ''}
                         className="aspect-16/9 h-full w-full object-cover object-center"
+                        loading={idx < 3 ? undefined : 'lazy'}
+                        decoding="async"
                       />
                     </div>
                   )}
