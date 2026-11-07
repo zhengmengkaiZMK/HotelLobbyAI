@@ -49,6 +49,7 @@ const staticRoutes = [
   ...BULIN_LONG_TAIL_ROUTES,
   { path: '/bicep-heart-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...BICEP_HEART_LONG_TAIL_ROUTES,
+  { path: '/vossi-bop-dance-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/tiny-desk-outstanding-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...TINY_DESK_LONG_TAIL_ROUTES,
   { path: '/window-peeper-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },

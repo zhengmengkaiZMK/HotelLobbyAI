@@ -23,6 +23,7 @@ import './home.css';
 // stays scannable. Templates removed from here (bulin, ozil, hotel)
 // are still listed in the footer links and on the homepage trending hub.
 const TRENDING_NAV_ORDER = [
+  'vossi-bop',
   'bicep-heart',
   'pimpwalk-entrance',
   'fancy-cafe',

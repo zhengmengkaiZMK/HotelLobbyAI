@@ -33,6 +33,11 @@ export interface TemplateDef {
   /** Optional per-card "best photo type" copy shown in the template gallery ([en, zh]). */
   bestFor?: readonly [string, string];
   /**
+   * Optional example photo shown inside EMPTY upload slots as a visual hint
+   * (示意样例图). It is never submitted and never counts as an uploaded image.
+   */
+  uploadHint?: string;
+  /**
    * Multi-video families: which admin sample slot (1-based) this card maps to.
    * Clicking the card opens the generator with that sample preselected.
    */

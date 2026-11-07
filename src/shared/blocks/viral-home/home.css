@@ -346,3 +346,7 @@
 .viral-home .tpl-gallery b{font-weight:700}
 .viral-home .tpl-gallery .src-tag{display:inline-block;margin-left:8px;padding:2px 8px;border-radius:999px;font-size:12px;font-weight:600;background:#e4e4e7;color:#3f3f46;vertical-align:middle}
 .viral-home .tpl-gallery .src-tag.ai{background:#dcfce7;color:#166534}
+/* Upload-slot example photo (示意样例图): dimmed hint image + small badge.
+   Never submitted — purely visual guidance for the required photo type. */
+.viral-dialog .up-ph .up-hint{opacity:.45}
+.viral-dialog .up-ph .up-hint-tag{position:absolute;right:4px;bottom:4px;font-size:10px;line-height:1;padding:3px 6px;border-radius:6px;background:rgba(0,0,0,.55);color:#fff;letter-spacing:.02em;pointer-events:none}

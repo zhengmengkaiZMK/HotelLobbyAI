@@ -36,7 +36,7 @@ export const TINY_DESK_FAQ = {
     ['Tiny Desk Outstanding 粉丝戏仿是什么？', '三个文件经常被混在一起。NPR 收尾是 Charlie Wilson 在 Tiny Desk 演唱 Gap Band 的《Outstanding》，NPR Music 于 2023 年 6 月 5 日发布。梗文件是 2026 年 10 月 18 日的 All-Loss 教练 TikTok。ViralReel 的产品是用你有权使用的照片做成的新 MP4。这个区分在 https://www.viralreel.app/zh/blog/what-is-tiny-desk-outstanding-fan-parody 。ViralReel 不托管两个原片。'],
     ['怎么把 Tiny Desk Outstanding 发到 TikTok、Reels 或 Shorts？', '下载 9:16 的 MP4，在 App 里上传，从该 App 曲库加上《Outstanding》热梗原声，并打开 AI 标注。ViralReel 不授权这首歌。发布步骤在 https://www.viralreel.app/zh/blog/post-tiny-desk-outstanding-tiktok-reels-shorts 。'],
     ['需要 Kling 或提示词吗？', '不需要。https://www.viralreel.app/zh/tiny-desk-outstanding-ai-template 上的模板是一张固定的桌子。选一套阵容，上传中间主角、左边角色和右边角色。Kling 这类工具用提示词生成片段；对照在 https://www.viralreel.app/zh/blog/viralreel-vs-kling-tiny-desk-outstanding 。这里没有提示词框：https://www.viralreel.app/zh/tiny-desk-outstanding-prompt 。'],
-    ['Tiny Desk Outstanding AI 免费吗？', '新的 ViralReel 账号带有免费积分，够先渲染一条模板视频。不是永远免费。之后的视频用 https://www.viralreel.app/zh/pricing 的积分包，或 https://www.viralreel.app/zh/subscribe 的月付。生成器会在开始前显示积分。'],
+    ['Tiny Desk Outstanding AI 免费吗？', '不免费。ViralReel 不提供免费积分。每次渲染都计费：开始前生成器会显示确切费用。之后的视频用 https://www.viralreel.app/zh/pricing 的积分包，或 https://www.viralreel.app/zh/subscribe 的月付。'],
     ['ChatGPT 能做出 MP4 吗？', 'ChatGPT 可以解释步骤。MP4 在浏览器里渲染：https://www.viralreel.app/zh/tiny-desk-outstanding-ai-template ，不在对话里。不要用对话给名人或其他公众人物选角。'],
   ],
 } as const;

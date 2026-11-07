@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'vossi-bop',
+    name: ['Vossi Bop Dance', 'Vossi Bop Dance'],
+    pitch: [
+      'One photo puts you bopping on Westminster Bridge at dawn — the November TikTok trend.',
+      '一张照片，让你在黎明的威斯敏斯特桥上跳 Vossi Bop——11 月的 TikTok 热梗。',
+    ],
+    href: '/vossi-bop-dance-ai-template',
+    badge: 'hot',
+    vibes: ['dance', 'meme'],
+    poster: '/templates/vossibop-angry-ginge-poster.jpg',
+    video: '/templates/vossibop-angry-ginge.mp4',
+    colors: ['#cbd5e1', '#1e293b'],
+  },
+  {
     id: 'bicep-heart',
     name: ['Bicep Heart', 'Bicep Heart 比心'],
     pitch: [
