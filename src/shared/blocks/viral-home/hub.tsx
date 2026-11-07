@@ -1,28 +1,23 @@
 'use client';
 
-import {
-  useEffect,
-  useRef,
-  useState,
-  type CSSProperties,
-  type ReactNode,
-} from 'react';
+import { useState, type CSSProperties, type ReactNode } from 'react';
 import { ArrowRight, Check, Flame, Sparkles, Users, Video } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { toast } from 'sonner';
 
 import { Link } from '@/core/i18n/navigation';
-import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
-import { useAppContext } from '@/shared/contexts/app';
-import { getCookie } from '@/shared/lib/cookie';
 import {
   TRENDING_TEMPLATES,
   TRENDING_VIBES,
   type TrendingTemplate,
   type TrendingVibeId,
 } from '@/config/trending-templates';
-import { getHubFaqPairs } from '@/shared/lib/hub-faq';
+import { LazyVideo } from '@/shared/blocks/common/lazy-video';
+import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
+import { useAppContext } from '@/shared/contexts/app';
 import { track } from '@/shared/lib/analytics';
+import { getCookie } from '@/shared/lib/cookie';
+import { getHubFaqPairs } from '@/shared/lib/hub-faq';
 import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { maxVideoLine, planFeatureLines } from '@/shared/lib/video-yield';
@@ -75,61 +70,29 @@ function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' }) {
   );
 }
 
-const activeVideos: HTMLVideoElement[] = [];
-
-function TrendVideo({
-  src,
-  poster,
-  colors,
-  eager,
+function TrendCard({
+  item,
+  zh,
+  priority,
 }: {
-  src: string;
-  poster?: string;
-  colors: readonly [string, string];
-  eager?: boolean;
+  item: TrendingTemplate;
+  zh: boolean;
+  priority?: boolean;
 }) {
-  const ref = useRef<HTMLVideoElement | null>(null);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(
-      ([entry]) => {
-        if (entry.isIntersecting) { activeVideos.push(el); while (activeVideos.length > 3) { const v = activeVideos.shift(); if (v && v !== el) v.pause(); } el.play().catch(() => {}); }else { const vi = activeVideos.indexOf(el); if (vi >= 0) activeVideos.splice(vi, 1); el.pause(); }
-      },
-      { threshold: 0.3 }
-    );
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  return (
-    <video
-      ref={ref}
-      className="tv-video"
-      src={src}
-      poster={poster}
-      muted
-      loop
-      playsInline
-      preload={eager ? 'metadata' : 'none'}
-      style={{
-        background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})`,
-      }}
-    />
-  );
-}
-
-function TrendCard({ item, zh, eager }: { item: TrendingTemplate; zh: boolean; eager?: boolean }) {
   const t = (en: string, cn: string) => (zh ? cn : en);
   const name = item.name[zh ? 1 : 0];
   const pitch = item.pitch[zh ? 1 : 0];
   const media = (
     <>
       {item.video ? (
-        <TrendVideo
+        <LazyVideo
+          className="tv-video"
           src={item.video}
           poster={item.poster}
-          colors={item.colors}
-          eager={eager}
+          priority={priority}
+          style={{
+            background: `linear-gradient(165deg, ${item.colors[0]}, ${item.colors[1]})`,
+          }}
         />
       ) : (
         <span className="tv-stage" />
@@ -363,7 +326,9 @@ export function ViralHub({
       });
       const payload = await response.json();
       if (!response.ok || payload.code !== 0 || !payload.data?.checkoutUrl) {
-        throw new Error(payload.message || t('Checkout failed', '创建支付失败'));
+        throw new Error(
+          payload.message || t('Checkout failed', '创建支付失败')
+        );
       }
       window.location.assign(payload.data.checkoutUrl);
     } catch (e) {
@@ -556,7 +521,12 @@ export function ViralHub({
             ) : (
               <div className="grid3">
                 {cards.map((item, index) => (
-                  <TrendCard key={item.id} item={item} zh={zh} eager={index < 2} />
+                  <TrendCard
+                    key={item.id}
+                    item={item}
+                    zh={zh}
+                    priority={index === 0}
+                  />
                 ))}
               </div>
             )}
