@@ -81,10 +81,12 @@ function TrendVideo({
   src,
   poster,
   colors,
+  eager,
 }: {
   src: string;
   poster?: string;
   colors: readonly [string, string];
+  eager?: boolean;
 }) {
   const ref = useRef<HTMLVideoElement | null>(null);
   useEffect(() => {
@@ -108,7 +110,7 @@ function TrendVideo({
       muted
       loop
       playsInline
-      preload="metadata"
+      preload={eager ? 'metadata' : 'none'}
       style={{
         background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})`,
       }}
@@ -116,7 +118,7 @@ function TrendVideo({
   );
 }
 
-function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
+function TrendCard({ item, zh, eager }: { item: TrendingTemplate; zh: boolean; eager?: boolean }) {
   const t = (en: string, cn: string) => (zh ? cn : en);
   const name = item.name[zh ? 1 : 0];
   const pitch = item.pitch[zh ? 1 : 0];
@@ -127,6 +129,7 @@ function TrendCard({ item, zh }: { item: TrendingTemplate; zh: boolean }) {
           src={item.video}
           poster={item.poster}
           colors={item.colors}
+          eager={eager}
         />
       ) : (
         <span className="tv-stage" />
@@ -552,8 +555,8 @@ export function ViralHub({
               </p>
             ) : (
               <div className="grid3">
-                {cards.map((item) => (
-                  <TrendCard key={item.id} item={item} zh={zh} />
+                {cards.map((item, index) => (
+                  <TrendCard key={item.id} item={item} zh={zh} eager={index < 2} />
                 ))}
               </div>
             )}
