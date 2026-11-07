@@ -2,10 +2,11 @@
 
 /* eslint-disable @next/next/no-img-element */
 
-import { useEffect, useRef, useState, type CSSProperties, type ReactNode } from 'react';
-import { ArrowRight, Flame, Maximize, Mic, Play, Smartphone, Users, Video, Volume2, VolumeX } from 'lucide-react';
+import { useEffect, useState, type CSSProperties, type ReactNode } from 'react';
+import { ArrowRight, Flame, Maximize, Mic, Play, Smartphone, Users, Video } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { track } from '@/shared/lib/analytics';
+import { TemplateCardVideo } from '@/shared/blocks/common/lazy-video';
 import { Link } from '@/core/i18n/navigation';
 import { TemplateGenerator } from '@/shared/blocks/viral-home/generator';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
@@ -27,35 +28,6 @@ function PlatformIcon({ type }: { type: 'tiktok' | 'youtube' | 'instagram' | 'x'
     reddit: <path d="M12 0a12 12 0 1 0 0 24 12 12 0 0 0 0-24zm5.01 4.74a1.25 1.25 0 1 0-1.95.94l-2.91-.62a.34.34 0 0 0-.41.26l-.9 4.17c-1.87.06-3.56.62-4.79 1.5a1.76 1.76 0 1 0-.81 3.33c-.03.17-.05.35-.05.53 0 2.7 3.12 4.87 7 4.87s7-2.17 7-4.87c0-.18-.02-.36-.04-.52a1.76 1.76 0 1 0-2.95-1.11c-1.2-.86-2.85-1.42-4.68-1.49l.8-3.75 2.6.55a1.25 1.25 0 0 0 2.09-1.09zM8.6 13.02a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0-2.5zm6.8 0a1.25 1.25 0 1 0 0 2.5 1.25 1.25 0 0 0 0 2.5z" />,
   };
   return <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">{paths[type]}</svg>;
-}
-
-const activeVideos: HTMLVideoElement[] = [];
-
-function TemplateVideo({ id, colors, eager }: { id: string; colors: readonly [string, string]; eager?: boolean }) {
-  const ref = useRef<HTMLVideoElement | null>(null);
-  const [muted, setMuted] = useState(true);
-  useEffect(() => {
-    const el = ref.current;
-    if (!el) return;
-    const observer = new IntersectionObserver(([entry]) => {
-      if (entry.isIntersecting) { activeVideos.push(el); while (activeVideos.length > 3) { const v = activeVideos.shift(); if (v && v !== el) v.pause(); } el.play().catch(() => {}); }else { const vi = activeVideos.indexOf(el); if (vi >= 0) activeVideos.splice(vi, 1); el.pause(); }
-    }, { threshold: 0.3 });
-    observer.observe(el);
-    return () => observer.disconnect();
-  }, []);
-  const toggleSound = (e: { preventDefault: () => void; stopPropagation: () => void }) => {
-    e.preventDefault(); e.stopPropagation();
-    setMuted((m) => {
-      const next = !m;
-      const el = ref.current;
-      if (el) { el.muted = next; if (!next) el.play().catch(() => {}); }
-      return next;
-    });
-  };
-  return <>
-    <video ref={ref} className="tv-video" src={`/templates/${id}.mp4`} poster={`/templates/${id}-poster.jpg`} muted={muted} loop autoPlay playsInline preload={eager ? 'metadata' : 'none'} style={{ background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})` }}/>
-    <span className="tv-sound" role="button" tabIndex={0} aria-label={muted ? 'Unmute video' : 'Mute video'} onClick={toggleSound} onKeyDown={(e) => { if (e.key === 'Enter' || e.key === ' ') toggleSound(e); }}>{muted ? <VolumeX size={15}/> : <Volume2 size={15}/>}</span>
-  </>;
 }
 
 export function PedraDoSalHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable(), pageUrl }: { creditsPerUsd?: number; videoCosts?: ReturnType<typeof getVideoCostTable>; pageUrl?: string }) {
@@ -85,7 +57,7 @@ export function PedraDoSalHome({ creditsPerUsd = 12, videoCosts = getVideoCostTa
     <ViralHeader onStart={start}/>
     <main>
       <section className="hero"><div className="container"><div className="hero-badge"><Flame size={16}/><span>#pedradoSal is trending</span></div><h1>{t('How to make a ', '如何在 ViralReel 制作 ')}<span className="hl">Pedra do Sal</span>{t(' AI video on ViralReel', ' AI 视频')}</h1><TemplateGenerator key={template.id} template={template} open embedded onOpenChange={() => {}} preferModel="MiniMax-H3"/></div></section>
-      <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Same crowd, different you','同一个人群，换的是你')}</h2><p className="sub">{t('Every card is the same night-square groove with a different dancer. Click one to open the generator.','每张卡片都是同一段夜场广场律动，换的是中间的人。点击卡片打开生成器。')}</p></div><div className="grid3">{pedraDoSalTemplates.map((item, index) => <article className="tcard" key={item.id}><button className="tv tv-full" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateVideo id={item.id} colors={item.colors} eager={index < 2}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>
+      <section className="sec templates-section" id="templates"><div className="container"><div className="sec-head"><p className="kick">{t('Templates','模板')}</p><h2>{t('Same crowd, different you','同一个人群，换的是你')}</h2><p className="sub">{t('Every card is the same night-square groove with a different dancer. Click one to open the generator.','每张卡片都是同一段夜场广场律动，换的是中间的人。点击卡片打开生成器。')}</p></div><div className="grid3">{pedraDoSalTemplates.map((item, index) => <article className="tcard" key={item.id}><button className="tv tv-full" aria-label={`${t('Use','使用')} ${item.name[zh ? 1 : 0]}`} onClick={() => choose(item)} style={{ '--g1': item.colors[0], '--g2': item.colors[1] } as CSSProperties}><TemplateCardVideo id={item.id} colors={item.colors}/>{index === 0 && <span className="hot">HOT</span>}<span className="tv-expand"><Maximize size={18}/></span><span className="tv-play"><Play size={16}/></span><span className="tv-bar"><i/></span></button><div className="tmeta"><b>{item.name[zh ? 1 : 0]}</b></div><button className="use" onClick={() => choose(item)}>{t('Generate','立即生成')}</button></article>)}</div></div></section>
       <div className="logos"><p className="lbl">{t('Creators are posting ViralReel videos on','创作者们正在这些平台发布 ViralReel 视频')}</p><div className="row"><span className="soc tiktok"><PlatformIcon type="tiktok"/>TikTok</span><span className="soc youtube"><PlatformIcon type="youtube"/>YouTube Shorts</span><span className="soc instagram"><PlatformIcon type="instagram"/>Instagram Reels</span><span className="soc x"><PlatformIcon type="x"/>X / Twitter</span><span className="soc reddit"><PlatformIcon type="reddit"/>Reddit</span></div></div>
       <section className="stats"><div className="container stats-grid"><div><div className="statnum">60<em>s</em></div><p>{t('Average render time','平均渲染时长')}</p></div><div><div className="statnum">9:16</div><p>{t('Vertical export for TikTok, Reels and Shorts','竖屏导出，适配 TikTok、Reels、Shorts')}</p></div><div><div className="statnum">{Math.min(...videoCosts.flatMap(row => row.costs.map(item => item.credits)))}<em className="wide-em">{t(' credits / video from', ' 积分 / 条起')}</em></div><p>{t(`Top-ups available · ${creditsPerUsd} credits = $1`,`随时可加购 · ${creditsPerUsd} 积分 = 1 美元`)}</p></div></div></section>
       <section className="sec sec-alt" id="what"><div className="container"><div className="sec-head"><p className="kick">{t('What is Pedra do Sal','Pedra do Sal 是什么')}</p><h2>{t('The night-square groove everyone is remaking','大家正在重拍的夜场广场律动')}</h2><p className="sub">{t('Floodlights, market tents, a dense crowd — and one calm dancer in the middle, rebuilt from one photo.','探照灯、市集帐篷、密集的人群——中间一个淡定的舞者，一张照片重新搭出来。')}</p></div><div className="grid4">{features.map(([Icon,title,desc]) => <div className="feat" key={title}><div className="ic"><Icon size={20}/></div><h3>{title}</h3><p>{desc}</p></div>)}</div></div></section>
