@@ -108,7 +108,7 @@ function TrendVideo({
       muted
       loop
       playsInline
-      preload="none"
+      preload="metadata"
       style={{
         background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})`,
       }}
