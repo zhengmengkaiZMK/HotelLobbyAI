@@ -49,6 +49,20 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
     colors: ['#cbd5e1', '#1e293b'],
   },
   {
+    id: 'grandpa-dinner',
+    name: ["Grandpa Said He'd Handle Dinner", "Grandpa Said He'd Handle Dinner 爷爷搞定晚饭"],
+    pitch: [
+      'One photo puts you behind the kitchen island chopping a giant fish — the November TikTok trend.',
+      '一张照片，让你站上厨房岛台剁巨型鱼——11 月爆火的 TikTok 热梗。',
+    ],
+    href: '/grandpa-said-hed-handle-dinner-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'couples'],
+    poster: '/templates/grandpa-classic-poster.jpg',
+    video: '/templates/grandpa-classic.mp4',
+    colors: ['#fde68a', '#92400e'],
+  },
+  {
     id: 'bicep-heart',
     name: ['Bicep Heart', 'Bicep Heart 比心'],
     pitch: [
