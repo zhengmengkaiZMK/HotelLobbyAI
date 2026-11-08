@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'gangsta-paradise',
+    name: ["Gangsta's Paradise", "Gangsta's Paradise 天堂说唱"],
+    pitch: [
+      'Two photos stage the viral verse-and-chorus performance — your rapper, your singer, and a choir that rises on cue.',
+      '两张照片上演爆火的 verse + 副歌表演——你的说唱者、你的演唱者，合唱团应声而起。',
+    ],
+    href: '/gangstas-paradise-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'couples'],
+    poster: '/templates/gangsta-hangar-poster.jpg',
+    video: '/templates/gangsta-hangar.mp4',
+    colors: ['#e7e5e4', '#1c1917'],
+  },
+  {
     id: 'vossi-bop',
     name: ['Vossi Bop Dance', 'Vossi Bop Dance'],
     pitch: [

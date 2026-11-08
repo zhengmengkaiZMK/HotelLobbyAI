@@ -25,6 +25,7 @@ import './home.css';
 // tiny-desk, pedra, bulin, ozil, hotel) are still listed in the footer links
 // and on the homepage trending hub.
 const TRENDING_NAV_ORDER = [
+  'gangsta-paradise',
   'grandpa-dinner',
   'vossi-bop',
   'bicep-heart',
@@ -33,7 +34,6 @@ const TRENDING_NAV_ORDER = [
   'charlie-brown',
   'sasha-la-catrina',
   'alors-on-danse',
-  'nostalgia',
 ] as const;
 
 function trendingNavItems(): TrendingTemplate[] {

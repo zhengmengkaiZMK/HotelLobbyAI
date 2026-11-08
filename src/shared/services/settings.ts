@@ -43,6 +43,7 @@ export interface SettingGroup {
 // ---------------------------------------------------------------------------
 export const MULTI_VIDEO_FAMILIES: Record<string, number> = {
   sasha_la_catrina: 7,
+  gangstas_paradise: 5,
 };
 
 // Admin display names for the multi-video families — the slot settings live
@@ -51,6 +52,7 @@ export const MULTI_VIDEO_FAMILIES: Record<string, number> = {
 // show a bare "多视频模板 1-7").
 export const MULTI_VIDEO_FAMILY_LABELS: Record<string, string> = {
   sasha_la_catrina: 'Sasha La Catrina',
+  gangstas_paradise: "Gangsta's Paradise",
 };
 
 const MULTI_VIDEO_DURATION_OPTIONS = ['5', '8', '10', '12', '15', '20', '30'];
@@ -2280,6 +2282,42 @@ export async function getSettings() {
       tip: '用户打开生成弹窗时默认选中的模型。若所选模型不在上方「可用模型」勾选清单里，则回退为第一个可用模型。',
     },
     {
+      name: 'viral_family_prompt_gangstas_paradise',
+      title: "Gangsta's Paradise 系列提示词",
+      type: 'textarea',
+      attributes: { rows: 4 },
+      group: 'viral_templates',
+      tab: 'ai',
+      tip: "Gangsta's Paradise 系列生成视频时的兜底提示词（双人舞台表演：一人 rap verse、一人副歌压轴、伴唱合唱团）。多视频模式下每个槽位有独立提示词配置，槽位提示词留空时回退到这里；这里也留空则用模板内置提示词。",
+    },
+    {
+      name: 'viral_family_reference_audio_gangstas_paradise',
+      title: "Gangsta's Paradise 系列参考音频",
+      type: 'upload_audio',
+      group: 'viral_templates',
+      tab: 'ai',
+      tip: "Gangsta's Paradise 系列的原声音频（WAV/MP3，总时长≤30 秒，如《Gangsta's Paradise》段落）。选 Wan 3.0 Reference 生成时作为 reference_audio 传入，让输出沿用表演原声；留空则由模型生成音频。注意：原曲为商业录音，请确认授权后再上传。",
+    },
+    {
+      name: 'viral_family_models_gangstas_paradise',
+      title: "Gangsta's Paradise 系列可用模型",
+      type: 'checkbox',
+      group: 'viral_templates',
+      tab: 'ai',
+      options: [],
+      tip: '勾选该系列允许使用的模型；前端生成弹窗只显示勾选的模型，生成接口同步校验。该系列默认 4:3 画幅，仅 Wan 3.0 Reference / Seedance 支持 4:3，建议只勾选这两类模型。全部不勾选时前端显示全部模型（兼容兜底）。',
+    },
+    {
+      name: 'viral_family_default_model_gangstas_paradise',
+      title: "Gangsta's Paradise 系列默认模型",
+      type: 'select',
+      group: 'viral_templates',
+      tab: 'ai',
+      options: [],
+      placeholder: '自动（第一个可用模型）',
+      tip: '用户打开生成弹窗时默认选中的模型。若所选模型不在上方「可用模型」勾选清单里，则回退为第一个可用模型。',
+    },
+    {
       name: 'viral_show_model_selector',
       title: '显示模型选择器 / Show Model Selector in Generation Dialog',
       type: 'switch',
@@ -2813,6 +2851,10 @@ export const publicSettingNames = [
   'viral_family_reference_audio_sasha_la_catrina',
   'viral_family_models_sasha_la_catrina',
   'viral_family_default_model_sasha_la_catrina',
+  'viral_family_prompt_gangstas_paradise',
+  'viral_family_reference_audio_gangstas_paradise',
+  'viral_family_models_gangstas_paradise',
+  'viral_family_default_model_gangstas_paradise',
   ...MULTI_VIDEO_SETTING_NAMES,
   'debug_show_request_payload',
   'viral_show_model_selector',

@@ -38,6 +38,11 @@ export interface TemplateDef {
    */
   uploadHint?: string;
   /**
+   * Per-slot example photos (示意样例图, index 0 = slot 1). Falls back to
+   * `uploadHint` for slots without an entry. Never submitted.
+   */
+  uploadHints?: readonly (string | null)[];
+  /**
    * Multi-video families: which admin sample slot (1-based) this card maps to.
    * Clicking the card opens the generator with that sample preselected.
    */
