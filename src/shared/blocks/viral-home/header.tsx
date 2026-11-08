@@ -3,7 +3,7 @@
 /* eslint-disable @next/next/no-img-element */
 
 import { Suspense } from 'react';
-import { ChevronDown, Flame, Menu, Video } from 'lucide-react';
+import { ChevronDown, Flame, Menu, Sparkles, Video } from 'lucide-react';
 import { useLocale } from 'next-intl';
 
 import { Link, usePathname } from '@/core/i18n/navigation';
@@ -19,9 +19,11 @@ import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { Brand } from './footer';
 import './home.css';
 
-// Top-nav Trending submenu: keep it to ten entries so the dropdown
-// stays scannable. Templates removed from here (bulin, ozil, hotel)
-// are still listed in the footer links and on the homepage trending hub.
+// Top-nav Trending submenu: keep it to the nine newest series so the
+// dropdown stays scannable, plus a fixed "All trends" entry pointing at the
+// homepage templates hub. Templates removed from here (wassup, ba-ba-ba,
+// tiny-desk, pedra, bulin, ozil, hotel) are still listed in the footer links
+// and on the homepage trending hub.
 const TRENDING_NAV_ORDER = [
   'grandpa-dinner',
   'vossi-bop',
@@ -32,10 +34,6 @@ const TRENDING_NAV_ORDER = [
   'sasha-la-catrina',
   'alors-on-danse',
   'nostalgia',
-  'wassup-in-a-minute',
-  'ba-ba-ba-dance',
-  'tiny-desk',
-  'pedra-do-sal',
 ] as const;
 
 function trendingNavItems(): TrendingTemplate[] {
@@ -119,6 +117,16 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                     <span>{item.name[zh ? 1 : 0]}</span>
                   </Link>
                 ))}
+                <Link
+                  href={homeHash('trending')}
+                  role="menuitem"
+                  className="sub-item sub-all"
+                >
+                  <span className="sub-all-icon" aria-hidden="true">
+                    <Sparkles size={15} />
+                  </span>
+                  <span>{t('All trends', '全部模板')}</span>
+                </Link>
               </div>
             </div>
             {links.map((item) =>
@@ -179,6 +187,14 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                       {item.name[zh ? 1 : 0]}
                     </Link>
                   ))}
+                  <Link
+                    href={homeHash('trending')}
+                    onClick={closeMobileMenu}
+                    className="mobile-all"
+                  >
+                    <Sparkles size={14} aria-hidden="true" />
+                    {t('All trends', '全部模板')}
+                  </Link>
                 </details>
                 {links.map((item) =>
                   item.href.startsWith('#') || item.href.includes('#') ? (

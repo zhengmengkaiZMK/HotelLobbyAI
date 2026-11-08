@@ -36,6 +36,10 @@
 .viral-home .menu .submenu .sub-item:hover{background:#fff7ed;color:#9a3412}
 .viral-home .menu .sub-thumb{flex:0 0 36px;width:36px;height:52px;border-radius:6px;overflow:hidden;background:#f4f4f5}
 .viral-home .menu .sub-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+/* fixed "All trends" entry at the bottom of the Trending submenu */
+.viral-home .menu .sub-item.sub-all{margin-top:4px;padding-top:10px;border-top:1px solid #f4f4f5;font-weight:600}
+.viral-home .menu .sub-all-icon{flex:0 0 28px;width:28px;height:28px;border-radius:8px;display:inline-flex;align-items:center;justify-content:center;background:linear-gradient(135deg,#fdba74,#ea580c);color:#fffaf5;box-shadow:0 1px 3px #ea580c59}
+.viral-home .mobile-menu .mobile-all{display:flex;align-items:center;gap:6px;font-weight:600;color:#9a3412}
 .viral-home .signin [data-slot=button]{background:transparent;color:#71717a;box-shadow:none;border:0;margin:0}
 .viral-home .btn,.viral-dialog .btn{display:inline-flex;align-items:center;justify-content:center;gap:8px;white-space:nowrap;border-radius:8px;font-size:14px;font-weight:500;height:40px;padding:0 20px;text-decoration:none;cursor:pointer;border:0;transition:.15s}
 .viral-home .btn-primary,.viral-dialog .btn-primary{background:var(--grad);color:#fffaf5;box-shadow:0 1px 3px #ea580c59}
