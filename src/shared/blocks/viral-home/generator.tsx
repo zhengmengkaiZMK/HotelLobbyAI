@@ -29,6 +29,19 @@ function urls(raw: string | null): string[] {
     return (Array.isArray(output) ? output : [output]).map((v: any) => typeof v === 'string' ? v : v?.url ?? v?.uri ?? v?.videoUrl ?? v?.src).filter((v: unknown): v is string => typeof v === 'string' && /^https?:\/\//.test(v));
   } catch { return []; }
 }
+// Sample-rail thumbnail: try the poster image first (site-hosted clips have
+// a matching -poster.jpg); when the poster is missing (admin-uploaded
+// multi-video slots have no poster file) fall back to the video's own first
+// frame via preload="metadata" — shows a frame without playing or a full
+// download, so the card never renders as a black box.
+function SampleThumb({ video, poster }: { video: string; poster: string }) {
+  const [posterBroken, setPosterBroken] = useState(false);
+  useEffect(() => { setPosterBroken(false); }, [poster]);
+  if (posterBroken) {
+    return <video src={`${video}#t=0.1`} preload="metadata" muted playsInline aria-hidden="true" />;
+  }
+  return <img src={poster} alt="" aria-hidden="true" onError={() => setPosterBroken(true)} />;
+}
 export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdit = false, preferModel, embedded = false }: { template: TemplateDef; open: boolean; onOpenChange: (open: boolean) => void; allowPromptEdit?: boolean; preferModel?: string; embedded?: boolean }) {
   const zh = useLocale() === 'zh';
   const text = (en: string, cn: string) => zh ? cn : en;
@@ -161,11 +174,13 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       ? [5, 10, 15, 20, 30]
       : isFalWan ? [5, 10, 15] : isFalRef ? [3, 5, 8, 10, 12, 15] : isOmni ? [4, 6, 8, 10] : [8, 12, 15]);
   // Omni only supports 16:9 / 9:16 / auto; Kling reference + v4 add auto + 1:1;
-  // Wan reference / Seedance use "adaptive" (shown as auto) + fixed ratios;
-  // the Gangsta's Paradise family adds 4:3 — the reference clips are 4:3 and
-  // the Wan/Seedance upstream accepts it (other models silently demote).
+  // Wan reference / Seedance use "adaptive" (shown as auto). The Gangsta's
+  // Paradise family defaults to auto — per fal's docs auto "adapts the output
+  // to the references", so the 4:3 reference clips drive the framing. Kling v4
+  // has no 4:3 enum (verified 2026-11: auto/16:9/9:16/1:1/21:9 only), so no
+  // explicit 4:3 option is offered.
   const ratioOptions = (isFalWan || isBaiduSeedance)
-    ? (family === 'gangstas_paradise' ? ['adaptive', '4:3', '16:9', '9:16', '1:1'] : ['adaptive', '16:9', '9:16', '1:1'])
+    ? ['adaptive', '16:9', '9:16', '1:1']
     : isFalRef || isFalV4 ? ['auto', '16:9', '9:16', '1:1'] : isOmni ? ['16:9', '9:16'] : ['16:9', '9:16', '1:1'];
   const defaultKeepAudio = configs.fal_kling_reference_keep_audio !== 'false';
   const [keepAudio, setKeepAudio] = useState(defaultKeepAudio);
@@ -251,7 +266,11 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [open, embedded, template.id, variantIdx]);
   const prompt = allowPromptEdit && promptDraft.trim() ? promptDraft.trim() : effectiveVariantPrompt;
-  const [ratio, setRatio] = useState(family === 'gangstas_paradise' ? '4:3' : ['bicep_heart', 'bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'grandpa_dinner', 'charlie_brown_christmas', 'fancy_cafe', 'pimpwalk_entrance', 'baba_dance', 'wassup_in_a_minute', 'nostalgia_capcut', 'sasha_la_catrina', 'vossi_bop_dance'].includes(family) ? '9:16' : '16:9');
+  // Gangsta's Paradise defaults to auto: with Kling v4 Reference as the
+  // default model there is no 4:3 enum, and auto adapts the output to the
+  // 4:3 reference clips. Wan/Seedance lack 'auto' in their options, so
+  // activeRatio falls back to 'adaptive' (also displayed as auto).
+  const [ratio, setRatio] = useState(family === 'gangstas_paradise' ? 'auto' : ['bicep_heart', 'bulin_47', 'ozil_goal', 'cat_clapping', 'hit_the_road_dude', 'pedra_do_sal', 'bby_wow', 'window_peeper', 'tiny_desk_outstanding', 'grandpa_dinner', 'charlie_brown_christmas', 'fancy_cafe', 'pimpwalk_entrance', 'baba_dance', 'wassup_in_a_minute', 'nostalgia_capcut', 'sasha_la_catrina', 'vossi_bop_dance'].includes(family) ? '9:16' : '16:9');
   const [resolution, setResolution] = useState('720p');
   const [duration, setDuration] = useState(activeVariant?.duration || (family === 'gangstas_paradise' ? 30 : family === 'cat_clapping' ? 4 : 8));
   // switching multi-video sample: lock the duration to the new sample's own
@@ -564,7 +583,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
       <p className="mv-title">{text('Pick a sample', '选择一个样本')}</p>
       {variants.map((v, i) => (
         <button key={v.n} type="button" role="option" aria-selected={i === variantIdx} className={`mv-card ${i === variantIdx ? 'sel' : ''}`} onClick={() => { if (i !== variantIdx) { setVariantIdx(i); track('select_sample', { template: family, sample: v.label || v.n }); } }}>
-          <LazyVideo poster={posterOf(v.video)} posterOnly />
+          <SampleThumb video={v.video} poster={posterOf(v.video)} />
           {!!v.duration && <span className="mv-dur">{text(`${v.duration}s`, `${v.duration}秒`)}</span>}
           <span className="mv-name">{v.label || text(`Sample ${v.n}`, `样本 ${v.n}`)}</span>
         </button>

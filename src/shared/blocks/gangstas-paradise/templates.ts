@@ -26,7 +26,6 @@ export const gangstasParadiseTemplates = [
     colors: ['#e7e5e4', '#1c1917'],
     slots: 2 as const,
     images: [null, null],
-    uploadHints: ['/templates/gangsta-hangar-hint1.jpg', '/templates/gangsta-hangar-hint2.jpg'],
     prompt: `${scene} The setting is a gleaming white sci-fi hangar lined with rows of white-armoured troopers standing at attention, a starfield window and reflective floor. The backing troopers raise microphones as the choir on the final chorus.`,
   },
   {
@@ -37,7 +36,6 @@ export const gangstasParadiseTemplates = [
     colors: ['#d6d3d1', '#44403c'],
     slots: 2 as const,
     images: [null, null],
-    uploadHints: ['/templates/gangsta-silver-hint1.jpg', '/templates/gangsta-silver-hint2.jpg'],
     prompt: `${scene} The setting is a teal-lit studio stage with a full gospel choir in long crimson robes swaying behind the performer. The first performer is a confident silver-haired dad type in casual clothes; the second performer joins him for the closing chorus in front of the swaying choir.`,
   },
   {
@@ -48,7 +46,6 @@ export const gangstasParadiseTemplates = [
     colors: ['#1c1917', '#7f1d1d'],
     slots: 2 as const,
     images: [null, null],
-    uploadHints: ['/templates/gangsta-throne-hint1.jpg', '/templates/gangsta-throne-hint2.jpg'],
     prompt: `${scene} The setting is a dark fantasy throne hall with towering black architecture, cold blue rim lighting and an assembly of robed figures. The first performer is a black-robed villain delivering the verse with theatrical menace; the second performer steps out for the chorus as the robed assembly rises.`,
   },
   {
@@ -59,7 +56,6 @@ export const gangstasParadiseTemplates = [
     colors: ['#fecaca', '#991b1b'],
     slots: 2 as const,
     images: [null, null],
-    uploadHints: ['/templates/gangsta-crimson-hint1.jpg', '/templates/gangsta-crimson-hint2.jpg'],
     prompt: `${scene} The setting is a temple corridor lined with glowing red-robed spirit figures. The first performer wears dramatic red-and-black face paint with small horns and delivers the verse with wild energy; the second performer in dark robes sings the chorus as the crimson spirits sway as the choir.`,
   },
   {
@@ -70,7 +66,6 @@ export const gangstasParadiseTemplates = [
     colors: ['#e7e5e4', '#78350f'],
     slots: 2 as const,
     images: [null, null],
-    uploadHints: ['/templates/gangsta-tuxedo-hint1.jpg', '/templates/gangsta-tuxedo-hint2.jpg'],
     prompt: `${scene} The setting is a wood-panelled gentleman's mansion study with warm lamps, leather chairs and a crowd of suited onlookers. The first performer in formal evening wear delivers the verse like a dinner-toast-gone-dramatic; the second performer in a suit takes the chorus while the onlookers rise as the choir.`,
   },
 ] as const satisfies readonly TemplateDef[];
