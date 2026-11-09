@@ -22,8 +22,8 @@ export const GANGSTAS_PARADISE_HOW_TO_STEPS: readonly GangstasParadiseHowToStep[
   {
     name: { en: 'Check settings: 20 or 30 seconds, 4:3', zh: '确认参数：20 或 30 秒、4:3' },
     text: {
-      en: 'The reference clips are 4:3 landscape — the page defaults to it. Pick 20 or 30 seconds, choose the resolution, and read the exact credit cost before you generate. Failed or canceled jobs are refunded automatically.',
-      zh: '参考片段是 4:3 横版——页面默认就是它。时长选 20 或 30 秒，选好分辨率，生成前看清本次积分。失败或取消的任务会自动退回积分。',
+      en: 'Keep the ratio on auto — the 4:3 reference clips drive the framing, so the output follows their landscape shape. Pick 20 or 30 seconds, choose the resolution, and read the exact credit cost before you generate. Failed or canceled jobs are refunded automatically.',
+      zh: '画幅保持 auto 即可——4:3 参考片段决定构图，成片会跟随它们的横版画幅。时长选 20 或 30 秒，选好分辨率，生成前看清本次积分。失败或取消的任务会自动退回积分。',
     },
   },
   {
