@@ -90,7 +90,7 @@ export default async function VossiBopDanceAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const faq = VOSSI_BOP_FAQ[zh ? 'zh' : 'en'];
   const pageUrl = zh ? `${envConfigs.app_url}/zh/vossi-bop-dance-ai-template` : `${envConfigs.app_url}/vossi-bop-dance-ai-template`;
 

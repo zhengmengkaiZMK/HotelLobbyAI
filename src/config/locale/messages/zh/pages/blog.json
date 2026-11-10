@@ -1,15 +1,15 @@
 {
   "metadata": {
     "title": "博客",
-    "description": "阅读我们最新的产品功能、解决方案和更新内容。"
+    "description": "ViralReel 模板怎么用、每条趋势要多少积分，以及 MP4 怎么发。"
   },
   "page": {
-    "title": "ShipAny 博客",
+    "title": "ViralReel 博客",
     "sections": {
       "blog": {
         "id": "blog",
         "title": "博客",
-        "description": "阅读我们最新的产品功能、解决方案和更新内容。"
+        "description": "ViralReel 模板怎么用、每条趋势要多少积分，以及 MP4 怎么发。"
       }
     }
   },

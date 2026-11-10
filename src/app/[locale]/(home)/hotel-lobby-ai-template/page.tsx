@@ -80,7 +80,7 @@ export default async function HotelLobbyAiTemplatePage({
   setRequestLocale(locale);
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const starterM = plans.find((p) => p.product_id === 'starter-monthly');
   const plusM = plans.find((p) => p.product_id === 'plus-monthly');
   const proM = plans.find((p) => p.product_id === 'pro-monthly');

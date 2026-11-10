@@ -77,7 +77,7 @@ export default async function Bulin47AiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const pageUrl = zh ? `${envConfigs.app_url}/zh/bulin-47-ai-template` : `${envConfigs.app_url}/bulin-47-ai-template`;
   const faq = getBulin47Faq(zh, { videoCosts, creditsPerUsd });
 

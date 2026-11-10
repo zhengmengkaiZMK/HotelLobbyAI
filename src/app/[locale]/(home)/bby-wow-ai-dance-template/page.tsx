@@ -77,7 +77,7 @@ export default async function BbyWowAiDanceTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const pageUrl = zh ? `${envConfigs.app_url}/zh/bby-wow-ai-dance-template` : `${envConfigs.app_url}/bby-wow-ai-dance-template`;
   const faq = getBbyWowFaq(zh, { videoCosts, creditsPerUsd });
 

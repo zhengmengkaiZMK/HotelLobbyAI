@@ -1,8 +1,8 @@
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
+  creditsForDuration,
   formatCreditCount,
   usdFromCredits,
-  videoCreditCost,
   type VideoCostTable,
 } from '@/shared/lib/video-yield';
 
@@ -17,42 +17,51 @@ export interface TemplateCostContext {
   creditsPerUsd?: number;
 }
 
-/** Same cells the pricing page renders: 480p/8, 720p/8, 720p/12, 1080p/15. */
-export function templateLiveCostFacts(ctx: TemplateCostContext = {}) {
+/** Credits for one clip. Defaults to the public 15-second row, not the 8-second row. */
+export function templateLiveCostFacts(
+  ctx: TemplateCostContext = {},
+  seconds = 15
+) {
   const table = ctx.videoCosts?.length ? ctx.videoCosts : getVideoCostTable();
   const creditsPerUsd =
     ctx.creditsPerUsd && ctx.creditsPerUsd > 0
       ? ctx.creditsPerUsd
       : CANONICAL_PRICING.creditsPerUsd;
-  const p480 = videoCreditCost(table, '480p', 8);
-  const p720 = videoCreditCost(table, '720p', 8);
-  const p72012 = videoCreditCost(table, '720p', 12);
-  const p1080 = videoCreditCost(table, '1080p', 15);
+  const p480 = creditsForDuration(table, '480p', seconds);
+  const p720 = creditsForDuration(table, '720p', seconds);
+  const p1080 = creditsForDuration(table, '1080p', seconds);
   return {
     p480,
     p720,
-    p72012,
     p1080,
+    seconds,
     creditsPerUsd,
     usd: usdFromCredits(p720, creditsPerUsd),
     packs: CANONICAL_PRICING,
   };
 }
 
-/** Credit-table answer. Numbers come from the same table the pricing page renders. */
+/**
+ * Credit-table answer for one template length.
+ * Default is 15 seconds (the public 60 / 75 / 90 row). Pass the template's
+ * real length for 8s, 10s, 20s, or 30s clips. The generator button is the charge.
+ */
 export function templateLiveCostAnswer(
   product: { en: string; zh: string },
   zh: boolean,
-  ctx: TemplateCostContext = {}
+  ctx: TemplateCostContext = {},
+  seconds = 15
 ) {
-  const { p480, p720, p72012, p1080, creditsPerUsd, usd, packs } =
-    templateLiveCostFacts(ctx);
+  const { p480, p720, p1080, creditsPerUsd, usd, packs } = templateLiveCostFacts(
+    ctx,
+    seconds
+  );
   const pricing = pricingUrl(zh, '/pricing');
   const subscribe = pricingUrl(zh, '/subscribe');
   if (zh) {
-    return `ViralReel 按积分计费，${product.zh} 生成器会在开始前显示本次消耗。当前积分表上，480p / 8 秒是 ${formatCreditCount(p480)} 积分，720p / 8 秒是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd}），720p / 12 秒是 ${formatCreditCount(p72012)} 积分，1080p / 15 秒是 ${formatCreditCount(p1080)} 积分。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}；Plus 为 ${packs.plusPrice}/月（${packs.plusCredits} 积分），Pro 为 ${packs.proPrice}/月（${packs.proCredits} 积分）。加购为 ${creditsPerUsd} 积分 = 1 美元。`;
+    return `${product.zh}这条片子是 ${seconds} 秒：480p 是 ${formatCreditCount(p480)} 积分，720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd}），1080p 是 ${formatCreditCount(p1080)} 积分。以生成器按钮上的本次积分为准。没有免费积分，也没有免费试用。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}。8 秒、12 秒和 30 秒的行仍在定价表上，更长的模板更贵。`;
   }
-  return `ViralReel charges credits, and the ${product.en} generator shows the exact cost before you start. On the current credit table, 480p / 8s is ${formatCreditCount(p480)} credits, 720p / 8s is ${formatCreditCount(p720)} credits (about ${usd} at ${creditsPerUsd} credits = $1), 720p / 12s is ${formatCreditCount(p72012)} credits, and 1080p / 15s is ${formatCreditCount(p1080)} credits. One-time packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits) at ${subscribe}; Plus is ${packs.plusPrice}/mo (${packs.plusCredits} credits) and Pro is ${packs.proPrice}/mo (${packs.proCredits} credits). Top-ups are ${creditsPerUsd} credits = $1.`;
+  return `A ${seconds}-second ${product.en} clip is ${formatCreditCount(p480)} credits at 480p, ${formatCreditCount(p720)} credits at 720p (about ${usd} at ${creditsPerUsd} credits = $1), and ${formatCreditCount(p1080)} credits at 1080p. The generator button is the price for this render. There are no free credits and no free trial. One-time packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits) at ${subscribe}. 8-second, 12-second, and 30-second rows stay on the pricing table. Longer templates cost more.`;
 }
 
 export function paidExportWatermarkAnswer(zh: boolean) {

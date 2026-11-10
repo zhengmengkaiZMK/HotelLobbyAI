@@ -77,7 +77,7 @@ export default async function AlorsOnDanseTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const pageUrl = zh ? `${envConfigs.app_url}/zh/alors-on-danse-ai-template` : `${envConfigs.app_url}/alors-on-danse-ai-template`;
   const faq = getAlorsOnDanseFaq(zh, { videoCosts, creditsPerUsd });
 

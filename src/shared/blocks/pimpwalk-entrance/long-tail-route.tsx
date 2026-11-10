@@ -27,7 +27,7 @@ export async function generateLongTailMetadata(
   const canonical = locale === 'zh' ? zhUrl : enUrl;
   const title = entry.title[lang];
   const description = entry.description[lang];
-  const image = `${envConfigs.app_url}/templates/first-time-in-a-pimpwalk-entrance-ai-og.jpg`;
+  const image = `${envConfigs.app_url}/templates/pimpwalk-entrance-ai-og.jpg`;
   return {
     title,
     description,

@@ -35,7 +35,7 @@ export async function generateMetadata({
   const m = META[zh ? 'zh' : 'en'];
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
   const costs = wassupFifteenSecondCosts({
-    videoCosts: getVideoCostTable(await getAllConfigs(true)),
+    videoCosts: getVideoCostTable(await getAllConfigs()),
     creditsPerUsd,
   });
   const description = zh
@@ -84,7 +84,7 @@ export default async function WassupInAMinuteTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const pageUrl = zh ? `${envConfigs.app_url}/zh/wassup-in-a-minute-ai-template` : `${envConfigs.app_url}/wassup-in-a-minute-ai-template`;
   const faq = getWassupFaq(zh, { videoCosts, creditsPerUsd });
 

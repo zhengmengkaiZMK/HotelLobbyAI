@@ -78,7 +78,7 @@ export default async function BicepHeartAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const configs = await getAllConfigs(true);
+  const configs = await getAllConfigs();
   const videoCosts = getVideoCostTable(configs);
   const faq = BICEP_HEART_FAQ[zh ? 'zh' : 'en'];
 

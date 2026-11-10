@@ -8,7 +8,7 @@ import { useLocale } from 'next-intl';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
-import type { VideoCostTable } from '@/shared/lib/video-yield';
+import { publishedCreditSentence, type VideoCostTable } from '@/shared/lib/video-yield';
 
 import { BabaLinkCluster } from './link-cluster';
 import {
@@ -55,7 +55,7 @@ export function BabaLongTailView({
               <span>ViralReel · Ba Ba Ba Dance</span>
             </div>
             <h1>{entry.h1[lang]}</h1>
-            <p className="lead">{entry.lead[lang]}</p>
+            <p className="lead">{entry.lead[lang]} {publishedCreditSentence(zh, 30)}</p>
             <div className="hero-cta">
               <Link className="btn btn-primary btn-lg" href={BABA_TEMPLATE_PATH}>
                 {makeLabel}

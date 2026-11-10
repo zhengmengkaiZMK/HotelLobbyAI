@@ -81,7 +81,7 @@ export default async function HomePage({
   setRequestLocale(locale);
   const plans = await getPricingPlans(locale);
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const appUrl = envConfigs.app_url;
   const zh = locale === 'zh';
   const faqJsonLd = buildHubFaqJsonLd(zh, { videoCosts, creditsPerUsd });

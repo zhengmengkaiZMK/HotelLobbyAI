@@ -83,8 +83,8 @@ export const FANCY_CAFE_CITE_TAILS: readonly LongTailEntry[] = [
     'fancy cafe free',
     'fancy-cafe-free',
     {
-      en: 'Fancy Cafe Free – One Starter Video, Then 60 / 75 / 90 Credits',
-      zh: '免费的 Fancy Cafe：先做一条，之后 60 / 75 / 90 积分',
+      en: 'Is a Fancy Cafe AI Video Free? No — 15s Clips Are 60 / 75 / 90 Credits',
+      zh: 'Fancy Cafe AI 视频免费吗？不免费——15 秒成片 60 / 75 / 90 积分',
     },
     {
       en: 'fancy cafe free: every render is paid: the generator shows the exact cost before you start. A 15-second clip is 60 credits at 480p, 75 at 720p (about $6.25), and 90 at 1080p. Packs start at $9.9 for 90 credits. Not free forever.',

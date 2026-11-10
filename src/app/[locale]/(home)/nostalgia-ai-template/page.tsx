@@ -77,7 +77,7 @@ export default async function NostalgiaTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const pageUrl = zh ? `${envConfigs.app_url}/zh/nostalgia-ai-template` : `${envConfigs.app_url}/nostalgia-ai-template`;
   const faq = getNostalgiaFaq(zh, { videoCosts, creditsPerUsd });
 

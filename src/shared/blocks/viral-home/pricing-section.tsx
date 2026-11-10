@@ -168,8 +168,8 @@ export function PricingSection({
             <b>{t('Video generation pricing', '视频生成计费')}</b>
             <span>
               {t(
-                'Costs vary by resolution and duration — billed per output second, the reference video is not charged. Failed or canceled jobs are refunded. Counts above use 720p / 8s as the baseline.',
-                '按清晰度和时长计费，只按输出秒数收费，参考视频不计费；任务失败或取消会退回积分。上面的条数以 720p / 8 秒为基准。'
+                'Costs vary by resolution and duration — billed per output second, the reference video is not charged. Failed or canceled jobs are refunded. Counts above use a default 15-second 720p clip. Longer templates cost more. The generator button is the price for the current render.',
+                '按清晰度和时长计费，只按输出秒数收费，参考视频不计费；任务失败或取消会退回积分。上面的条数按默认 15 秒 720p 计算。更长的模板更贵。以生成器按钮上的本次积分为准。'
               )}
             </span>
             <div className="video-pricing-grid mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">

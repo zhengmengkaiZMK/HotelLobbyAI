@@ -1385,14 +1385,14 @@ export function buildLongTailFaq(
   const shared: [string, string][] = zh
     ? [
         ['需要几张照片？', '一张。西装原版、白 T 派对版和黑 Polo 版都只用一张你有权使用的单人照片。不要用未成年人、名人或公众人物的照片。'],
-        ['要多少积分？', templateLiveCostAnswer(BBY_PRODUCT, true, ctx)],
+        ['要多少积分？', templateLiveCostAnswer(BBY_PRODUCT, true, ctx, 10)],
         ['付费导出有水印吗？', paidExportWatermarkAnswer(true)],
         ['生成失败会退积分吗？', failedJobCreditRefundAnswer(true)],
         ['这是官方页面吗？', '不是。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 KAROL G、Judeline、rusowsky，或咬面包派对原片的作者没有隶属、官方或合作关系。模板用一张照片搭建新的虚构场景。'],
       ]
     : [
         ['How many photos do I need?', 'One. Suit Original, White Tee, and Staff Polo each take one photo of one person you have permission to use. Do not use photos of minors, celebrities, or public figures.'],
-        ['How many credits does it cost?', templateLiveCostAnswer(BBY_PRODUCT, false, ctx)],
+        ['How many credits does it cost?', templateLiveCostAnswer(BBY_PRODUCT, false, ctx, 10)],
         ['Are paid exports watermark-free?', paidExportWatermarkAnswer(false)],
         ['Are failed jobs refunded?', failedJobCreditRefundAnswer(false)],
         ['Is this an official page?', 'No. ViralReel (viralreel.app) is an independent AI video template site. It is not affiliated with KAROL G, Judeline, rusowsky, or the creators of the bread-bite party clip. The templates stage a new fictional scene from one photo.'],

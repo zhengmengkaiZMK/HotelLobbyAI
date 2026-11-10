@@ -163,9 +163,13 @@ async function getCanonicalUrl(canonicalUrl: string, locale: string) {
     canonicalUrl = '/';
   }
 
-  if (canonicalUrl.startsWith('http')) {
-    // full url
-    canonicalUrl = canonicalUrl;
+    if (canonicalUrl.startsWith('http')) {
+    // full url — production must not publish localhost or plain http
+    if (process.env.NODE_ENV === 'production') {
+      if (canonicalUrl.includes('localhost') || canonicalUrl.startsWith('http://')) {
+        throw new Error(`Refusing non-production canonical URL "${canonicalUrl}".`);
+      }
+    }
   } else {
     // relative path
     if (!canonicalUrl.startsWith('/')) {

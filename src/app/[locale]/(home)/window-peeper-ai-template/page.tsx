@@ -77,7 +77,7 @@ export default async function WindowPeeperAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const faq = WINDOW_PEEPER_FAQ[zh ? 'zh' : 'en'];
 
   const faqJsonLd = {

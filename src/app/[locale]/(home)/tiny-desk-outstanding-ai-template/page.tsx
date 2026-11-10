@@ -77,7 +77,7 @@ export default async function TinyDeskOutstandingAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const faq = TINY_DESK_FAQ[zh ? 'zh' : 'en'];
 
   const faqJsonLd = {

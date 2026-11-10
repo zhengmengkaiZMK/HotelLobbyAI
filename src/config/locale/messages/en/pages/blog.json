@@ -1,15 +1,15 @@
 {
   "metadata": {
     "title": "Blog",
-    "description": "Read latest product features, solutions, and updates."
+    "description": "How ViralReel templates work, what each trend costs, and how to post the MP4."
   },
   "page": {
-    "title": "ShipAny Blog",
+    "title": "ViralReel Blog",
     "sections": {
       "blog": {
         "id": "blog",
         "title": "Blog",
-        "description": "Read latest product features, solutions, and updates."
+        "description": "How ViralReel templates work, what each trend costs, and how to post the MP4."
       }
     }
   },

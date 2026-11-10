@@ -524,7 +524,7 @@ export const TINY_DESK_CITE_TAILS: readonly LongTailEntry[] = [
       ],
       zh: [
         `Tiny desk outstanding no watermark 是定价问题，不是第二条视频。付费积分包和月付方案导出时没有 ViralReel 水印，720p 和 1080p 都支持。每个积分包和方案都列在 ${PRICINGZ} 。月付在 ${SUBZ} 。你被收取的是那张实时积分表。这一页不提供折扣码。`,
-        `有的单张照片工具会宣传单条视频或短期周试用。那些价格会变。比较之前先看那个站自己的定价页。ViralReel 的费用是 ${TZ} 上 15 秒渲染前的那一行积分。新账号可以用免费积分先做一条模板视频。那不是永远免费：https://www.viralreel.app/zh/tiny-desk-outstanding-free 。`,
+        `有的单张照片工具会宣传单条视频或短期周试用。那些价格会变。比较之前先看那个站自己的定价页。ViralReel 的费用是 ${TZ} 上 15 秒渲染前的那一行积分。没有免费积分，也没有免费试用。每次渲染都计费：https://www.viralreel.app/zh/tiny-desk-outstanding-free 。`,
         `${EXPORT_ZH} ${LIMIT_ZH} 你发布时，平台仍可能加上它自己的标记。ViralReel 控制不了那个。`,
       ],
     },
