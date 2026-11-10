@@ -16,6 +16,7 @@ import { SASHA_LA_CATRINA_LONG_TAIL_ROUTES } from '@/shared/blocks/sasha-la-catr
 import { PEDRA_LONG_TAIL_ROUTES } from '@/shared/blocks/pedra-do-sal/long-tails';
 import { TINY_DESK_LONG_TAIL_ROUTES } from '@/shared/blocks/tiny-desk/long-tails';
 import { WASSUP_LONG_TAIL_ROUTES } from '@/shared/blocks/wassup-in-a-minute/long-tails';
+import { CITE_ROUTES } from '@/shared/blocks/series-cite/catalog';
 import { getPostsAndCategories, isHiddenFromBlog } from '@/shared/models/post';
 
 function safeLastModified(value: string | Date | null | undefined, fallback: Date): Date {
@@ -55,6 +56,7 @@ const staticRoutes = [
   { path: '/tiny-desk-outstanding-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...TINY_DESK_LONG_TAIL_ROUTES,
   { path: '/window-peeper-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...CITE_ROUTES,
   { path: '/pedra-do-sal-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...PEDRA_LONG_TAIL_ROUTES,
   { path: '/bby-wow-ai-dance-template', priority: 0.9, changeFrequency: 'weekly' as const },

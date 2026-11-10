@@ -51,6 +51,12 @@ import {
 } from '@/shared/blocks/wassup-in-a-minute/long-tail-route';
 import { getWassupLongTail } from '@/shared/blocks/wassup-in-a-minute/long-tails';
 
+import { getCiteEntry } from '@/shared/blocks/series-cite/catalog';
+import {
+  CiteRoute,
+  generateCiteMetadata,
+} from '@/shared/blocks/series-cite/route';
+
 import LandingDynamicPage, {
   generateMetadata as generateLandingMetadata,
 } from '../../(landing)/[...slug]/page';
@@ -69,7 +75,7 @@ export const revalidate = 300;
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-function series(slug: string): 'bicep-heart' | 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | 'pimpwalk' | null {
+function series(slug: string): 'bicep-heart' | 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | 'pimpwalk' | 'cite' | null {
   if (getBicepHeartLongTail(slug)) return 'bicep-heart';
   if (getPimpwalkLongTail(slug)) return 'pimpwalk';
   if (getFancyCafeLongTail(slug)) return 'fancy-cafe';
@@ -80,6 +86,7 @@ function series(slug: string): 'bicep-heart' | 'wassup' | 'hit' | 'tiny-desk' | 
   if (getHitTheRoadLongTail(slug)) return 'hit';
   if (getTinyDeskLongTail(slug)) return 'tiny-desk';
   if (getNostalgiaLongTail(slug)) return 'nostalgia';
+  if (getCiteEntry(slug)) return 'cite';
   return null;
 }
 
@@ -97,6 +104,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   if (kind === 'charlie-brown') return generateCharlieBrownMetadata(localeParams, slug);
   if (kind === 'fancy-cafe') return generateFancyCafeMetadata(localeParams, slug);
   if (kind === 'pimpwalk') return generatePimpwalkMetadata(localeParams, slug);
+  if (kind === 'cite') return generateCiteMetadata(localeParams, slug);
   return generateLandingMetadata({
     params: Promise.resolve({ locale, slug }),
   });
@@ -117,5 +125,6 @@ export default async function Page({ params }: { params: Params }) {
   if (kind === 'charlie-brown') return <CharlieBrownLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'fancy-cafe') return <FancyCafeLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'pimpwalk') return <PimpwalkLongTailRoute {...localeParams} slug={slug} />;
+  if (kind === 'cite') return <CiteRoute {...localeParams} slug={slug} />;
   return <LandingDynamicPage params={Promise.resolve({ locale, slug })} />;
 }

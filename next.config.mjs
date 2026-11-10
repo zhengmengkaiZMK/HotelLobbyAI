@@ -1,4 +1,5 @@
 import bundleAnalyzer from '@next/bundle-analyzer';
+import { citeAliasPairs } from './cite-aliases.mjs';
 import path from 'node:path';
 import { initOpenNextCloudflareForDev } from '@opennextjs/cloudflare';
 import { createMDX } from 'fumadocs-mdx/next';
@@ -818,11 +819,15 @@ const nextConfig = {
       ['/first-time-fancy-cafe', '/fancy-cafe-first-time'],
       ['/foto-con-snoopy', '/snoopy-ai-photo'],
       ['/snoopy-christmas', '/snoopy-christmas-filter'],
+      ...citeAliasPairs(),
     ];
     return aliases.flatMap(([source, destination]) => [
       { source, destination, permanent: true },
       { source: `/zh${source}`, destination: `/zh${destination}`, permanent: true },
     ]);
+  },
+  async rewrites() {
+    return [{ source: '/.well-known/llms.txt', destination: '/llms.txt' }];
   },
   async headers() {
     return [
