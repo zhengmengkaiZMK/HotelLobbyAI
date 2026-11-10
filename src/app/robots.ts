@@ -1,9 +1,9 @@
 import { MetadataRoute } from 'next';
 
-import { envConfigs } from '@/config';
+import { absoluteSiteUrl } from '@/config/site-url';
 
 export default function robots(): MetadataRoute.Robots {
-  const appUrl = envConfigs.app_url;
+  const appUrl = absoluteSiteUrl('/');
 
   const disallow = [
     '/*?*q=',

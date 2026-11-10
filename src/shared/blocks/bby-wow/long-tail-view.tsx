@@ -8,7 +8,7 @@ import { useLocale } from 'next-intl';
 import { Link, useRouter } from '@/core/i18n/navigation';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
-import type { VideoCostTable } from '@/shared/lib/video-yield';
+import { publishedCreditSentence, type VideoCostTable } from '@/shared/lib/video-yield';
 
 import { BbyLinkCluster } from './link-cluster';
 import {
@@ -52,7 +52,7 @@ export function BbyLongTailView({
               <span>ViralReel · Bby Wow</span>
             </div>
             <h1>{entry.h1[lang]}</h1>
-            <p className="lead">{entry.lead[lang]}</p>
+            <p className="lead">{entry.lead[lang]} {publishedCreditSentence(zh, 10)}</p>
             <div className="hero-cta">
               <Link className="btn btn-primary btn-lg" href={BBY_TEMPLATE_PATH}>
                 {makeLabel}

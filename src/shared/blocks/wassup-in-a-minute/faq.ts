@@ -22,7 +22,7 @@ export function getWassupFaq(
     return [
       ['Wassup in a minute 是什么趋势？', `Wassup in a minute 是 2026 年 10 月下旬的白底摇摆：街服角色左右摇摆，成片是 15 秒、9:16。在 ViralReel 用一至四张照片做一条新的：${template} 。Atlanta Lock 只是这种街服观感的粉丝昵称，不是会画出来的 Blue Lock 角色。`],
       ['怎么制作 wassup in a minute？', `制作 wassup in a minute 就四步：打开 ${template} ，上传一至四张照片，在五种造型里选一套，下载 15 秒 9:16 的 MP4。渲染通常要 2–3 分钟。然后在 TikTok、Reels 或 Shorts 里加热梗原声和 AI 标注。公开页面没有空白提示词框。`],
-      ['Wassup in a minute 能免费试吗？', '可以先试。ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后的 wassup in a minute 消耗积分。'],
+      ['Wassup in a minute 能免费试吗？', '不能。ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后的 wassup in a minute 消耗积分。'],
       ['Wassup in a minute 是永远免费吗？', '不是。Wassup in a minute 不是永远免费。没有免费积分或免费试用：每次渲染都计费，开始前显示确切费用。之后用 $9.9 起、90 积分的一次性积分包，或 $9.9/月起、每月 90 积分的月付。'],
       ['Wassup in a minute 要多少钱？', cost],
       ['Wassup in a minute 要等多久才好？', '一条 wassup in a minute 通常要 2–3 分钟才渲染完。「in a minute」是歌词，不是等待时间。做好的成片是 15 秒。'],

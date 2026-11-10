@@ -77,7 +77,7 @@ export default async function OzilAiGoalTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const faq = OZIL_FAQ[zh ? 'zh' : 'en'];
 
   const faqJsonLd = {

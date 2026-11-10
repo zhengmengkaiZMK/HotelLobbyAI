@@ -77,7 +77,7 @@ export default async function CharlieBrownChristmasAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const faq = CHARLIE_BROWN_FAQ[zh ? 'zh' : 'en'];
 
   const faqJsonLd = {

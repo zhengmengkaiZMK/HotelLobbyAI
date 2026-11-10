@@ -77,7 +77,7 @@ export default async function GrandpaSaidHedHandleDinnerAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const faq = GRANDPA_DINNER_FAQ[zh ? 'zh' : 'en'];
 
   const faqJsonLd = {

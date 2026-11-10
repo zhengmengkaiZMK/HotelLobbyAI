@@ -1,6 +1,6 @@
 import type { MetadataRoute } from 'next';
 
-import { envConfigs } from '@/config';
+import { absoluteSiteUrl } from '@/config/site-url';
 import { defaultLocale, locales } from '@/config/locale';
 import { BABA_LONG_TAIL_ROUTES } from '@/shared/blocks/baba-dance/long-tails';
 import { BICEP_HEART_LONG_TAIL_ROUTES } from '@/shared/blocks/bicep-heart/long-tails';
@@ -63,11 +63,10 @@ const staticRoutes = [
   ...HIT_THE_ROAD_LONG_TAIL_ROUTES,
   { path: '/ozil-ai-goal-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/cat-clapping-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
-  { path: '/ai-video-generator', priority: 0.9, changeFrequency: 'weekly' as const },
+  // /ai-video-generator, /ai-image-generator, and /ai-music-generator stay
+  // routable but are noindex and omitted here. They are thin boilerplate pages.
   { path: '/pricing', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/subscribe', priority: 0.8, changeFrequency: 'weekly' as const },
-  { path: '/ai-image-generator', priority: 0.6, changeFrequency: 'weekly' as const },
-  { path: '/ai-music-generator', priority: 0.6, changeFrequency: 'weekly' as const },
   { path: '/blog', priority: 0.7, changeFrequency: 'daily' as const },
   { path: '/updates', priority: 0.5, changeFrequency: 'weekly' as const },
   { path: '/docs', priority: 0.4, changeFrequency: 'monthly' as const },
@@ -75,7 +74,8 @@ const staticRoutes = [
 
 function localePath(locale: string, path: string): string {
   const prefix = locale === defaultLocale ? '' : `/${locale}`;
-  return `${envConfigs.app_url}${prefix}${path === '/' ? '' : path}`;
+  const localized = `${prefix}${path === '/' ? '' : path}` || '/';
+  return absoluteSiteUrl(localized);
 }
 
 function staticEntries(now: Date): MetadataRoute.Sitemap {
@@ -83,7 +83,7 @@ function staticEntries(now: Date): MetadataRoute.Sitemap {
   for (const locale of locales) {
     for (const route of staticRoutes) {
       const url = localePath(locale, route.path);
-      if (!url.startsWith('http')) continue;
+      if (!url.startsWith('https://') && !url.startsWith('http://localhost')) continue;
       entries.push({
         url,
         lastModified: now,
@@ -107,7 +107,7 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
         if (!post.url) continue;
         if (isHiddenFromBlog(post)) continue;
         const url = localePath(locale, post.url);
-        if (!url.startsWith('http')) continue;
+        if (!url.startsWith('https://') && !url.startsWith('http://localhost')) continue;
         entries.push({
           url,
           lastModified: safeLastModified(post.created_at, now),

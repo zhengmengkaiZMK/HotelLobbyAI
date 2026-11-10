@@ -909,7 +909,7 @@ export function buildBicepHeartLongTailFaq(
           '照片有什么要求？',
           '一张清晰的成年人照片（经本人同意）：半身入镜、正对镜头、双臂可见且没有交叉、双手空着。短袖或 T 恤更好，两侧手肘外留出空间。不要用未成年人、名人、公众人物或网图。',
         ],
-        ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx)],
+        ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx, 7)],
         ['付费导出有水印吗？', paidExportWatermarkAnswer(true)],
         ['生成失败会退积分吗？', failedJobCreditRefundAnswer(true)],
         [
@@ -926,7 +926,7 @@ export function buildBicepHeartLongTailFaq(
           'What are the photo requirements?',
           'One clear photo of a consenting adult: waist-up, facing the camera, both arms visible and not crossed, hands free. Short sleeves help, and leaving space beside both elbows keeps the flex in frame. No minors, celebrities, public figures, or photos scraped from the web.',
         ],
-        ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx)],
+        ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx, 7)],
         ['Are paid exports watermark-free?', paidExportWatermarkAnswer(false)],
         ['Are failed jobs refunded?', failedJobCreditRefundAnswer(false)],
         [

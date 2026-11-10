@@ -100,8 +100,8 @@ export function SubscribeView({
             </h1>
             <p className="sub">
               {t(
-                'One subscription, unlimited trend-chasing. Every plan includes the ViralReel template library, auto lip-sync and watermark-free export.',
-                '一次订阅，随时追热梗。所有套餐均包含全部 ViralReel 模板、自动口型同步和无水印导出。'
+                'Monthly credits for the ViralReel template library, auto lip-sync, and watermark-free export. Every render is paid. A default 15-second 720p clip is 75 credits. The generator button is the exact price.',
+                '月付积分可用于全部 ViralReel 模板、自动口型同步和无水印导出。每次渲染都计费。默认 15 秒 720p 是 75 积分。以生成器按钮上的本次积分为准。'
               )}
             </p>
             <div className="bill-toggle">

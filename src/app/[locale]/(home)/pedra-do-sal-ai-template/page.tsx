@@ -77,7 +77,7 @@ export default async function PedraDoSalAiTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const pageUrl = zh ? `${envConfigs.app_url}/zh/pedra-do-sal-ai-template` : `${envConfigs.app_url}/pedra-do-sal-ai-template`;
   const faq = getPedraDoSalFaq(zh, { videoCosts, creditsPerUsd });
 

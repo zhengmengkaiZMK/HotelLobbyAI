@@ -211,8 +211,8 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
     id: 'tiny-desk',
     name: ['Tiny Desk Outstanding', 'Tiny Desk Outstanding'],
     pitch: [
-      'One photo puts your crew behind the Tiny Desk singing Outstanding.',
-      '一张照片，把你的人放进 Tiny Desk 现场唱《Outstanding》。',
+      'Three photos — Center Lead, Left Role, Right Role — put your crew behind the Tiny Desk singing Outstanding.',
+      '三张照片——中间主唱、左侧、右侧——把你的人放进 Tiny Desk 现场唱《Outstanding》。',
     ],
     href: '/tiny-desk-outstanding-ai-template',
     badge: 'hot',

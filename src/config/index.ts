@@ -1,21 +1,27 @@
 import packageJson from '../../package.json';
 
+import { readRuntimeEnv, resolvePublicSiteUrl } from './site-url';
+
 // Note: Environment variables are loaded via dotenv-cli in package.json scripts.
 // Next.js automatically loads .env files in the runtime, so no manual loading is needed here.
+// NEXT_PUBLIC_* is read with bracket access (see site-url.ts). Dot access is
+// inlined at build time and ignored the wrangler [vars] value on the worker.
 
 export type ConfigMap = Record<string, string>;
 
 export const envConfigs: ConfigMap = {
-  app_url: process.env.NEXT_PUBLIC_APP_URL ?? 'http://localhost:3000',
-  app_name: process.env.NEXT_PUBLIC_APP_NAME ?? 'ShipAny App',
+  get app_url() {
+    return resolvePublicSiteUrl();
+  },
+  app_name: readRuntimeEnv('NEXT_PUBLIC_APP_NAME') ?? 'ViralReel',
   app_description: process.env.NEXT_PUBLIC_APP_DESCRIPTION ?? '',
-  app_logo: process.env.NEXT_PUBLIC_APP_LOGO ?? '/logo.png',
-  app_favicon: process.env.NEXT_PUBLIC_APP_FAVICON ?? '/favicon.ico',
+  app_logo: readRuntimeEnv('NEXT_PUBLIC_APP_LOGO') ?? '/logo.png',
+  app_favicon: readRuntimeEnv('NEXT_PUBLIC_APP_FAVICON') ?? '/favicon.ico',
   app_preview_image:
-    process.env.NEXT_PUBLIC_APP_PREVIEW_IMAGE ?? '/preview.png',
-  theme: process.env.NEXT_PUBLIC_THEME ?? 'default',
-  appearance: process.env.NEXT_PUBLIC_APPEARANCE ?? 'system',
-  locale: process.env.NEXT_PUBLIC_DEFAULT_LOCALE ?? 'en',
+    readRuntimeEnv('NEXT_PUBLIC_APP_PREVIEW_IMAGE') ?? '/preview.png',
+  theme: readRuntimeEnv('NEXT_PUBLIC_THEME') ?? 'default',
+  appearance: readRuntimeEnv('NEXT_PUBLIC_APPEARANCE') ?? 'system',
+  locale: readRuntimeEnv('NEXT_PUBLIC_DEFAULT_LOCALE') ?? 'en',
   database_url: process.env.DATABASE_URL ?? '',
   database_auth_token: process.env.DATABASE_AUTH_TOKEN ?? '',
   database_provider: process.env.DATABASE_PROVIDER ?? 'postgresql',
@@ -33,7 +39,9 @@ export const envConfigs: ConfigMap = {
     process.env.DB_MIGRATIONS_OUT ?? './src/config/db/migrations',
   db_singleton_enabled: process.env.DB_SINGLETON_ENABLED || 'false',
   db_max_connections: process.env.DB_MAX_CONNECTIONS || '1',
-  auth_url: process.env.AUTH_URL || process.env.NEXT_PUBLIC_APP_URL || '',
+  get auth_url() {
+    return readRuntimeEnv('AUTH_URL') || resolvePublicSiteUrl();
+  },
   auth_secret: process.env.AUTH_SECRET ?? '', // openssl rand -base64 32
   version: packageJson.version,
   locale_detect_enabled:

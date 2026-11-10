@@ -19,6 +19,22 @@ export async function middleware(request: NextRequest) {
     ? pathname.slice(locale.length + 1)
     : pathname;
 
+  const isPrivate =
+    pathWithoutLocale.startsWith('/admin') ||
+    pathWithoutLocale.startsWith('/settings') ||
+    pathWithoutLocale.startsWith('/activity') ||
+    pathWithoutLocale.startsWith('/credits') ||
+    pathWithoutLocale.startsWith('/checkout') ||
+    pathWithoutLocale.startsWith('/sign-') ||
+    pathWithoutLocale.startsWith('/auth');
+
+  // Pricing and subscribe read the session (top-up visibility). Do not CDN-cache them.
+  const isPersonalized =
+    pathWithoutLocale === '/pricing' ||
+    pathWithoutLocale.startsWith('/pricing/') ||
+    pathWithoutLocale === '/subscribe' ||
+    pathWithoutLocale.startsWith('/subscribe/');
+
   // Only check authentication for admin routes
   if (
     pathWithoutLocale.startsWith('/admin') ||
@@ -53,20 +69,13 @@ export async function middleware(request: NextRequest) {
 
   // Remove Set-Cookie from public pages to allow caching
   // We exclude admin, settings, activity, and auth pages from this behavior
-  if (
-    !pathWithoutLocale.startsWith('/admin') &&
-    !pathWithoutLocale.startsWith('/settings') &&
-    !pathWithoutLocale.startsWith('/activity') &&
-    !pathWithoutLocale.startsWith('/sign-') &&
-    !pathWithoutLocale.startsWith('/auth')
-  ) {
+  if (!isPrivate && !isPersonalized) {
     intlResponse.headers.delete('Set-Cookie');
 
-    // Cache-Control header for public pages.
-    // Keep this SHORT: Cloudflare Workers deployments atomically replace
-    // static chunks, so a long CDN cache on HTML makes every deploy serve
-    // stale HTML that references deleted chunks (broken hydration for up
-    // to the cache TTL). 5 min matches the ISR revalidate window.
+    // Public marketing and hub HTML. Same order as cite pages (revalidate = 300).
+    // Not year-long: deploys replace hashed chunks, so a long HTML cache
+    // serves stale documents that point at deleted files.
+    // Authenticated, account, checkout, pricing, and subscribe stay uncached.
     const cacheControl = 'public, s-maxage=300, stale-while-revalidate=300';
 
     intlResponse.headers.set('Cache-Control', cacheControl);

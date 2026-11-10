@@ -798,7 +798,7 @@ export function buildBabaLongTailFaq(
           '照片位怎么排？',
           '两个位置，按钮写的是左舞者、右舞者。左边的照片对应画面左边的舞者，右边的对应右边。正脸全身照跟编舞效果最好。不要用未经同意的未成年人照片、名人照片或原始 TikTok 截图。',
         ],
-        ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx)],
+        ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx, 30)],
         ['付费导出有水印吗？', paidExportWatermarkAnswer(true)],
         ['生成失败会退积分吗？', failedJobCreditRefundAnswer(true)],
         [
@@ -819,7 +819,7 @@ export function buildBabaLongTailFaq(
           'How are the photo slots labeled?',
           'Two slots, labeled Left Dancer and Right Dancer. The left photo becomes the dancer on the left of the frame. Full-body, front-facing photos track the choreography best. Do not use unconsented minors, celebrities, or screenshots of the original TikTok.',
         ],
-        ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx)],
+        ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx, 30)],
         ['Are paid exports watermark-free?', paidExportWatermarkAnswer(false)],
         ['Are failed jobs refunded?', failedJobCreditRefundAnswer(false)],
         [

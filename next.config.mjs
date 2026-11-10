@@ -836,6 +836,17 @@ const nextConfig = {
         ],
       },
       {
+        // Preview mp4s and posters keep stable filenames (no content hash).
+        // One day in the browser, a week of stale-while-revalidate. Not immutable.
+        source: '/templates/:path*',
+        headers: [
+          {
+            key: 'Cache-Control',
+            value: 'public, max-age=86400, stale-while-revalidate=604800',
+          },
+        ],
+      },
+      {
         // Allow OAuth popups to retain window.opener after cross-origin navigation
         source: '/:path*',
         headers: [

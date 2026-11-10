@@ -369,7 +369,7 @@ export const TINY_DESK_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     body: {
       en: [
-        `A tiny desk outstanding free search usually wants the MP4 at no cost. The honest split is: every new ViralReel account starts with free credits, enough to render a first template video before you pay. That starter balance is not an unlimited plan. The template is ${T}.`,
+        `A tiny desk outstanding free search usually wants the MP4 at no cost. The honest split is: ViralReel does not give new accounts free credits or a free trial. Every render is paid. The generator button shows the exact cost before you start. The template is ${T}.`,
         `One-time credit packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. The generator shows the exact credit cost for the resolution and length you pick before you start. Failed or canceled jobs return those credits. Money already paid for a pack or a plan is not refunded as cash just because credits went unused.`,
         `${SETS_EN} ${SLOTS_EN} ${SOUND_EN} ${LIMIT_EN} A render is still a fan parody, not an NPR file and not a licensed song.`,
       ],

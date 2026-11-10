@@ -79,7 +79,7 @@ export default async function SashaLaCatrinaTemplatePage({
   setRequestLocale(locale);
   const zh = locale === 'zh';
   const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs(true));
+  const videoCosts = getVideoCostTable(await getAllConfigs());
   const pageUrl = zh ? `${envConfigs.app_url}/zh/${TEMPLATE_PATH}` : `${envConfigs.app_url}/${TEMPLATE_PATH}`;
   const faq = getSashaLaCatrinaFaq(zh, { videoCosts, creditsPerUsd });
 

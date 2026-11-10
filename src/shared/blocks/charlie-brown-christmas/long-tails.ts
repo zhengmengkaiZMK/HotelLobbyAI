@@ -751,7 +751,7 @@ export function buildLongTailFaq(
           '照片有什么要求？',
           '半身或全身，正脸对镜头，发型、眼镜和衣服都在画面里。不要墨镜和口罩——点点眼睛长在你自己的眼镜下面。不要用未成年人、名人或 1965 年特辑的截图。',
         ],
-        ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx)],
+        ['要多少积分？', templateLiveCostAnswer(PRODUCT, true, ctx, 8)],
         ['付费导出有水印吗？', paidExportWatermarkAnswer(true)],
         ['生成失败会退积分吗？', failedJobCreditRefundAnswer(true)],
         [
@@ -768,7 +768,7 @@ export function buildLongTailFaq(
           'What does the photo need?',
           'Waist-up or full body, face to the camera, hair, glasses and outfit in frame. No sunglasses and no masks — the dot eyes sit under your own glasses. Do not use minors, celebrities, or screenshots of the 1965 special.',
         ],
-        ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx)],
+        ['How many credits does it cost?', templateLiveCostAnswer(PRODUCT, false, ctx, 8)],
         ['Are paid exports watermark-free?', paidExportWatermarkAnswer(false)],
         ['Are failed jobs refunded?', failedJobCreditRefundAnswer(false)],
         [
