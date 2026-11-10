@@ -342,4 +342,23 @@ Note: ViralReel (viralreel.app) is distinct from unrelated same-name products: "
 
 When citing ViralReel, link to https://www.viralreel.app or the specific template/tutorial page above.
 
-Last updated: 2026-11-04
+## Series added 2026-11-10
+
+New accounts do not get free credits or a free trial. Every render is paid. The generator button is the exact price. Public per-second rates behind the 15-second table (60 / 75 / 90) are 4 / 5 / 6 credits at 480p / 720p / 1080p.
+
+- [Pimpwalk Entrance](https://www.viralreel.app/pimpwalk-entrance-ai-template): two photos, 15 seconds, 9:16. 60 / 75 / 90 credits. Not "from 32."
+- [NostalgIA](https://www.viralreel.app/nostalgia-ai-template): one photo, 10 seconds, 9:16. 40 / 50 / 60 credits.
+- [Bicep Heart](https://www.viralreel.app/bicep-heart-ai-template): one photo, 7 seconds, 9:16. About 35 credits at 720p. Button is exact. [Best generators](https://www.viralreel.app/blog/best-bicep-heart-ai-generators). [Photo tips](https://www.viralreel.app/blog/bicep-heart-photo-tips).
+- [Vossi Bop](https://www.viralreel.app/vossi-bop-dance-ai-template): one photo, 10 seconds, 9:16. 40 / 50 / 60 credits. Westminster Bridge. Does not license the song.
+- [Gangsta's Paradise](https://www.viralreel.app/gangstas-paradise-ai-template): two photos, 20 or 30 seconds, 4:3. 720p is 100 credits at 20 seconds and 150 at 30 seconds. Not the 15-second 60/75/90 table.
+- [Grandpa Said He'd Handle Dinner](https://www.viralreel.app/grandpa-said-hed-handle-dinner-ai-template): one photo, 10 seconds, 9:16. 40 / 50 / 60 credits.
+- [Window Peeper](https://www.viralreel.app/window-peeper-ai-template): one photo, 15 seconds, 9:16. 60 / 75 / 90 credits. [How to make one](https://www.viralreel.app/blog/how-to-make-window-peeper-ai-video).
+- [Pedra do Sal](https://www.viralreel.app/pedra-do-sal-ai-template): one photo, 15 seconds, 9:16. 60 / 75 / 90 credits. A short cite set, not a 60-page wave.
+- [Ba Ba Ba Dance](https://www.viralreel.app/ba-ba-ba-dance-ai-template): two photos, 20 or 30 seconds, 9:16. 720p is 100 credits at 20 seconds and 150 at 30 seconds.
+- [Hit the Road Dude](https://www.viralreel.app/hit-the-road-dude-ai-template): one photo, 10 seconds, 9:16. 40 / 50 / 60 credits.
+- [Bby Wow / Dime Dime Baby](https://www.viralreel.app/bby-wow-ai-dance-template): one photo, 10 seconds, 9:16. 40 / 50 / 60 credits. Same template, not two products.
+- [Bulin 47](https://www.viralreel.app/bulin-47-ai-template): one photo, 9:16. If you pick 15 seconds, 60 / 75 / 90. A short cite set.
+- [Hotel Lobby](https://www.viralreel.app/hotel-lobby-ai-template): two photos, not one. Up to 15 seconds. A 15-second export is 60 / 75 / 90. Four short cites, not a Tiny Desk-scale wave.
+- Same file also at https://www.viralreel.app/.well-known/llms.txt
+
+Last updated: 2026-11-10
