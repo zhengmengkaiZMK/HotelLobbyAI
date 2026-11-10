@@ -1,8 +1,8 @@
 /**
  * Approximate how many videos a credit balance can pay for.
- * Uses the same resolution/duration table as the pricing page
- * (`getVideoCostTable`), so the "≈ N videos" line cannot drift
- * from the credits a generation actually costs.
+ * Pack yield uses the published 15-second 720p cell (75 credits),
+ * not the 8-second floor and not the Wan code default (18 credits,
+ * which would call a 90-credit pack about 5 videos).
  *
  * Counts are floored: a plan never claims a clip the balance cannot cover.
  */
@@ -35,8 +35,9 @@ const EXPENSIVE = { resolution: '1080p', duration: 30 } as const;
 
 /**
  * Published per-second rates behind the public 15-second table
- * (60 / 75 / 90). Used only when a template's length is not a table row
- * (10s, 20s, 7s, 4s, 6s). The generator button remains the charge.
+ * (60 / 75 / 90). 15-second quotes use these rates. Lengths that are
+ * not 8 / 12 / 15 / 30 scale from them too. The generator button remains
+ * the charge. 8 / 12 / 30 price-table cells stay on the billing table.
  */
 const PUBLISHED_PER_SECOND: Record<string, number> = {
   '480p': 4,
@@ -56,18 +57,38 @@ export function videoCreditCost(
 }
 
 /**
+ * Official public 15-second cells: 60 / 75 / 90.
+ * These are not the Wan code-default formula (0.6 / 1.2 / 2.4 per second,
+ * which is 9 / 18 / 36 at 15 seconds). Pack yield and public 15-second
+ * sentences use this row. The 8 / 12 / 30 price-table cells stay on the
+ * billing table passed in by the caller.
+ */
+export function publishedFifteenSecondCredits(resolution: string): number {
+  const perSecond = PUBLISHED_PER_SECOND[resolution];
+  return perSecond ? perSecond * 15 : 0;
+}
+
+/**
  * Credits for one clip at a resolution and length.
- * Table rows (8 / 12 / 15 / 30) win. Other lengths scale from the 15s cell,
- * then from the published 4 / 5 / 6 credits-per-second rates.
+ * A 15-second quote is the published 60 / 75 / 90 row.
+ * 8 / 12 / 30 stay on the billing table. Other lengths scale from the
+ * published 4 / 5 / 6 credits-per-second rates.
  */
 export function creditsForDuration(
   table: VideoCostTable,
   resolution: string,
   seconds: number
 ): number {
+  if (seconds === 15) {
+    const published = publishedFifteenSecondCredits(resolution);
+    if (published > 0) return published;
+  }
   const exact = videoCreditCost(table, resolution, seconds);
-  if (exact > 0 && [8, 12, 15, 30].includes(seconds)) return exact;
-  const base15 = videoCreditCost(table, resolution, 15);
+  if (exact > 0 && [8, 12, 30].includes(seconds)) return exact;
+  if (exact > 0 && seconds === 15) return exact;
+  const base15 =
+    publishedFifteenSecondCredits(resolution) ||
+    videoCreditCost(table, resolution, 15);
   const perSecond =
     base15 > 0 ? base15 / 15 : (PUBLISHED_PER_SECOND[resolution] ?? 5);
   if (!Number.isFinite(seconds) || seconds <= 0) return 0;
@@ -136,9 +157,10 @@ export function maxVideoLine(credits: number, table: VideoCostTable, zh: boolean
       ? `按默认 720p / 15 秒（${price} 积分）不足 1 条。更长的模板更贵，以生成器按钮上的本次积分为准。`
       : `按默认 720p / 15 秒（${price} 积分）大约 ${formatCreditCount(count)} 条。更长的模板更贵，以生成器按钮上的本次积分为准。`;
   }
+  const clips = count === 1 ? '1 video' : `${formatCreditCount(count)} videos`;
   return count < 1
     ? `Fewer than 1 video at default 720p / 15s (${price} credits). Longer templates cost more. The generator button is the price for this render.`
-    : `About ${formatCreditCount(count)} videos at default 720p / 15s (${price} credits). Longer templates cost more. The generator button is the price for this render.`;
+    : `About ${clips} at default 720p / 15s (${price} credits). Longer templates cost more. The generator button is the price for this render.`;
 }
 
 const PRIORITY_PRODUCTS = new Set([
