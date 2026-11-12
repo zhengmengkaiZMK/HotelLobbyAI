@@ -44,8 +44,8 @@ export const TRENDING_TEMPLATES: TrendingTemplate[] = [
     href: '/santa-nice-list-ai-template',
     badge: 'hot',
     vibes: ['meme', 'couples'],
-    poster: '/templates/santa-nice-list-nice-list-scroll-poster.jpg',
-    video: '/templates/santa-nice-list-nice-list-scroll.mp4',
+    poster: '/templates/santa-nice-list-scroll-poster.jpg',
+    video: '/templates/santa-nice-list-scroll.mp4',
     colors: ['#fef2f2', '#7f1d1d'],
   },
   {
