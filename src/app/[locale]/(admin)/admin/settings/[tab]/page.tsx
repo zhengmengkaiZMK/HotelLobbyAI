@@ -74,6 +74,7 @@ export default async function SettingsPage({
   'viral_family_models_alors_on_danse',
   'viral_family_models_sasha_la_catrina',
   'viral_family_models_gangstas_paradise',
+  'viral_family_models_santa_nice_list',
   'viral_family_models_vossi_bop_dance',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
@@ -96,6 +97,7 @@ export default async function SettingsPage({
   'viral_family_default_model_alors_on_danse',
   'viral_family_default_model_sasha_la_catrina',
   'viral_family_default_model_gangstas_paradise',
+  'viral_family_default_model_santa_nice_list',
   'viral_family_default_model_vossi_bop_dance',
 ]);
   for (const setting of settings) {

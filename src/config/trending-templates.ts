@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'santa-nice-list',
+    name: ['Santa Nice List', 'Santa Nice List 圣诞乖巧名单'],
+    pitch: [
+      'Santa checks his Naughty & Nice List and the sparkles reveal your kid — the Christmas trend parents are posting everywhere.',
+      '圣诞老人查看淘气与乖巧名单，金光揭晓你家孩子——家长们都在发的圣诞趋势。',
+    ],
+    href: '/santa-nice-list-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'couples'],
+    poster: '/templates/santa-nice-list-nice-list-scroll-poster.jpg',
+    video: '/templates/santa-nice-list-nice-list-scroll.mp4',
+    colors: ['#fef2f2', '#7f1d1d'],
+  },
+  {
     id: 'gangsta-paradise',
     name: ["Gangsta's Paradise", "Gangsta's Paradise 天堂说唱"],
     pitch: [

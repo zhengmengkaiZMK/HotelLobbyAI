@@ -52,6 +52,7 @@ const staticRoutes = [
   ...BICEP_HEART_LONG_TAIL_ROUTES,
   { path: '/vossi-bop-dance-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/gangstas-paradise-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/santa-nice-list-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/grandpa-said-hed-handle-dinner-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/tiny-desk-outstanding-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...TINY_DESK_LONG_TAIL_ROUTES,
