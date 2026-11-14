@@ -826,9 +826,6 @@ const nextConfig = {
       { source: `/zh${source}`, destination: `/zh${destination}`, permanent: true },
     ]);
   },
-  async rewrites() {
-    return [{ source: '/.well-known/llms.txt', destination: '/llms.txt' }];
-  },
   async headers() {
     return [
       {
@@ -843,6 +840,7 @@ const nextConfig = {
       {
         // Preview mp4s and posters keep stable filenames (no content hash).
         // One day in the browser, a week of stale-while-revalidate. Not immutable.
+        // Workers static assets do not apply this rule; public/_headers does.
         source: '/templates/:path*',
         headers: [
           {

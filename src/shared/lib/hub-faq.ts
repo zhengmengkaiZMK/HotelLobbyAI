@@ -31,8 +31,8 @@ function subscribePage(zh: boolean) {
 
 function costFacts(ctx: HubFaqContext) {
   const table = ctx.videoCosts;
-  // Default public example is a 15-second clip (60 / 75 / 90 on the live table),
-  // not the 8-second row. Starter yield uses 720p / 15s.
+  // Public 15-second example is 60 / 75 / 90, not the 8-second row and not
+  // the Wan default 9 / 18 / 36. Starter yield uses 720p / 15s.
   const p480 = creditsForDuration(table, '480p', 15);
   const p720 = creditsForDuration(table, '720p', 15);
   const p1080 = creditsForDuration(table, '1080p', 15);
@@ -44,6 +44,10 @@ function costFacts(ctx: HubFaqContext) {
 function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
   const packs = CANONICAL_PRICING;
   const costs = costFacts(ctx);
+  const starterEn =
+    costs.starterVideos === 1
+      ? 'about 1 video'
+      : `about ${formatCreditCount(costs.starterVideos)} videos`;
   const pricingEn = pricingPage(false);
   const pricingZh = pricingPage(true);
   const subscribeEn = subscribePage(false);
@@ -111,7 +115,7 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
         zh: '重拍一条视频要多少积分？',
       },
       a: {
-        en: `The generator button is the price for the current render. On the public 15-second table, 480p is ${formatCreditCount(costs.p480)} credits, 720p is ${formatCreditCount(costs.p720)} credits (about ${costs.usd} at ${ctx.creditsPerUsd} credits = $1), and 1080p is ${formatCreditCount(costs.p1080)} credits. A one-time Starter pack is ${packs.packStarterPrice} for ${packs.packStarterCredits} credits, about ${formatCreditCount(costs.starterVideos)} videos at default 720p / 15s. Longer templates cost more. 8-second, 12-second, and 30-second rows stay on the pricing table. The full table is at ${pricingEn}.`,
+        en: `The generator button is the price for the current render. On the public 15-second table, 480p is ${formatCreditCount(costs.p480)} credits, 720p is ${formatCreditCount(costs.p720)} credits (about ${costs.usd} at ${ctx.creditsPerUsd} credits = $1), and 1080p is ${formatCreditCount(costs.p1080)} credits. A one-time Starter pack is ${packs.packStarterPrice} for ${packs.packStarterCredits} credits, ${starterEn} at default 720p / 15s. Longer templates cost more. 8-second, 12-second, and 30-second rows stay on the pricing table. The full table is at ${pricingEn}.`,
         zh: `以生成器按钮上的本次积分为准。公开的 15 秒积分表上，480p 是 ${formatCreditCount(costs.p480)} 积分，720p 是 ${formatCreditCount(costs.p720)} 积分（按 ${ctx.creditsPerUsd} 积分 = 1 美元，约 ${costs.usd}），1080p 是 ${formatCreditCount(costs.p1080)} 积分。一次性 Starter 积分包 ${packs.packStarterPrice}，${packs.packStarterCredits} 积分，按默认 720p / 15 秒大约 ${formatCreditCount(costs.starterVideos)} 条。更长的模板更贵。8 秒、12 秒和 30 秒的行仍在定价表上。完整对照表见 ${pricingZh}。`,
       },
     },
