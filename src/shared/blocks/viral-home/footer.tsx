@@ -12,13 +12,92 @@ export function Brand() {
   return <Link href="/" className="brand"><svg width="32" height="32" viewBox="0 0 64 64" aria-hidden="true"><defs><linearGradient id="viral-brand" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stopColor="#f97316"/><stop offset="1" stopColor="#ea580c"/></linearGradient></defs><rect width="64" height="64" rx="12" fill="url(#viral-brand)"/><line x1="32" y1="14" x2="32" y2="26" stroke="#fff" strokeWidth="3" strokeLinecap="round"/><circle cx="32" cy="32" r="7" fill="#fff"/><circle cx="32" cy="32" r="2.6" fill="#ea580c"/><rect x="14" y="46" width="10" height="8" rx="4" fill="#fff" opacity=".9"/><rect x="40" y="46" width="10" height="8" rx="4" fill="#fff" opacity=".9"/></svg><span className="name">Viral<i>Reel</i></span>  </Link>;
 }
 
+/** One row in the trending-templates column: template link + optional inline chips. */
+function FtplRow({
+  href,
+  label,
+  chips,
+}: {
+  href: string;
+  label: readonly [string, string];
+  chips?: readonly { href: string; label: readonly [string, string] }[];
+}) {
+  return (
+    <div className="frow">
+      <Link href={href}>{label[0]}</Link>
+      {chips?.map((chip) => (
+        <Link key={chip.href} href={chip.href} className="fchip">
+          {chip.label[0]}
+        </Link>
+      ))}
+    </div>
+  );
+}
+
 export function ViralFooter() {
   const zh = useLocale().startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
 
+  const templateRows: {
+    href: string;
+    label: readonly [string, string];
+    chips?: { href: string; label: readonly [string, string] }[];
+  }[] = [
+    { href: '/hotel-lobby-ai-template', label: ['Hotel Lobby', 'Hotel Lobby 对唱'] },
+    { href: '/burning-bridges-ai-template', label: ['Burning Bridges', 'Burning Bridges 派对'] },
+    { href: '/bulin-47-ai-template', label: ['Bulin 47', 'Bulin 47'] },
+    { href: '/window-peeper-ai-template', label: ['Window Peeper', 'Window Peeper'] },
+    {
+      href: '/alors-on-danse-ai-template',
+      label: ['Alors On Danse', 'Alors On Danse'],
+      chips: [{ href: '/blog/how-to-make-alors-on-danse-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
+      href: '/hit-the-road-dude-ai-template',
+      label: ['Hit the Road Dude', 'Hit the Road Dude'],
+      chips: [{ href: '/blog/how-to-make-hit-the-road-dude-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
+      href: '/wassup-in-a-minute-ai-template',
+      label: ['Wassup in a Minute', 'Wassup in a Minute'],
+      chips: [{ href: '/blog/how-to-make-wassup-in-a-minute-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
+      href: '/pimpwalk-entrance-ai-template',
+      label: ['Pimpwalk Entrance', 'Pimpwalk Entrance'],
+      chips: [{ href: '/blog/how-to-make-pimpwalk-entrance', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
+      href: '/first-time-in-a-fancy-cafe-ai-template',
+      label: ['Fancy Cafe', 'Fancy Cafe 咖啡厅初体验'],
+      chips: [{ href: '/blog/how-to-make-fancy-cafe-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
+      href: '/sasha-la-catrina-ai-template',
+      label: ['Sasha La Catrina', 'Sasha La Catrina'],
+      chips: [{ href: '/blog/how-to-make-catrina-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
+      href: '/charlie-brown-christmas-ai-template',
+      label: ['Charlie Brown Christmas', '查理布朗圣诞节'],
+      chips: [
+        { href: '/charlie-brown-christmas-filter', label: [t('Filter', '滤镜'), t('Filter', '滤镜')] },
+      ],
+    },
+    {
+      href: '/nostalgia-ai-template',
+      label: ['NostalgIA CapCut', 'NostalgIA 复古'],
+      chips: [{ href: '/blog/how-to-make-nostalgia-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    { href: '/ozil-ai-goal-template', label: ['Ozil Goal', 'Ozil Goal 进球'] },
+    { href: '/cat-clapping-ai-template', label: ['Cat Clapping', 'Cat Clapping 猫猫鼓掌'] },
+  ];
+
   return (
     <div className="viral-home">
-      <footer><div className="container"><div className="fgrid"><div><Brand/><p>{t('AI trend video templates for creators. Most templates render in 2–3 minutes.','为创作者打造的 AI 热梗视频模板，多数模板 2-3 分钟出片。')}</p><div className="badges"><a className="badge-launchbuff" href="https://launchbuff.com/products/viralreel-0k8f3r" target="_blank" rel="noopener noreferrer" title="Featured on LaunchBuff"><img src="https://launchbuff.com/badge-featured-dark.svg" alt="Featured on LaunchBuff" width="128" height="40" loading="lazy"/></a><a className="badge-findly" href="https://findly.tools/viralreel?utm_source=viralreel" target="_blank" rel="noopener noreferrer" title="Featured on Findly.tools"><img src="https://findly.tools/badges/findly-tools-badge-light.svg" alt="Featured on Findly.tools" width="175" height="55" loading="lazy"/></a><a className="badge-submitaitools" href="https://submitaitools.org" target="_blank" rel="noopener noreferrer" title="Submit AI Tools"><img src="https://submitaitools.org/static_submitaitools/images/submitaitools.png" alt="Submit AI Tools" style={{ borderRadius: 10, width: 200, height: 60 }} loading="lazy"/></a></div></div><div><h3>{t('Product','产品')}</h3><a href={zh ? '/zh#trending' : '/#trending'}>{t('Templates','模板')}</a><Link href="/pricing">{t('Pricing','定价')}</Link><Link href="/ai-video-generator">{t('Video generator','视频生成器')}</Link></div><div><h3>{t('Resources','资源')}</h3><a href={zh ? '/zh#how' : '/#how'}>{t('How it works','使用教程')}</a><a href={zh ? '/zh#faq' : '/#faq'}>{t('FAQ','常见问题')}</a><Link href="/blog">{t('Blog','博客')}</Link><a href="https://indieai.directory/tools/viralreel/" target="_blank" rel="noopener">ViralReel on IndieAI Directory</a><Link href="/hotel-lobby-ai-template">{t('Hotel Lobby AI template guide','Hotel Lobby AI 模板指南')}</Link><Link href="/burning-bridges-ai-template">{t('Burning Bridges AI template guide','Burning Bridges AI 模板指南')}</Link><Link href="/bulin-47-ai-template">{t('Bulin 47 AI template guide','Bulin 47 AI 模板指南')}</Link><Link href="/window-peeper-ai-template">{t('Window Peeper AI template guide','Window Peeper AI 模板指南')}</Link><Link href="/alors-on-danse-ai-template">{t('Alors On Danse AI template guide','Alors On Danse AI 模板指南')}</Link><Link href="/blog/how-to-make-alors-on-danse-ai-video">{t('How to make an Alors On Danse AI video','如何制作 Alors On Danse AI 视频')}</Link><Link href="/hit-the-road-dude-ai-template">{t('Hit the Road Dude AI template guide','Hit the Road Dude AI 模板指南')}</Link><Link href="/blog/how-to-make-hit-the-road-dude-ai-video">{t('How to make a Hit the Road Dude AI video','如何制作 Hit the Road Dude AI 视频')}</Link><Link href="/wassup-in-a-minute-ai-template">{t('Wassup in a Minute AI template guide','Wassup in a Minute AI 模板指南')}</Link><Link href="/blog/how-to-make-wassup-in-a-minute-ai-video">{t('How to make a Wassup in a Minute AI video','如何制作 Wassup in a Minute AI 视频')}</Link><Link href="/pimpwalk-entrance-ai-template">{t('Pimpwalk Entrance AI template guide','Pimpwalk Entrance AI 模板指南')}</Link><Link href="/blog/how-to-make-pimpwalk-entrance">{t('How to make a pimpwalk entrance video','如何制作 pimpwalk entrance 视频')}</Link><Link href="/first-time-in-a-fancy-cafe-ai-template">{t('Fancy Cafe AI template guide','Fancy Cafe AI 模板指南')}</Link><Link href="/blog/how-to-make-fancy-cafe-ai-video">{t('How to make a fancy cafe AI video','如何制作 fancy cafe AI 视频')}</Link><Link href="/sasha-la-catrina-ai-template">{t('Sasha La Catrina AI template guide','Sasha La Catrina AI 模板指南')}</Link><Link href="/charlie-brown-christmas-ai-template">{t('A Charlie Brown Christmas AI template guide','A Charlie Brown Christmas AI 模板指南')}</Link><Link href="/charlie-brown-christmas-filter">{t('Charlie Brown Christmas filter','Charlie Brown Christmas 滤镜')}</Link><Link href="/blog/how-to-make-catrina-ai-video">{t('How to make a Catrina AI video','如何制作 Catrina AI 视频')}</Link><Link href="/nostalgia-ai-template">{t('NostalgIA CapCut template guide','NostalgIA CapCut 模板指南')}</Link><Link href="/blog/how-to-make-nostalgia-ai-video">{t('How to make a NostalgIA AI video','如何制作 NostalgIA AI 视频')}</Link><Link href="/ozil-ai-goal-template">{t('Ozil Goal template guide','Ozil Goal 模板指南')}</Link><Link href="/cat-clapping-ai-template">{t('Cat Clapping template guide','Cat Clapping 模板指南')}</Link></div><div><h3>{t('Company','公司')}</h3><Link href="/privacy-policy">{t('Privacy Policy','隐私政策')}</Link><Link href="/terms-of-service">{t('Terms of Service','服务条款')}</Link></div><div><h3>{t('Support','客服支持')}</h3><a href="mailto:support@viralreel.app">support@viralreel.app</a><p>{t('Questions or issues? Email us any time.','有任何问题或疑问，随时邮件联系我们。')}</p></div></div><div className="legal">© {new Date().getFullYear()} ViralReel · All rights reserved.<p>{t('ViralReel is an independent AI video template site. It is not affiliated with the artists, songs, clubs, or platforms behind each trend.','ViralReel 是独立的 AI 视频模板站，与各条趋势背后的艺人、歌曲、俱乐部或平台均无关联。')}</p></div></div></footer>
+      <footer><div className="container"><div className="fgrid"><div><Brand/><p>{t('AI trend video templates for creators. Most templates render in 2–3 minutes.','为创作者打造的 AI 热梗视频模板，多数模板 2-3 分钟出片。')}</p><div className="badges"><a className="badge-launchbuff" href="https://launchbuff.com/products/viralreel-0k8f3r" target="_blank" rel="noopener noreferrer" title="Featured on LaunchBuff"><img src="https://launchbuff.com/badge-featured-dark.svg" alt="Featured on LaunchBuff" width="128" height="40" loading="lazy"/></a><a className="badge-findly" href="https://findly.tools/viralreel?utm_source=viralreel" target="_blank" rel="noopener noreferrer" title="Featured on Findly.tools"><img src="https://findly.tools/badges/findly-tools-badge-light.svg" alt="Featured on Findly.tools" width="175" height="55" loading="lazy"/></a><a className="badge-submitaitools" href="https://submitaitools.org" target="_blank" rel="noopener noreferrer" title="Submit AI Tools"><img src="https://submitaitools.org/static_submitaitools/images/submitaitools.png" alt="Submit AI Tools" style={{ borderRadius: 10, width: 200, height: 60 }} loading="lazy"/></a></div></div><div><h3>{t('Product','产品')}</h3><a href={zh ? '/zh#trending' : '/#trending'}>{t('Templates','模板')}</a><Link href="/pricing">{t('Pricing','定价')}</Link><Link href="/ai-video-generator">{t('Video generator','视频生成器')}</Link></div><div><h3>{t('Resources','资源')}</h3><a href={zh ? '/zh#how' : '/#how'}>{t('How it works','使用教程')}</a><a href={zh ? '/zh#faq' : '/#faq'}>{t('FAQ','常见问题')}</a><Link href="/blog">{t('Blog','博客')}</Link><a href="https://indieai.directory/tools/viralreel/" target="_blank" rel="noopener">ViralReel on IndieAI Directory</a></div><div className="ftpl-col"><h3>{t('Trending templates','热门模板')}</h3><div className="ftpl">{templateRows.map((row) => (
+            <FtplRow key={row.href} href={row.href} label={row.label} chips={row.chips} />
+          ))}</div></div><div><h3>{t('Company','公司')}</h3><Link href="/privacy-policy">{t('Privacy Policy','隐私政策')}</Link><Link href="/terms-of-service">{t('Terms of Service','服务条款')}</Link><h3 className="fsup">{t('Support','客服支持')}</h3><a href="mailto:support@viralreel.app">support@viralreel.app</a><p>{t('Questions or issues? Email us any time.','有任何问题或疑问，随时邮件联系我们。')}</p></div></div><div className="legal">© {new Date().getFullYear()} ViralReel · All rights reserved.<p>{t('ViralReel is an independent AI video template site. It is not affiliated with the artists, songs, clubs, or platforms behind each trend.','ViralReel 是独立的 AI 视频模板站，与各条趋势背后的艺人、歌曲、俱乐部或平台均无关联。')}</p></div></div></footer>
     </div>
   );
 }
