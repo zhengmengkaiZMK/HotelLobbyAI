@@ -3,18 +3,21 @@
 import { useRef } from 'react';
 import { TOCItems, TOCProvider } from 'fumadocs-ui/components/layout/toc';
 import { CalendarIcon, ListIcon } from 'lucide-react';
-import { useTranslations } from 'next-intl';
+import { useLocale, useTranslations } from 'next-intl';
 
 import { useArticleVideos } from '@/shared/blocks/blog/article-video';
 import { MarkdownPreview } from '@/shared/blocks/common';
 import { Crumb } from '@/shared/blocks/common/crumb';
 import { type Post as PostType } from '@/shared/types/blocks/blog';
 import { NavItem } from '@/shared/types/blocks/common';
+import { Link } from '@/core/i18n/navigation';
 
 import '@/config/style/docs.css';
 
 export function BlogDetail({ post }: { post: PostType }) {
   const t = useTranslations('pages.blog.messages');
+  const locale = useLocale();
+  const isZh = locale === 'zh';
   const articleRef = useRef<HTMLElement>(null);
   useArticleVideos(articleRef, post.id);
 
@@ -97,6 +100,14 @@ export function BlogDetail({ post }: { post: PostType }) {
                     )
                   )}
                 </article>
+                <nav aria-label={isZh ? '相关资源' : 'Related resources'} className="mt-12 border-t pt-8">
+                  <p className="text-foreground mb-3 font-semibold">{isZh ? '相关资源' : 'Related resources'}</p>
+                  <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
+                    <Link href="/ai-video-generator" className="text-primary underline-offset-4 hover:underline">{isZh ? 'AI 视频生成器' : 'AI video generator'}</Link>
+                    <Link href="/blog" className="text-primary underline-offset-4 hover:underline">{isZh ? '使用教程' : 'How-to guides'}</Link>
+                    <Link href="/pricing" className="text-primary underline-offset-4 hover:underline">{isZh ? '定价' : 'Pricing'}</Link>
+                  </div>
+                </nav>
               </div>
 
               {/* Author Info - Right Sidebar */}
