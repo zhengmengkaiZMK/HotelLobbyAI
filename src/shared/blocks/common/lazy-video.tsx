@@ -158,6 +158,21 @@ export type LazyVideoHandle = {
   element: HTMLVideoElement | null;
 };
 
+/**
+ * Grid-card sibling of a canonical preview.
+ * `/templates/foo.mp4` stays the generator source and the VideoObject
+ * contentUrl. Cards play `/templates/foo-card.mp4` (shorter GOP, lower bitrate).
+ * Remote and non-template URLs are returned unchanged.
+ */
+export function cardPreviewSrc(src: string): string {
+  const queryAt = src.indexOf('?');
+  const path = queryAt === -1 ? src : src.slice(0, queryAt);
+  const query = queryAt === -1 ? '' : src.slice(queryAt);
+  if (!path.startsWith('/templates/') || !path.endsWith('.mp4')) return src;
+  if (path.endsWith('-card.mp4')) return src;
+  return `${path.slice(0, -4)}-card.mp4${query}`;
+}
+
 type LazyVideoProps = {
   src?: string;
   poster?: string;
@@ -165,6 +180,11 @@ type LazyVideoProps = {
   style?: CSSProperties;
   /** Wins the first playback slot while it is actually in the viewport. */
   priority?: boolean;
+  /**
+   * Card grid: play the `-card.mp4` sibling and keep the poster on a lazy
+   * image until the first frame is actually playing. Falls back to `src`.
+   */
+  quality?: 'full' | 'card';
   /** Poster frame only. Never assigns src. Used for sample thumbnails. */
   posterOnly?: boolean;
   /** Card mute chip. Stops the click from activating the parent card. */
@@ -202,6 +222,7 @@ const ActiveLazyVideo = forwardRef<
     className,
     style,
     priority = false,
+    quality = 'full',
     sound = false,
     muted: mutedProp,
     loop = true,
@@ -213,7 +234,12 @@ const ActiveLazyVideo = forwardRef<
   const mounted = useRef(true);
   const [attached, setAttached] = useState(false);
   const [mutedState, setMutedState] = useState(mutedProp ?? true);
+  const [useCanonical, setUseCanonical] = useState(false);
+  const [frameReady, setFrameReady] = useState(false);
   const muted = mutedProp ?? mutedState;
+  const card = quality === 'card';
+  const mediaSrc =
+    src && card && !useCanonical ? cardPreviewSrc(src) : src;
   const mutedRef = useRef(muted);
   const wasAttached = useRef(false);
   mutedRef.current = muted;
@@ -245,10 +271,10 @@ const ActiveLazyVideo = forwardRef<
       setAttached(true);
     });
     const el = ref.current;
-    if (!el || !src) return;
+    if (!el || !mediaSrc) return;
     el.muted = nextMuted;
     el.defaultMuted = nextMuted;
-    if (el.getAttribute('src') !== src) el.src = src;
+    if (el.getAttribute('src') !== mediaSrc) el.src = mediaSrc;
     const attempt = el.play();
     if (attempt) {
       attempt.catch(() => {
@@ -261,6 +287,15 @@ const ActiveLazyVideo = forwardRef<
     }
     reconcile();
   };
+
+  useEffect(() => {
+    setUseCanonical(false);
+    setFrameReady(false);
+  }, [src]);
+
+  useEffect(() => {
+    if (!attached) setFrameReady(false);
+  }, [attached]);
 
   useImperativeHandle(forwarded, () => ({
     playFromGesture,
@@ -314,7 +349,7 @@ const ActiveLazyVideo = forwardRef<
     const el = ref.current;
     const player = players.get(id);
     if (!el || !player) return;
-    if (!attached || !src) {
+    if (!attached || !mediaSrc) {
       if (wasAttached.current) release(el);
       wasAttached.current = false;
       return;
@@ -327,7 +362,11 @@ const ActiveLazyVideo = forwardRef<
       el.pause();
       return;
     }
-    if (!el.paused && el.readyState >= 2 && el.getAttribute('src') === src)
+    if (
+      !el.paused &&
+      el.readyState >= 2 &&
+      el.getAttribute('src') === mediaSrc
+    )
       return;
     const attempt = el.play();
     if (attempt) {
@@ -337,7 +376,7 @@ const ActiveLazyVideo = forwardRef<
         void el.play().catch(() => {});
       });
     }
-  }, [attached, src, id]);
+  }, [attached, mediaSrc, id]);
 
   useEffect(() => {
     const el = ref.current;
@@ -361,7 +400,15 @@ const ActiveLazyVideo = forwardRef<
     playFromGesture({ muted: true });
   };
 
-  const active = attached && !!src;
+  const active = attached && !!mediaSrc;
+  const showStill = card && !!poster && !frameReady;
+  const onMediaError = () => {
+    if (!card || useCanonical || !src) return;
+    const el = ref.current;
+    if (!el || el.getAttribute('src') !== cardPreviewSrc(src)) return;
+    setFrameReady(false);
+    setUseCanonical(true);
+  };
   let soundControl: ReactNode = null;
   if (sound) {
     soundControl = (
@@ -385,8 +432,8 @@ const ActiveLazyVideo = forwardRef<
       <video
         ref={bind}
         className={className}
-        src={active ? src : undefined}
-        poster={poster}
+        src={active ? mediaSrc : undefined}
+        poster={card ? undefined : poster}
         muted={muted}
         loop={loop}
         playsInline
@@ -394,7 +441,23 @@ const ActiveLazyVideo = forwardRef<
         preload={active && priority ? 'auto' : 'none'}
         style={style}
         onClick={onVideoClick}
+        onPlaying={() => {
+          if (card) setFrameReady(true);
+        }}
+        onError={onMediaError}
       />
+      {showStill ? (
+        <img
+          className={className ? `${className} tv-still` : 'tv-still'}
+          src={poster}
+          alt=""
+          aria-hidden="true"
+          decoding="async"
+          loading={priority ? 'eager' : 'lazy'}
+          fetchPriority={priority ? 'high' : 'low'}
+          style={style}
+        />
+      ) : null}
       {soundControl}
     </>
   );
@@ -440,6 +503,7 @@ export function TemplateCardVideo({
         src={videoSrc}
         poster={videoPoster}
         priority={priority}
+        quality="card"
         sound
         style={{
           background: `linear-gradient(165deg, ${colors[0]}, ${colors[1]})`,
