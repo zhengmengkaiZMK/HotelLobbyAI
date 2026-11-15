@@ -22,8 +22,8 @@ export const NEVER_LET_HER_PAY_HOW_TO_STEPS: readonly NeverLetHerPayHowToStep[] 
   {
     name: { en: 'Set ratio, resolution, and length', zh: '选画幅、清晰度和时长' },
     text: {
-      en: 'Leave the ratio on 9:16 — the ratio TikTok, Reels and Shorts use for this trend. Pick 12 seconds to match the original skit\'s pacing, choose the resolution, and read the credit cost shown before you generate. The result is a new fan skit, not a copy of the original TikTok.',
-      zh: '画幅保持 9:16——这条趋势在 TikTok、Reels 和 Shorts 上的竖屏规格。时长选 12 秒，对齐原版短剧的节奏；选好分辨率，先看清页面上的积分再生成。成片是一条新的粉丝向短剧，不是原始 TikTok 的拷贝。',
+      en: 'Leave the ratio on 9:16 — the ratio TikTok, Reels and Shorts use for this trend. The length is 12 seconds. On the published table that is 48 credits at 480p, 60 at 720p, and 72 at 1080p — not the 15-second 60/75/90 row. The generator button is the exact charge for the model you pick. The result is a new fan skit, not a copy of the original TikTok.',
+      zh: '画幅保持 9:16——这条趋势在 TikTok、Reels 和 Shorts 上的竖屏规格。时长是 12 秒。公开表上这是 480p 48 积分、720p 60 积分、1080p 72 积分——不是 15 秒的 60/75/90。生成器按钮是所选模型的实扣积分。成片是一条新的粉丝向短剧，不是原始 TikTok 的拷贝。',
     },
   },
   {
