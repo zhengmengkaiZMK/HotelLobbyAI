@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'never-let-her-pay',
+    name: ['Never Let Her Pay', 'Never Let Her Pay 洗碗海绵短剧'],
+    pitch: [
+      'Two photos — the diner and the waiter — and the AI puts your face in the viral restaurant sponge skit.',
+      '两张照片——买单的主角和服务员——把你的脸放进爆火的餐厅洗碗海绵短剧。',
+    ],
+    href: '/never-let-her-pay-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'couples'],
+    poster: '/templates/never-let-her-pay-original-poster.jpg',
+    video: '/templates/never-let-her-pay-original.mp4',
+    credit: '@georgethegem',
+    colors: ['#f5f0e6', '#1c1917'],
+  },
+  {
     id: 'santa-nice-list',
     name: ['Santa Nice List', 'Santa Nice List 圣诞乖巧名单'],
     pitch: [

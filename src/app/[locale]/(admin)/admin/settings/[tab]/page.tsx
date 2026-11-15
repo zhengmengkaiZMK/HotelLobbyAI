@@ -76,6 +76,7 @@ export default async function SettingsPage({
   'viral_family_models_gangstas_paradise',
   'viral_family_models_santa_nice_list',
   'viral_family_models_vossi_bop_dance',
+  'viral_family_models_never_let_her_pay',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
@@ -99,6 +100,7 @@ export default async function SettingsPage({
   'viral_family_default_model_gangstas_paradise',
   'viral_family_default_model_santa_nice_list',
   'viral_family_default_model_vossi_bop_dance',
+  'viral_family_default_model_never_let_her_pay',
 ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {

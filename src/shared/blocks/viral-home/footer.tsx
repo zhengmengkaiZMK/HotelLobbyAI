@@ -43,6 +43,7 @@ export function ViralFooter() {
     label: readonly [string, string];
     chips?: { href: string; label: readonly [string, string] }[];
   }[] = [
+    { href: '/never-let-her-pay-ai-template', label: ['Never Let Her Pay', 'Never Let Her Pay 洗碗短剧'] },
     { href: '/hotel-lobby-ai-template', label: ['Hotel Lobby', 'Hotel Lobby 对唱'] },
     { href: '/burning-bridges-ai-template', label: ['Burning Bridges', 'Burning Bridges 派对'] },
     { href: '/bulin-47-ai-template', label: ['Bulin 47', 'Bulin 47'] },
