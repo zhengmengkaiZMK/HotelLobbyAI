@@ -138,6 +138,8 @@
 .viral-home .guide p{margin-bottom:14px}
 .viral-home .guide ol{margin:0 0 14px 1.25em}
 .viral-home .guide li{margin:0 0 8px}
+.viral-home .guide-links{margin-top:4px}
+.viral-home .guide-links li{margin:0 0 14px}
 .viral-home .guide li::marker{color:#ea580c;font-weight:600}
 .viral-home .guide-fig{margin:24px 0 8px}
 .viral-home .guide-fig img{width:100%;height:auto;border-radius:14px;border:1px solid #e4e4e7}

@@ -791,7 +791,7 @@ export function charlieBrownLinkGroups(zh: boolean): CharlieBrownLinkGroup[] {
       links: [
         { href: CHARLIE_BROWN_TEMPLATE_PATH, label: zh ? 'A Charlie Brown Christmas 模板' : 'A Charlie Brown Christmas template' },
         { href: '/charlie-brown-christmas-ai', label: 'A Charlie Brown Christmas AI' },
-        { href: '/charlie-brown-christmas-ai-video', label: zh ? 'AI 视频' : 'AI video' },
+        { href: '/charlie-brown-christmas-ai-video', label: zh ? 'A Charlie Brown Christmas AI 视频' : 'A Charlie Brown Christmas AI video' },
         { href: '/charlie-brown-christmas-template', label: zh ? 'Charlie Brown Christmas 模板' : 'Charlie Brown Christmas template' },
         { href: '/charlie-brown-christmas-generator', label: zh ? 'AI 视频生成器' : 'AI video generator' },
         { href: '/pricing', label: zh ? '积分包定价' : 'Credit pack pricing' },
@@ -828,7 +828,7 @@ export function charlieBrownLinkGroups(zh: boolean): CharlieBrownLinkGroup[] {
       links: [
         { href: '/charlie-brown-christmas-chatgpt', label: zh ? 'ChatGPT 解释，模板出片' : 'ChatGPT explains, the template renders' },
         { href: '/charlie-brown-christmas-prompt', label: zh ? '没有空白提示词' : 'No blank prompt' },
-        { href: '/charlie-brown-christmas-how-to', label: zh ? '怎么做' : 'How to make it' },
+        { href: '/charlie-brown-christmas-how-to', label: zh ? '如何制作 A Charlie Brown Christmas AI 视频' : 'How to make an A Charlie Brown Christmas AI video' },
         { href: '/charlie-brown-christmas-best', label: zh ? '固定模板怎么选' : 'When the fixed template fits' },
         { href: '/charlie-brown-christmas-free', label: zh ? '积分，不是永远免费' : 'Credits, not free forever' },
         { href: '/charlie-brown-christmas-sound', label: zh ? '原声没有授权' : 'Sound, no license' },
