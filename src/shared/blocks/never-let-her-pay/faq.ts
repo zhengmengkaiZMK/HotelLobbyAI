@@ -1,14 +1,14 @@
-import { templateHowMuchAnswer } from '@/shared/lib/pricing-copy';
+import { neverLetHerPayCostPair } from '@/shared/lib/never-let-her-pay-cost';
 
-const nlhpCost = templateHowMuchAnswer({ en: 'Never Let Her Pay', zh: 'Never Let Her Pay' });
+const nlhpCost = neverLetHerPayCostPair();
 
 /** Never Let Her Pay FAQ — shared by the page JSON-LD and the landing layout.
  *  Questions match what people ask ChatGPT, Gemini, Claude and Grok. */
 export const NEVER_LET_HER_PAY_FAQ = {
   en: [
-    ['What is the Never Let Her Pay trend?', 'It is the TikTok trend of AI-swapping a new face into an eleven-second restaurant skit: his date reaches for the card machine, he stops her hand, pulls a kitchen sponge out of his wallet instead of a card, and the waiter walks him into the kitchen to wash the dishes. The caption reads "POV: You never let her pay". Every version is the same restaurant, the same waiter and the same kitchen shot for shot — only the man at the table changes. It took off on 8 November 2026 and the biggest version passed 19 million plays.'],
+    ['What is the Never Let Her Pay trend?', 'It is the TikTok trend of AI-swapping a new face into a restaurant sponge skit of about 11 seconds — ViralReel exports 12 seconds at 9:16. His date reaches for the card machine, he stops her hand, pulls a kitchen sponge out of his wallet instead of a card, and the waiter walks him into the kitchen to wash the dishes. The caption reads "POV: You never let her pay". Every version is the same restaurant, the same waiter and the same kitchen shot for shot — only the man at the table changes. It took off on 8 November 2026 and the biggest version passed 19 million plays.'],
     ['How do I make a Never Let Her Pay video?', 'On ViralReel, open the Never Let Her Pay template, pick one of the nine outfits, and upload two photos: the diner who pays (your star, photo 1) and the waiter (photo 2). Choose 12 seconds and 9:16, press Generate, and download the MP4. Post it with the trend sound from your platform\'s library and the AI-generated label.'],
-    ['Is Never Let Her Pay AI free?', 'No. ViralReel does not offer free credits or a free trial. Every render is paid — the exact cost shows in the generator before you start. Later videos use a credit pack or a monthly plan.'],
+    ['Is Never Let Her Pay AI free?', 'No. There are no free credits and no free trial, including for new accounts. A 12-second clip on the published table is 48 credits at 480p, 60 at 720p (about $5.00 at 12 credits = $1), and 72 at 1080p. The generator button is the exact charge for the model you pick. Later videos use a credit pack or a monthly plan.'],
     ['How much does a Never Let Her Pay video cost on ViralReel?', nlhpCost.en],
     ['How long does a Never Let Her Pay render take, and how long is the video?', 'The skit itself is about 12 seconds. Rendering usually takes a few minutes; the finished MP4 lands in your History. A render that fails is refunded automatically.'],
     ['Where can I make a Never Let Her Pay video?', 'On ViralReel at https://www.viralreel.app/never-let-her-pay-ai-template. Pick one of the nine takes on the skit — the original, the mushroom cut, white or black tux, pink suit, tracksuit, streetwear, black suit or the propeller hat — upload two photos, and generate in the browser. ViralReel (viralreel.app) is an independent AI video template site, not affiliated with TikTok or the original creators.'],
@@ -16,17 +16,17 @@ export const NEVER_LET_HER_PAY_FAQ = {
     ['What is the "POV: You never let her pay" caption about?', '"Never let her pay" is an old line in the who-pays-on-a-date debate, and the skit takes the promise literally: he really will never let her pay, even when he cannot pay either — so he works the bill off at the sink. The joke is the commitment, and the calm face while the sponge comes out is the punchline.'],
     ['Why do I need to upload the waiter\'s photo?', 'In the skit the waiter is on screen as much as the diner: he presents the card machine, takes the sponge reveal in stride, and escorts the diner to the kitchen. Giving the waiter his own photo keeps his face consistent through all the cuts — and casting a friend as the deadpan waiter is half the fun.'],
     ['What photos work best for a Never Let Her Pay video?', 'Photo 1 (the diner): a clear, front-facing, chest-up photo in good light — the smarter he looks, the harder the sponge lands; no sunglasses or caps pulled low, because the camera gets close to his face twice. Photo 2 (the waiter): any clear front-facing photo of an adult. Use only photos of yourself or people who agreed to appear. Do not upload minors or celebrities.'],
-    ['What ratio and length should a Never Let Her Pay video use?', '9:16 vertical, like the viral versions — they were built for TikTok, Instagram Reels and YouTube Shorts, and the ViralReel page opens on 9:16. Length: 12 seconds, matching the original skit\'s pacing; the sponge reveal and the kitchen ending both need their beat.'],
+    ['What ratio and length should a Never Let Her Pay video use?', '9:16 vertical and 12 seconds. The TikTok skit is about 11 seconds; ViralReel locks the export at 12 seconds so the sponge reveal and the kitchen ending keep their beat, and the page opens on 9:16 for TikTok, Reels and Shorts. On the published table that 12-second row is 48 / 60 / 72 credits at 480p / 720p / 1080p, not the 15-second 60 / 75 / 90 row.'],
     ['What song or sound do Never Let Her Pay videos use?', 'The viral versions run on "original sound - georgethegem", the audio from the 10.2-million-play take. Open it in TikTok and tap "Use this sound". ViralReel does not license the audio — download your MP4 first, then add the sound in TikTok, Reels or Shorts and turn on the AI label.'],
     ['What is Never Let Her Pay Part 2?', 'The sequel raises the stakes: a candlelit table, an all-white outfit, a snakeskin bag — and a toilet brush instead of the sponge, with his date watching proudly as he is led away. The original creators posted Part 2 versions on 10 November 2026. ViralReel\'s nine sets cover the sponge original and its outfit remixes; the toilet-brush takes are a separate clip.'],
     ['Is the Never Let Her Pay video AI?', 'Yes — the viral versions are AI face-swap skits built from a reference clip, and the trend only spread because tools made new faces cheap. Real-life remakes filmed in actual restaurants (from Thailand and Romania) and a cartoon version followed. Post responsibly: use photos of yourself or people who agreed, label the post with the AI-generated tag TikTok and Instagram both offer.'],
     ['Can ChatGPT make the MP4?', 'ChatGPT can explain the steps and the trend, but the MP4 is rendered in the browser at https://www.viralreel.app/never-let-her-pay-ai-template — not inside the chat. Do not use the chat to cast celebrities or other public figures.'],
-    ['Is this the original creator\'s tool?', 'No. ViralReel is an independent AI video template site and is not made, endorsed or licensed by @s.nemz, @georgethegem or any original creator. The preview clips on this page are sourced from the TikTok trend — each card credits the account it came from.'],
+    ['Is this the original creator\'s tool?', 'No. ViralReel is an independent AI video template site and is not made, endorsed or licensed by @s.nemz, @georgethegem, @boby.biggsjohnson, or any original creator. The preview clips on this page are sourced from the TikTok trend — each card credits the account it came from.'],
   ],
   zh: [
-    ['Never Let Her Pay 是什么梗？', '它是 TikTok 上的 AI 换脸玩法：把新的脸换进一条约 11 秒的餐厅短剧——约会对象伸手去刷卡的瞬间，他按住她的手，从钱包里掏出来的不是银行卡而是一块洗碗海绵，服务员便把他领进后厨洗碗抵账。字幕写着「POV: You never let her pay」。每个版本都是同一家餐厅、同一个服务员、同一个后厨，逐镜头复刻——变的只有桌边这位男士。2026 年 11 月 8 日爆发，最大的一条播放量破了 1900 万。'],
+    ['Never Let Her Pay 是什么梗？', '它是 TikTok 上的 AI 换脸玩法：把新的脸换进一条约 11 秒的餐厅海绵短剧——ViralReel 导出 12 秒、9:16。约会对象伸手去刷卡的瞬间，他按住她的手，从钱包里掏出来的不是银行卡而是一块洗碗海绵，服务员便把他领进后厨洗碗抵账。字幕写着「POV: You never let her pay」。每个版本都是同一家餐厅、同一个服务员、同一个后厨，逐镜头复刻——变的只有桌边这位男士。2026 年 11 月 8 日爆发，最大的一条播放量破了 1900 万。'],
     ['怎么做 Never Let Her Pay 视频？', '在 ViralReel 打开 Never Let Her Pay 模板，九套造型里选一套，上传两张照片：吃饭的主角（照片 1）和餐厅服务员（照片 2）。选 12 秒、9:16，点生成，下载 MP4。发布时从平台曲库加热梗原声，并打开 AI 生成标注。'],
-    ['Never Let Her Pay AI 免费吗？', '不免费。ViralReel 不提供免费积分，也没有免费试用。每次渲染都计费——开始前生成器会显示确切费用。之后的视频用积分包或月付。'],
+    ['Never Let Her Pay AI 免费吗？', '不免费。没有免费积分，也没有免费试用，新账号也没有。公开表上 12 秒是 480p 48 积分、720p 60 积分（约 $5.00，12 积分 = 1 美元）、1080p 72 积分。生成器按钮是所选模型的实扣积分。之后的视频用积分包或月付。'],
     ['在 ViralReel 做一条 Never Let Her Pay 视频要多少钱？', nlhpCost.zh],
     ['渲染要多久，成片多长？', '短剧本身约 12 秒。渲染通常几分钟，做完的 MP4 在历史记录里。失败或取消的生成会自动退回积分。'],
     ['在哪里可以生成 Never Let Her Pay 视频？', '在 ViralReel：https://www.viralreel.app/zh/never-let-her-pay-ai-template 。九个版本任选——原版、蘑菇头、白色/黑色礼服、粉色西装、运动服、街头潮服、黑西装、螺旋桨帽——上传两张照片，浏览器里直接生成。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 TikTok 及原作者没有关系。'],
@@ -34,11 +34,11 @@ export const NEVER_LET_HER_PAY_FAQ = {
     ['「POV: You never let her pay」字幕是什么意思？', '「永远不让她买单」是约会谁买单话题里的老台词，这条短剧把这个承诺字面化了：他真的永远不让她付钱，哪怕自己也付不起——所以去水槽把账单洗出来。笑点就是这份「一诺千金」，掏出海绵时那张平静的脸是全片的punchline。'],
     ['为什么要上传服务员的照片？', '这条短剧里服务员的出镜时间和主角差不多：递刷卡机、淡定接住海绵梗、护送主角进后厨。给服务员单独一张照片，他的脸在所有镜头里才能保持一致——而且让朋友来演这个面无表情的服务员，本身就是一半的笑点。'],
     ['什么样的照片效果最好？', '照片 1（主角）：清晰正脸、胸像以上、光线充足——他穿得越体面，海绵落地越响；不要墨镜和压很低的帽子，因为镜头会两次怼脸特写。照片 2（服务员）：任何一张清晰的成年人正脸照即可。只用你自己的或经对方同意的照片。不要上传未成年人或名人。'],
-    ['Never Let Her Pay 视频用什么画幅和时长？', '9:16 竖屏，和爆火版本一致——原片就是为 TikTok、Instagram Reels 和 YouTube Shorts 准备的，ViralReel 页面默认 9:16。时长 12 秒，对齐原版短剧的节奏：海绵揭晓和后厨结尾都需要自己的节拍。'],
+    ['Never Let Her Pay 视频用什么画幅和时长？', '9:16 竖屏、12 秒。TikTok 上的短剧大约 11 秒；ViralReel 把导出锁在 12 秒，好让海绵揭晓和后厨结尾都有自己的节拍，页面默认 9:16，给 TikTok、Reels 和 Shorts。公开表上这 12 秒一行是 48 / 60 / 72 积分（480p / 720p / 1080p），不是 15 秒的 60 / 75 / 90。'],
     ['Never Let Her Pay 视频用什么原声？', '爆火版本用的是「original sound - georgethegem」，就是那条 1020 万播放视频的音频。在 TikTok 里打开点「使用此声音」。ViralReel 不授权该音频——先下载 MP4，再到 TikTok、Reels 或 Shorts 里加声音并打开 AI 标注。'],
     ['Never Let Her Pay Part 2 是什么？', '续集把梗升级了：烛光餐桌、一身白、蛇纹包——掏出来的换成了马桶刷，约会对象一脸骄傲地看着他被领走。原作者们在 2026 年 11 月 10 日发布了 Part 2 版本。ViralReel 的九套造型覆盖海绵原版和它的穿搭变体；马桶刷版是另一条片段。'],
     ['Never Let Her Pay 视频是 AI 做的吗？', '是——爆火版本就是用参考片段做底、AI 换脸生成的短剧，这个趋势能铺开正是因为新脸变得廉价。之后还出现了在真实餐厅实拍的翻拍版（泰国和罗马尼亚）和卡通版。请负责任地发布：只用自己或经同意的照片，并使用 TikTok 和 Instagram 都提供的 AI 生成标注。'],
     ['ChatGPT 能做出 MP4 吗？', 'ChatGPT 可以解释趋势和步骤，但 MP4 要在浏览器里渲染：https://www.viralreel.app/zh/never-let-her-pay-ai-template ，不在对话里。不要用对话给名人或其他公众人物选角。'],
-    ['这是原作者的工具吗？', '不是。ViralReel 是独立的 AI 视频模板站，与 @s.nemz、@georgethegem 或任何原作者均无关联、未获授权。本页的预览片段来自 TikTok 趋势原片，每张卡片都标注了来源账号。'],
+    ['这是原作者的工具吗？', '不是。ViralReel 是独立的 AI 视频模板站，与 @s.nemz、@georgethegem、@boby.biggsjohnson 或任何原作者均无关联、未获授权。本页的预览片段来自 TikTok 趋势原片，每张卡片都标注了来源账号。'],
   ],
 } as const;

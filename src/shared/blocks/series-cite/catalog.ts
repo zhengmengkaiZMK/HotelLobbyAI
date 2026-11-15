@@ -1,8 +1,12 @@
+import { NEVER_LET_HER_PAY_CITES } from '@/shared/blocks/never-let-her-pay/cites';
+
 /**
  * Registry-only cite pages. Served by `(home)/[slug]`.
  * No per-slug page.tsx, no new media, no new route folders.
  * Credit numbers follow the public per-second table (4 / 5 / 6 credits
  * at 480p / 720p / 1080p). The generator button is the charge.
+ * Never Let Her Pay uses the published 12-second row (48 / 60 / 72),
+ * not the 15-second 60 / 75 / 90 row.
  */
 
 type Copy = { en: string; zh: string };
@@ -605,7 +609,10 @@ function build(spec: SeriesSpec): CiteEntry[] {
   return spec.intents.map((intent) => page(spec, intent));
 }
 
-export const CITE_ENTRIES: readonly CiteEntry[] = SERIES.flatMap(build);
+export const CITE_ENTRIES: readonly CiteEntry[] = [
+  ...SERIES.flatMap(build),
+  ...NEVER_LET_HER_PAY_CITES,
+];
 
 const bySlug = new Map(CITE_ENTRIES.map((entry) => [entry.slug, entry]));
 
