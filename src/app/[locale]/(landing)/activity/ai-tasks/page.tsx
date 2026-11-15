@@ -137,7 +137,7 @@ export default async function AiTasksPage({
             const primary = mediaUrls(parsedInfo, item.mediaType);
             const urls = [...new Set(primary.length ? primary : mediaUrls(parseTaskData(item.taskResult), item.mediaType))];
             if (urls.length) {
-              return <TaskMediaPreview urls={urls} mediaType={item.mediaType} prompt={item.prompt || ''} />;
+              return <TaskMediaPreview urls={urls} mediaType={item.mediaType} />;
             }
           }
           // generating videos have no media yet — show a static image tile

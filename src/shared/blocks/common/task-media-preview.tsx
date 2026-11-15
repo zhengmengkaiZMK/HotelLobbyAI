@@ -16,11 +16,9 @@ import {
 export function TaskMediaPreview({
   urls,
   mediaType,
-  prompt,
 }: {
   urls: string[];
   mediaType: 'image' | 'video';
-  prompt: string;
 }) {
   const zh = useLocale().startsWith('zh');
   const [selected, setSelected] = useState<string | null>(null);
@@ -57,9 +55,9 @@ export function TaskMediaPreview({
       </div>
       <DialogContent className="max-h-[90vh] overflow-y-auto sm:max-w-4xl">
         <DialogTitle>{label}</DialogTitle>
-        <DialogDescription className="line-clamp-3 break-words">{prompt || (zh ? '生成结果' : 'Generated result')}</DialogDescription>
+        <DialogDescription>{zh ? '生成结果' : 'Generated result'}</DialogDescription>
         {selected && (mediaType === 'image' ? (
-          <img key={selected} src={selected} alt={prompt || label} className="max-h-[65vh] w-full object-contain" onError={() => setFailed(true)} />
+          <img key={selected} src={selected} alt={label} className="max-h-[65vh] w-full object-contain" onError={() => setFailed(true)} />
         ) : (
           <video key={selected} src={selected} controls playsInline preload="metadata" className="max-h-[65vh] w-full" onError={() => setFailed(true)} />
         ))}
