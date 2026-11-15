@@ -1418,7 +1418,7 @@ export function bbyLinkGroups(zh: boolean): BbyLinkGroup[] {
         { href: '/bby-wow-from-photo', label: zh ? '用一张照片做 Bby Wow' : 'Bby Wow from a photo' },
         { href: '/dime-dime-baby-generator', label: zh ? 'Dime dime baby 生成器' : 'Dime dime baby generator' },
         { href: '/make-dime-dime-baby-ai', label: zh ? '制作 Dime Dime Baby AI' : 'Make Dime Dime Baby AI' },
-        { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
+        { href: '/pricing', label: zh ? 'ViralReel 积分包定价' : 'ViralReel credit pack pricing' },
         { href: '/subscribe', label: zh ? '月付方案' : 'Monthly plans' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
       ],

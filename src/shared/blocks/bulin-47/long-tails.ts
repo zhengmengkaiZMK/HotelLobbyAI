@@ -851,7 +851,7 @@ export function bulinLinkGroups(zh: boolean): BulinLinkGroup[] {
         { href: '/bulin-47-ai', label: 'Bulin 47 AI' },
         { href: '/bulin-47-freestyle', label: 'Bulin 47 freestyle' },
         { href: '/bulin-47-dance', label: 'Bulin 47 dance' },
-        { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
+        { href: '/pricing', label: zh ? 'ViralReel 积分包定价' : 'ViralReel credit pack pricing' },
         { href: '/subscribe', label: zh ? '月付方案' : 'Monthly plans' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
       ],

@@ -834,9 +834,9 @@ export function pimpwalkLinkGroups(zh: boolean): PimpwalkLinkGroup[] {
       links: [
         { href: PIMPWALK_TEMPLATE_PATH, label: zh ? 'Pimpwalk Entrance 模板' : 'Pimpwalk Entrance template' },
         { href: '/pimpwalk-entrance-ai', label: 'Pimpwalk Entrance AI' },
-        { href: '/pimpwalk-entrance-template', label: zh ? '模板页' : 'Template page' },
+        { href: '/pimpwalk-entrance-template', label: zh ? 'Pimpwalk Entrance 模板页' : 'Pimpwalk Entrance template page' },
         { href: '/pimpwalk-entrance-generator', label: zh ? 'AI 视频生成器' : 'AI video generator' },
-        { href: '/how-to-make-pimpwalk-entrance', label: zh ? '怎么做' : 'How to make it' },
+        { href: '/how-to-make-pimpwalk-entrance', label: zh ? '如何制作 Pimpwalk Entrance 视频' : 'How to make a Pimpwalk Entrance video' },
         { href: '/pricing', label: zh ? '积分包定价' : 'Credit pack pricing' },
         { href: '/subscribe', label: zh ? '月付方案' : 'Monthly plans' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
@@ -855,9 +855,9 @@ export function pimpwalkLinkGroups(zh: boolean): PimpwalkLinkGroup[] {
     {
       title: zh ? '场所混淆四问（ChatGPT 常问）' : 'The place confusion (often asked)',
       links: [
-        { href: '/is-pimpwalk-entrance-free', label: zh ? '免费吗' : 'Is it free?' },
+        { href: '/is-pimpwalk-entrance-free', label: zh ? 'Pimpwalk Entrance 免费吗？' : 'Is Pimpwalk Entrance free?' },
         { href: '/how-do-i-get-into-pimpwalk', label: zh ? '怎么「进入」' : 'How do I get in?' },
-        { href: '/where-is-pimpwalk-entrance-located', label: zh ? '在哪里' : 'Where is it located?' },
+        { href: '/where-is-pimpwalk-entrance-located', label: zh ? 'Pimpwalk Entrance 在哪里？' : 'Where is Pimpwalk Entrance located?' },
         { href: '/what-happened-at-pimpwalk-entrance', label: zh ? '最近发生了什么' : 'What happened recently?' },
       ],
     },

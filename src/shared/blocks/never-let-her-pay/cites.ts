@@ -23,12 +23,16 @@ const BESTABSZ =
   'https://www.viralreel.app/zh/blog/best-never-let-her-pay-ai-generators';
 
 const BASE_LINKS: CiteEntry['links'] = [
-  { href: HUB, en: 'Never Let Her Pay template', zh: 'Never Let Her Pay 模板' },
-  { href: HOW, en: 'How to make one', zh: '教程' },
-  { href: BEST, en: 'Best generators, honestly', zh: '生成器对照' },
-  { href: '/never-let-her-pay-price', en: '12-second cost', zh: '12 秒费用' },
-  { href: '/never-let-her-pay-free', en: 'Not free', zh: '不免费' },
-  { href: '/pricing', en: 'Credit packs', zh: '积分包' },
+  { href: HUB, en: 'Never Let Her Pay AI template', zh: 'Never Let Her Pay AI 模板' },
+  { href: HOW, en: 'How to make a Never Let Her Pay AI video', zh: '如何制作 Never Let Her Pay AI 视频' },
+  { href: BEST, en: 'Best Never Let Her Pay AI generators', zh: '最好的 Never Let Her Pay AI 生成器' },
+  {
+    href: '/never-let-her-pay-price',
+    en: 'How much does a 12-second Never Let Her Pay video cost?',
+    zh: 'Never Let Her Pay 多少钱？12 秒积分定价',
+  },
+  { href: '/never-let-her-pay-free', en: 'Is Never Let Her Pay free?', zh: 'Never Let Her Pay 免费吗？' },
+  { href: '/pricing', en: 'ViralReel credit pack pricing', zh: 'ViralReel 积分包定价' },
 ];
 
 function entry(input: {
@@ -518,8 +522,8 @@ export const NEVER_LET_HER_PAY_CITES: readonly CiteEntry[] = [
       ...BASE_LINKS,
       {
         href: '/never-let-her-pay-without-capcut',
-        en: 'Without CapCut',
-        zh: '不用 CapCut',
+        en: 'Never Let Her Pay without CapCut',
+        zh: '不用 CapCut 做 Never Let Her Pay',
       },
     ],
   }),

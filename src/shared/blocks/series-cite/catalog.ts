@@ -262,7 +262,7 @@ function page(spec: SeriesSpec, intent: Intent): CiteEntry {
     zh: `${open.zh}${bit.verb.zh}${spec.lengthZh}，画幅 ${spec.aspect}。`,
   };
   const links = [
-    { href: spec.hubPath, en: `${spec.nameEn} template`, zh: `${spec.nameZh} 模板` },
+    { href: spec.hubPath, en: `${spec.nameEn} AI template`, zh: `${spec.nameZh} AI 模板` },
     ...spec.blogs,
   ];
 
@@ -345,8 +345,8 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'Five staged performances. The choir and the scene stay with the template. Not affiliated with the song\'s rights holders.',
     noteZh: '五场舞台表演。合唱团和场景留在模板里。与歌曲版权方无关。',
     blogs: [
-      { href: '/blog/how-to-make-gangstas-paradise-ai-video', en: 'How-to', zh: '教程' },
-      { href: '/blog/gangstas-paradise-ai-video-generator', en: 'Generator notes', zh: '生成器说明' },
+      { href: '/blog/how-to-make-gangstas-paradise-ai-video', en: "How to make a Gangsta's Paradise AI video", zh: "如何制作 Gangsta's Paradise AI 视频" },
+      { href: '/blog/gangstas-paradise-ai-video-generator', en: "Gangsta's Paradise AI video generator", zh: "Gangsta's Paradise AI 视频生成器" },
     ],
     intents: [...FULL, 'friends'],
   },
@@ -369,8 +369,8 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'The bridge, Big Ben, and the circling camera stay with the template. Not affiliated with Stormzy.',
     noteZh: '桥、大本钟和环绕镜头留在模板里。与 Stormzy 无关。',
     blogs: [
-      { href: '/blog/how-to-make-vossi-bop-dance-ai-video', en: 'How-to', zh: '教程' },
-      { href: '/blog/what-is-vossi-bop-dance', en: 'What it is', zh: '是什么' },
+      { href: '/blog/how-to-make-vossi-bop-dance-ai-video', en: 'How to make a Vossi Bop Dance AI video', zh: '如何制作 Vossi Bop Dance AI 视频' },
+      { href: '/blog/what-is-vossi-bop-dance', en: 'What is the Vossi Bop dance?', zh: 'Vossi Bop 舞蹈是什么？' },
     ],
     intents: FULL,
   },
@@ -393,9 +393,9 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'The joke is the oversized fish and the serious chopping. No gore.',
     noteZh: '笑点是过大的鱼和认真的剁法。没有血腥。',
     blogs: [
-      { href: '/blog/how-to-make-grandpa-said-hed-handle-dinner-video', en: 'How-to', zh: '教程' },
-      { href: '/blog/grandpa-said-hed-handle-dinner-trend', en: 'The trend', zh: '趋势' },
-      { href: '/blog/grandpa-said-hed-handle-dinner-pov-captions', en: 'Captions', zh: '文案' },
+      { href: '/blog/how-to-make-grandpa-said-hed-handle-dinner-video', en: "How to make a Grandpa Said He'd Handle Dinner AI video", zh: "如何制作 Grandpa Said He'd Handle Dinner AI 视频" },
+      { href: '/blog/grandpa-said-hed-handle-dinner-trend', en: "What is the Grandpa Said He'd Handle Dinner trend?", zh: "Grandpa Said He'd Handle Dinner 趋势是什么？" },
+      { href: '/blog/grandpa-said-hed-handle-dinner-pov-captions', en: "Grandpa Said He'd Handle Dinner POV captions", zh: "Grandpa Said He'd Handle Dinner POV 文案" },
     ],
     intents: FULL,
   },
@@ -418,8 +418,8 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'Night, one lit window, a stare, then the curtain. Not a tutorial for filming real neighbors.',
     noteZh: '夜里、一扇亮窗、对视，然后拉上窗帘。这不是教你去拍真实邻居。',
     blogs: [
-      { href: '/blog/why-window-peeper-ai-videos-went-viral', en: 'Why it spread', zh: '为什么爆' },
-      { href: '/blog/how-to-make-window-peeper-ai-video', en: 'How-to', zh: '教程' },
+      { href: '/blog/why-window-peeper-ai-videos-went-viral', en: 'Why Window Peeper AI videos went viral', zh: '为什么 Window Peeper AI 视频会火' },
+      { href: '/blog/how-to-make-window-peeper-ai-video', en: 'How to make a Window Peeper AI video', zh: '如何制作 Window Peeper AI 视频' },
     ],
     intents: FULL,
   },
@@ -441,7 +441,7 @@ const SERIES: SeriesSpec[] = [
     soundZh: '在平台上加热梗原声。ViralReel 不授权原棚音频。',
     noteEn: 'This is the brand flagship: orange booth, two performers. Not an official COLORS page.',
     noteZh: '这是品牌招牌：橙色棚、两位表演者。不是 COLORS 的官方页。',
-    blogs: [{ href: '/blog/how-to-make-hotel-lobby-ai-video', en: 'How-to', zh: '教程' }],
+    blogs: [{ href: '/blog/how-to-make-hotel-lobby-ai-video', en: 'How to make a Hotel Lobby AI video', zh: '如何制作 Hotel Lobby AI 视频' }],
     intents: ['free', 'how-to', 'price', 'chatgpt'],
   },
   {
@@ -463,8 +463,8 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'Three doorway casts. It is not a real place.',
     noteZh: '三条门口阵容。它不是真实场所。',
     blogs: [
-      { href: '/blog/how-to-make-pimpwalk-entrance', en: 'How-to', zh: '教程' },
-      { href: '/blog/what-is-pimpwalk-entrance', en: 'What it is', zh: '是什么' },
+      { href: '/blog/how-to-make-pimpwalk-entrance', en: 'How to make a Pimpwalk Entrance video', zh: '如何制作 Pimpwalk Entrance 视频' },
+      { href: '/blog/what-is-pimpwalk-entrance', en: 'What is Pimpwalk Entrance?', zh: 'Pimpwalk Entrance 是什么？' },
     ],
     intents: ['best', 'prompt', 'chatgpt', 'sound', 'no-watermark', 'from-photo', 'online', 'mp4', 'make', 'instagram', 'youtube-shorts', 'ai-label', 'price', 'friends', 'kling'],
   },
@@ -487,8 +487,8 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'The scene is fictional. Do not present it as a real roadside dispute.',
     noteZh: '场景是虚构的。不要把它说成真实的路边争执。',
     blogs: [
-      { href: '/blog/how-to-make-hit-the-road-dude-ai-video', en: 'How-to', zh: '教程' },
-      { href: '/blog/viralreel-vs-capcut-hit-the-road-dude', en: 'Vs CapCut', zh: '对照 CapCut' },
+      { href: '/blog/how-to-make-hit-the-road-dude-ai-video', en: 'How to make a Hit the Road Dude AI video', zh: '如何制作 Hit the Road Dude AI 视频' },
+      { href: '/blog/viralreel-vs-capcut-hit-the-road-dude', en: 'ViralReel vs CapCut for Hit the Road Dude', zh: 'Hit the Road Dude：ViralReel 对照 CapCut' },
     ],
     intents: ['free', 'best', 'prompt', 'chatgpt', 'sound', 'no-watermark', 'ai-label', 'price', 'kling'],
   },
@@ -510,7 +510,7 @@ const SERIES: SeriesSpec[] = [
     soundZh: 'ViralReel 不授权《BbY WOW》。请从平台曲库另加。',
     noteEn: 'Suit, white tee, and staff polo are outfits of the same party exit.',
     noteZh: '西装、白 T 和员工 Polo 是同一次离场的三种穿搭。',
-    blogs: [{ href: '/blog/how-to-make-bby-wow-ai-dance-video', en: 'How-to', zh: '教程' }],
+    blogs: [{ href: '/blog/how-to-make-bby-wow-ai-dance-video', en: 'How to make a Bby Wow AI dance video', zh: '如何制作 Bby Wow AI 舞蹈视频' }],
     intents: ['free', 'best', 'prompt', 'chatgpt', 'sound', 'no-watermark', 'mp4', 'online', 'instagram', 'youtube-shorts', 'ai-label', 'price'],
   },
   {
@@ -532,8 +532,8 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'Duo routine: solo turns, then a sync finish.',
     noteZh: '双人：轮流独舞，然后同步收尾。',
     blogs: [
-      { href: '/blog/how-to-make-ba-ba-ba-dance-ai-video', en: 'How-to', zh: '教程' },
-      { href: '/blog/ba-ba-ba-dance-trend', en: 'The trend', zh: '趋势' },
+      { href: '/blog/how-to-make-ba-ba-ba-dance-ai-video', en: 'How to make a Ba Ba Ba Dance AI video', zh: '如何制作 Ba Ba Ba Dance AI 视频' },
+      { href: '/blog/ba-ba-ba-dance-trend', en: 'The Ba Ba Ba Dance trend', zh: 'Ba Ba Ba Dance 趋势说明' },
     ],
     intents: ['free', 'best', 'prompt', 'chatgpt', 'sound', 'no-watermark', 'from-photo', 'online', 'mp4', 'instagram', 'youtube-shorts', 'ai-label', 'price', 'friends'],
   },
@@ -556,8 +556,8 @@ const SERIES: SeriesSpec[] = [
     noteEn: 'CapCut has same-name edit templates. This page is the ViralReel re-render, not a CapCut project.',
     noteZh: 'CapCut 有同名剪辑模板。这一页是 ViralReel 的重跑，不是 CapCut 工程。',
     blogs: [
-      { href: '/blog/how-to-make-nostalgia-ai-video', en: 'How-to', zh: '教程' },
-      { href: '/blog/what-is-nostalgia-capcut', en: 'CapCut name', zh: 'CapCut 这个名字' },
+      { href: '/blog/how-to-make-nostalgia-ai-video', en: 'How to make a NostalgIA AI video', zh: '如何制作 NostalgIA AI 视频' },
+      { href: '/blog/what-is-nostalgia-capcut', en: 'What is NostalgIA CapCut?', zh: 'NostalgIA CapCut 是什么？' },
     ],
     intents: ['free', 'chatgpt', 'prompt', 'sound', 'no-watermark', 'from-photo', 'mp4', 'instagram', 'youtube-shorts', 'ai-label', 'price'],
   },
@@ -579,7 +579,7 @@ const SERIES: SeriesSpec[] = [
     soundZh: 'ViralReel 不授权 charme 原声。请在平台上另加。',
     noteEn: 'A cooled trend: these few pages answer the remaining questions. They are not a 60-page wave.',
     noteZh: '这条趋势已经降温：这几页只回答还在被问的问题，不是 60 页的一波。',
-    blogs: [{ href: '/blog/why-pedra-do-sal-ai-videos-went-viral', en: 'Why it spread', zh: '为什么爆过' }],
+    blogs: [{ href: '/blog/why-pedra-do-sal-ai-videos-went-viral', en: 'Why Pedra do Sal AI videos went viral', zh: '为什么 Pedra do Sal AI 视频会火' }],
     intents: ['free', 'how-to', 'chatgpt', 'sound', 'no-watermark', 'from-photo'],
   },
   {
@@ -600,7 +600,7 @@ const SERIES: SeriesSpec[] = [
     soundZh: 'ViralReel 不授权这段 dembow，也与 Bulin 47 本人无关。',
     noteEn: 'A cooled trend. Four intent pages only.',
     noteZh: '这条趋势已经降温。只加四条意图页。',
-    blogs: [{ href: '/blog/how-to-make-bulin-47-ai-video', en: 'How-to', zh: '教程' }],
+    blogs: [{ href: '/blog/how-to-make-bulin-47-ai-video', en: 'How to make a Bulin 47 AI video', zh: '如何制作 Bulin 47 AI 视频' }],
     intents: ['free', 'chatgpt', 'sound', 'no-watermark'],
   },
 ];

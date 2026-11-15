@@ -581,7 +581,7 @@ export function pedraLinkGroups(zh: boolean): PedraLinkGroup[] {
         { href: '/pedra-do-sal-dance', label: 'Pedra do Sal dance' },
         { href: '/charme-dance-ai', label: 'Charme dance AI' },
         { href: '/charme-dance-ai-video', label: 'Charme dance AI video' },
-        { href: '/pricing', label: zh ? '定价与积分' : 'Pricing and credits' },
+        { href: '/pricing', label: zh ? 'ViralReel 积分包定价' : 'ViralReel credit pack pricing' },
         { href: '/', label: zh ? '全部模板' : 'All templates' },
       ],
     },

@@ -54,7 +54,7 @@ export function CiteView({ entry }: { entry: CiteEntry }) {
               <p key={paragraph.slice(0, 48)}>{paragraph}</p>
             ))}
             <h3>{zh ? '相关页面' : 'Related pages'}</h3>
-            <ul>
+            <ul className="guide-links">
               {entry.links.map((link) => (
                 <li key={link.href}>
                   <Link href={link.href}>{zh ? link.zh : link.en}</Link>
@@ -65,13 +65,22 @@ export function CiteView({ entry }: { entry: CiteEntry }) {
         </section>
         <section className="sec sec-alt" id="faq">
           <div className="container">
-            <h2>{zh ? '常见问题' : 'Questions'}</h2>
-            {entry.faq.map((item) => (
-              <div key={item.q.en}>
-                <h3>{item.q[lang]}</h3>
-                <p>{item.a[lang]}</p>
-              </div>
-            ))}
+            <div className="sec-head">
+              <p className="kick">{zh ? '常见问题' : 'FAQ'}</p>
+              <h2>
+                {zh
+                  ? `关于 ${entry.seriesZh} 的常见问题`
+                  : `Questions about ${entry.seriesEn}`}
+              </h2>
+            </div>
+            <div className="faq-list">
+              {entry.faq.map((item, index) => (
+                <details key={item.q.en} open={index === 0}>
+                  <summary>{item.q[lang]}</summary>
+                  <p>{item.a[lang]}</p>
+                </details>
+              ))}
+            </div>
           </div>
         </section>
       </main>
