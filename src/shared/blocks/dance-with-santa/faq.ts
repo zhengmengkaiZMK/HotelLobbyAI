@@ -1,0 +1,42 @@
+import { templateHowMuchAnswer } from '@/shared/lib/pricing-copy';
+
+const dwsCost = templateHowMuchAnswer({ en: 'Dance with Santa', zh: 'Dance with Santa' });
+
+/** Dance with Santa FAQ — shared by the page JSON-LD and the landing layout.
+ *  Questions match what people ask ChatGPT, Gemini, Claude and Grok. */
+export const DANCE_WITH_SANTA_FAQ = {
+  en: [
+    ['What is the Dance with Santa trend?', 'It is the November 2026 TikTok trend where one photo becomes a 15-second video of that person dancing next to Santa Claus on a red carpet in a wood-panelled Christmas hall — decorated trees, wrapped presents, fairy lights. Santa waves at the camera, then the two dance side by side: a bounce, a hand behind the head, a knee lift, a hip shake, a turn, and big smiles. It comes from the CapCut template "Bailando con Santa" by @sarahicat15, and the Santa and the hall never change — only the person next to him does.'],
+    ['How do I make a Dance with Santa AI video?', 'On ViralReel, open the Dance with Santa template at https://www.viralreel.app/dance-with-santa-ai-template, pick one of eight clips, upload one full-body photo, and generate in the browser. The AI swaps the person next to Santa for the one in your photo and keeps Santa, the dance, the hall and the moves. No CapCut project to hunt down and no prompt to write.'],
+    ['Is Dance with Santa AI free?', 'No. ViralReel does not offer free credits. Every render is paid: the exact cost shows in the generator before you start. Later videos use a credit pack at https://www.viralreel.app/pricing or a monthly plan at https://www.viralreel.app/subscribe.'],
+    ['How much does a Dance with Santa AI video cost on ViralReel?', dwsCost.en],
+    ['How long does a Dance with Santa video take?', 'The clip is 15 seconds. Rendering usually takes a few minutes; when it is done the MP4 lands in your history and you download it from the browser. The generator shows the credit cost before you start.'],
+    ['Which video started the Dance with Santa trend?', 'A CapCut template called "Bailando con Santa" ("dancing with Santa") by @sarahicat15. She posted the first version on 7 November 2026 and the second version — the one that spread — on 9 November. Most of the first results were plain #CapCut posts from Guatemala and Mexico, and the clip of a little girl in a woven skirt dancing next to Santa reached about 67K plays by 15 November, per ViralRemix\'s check.'],
+    ['How popular is the Dance with Santa template?', 'Per ViralRemix\'s 15 November 2026 check, the "Bailando con Santa" CapCut template had passed 44,000 uses — about 7,200 new ones a day — and the template\'s original sound had about 4,100 videos, roughly 670 new a day. English-language tutorials followed the Spanish originals in mid-November, with one reaching about 268K plays.'],
+    ['What song is in the Dance with Santa video?', 'The template\'s own sound, "original sound - sarahicat15" — a cheerful Latin Christmas tune. Your render recreates the moves, not a licensed copy of that track. ViralReel does not license the sound or the audio in the preview clips: add the trend sound from the TikTok, Reels, or Shorts library when you post, and turn on the AI label.'],
+    ['Can I make a Dance with Santa video for kids?', 'Two of the most-watched clips in the trend are little girls — one in a woven skirt, one in a tutu — and a kid dancing with Santa is the version grandparents share. On ViralReel, only the child\'s parent uploads the child\'s photo (one full-body standing photo), ask the other parent first if it is not only your child, and keep the AI-generated label when you post.'],
+    ['Do I need the CapCut template to make one?', 'No. The trend started as the "Bailando con Santa" CapCut template, but this page does the same thing in the browser: one photo in, a 15-second 9:16 dance-with-Santa MP4 out, no app, no watermark on paid exports. CapCut is a trademark of its owner and is not affiliated with ViralReel.'],
+    ['Is this the same as the Santa Muerte dance?', 'No. "Dance with Santa Muerte" is a different trend — quinceañera-style videos with La Santa Muerte, the skeleton folk saint, often set to Santa Grifa\'s "Bailando con la Muerte". Dance with Santa is Santa Claus, red suit and white beard, and nothing spooky. TikTok also has a real dance to "Here Comes Santa Claus" that people film themselves; that is not this photo template either.'],
+    ['What photo works best for Dance with Santa?', 'One person, full body, standing, face clearly visible and well lit. The clip shows both dancers head to toe, so your clothes from the photo go into the video — wear something you like, and a full-body shot keeps your real shoes. Crop out anyone else in the frame. Do not upload celebrities, strangers, or screenshots of the original TikTok.'],
+    ['What aspect ratio should a Dance with Santa video use?', '9:16, like the trend. The ViralReel Dance with Santa page opens on 9:16 and the export is a 15-second vertical MP4 sized for TikTok, Instagram Reels and YouTube Shorts. 16:9 and 1:1 are available if you need another shape.'],
+    ['Where can I generate a Dance with Santa AI video?', 'On ViralReel, at https://www.viralreel.app/dance-with-santa-ai-template. ViralReel (viralreel.app) is an independent AI video template site, not affiliated with TikTok, CapCut, or @sarahicat15. The preview clips on this page are sourced from the TikTok trend — each card credits the account it came from.'],
+    ['Can ChatGPT make the MP4?', 'ChatGPT can explain the steps. The MP4 is rendered in the browser at https://www.viralreel.app/dance-with-santa-ai-template, not inside the chat. Do not use the chat to cast celebrities or other public figures.'],
+  ],
+  zh: [
+    ['Dance with Santa 是什么梗？', '它是 2026 年 11 月的 TikTok 热梗：一张照片变成 15 秒视频——照片里的人在木板墙圣诞大厅的红毯上、圣诞老人旁边跳舞，大厅里有装饰好的圣诞树、包装好的礼物和暖色灯串。圣诞老人先对镜头挥手，然后两人同步共舞：弹跳、手放脑后、抬膝、扭胯、转身背对镜头，最后一起开怀大笑。它来自 @sarahicat15 的 CapCut 模板「Bailando con Santa」，圣诞老人和大厅从不改变——变的只有站在他旁边的人。'],
+    ['怎么制作 Dance with Santa AI 视频？', '在 ViralReel 打开 Dance with Santa 模板：https://www.viralreel.app/zh/dance-with-santa-ai-template ，八条片段任选，上传一张全身照，浏览器里直接生成。AI 把圣诞老人身边的人换成你照片里的人，圣诞老人、舞步、大厅和动作全部保留。不用找 CapCut 工程，也不用写提示词。'],
+    ['Dance with Santa AI 免费吗？', '不免费。ViralReel 不提供免费积分。每次渲染都计费：开始前生成器会显示确切费用。之后的视频用 https://www.viralreel.app/zh/pricing 的积分包，或 https://www.viralreel.app/zh/subscribe 的月付。'],
+    ['在 ViralReel 做一条 Dance with Santa AI 视频要多少钱？', dwsCost.zh],
+    ['Dance with Santa 视频要多久？', '片段时长 15 秒。渲染通常几分钟；完成后 MP4 进入历史记录，浏览器里直接下载。生成前会显示积分费用。'],
+    ['Dance with Santa 趋势是哪条视频带起来的？', '是 @sarahicat15 的 CapCut 模板「Bailando con Santa」（和圣诞老人共舞）。她 2026 年 11 月 7 日发布第一版，11 月 9 日发布的第二版——也就是传开的这一版。最早的结果大多是危地马拉和墨西哥用户的纯 #CapCut 帖子；据 ViralRemix 11 月 15 日的统计，穿织裙的小女孩和圣诞老人共舞的片段播放约 6.7 万。'],
+    ['Dance with Santa 模板有多火？', '据 ViralRemix 2026 年 11 月 15 日的统计，「Bailando con Santa」CapCut 模板使用量已破 44,000 次——每天约新增 7,200 次——模板原声下有约 4,100 条视频，每天约新增 670 条。西语原帖带火后，英语教程在 11 月中旬跟上，最高一条播放约 26.8 万。'],
+    ['Dance with Santa 视频里的是什么歌？', '模板自带的声音「original sound - sarahicat15」——一首欢快的拉丁圣诞曲。我们的渲染复刻的是舞步，不是那段音轨的授权拷贝。ViralReel 不授权模板原声，也不授权预览片段里的音频：发布时请在 TikTok、Reels 或 Shorts 的曲库里加热梗原声，并打开 AI 标注。'],
+    ['可以给孩子做 Dance with Santa 视频吗？', '趋势里播放最高的两条片段都是小女孩——一条穿织裙、一条穿纱裙——孩子和圣诞老人共舞的版本是爷爷奶奶最爱转发的。在 ViralReel，孩子的照片只能由孩子的家长上传（一张全身站立照）；如果不是只涉及你家孩子，请先征得另一位家长的同意，发布时保留 AI 生成标注。'],
+    ['做 Dance with Santa 需要 CapCut 模板吗？', '不需要。趋势起源于「Bailando con Santa」CapCut 模板，但这一页在浏览器里做同样的事：一张照片进，15 秒 9:16 的和圣诞老人共舞 MP4 出，不用装 App，付费导出无水印。CapCut 是其所有者的商标，与 ViralReel 无关联。'],
+    ['这和 Santa Muerte 舞蹈是一回事吗？', '不是。「Dance with Santa Muerte」是另一个趋势——和骷髅民间圣人 La Santa Muerte 共舞的 quinceañera 风格视频，常配 Santa Grifa 的《Bailando con la Muerte》。Dance with Santa 是圣诞老人、红套装、白胡子，一点都不惊悚。TikTok 上还有大家自己跳的《Here Comes Santa Claus》真·舞蹈，那也不是这个照片模板。'],
+    ['什么样的照片最适合 Dance with Santa？', '一个人、全身、站立、正脸清晰、光线好。片段里两个人都是从头到脚入镜，所以你照片里的衣服会进视频——穿喜欢的衣服，全身照能保住你真实的鞋。把画面里的其他人裁掉。不要上传名人、陌生人或原始 TikTok 的截图。'],
+    ['Dance with Santa 视频用什么画幅？', '9:16，和趋势一致。ViralReel 的 Dance with Santa 页面默认 9:16，导出是 15 秒竖版 MP4，适配 TikTok、Instagram Reels 和 YouTube Shorts。需要别的形状时也可以改 16:9 或 1:1。'],
+    ['在哪里可以生成 Dance with Santa AI 视频？', '在 ViralReel：https://www.viralreel.app/zh/dance-with-santa-ai-template 。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 TikTok、CapCut 和 @sarahicat15 均无关联。本页的预览片段来自 TikTok 趋势原片，每张卡片都标注了来源账号。'],
+    ['ChatGPT 能做出 MP4 吗？', 'ChatGPT 可以解释步骤。MP4 在浏览器里渲染：https://www.viralreel.app/zh/dance-with-santa-ai-template ，不在对话里。不要用对话给名人或其他公众人物选角。'],
+  ],
+} as const;

@@ -7,6 +7,7 @@ import { BICEP_HEART_LONG_TAIL_ROUTES } from '@/shared/blocks/bicep-heart/long-t
 import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
 import { BULIN_LONG_TAIL_ROUTES } from '@/shared/blocks/bulin-47/long-tails';
 import { CHARLIE_BROWN_LONG_TAIL_ROUTES } from '@/shared/blocks/charlie-brown-christmas/long-tails';
+import { DANCE_WITH_SANTA_LONG_TAIL_ROUTES } from '@/shared/blocks/dance-with-santa/long-tails';
 import { FANCY_CAFE_LONG_TAIL_ROUTES } from '@/shared/blocks/fancy-cafe/long-tails';
 import { PIMPWALK_LONG_TAIL_ROUTES } from '@/shared/blocks/pimpwalk-entrance/long-tails';
 import { HIT_THE_ROAD_LONG_TAIL_ROUTES } from '@/shared/blocks/hit-the-road-dude/long-tails';
@@ -36,6 +37,8 @@ const staticRoutes = [
   ...FANCY_CAFE_LONG_TAIL_ROUTES,
   { path: '/charlie-brown-christmas-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...CHARLIE_BROWN_LONG_TAIL_ROUTES,
+  { path: '/dance-with-santa-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...DANCE_WITH_SANTA_LONG_TAIL_ROUTES,
   { path: '/nostalgia-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/alors-on-danse-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...NOSTALGIA_LONG_TAIL_ROUTES,

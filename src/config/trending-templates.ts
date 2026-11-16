@@ -35,6 +35,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'dance-with-santa',
+    name: ['Dance with Santa', 'Dance with Santa 和圣诞老人共舞'],
+    pitch: [
+      'One photo puts you on the red carpet next to Santa Claus, dancing his whole routine — the November Christmas trend.',
+      '一张照片，让你在红毯上和圣诞老人并肩共舞——11 月爆火的圣诞趋势。',
+    ],
+    href: '/dance-with-santa-ai-template',
+    badge: 'hot',
+    vibes: ['dance', 'meme'],
+    poster: '/templates/dance-with-santa-burgundy-dress-poster.jpg',
+    video: '/templates/dance-with-santa-burgundy-dress.mp4',
+    credit: '@blancamendoza4245',
+    colors: ['#fb7185', '#4c0519'],
+  },
+  {
     id: 'never-let-her-pay',
     name: ['Never Let Her Pay', 'Never Let Her Pay 洗碗海绵短剧'],
     pitch: [
