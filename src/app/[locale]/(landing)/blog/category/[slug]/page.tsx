@@ -1,9 +1,9 @@
 import moment from 'moment';
+import { notFound } from 'next/navigation';
 import { getTranslations, setRequestLocale } from 'next-intl/server';
 
 import { getThemePage } from '@/core/theme';
 import { envConfigs } from '@/config';
-import { Empty } from '@/shared/blocks/common';
 import {
   PostType as DBPostType,
   getPosts,
@@ -24,6 +24,16 @@ import { DynamicPage } from '@/shared/types/blocks/landing';
 
 export const revalidate = 3600;
 
+// non-ASCII category slugs arrive percent-encoded (e.g. %E6%B8%B8%E6%88%8F);
+// decode once so DB lookups and <title> use the real name
+function safeDecodeSlug(value: string): string {
+  try {
+    return decodeURIComponent(value);
+  } catch {
+    return value;
+  }
+}
+
 export async function generateMetadata({
   params,
 }: {
@@ -32,14 +42,21 @@ export async function generateMetadata({
   const { locale, slug } = await params;
   const t = await getTranslations('pages.blog.metadata');
 
+  const decodedSlug = safeDecodeSlug(slug);
+  const categoryData = await findTaxonomy({
+    slug: decodedSlug,
+    status: TaxonomyStatus.PUBLISHED,
+  });
+  const label = categoryData?.title || decodedSlug;
+
   return {
-    title: `${slug} | ${t('title')}`,
+    title: `${label} | ${t('title')}`,
     description: t('description'),
     alternates: {
       canonical:
         locale !== envConfigs.locale
-          ? `${envConfigs.app_url}/${locale}/blog/category/${slug}`
-          : `${envConfigs.app_url}/blog/category/${slug}`,
+          ? `${envConfigs.app_url}/${locale}/blog/category/${decodedSlug}`
+          : `${envConfigs.app_url}/blog/category/${decodedSlug}`,
     },
   };
 }
@@ -57,22 +74,24 @@ export default async function CategoryBlogPage({
   // load blog data
   const t = await getTranslations('pages.blog');
 
+  const decodedSlug = safeDecodeSlug(slug);
+
   const { page: pageNum, pageSize } = await searchParams;
   const page = pageNum || 1;
   const limit = pageSize || 30;
 
   // get current category
   const categoryData = await findTaxonomy({
-    slug,
+    slug: decodedSlug,
     status: TaxonomyStatus.PUBLISHED,
   });
   if (!categoryData) {
-    return <Empty message={`category not found`} />;
+    notFound();
   }
 
   // game-type categories are not shown on the frontend blog
   if (isGameContent({ title: categoryData.title, slug: categoryData.slug })) {
-    return <Empty message={`category not found`} />;
+    notFound();
   }
 
   // get posts data

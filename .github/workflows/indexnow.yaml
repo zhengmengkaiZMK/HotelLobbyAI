@@ -1,0 +1,66 @@
+name: IndexNow ping
+
+# Daily IndexNow submission (Bing / Yandex / Seznam / Naver): push every URL
+# in the live sitemap so search engines discover new template pages and blog
+# posts without waiting for their own crawl cycle. Manual runs allowed.
+
+on:
+  schedule:
+    - cron: '0 3 * * *' # 03:00 UTC = 11:00 Beijing, daily
+  workflow_dispatch:
+
+jobs:
+  ping:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Submit sitemap URLs to IndexNow
+        env:
+          SITE: https://www.viralreel.app
+          KEY: 15362eb5643d76ab8bc130359e8308d3
+        run: |
+          set -euo pipefail
+          curl -fsS --max-time 60 --retry 2 "$SITE/sitemap.xml" -o sitemap.xml
+          python3 - <<'PY'
+          import json, os, re
+
+          site = os.environ['SITE']
+          key = os.environ['KEY']
+          xml = open('sitemap.xml', encoding='utf-8').read()
+          urls = re.findall(r'<loc>([^<]+)</loc>', xml)
+          if not urls:
+              raise SystemExit('sitemap contains no <loc> entries')
+
+          # IndexNow accepts up to 10,000 URLs per POST; chunk defensively
+          chunk_size = 10000
+          submitted = 0
+          for i in range(0, len(urls), chunk_size):
+              payload = {
+                  'host': 'www.viralreel.app',
+                  'key': key,
+                  'keyLocation': f'{site}/{key}.txt',
+                  'urlList': urls[i : i + chunk_size],
+              }
+              with open(f'payload-{i}.json', 'w', encoding='utf-8') as f:
+                  json.dump(payload, f, ensure_ascii=False)
+              submitted += 1
+          print(f'{len(urls)} URLs in {submitted} batch(es)')
+
+          # expose batch files to the curl step
+          with open('batch-count.txt', 'w') as f:
+              f.write(str(submitted))
+          PY
+
+          BATCHES=$(cat batch-count.txt)
+          for i in $(seq 0 $((BATCHES - 1))); do
+            code=$(curl -sS --max-time 60 -o /dev/null -w '%{http_code}' \
+              -X POST \
+              -H 'Content-Type: application/json; charset=utf-8' \
+              --data @"payload-$i.json" \
+              'https://api.indexnow.org/IndexNow')
+            echo "batch $i → HTTP $code"
+            # IndexNow: 200/202 accepted; 400/403/422 = key or payload problem
+            case "$code" in
+              200|202) ;;
+              *) echo "::warning::IndexNow returned $code for batch $i" ;;
+            esac
+          done

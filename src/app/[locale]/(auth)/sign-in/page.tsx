@@ -32,6 +32,8 @@ export async function generateMetadata({
 
   return {
     title: `${t('sign.sign_in_title')} - ${t('metadata.title')}`,
+    // auth pages have no search value; keep them out of indexes
+    robots: { index: false, follow: false },
     alternates: {
       canonical:
         locale !== defaultLocale

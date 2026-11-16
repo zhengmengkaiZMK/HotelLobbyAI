@@ -84,7 +84,10 @@ function localePath(locale: string, path: string): string {
   return absoluteSiteUrl(localized);
 }
 
-function staticEntries(now: Date): MetadataRoute.Sitemap {
+// static pages: omit lastmod entirely — regenerating it at deploy time would
+// stamp every unchanged page as "modified now", which engines distrust and
+// ignore; blog posts below keep their real created_at timestamps
+function staticEntries(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
   for (const locale of locales) {
     for (const route of staticRoutes) {
@@ -92,7 +95,6 @@ function staticEntries(now: Date): MetadataRoute.Sitemap {
       if (!url.startsWith('https://') && !url.startsWith('http://localhost')) continue;
       entries.push({
         url,
-        lastModified: now,
         changeFrequency: route.changeFrequency,
         priority: route.priority,
       });
@@ -103,7 +105,7 @@ function staticEntries(now: Date): MetadataRoute.Sitemap {
 
 export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
   const now = new Date();
-  const entries = staticEntries(now);
+  const entries = staticEntries();
 
   // blog posts from local mdx + remote db (db may be unavailable outside worker runtime)
   for (const locale of locales) {
@@ -126,5 +128,5 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
     }
   }
 
-  return entries.length > 0 ? entries : staticEntries(now);
+  return entries.length > 0 ? entries : staticEntries();
 }

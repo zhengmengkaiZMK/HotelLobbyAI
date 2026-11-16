@@ -3,7 +3,14 @@
 // Keep it on-demand so CI builds without DATABASE_URL never prerender it.
 export const dynamic = 'force-dynamic';
 
+import type { Metadata } from 'next';
+
 import { ChatGenerator } from '@/shared/blocks/chat/generator';
+
+export const metadata: Metadata = {
+  title: 'Chat',
+  robots: { index: false, follow: false },
+};
 
 export default function ChatPage() {
   return <ChatGenerator />;
