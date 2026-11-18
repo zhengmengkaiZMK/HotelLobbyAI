@@ -19,9 +19,12 @@ import { track } from '@/shared/lib/analytics';
 import { getCookie } from '@/shared/lib/cookie';
 import { getHubFaqPairs } from '@/shared/lib/hub-faq';
 import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
+import { blackFridayOffer, packOnSale } from '@/shared/lib/black-friday';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { maxVideoLine, planFeatureLines } from '@/shared/lib/video-yield';
 import { PricingItem } from '@/shared/types/blocks/pricing';
+
+import { BlackFridayIntro, SalePrice, useSalePlans } from './black-friday-ui';
 
 import { ViralFooter } from './footer';
 import { ViralHeader } from './header';
@@ -177,6 +180,7 @@ export function ViralHub({
   );
   const [payment, setPayment] = useState<PricingItem | null>(null);
   const [loading, setLoading] = useState(false);
+  const sale = useSalePlans(plans);
   const cards =
     vibe === 'all'
       ? TRENDING_TEMPLATES
@@ -584,18 +588,20 @@ export function ViralHub({
 
         <section className="sec" id="pricing">
           <div className="container">
-            <div className="sec-head">
-              <p className="kick">{t('Pricing', '定价')}</p>
-              <h2>
-                {t('Flexible plans', '灵活的套餐选择')}
-              </h2>
-              <p className="sub">
-                {t(
-                  'One-time credit packs or subscription plans — choose whatever fits your needs.',
-                  '提供一次性购买积分和订阅套餐方式，根据你的需要自由选择。'
-                )}
-              </p>
-            </div>
+            {sale.active ? (
+              <BlackFridayIntro zh={zh} />
+            ) : (
+              <div className="sec-head">
+                <p className="kick">{t('Pricing', '定价')}</p>
+                <h2>{t('Flexible plans', '灵活的套餐选择')}</h2>
+                <p className="sub">
+                  {t(
+                    'One-time credit packs or subscription plans — choose whatever fits your needs.',
+                    '提供一次性购买积分和订阅套餐方式，根据你的需要自由选择。'
+                  )}
+                </p>
+              </div>
+            )}
             <div className="bill-toggle with-once" role="tablist">
               <button
                 type="button"
@@ -624,22 +630,30 @@ export function ViralHub({
             </div>
             <div className={billing === 'one-time' ? 'price-grid cols-4' : 'price-grid'}>
               {pricingCards.map((plan) => {
-                const credits = plan.credits || 0;
-                const featured = !!plan.is_featured;
-                const isPack = plan.interval === 'one-time';
+                const item = sale.priceOf(plan);
+                const credits = item.credits || 0;
+                const featured = !!item.is_featured;
+                const isPack = item.interval === 'one-time';
+                const onSale = packOnSale(item);
                 return (
                   <article
                     className={`pcard ${featured ? 'pro' : ''}`}
-                    key={plan.product_id || plan.title}
+                    key={item.product_id || item.title}
                   >
                     {featured && (
                       <span className="tag">{t('Most popular', '最受欢迎')}</span>
                     )}
-                    <h3>{plan.title}</h3>
-                    <div className="price">
-                      {plan.price}
-                      <small>{plan.unit}</small>
+                    <div className="pcard-title">
+                      <h3>{item.title}</h3>
+                      {onSale ? (
+                        <span className="off-pill">{blackFridayOffer(item.product_id)?.badge}</span>
+                      ) : null}
                     </div>
+                    <SalePrice
+                      price={item.price}
+                      original={onSale ? item.original_price : ''}
+                      unit={item.unit}
+                    />
                     <span className="anchor">
                       {t(
                         `${credits.toLocaleString()} credits`,
@@ -652,7 +666,7 @@ export function ViralHub({
                       </p>
                     ) : (
                       <ul>
-                        {planFeatureLines(plan, videoCosts, zh).map((line) => (
+                        {planFeatureLines(item, videoCosts, zh).map((line) => (
                           <li key={line}>
                             <Check size={16} className="ok" />
                             {line}
@@ -665,7 +679,7 @@ export function ViralHub({
                         type="button"
                         disabled={loading}
                         className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
-                        onClick={() => buy(plan)}
+                        onClick={() => buy(item)}
                       >
                         {t('Buy now', '立即购买')}
                         <ArrowRight size={16} />
@@ -675,7 +689,7 @@ export function ViralHub({
                         className={`btn ${featured ? 'btn-primary' : 'btn-outline'}`}
                         href="/subscribe"
                       >
-                        {t(`Get ${plan.title}`, `订阅 ${plan.title}`)}
+                        {t(`Get ${item.title}`, `订阅 ${item.title}`)}
                         <ArrowRight size={16} />
                       </Link>
                     )}

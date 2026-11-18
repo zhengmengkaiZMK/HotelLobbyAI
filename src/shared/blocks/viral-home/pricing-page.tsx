@@ -5,7 +5,8 @@ import { useLocale } from 'next-intl';
 
 import { Link, useRouter } from '@/core/i18n/navigation';
 
-import { getPricingPackFaq } from '@/shared/lib/pricing-copy';
+import { getPricingPackFaq, CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
+import { salePackLabel } from '@/shared/lib/black-friday';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
 import { TopupCard } from './topup';
@@ -21,7 +22,12 @@ export function ViralPricingPage({ plans, creditsPerUsd = 12, videoCosts, hasSub
   const zh = useLocale().startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
   const router = useRouter();
-  const faq = getPricingPackFaq(zh, creditsPerUsd);
+  const popular = plans.find((item) => item.product_id === 'credits-once-popular');
+  const creator = plans.find((item) => item.product_id === 'credits-once-creator');
+  const faq = getPricingPackFaq(zh, creditsPerUsd, {
+    popularPrice: salePackLabel(popular, zh, CANONICAL_PRICING.packPopularPrice),
+    creatorPrice: salePackLabel(creator, zh, CANONICAL_PRICING.packCreatorPrice),
+  });
   return <div className="viral-home">
     <ViralHeader onStart={() => router.push('/')}/>
     <main>

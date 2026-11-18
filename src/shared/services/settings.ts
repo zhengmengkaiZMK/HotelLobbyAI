@@ -248,6 +248,13 @@ export async function getSettingGroups() {
       tab: 'payment',
     },
     {
+      name: 'black_friday',
+      title: 'Black Friday 优惠',
+      description:
+        '截止 2026-11-30 24:00（东八区）。开启后，一次性 Popular 实收 $16、Creator 实收 $28，前台划掉原价。关闭或过期后恢复原价收款。弹窗开关只控制活动弹窗。',
+      tab: 'payment',
+    },
+    {
       name: 'pricing',
       title: t('groups.pricing'),
       description:
@@ -653,6 +660,24 @@ export async function getSettings() {
       placeholder: '',
       group: 'github_auth',
       tab: 'auth',
+    },
+    {
+      name: 'black_friday_enabled',
+      title: '开启 Black Friday 优惠活动',
+      type: 'switch',
+      value: 'false',
+      tip: '开启后，在 2026-11-30 24:00（东八区）之前，一次性 Popular 显示并收取 $16（原价 $19.9），一次性 Creator 显示并收取 $28（原价 $39.9）。积分和权益不变。月付、年付、Starter、Max 保持原价。关闭或过期后，前台和 Stripe 都回到现有价格。',
+      group: 'black_friday',
+      tab: 'payment',
+    },
+    {
+      name: 'black_friday_popup_enabled',
+      title: '显示 Black Friday 优惠弹窗',
+      type: 'switch',
+      value: 'false',
+      tip: '开启后，活动有效时向首次访问的用户弹出一次，并在登录成功后再弹出一次。关闭后不弹窗。活动总开关关闭或已过期时，即使本开关打开也不弹窗。',
+      group: 'black_friday',
+      tab: 'payment',
     },
     {
       name: 'select_payment_enabled',
@@ -3026,6 +3051,8 @@ export const publicSettingNames = [
   'google_client_id',
   'github_auth_enabled',
   'select_payment_enabled',
+  'black_friday_enabled',
+  'black_friday_popup_enabled',
   'default_payment_provider',
   'pricing_credits_per_usd',
   ...(['480p', '720p', '1080p'] as const).flatMap((resolution) => ([8, 12, 15, 30] as const).map((duration) => `video_cost_${resolution}_${duration}`)),

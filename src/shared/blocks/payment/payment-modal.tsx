@@ -29,14 +29,20 @@ export function PaymentModal({
   isLoading,
   pricingItem,
   onCheckout,
+  open,
+  onOpenChange,
 }: {
   isLoading: boolean;
   pricingItem: PricingItem | null;
   onCheckout: (item: PricingItem, paymentProvider?: string) => void;
+  open?: boolean;
+  onOpenChange?: (open: boolean) => void;
 }) {
   const t = useTranslations('common.payment');
   const { isShowPaymentModal, setIsShowPaymentModal } = useAppContext();
   const { configs } = useAppContext();
+  const visible = open ?? isShowPaymentModal;
+  const setVisible = onOpenChange ?? setIsShowPaymentModal;
 
   // todo: dynamic set callbackURL
   const callbackURL = '/';
@@ -45,7 +51,7 @@ export function PaymentModal({
 
   if (isDesktop) {
     return (
-      <Dialog open={isShowPaymentModal} onOpenChange={setIsShowPaymentModal}>
+      <Dialog open={visible} onOpenChange={setVisible}>
         <DialogContent className="sm:max-w-[425px]">
           <DialogHeader>
             <DialogTitle>{t('choose_payment_method')}</DialogTitle>
@@ -67,7 +73,7 @@ export function PaymentModal({
   }
 
   return (
-    <Drawer open={isShowPaymentModal} onOpenChange={setIsShowPaymentModal}>
+    <Drawer open={visible} onOpenChange={setVisible}>
       <DrawerContent>
         <DrawerHeader className="text-left">
           <DrawerTitle>{t('choose_payment_method')}</DrawerTitle>

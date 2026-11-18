@@ -135,16 +135,19 @@ export function templateHowMuchAnswer(
 
 export function getPricingPackFaq(
   zh: boolean,
-  creditsPerUsd: number
+  creditsPerUsd: number,
+  sale?: { popularPrice?: string; creatorPrice?: string }
 ): [string, string][] {
   const packs = CANONICAL_PRICING;
+  const popularPrice = sale?.popularPrice || packs.packPopularPrice;
+  const creatorPrice = sale?.creatorPrice || packs.packCreatorPrice;
   const pricing = pricingUrl(zh, '/pricing');
   const subscribe = pricingUrl(zh, '/subscribe');
   if (zh) {
     return [
       [
         '一次性积分包可以取消吗？',
-        `不能按订阅那样取消，因为这一页的积分包是一次性付款，没有续费。Starter ${packs.packStarterPrice}（${packs.packStarterCredits} 积分）、Popular ${packs.packPopularPrice}（${packs.packPopularCredits} 积分）、Creator ${packs.packCreatorPrice}（${packs.packCreatorCredits} 积分）、Max ${packs.packMaxPrice}（${packs.packMaxCredits} 积分）。月付套餐在订阅页：Starter ${packs.monthlyStarterPrice}/月（每月 ${packs.monthlyStarterCredits} 积分）、Plus ${packs.plusPrice}/月（${packs.plusCredits} 积分）、Pro ${packs.proPrice}/月（${packs.proCredits} 积分），见 ${subscribe}。月付可以在账单页取消，当前周期结束前仍可使用。`,
+        `不能按订阅那样取消，因为这一页的积分包是一次性付款，没有续费。Starter ${packs.packStarterPrice}（${packs.packStarterCredits} 积分）、Popular ${popularPrice}（${packs.packPopularCredits} 积分）、Creator ${creatorPrice}（${packs.packCreatorCredits} 积分）、Max ${packs.packMaxPrice}（${packs.packMaxCredits} 积分）。月付套餐在订阅页：Starter ${packs.monthlyStarterPrice}/月（每月 ${packs.monthlyStarterCredits} 积分）、Plus ${packs.plusPrice}/月（${packs.plusCredits} 积分）、Pro ${packs.proPrice}/月（${packs.proCredits} 积分），见 ${subscribe}。月付可以在账单页取消，当前周期结束前仍可使用。`,
       ],
       [
         '没用完的积分会过期吗？',
@@ -159,7 +162,7 @@ export function getPricingPackFaq(
   return [
     [
       'Can I cancel a one-time credit pack?',
-      `There is nothing to cancel. Packs on this page are a single payment: Starter ${packs.packStarterPrice} (${packs.packStarterCredits} credits), Popular ${packs.packPopularPrice} (${packs.packPopularCredits} credits), Creator ${packs.packCreatorPrice} (${packs.packCreatorCredits} credits), and Max ${packs.packMaxPrice} (${packs.packMaxCredits} credits). Monthly plans are on the subscribe page: Starter ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits), Plus ${packs.plusPrice}/mo (${packs.plusCredits} credits), and Pro ${packs.proPrice}/mo (${packs.proCredits} credits), at ${subscribe}. You can cancel a monthly plan from billing and keep access until the period ends.`,
+      `There is nothing to cancel. Packs on this page are a single payment: Starter ${packs.packStarterPrice} (${packs.packStarterCredits} credits), Popular ${popularPrice} (${packs.packPopularCredits} credits), Creator ${creatorPrice} (${packs.packCreatorCredits} credits), and Max ${packs.packMaxPrice} (${packs.packMaxCredits} credits). Monthly plans are on the subscribe page: Starter ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits), Plus ${packs.plusPrice}/mo (${packs.plusCredits} credits), and Pro ${packs.proPrice}/mo (${packs.proCredits} credits), at ${subscribe}. You can cancel a monthly plan from billing and keep access until the period ends.`,
     ],
     [
       'Do unused credits expire?',

@@ -364,3 +364,12 @@
    Never submitted — purely visual guidance for the required photo type. */
 .viral-dialog .up-ph .up-hint{opacity:.45}
 .viral-dialog .up-ph .up-hint-tag{position:absolute;right:4px;bottom:4px;font-size:10px;line-height:1;padding:3px 6px;border-radius:6px;background:rgba(0,0,0,.55);color:#fff;letter-spacing:.02em;pointer-events:none}
+.viral-home .pcard-title{display:flex;align-items:center;justify-content:space-between;gap:8px}
+.viral-home .pcard-title h3{margin:0}
+.viral-home .off-pill{display:inline-flex;align-items:center;background:#fff7ed;color:#c2410c;border:1px solid #fed7aa;border-radius:999px;font-size:11px;font-weight:700;letter-spacing:.02em;padding:2px 8px;white-space:nowrap}
+.viral-home .price .was{font-size:.45em;color:#a1a1aa;font-weight:500;margin-left:8px;text-decoration:line-through}
+.viral-home .bf-banner{display:flex;align-items:center;justify-content:center;gap:14px;flex-wrap:wrap;background:#fff7ed;color:#9a3412;border:1px solid #fed7aa;border-radius:12px;padding:10px 16px;margin:0 auto 28px;max-width:880px;font-size:14px}
+.viral-home .bf-banner .bf-off{background:var(--grad);color:#fffaf5;font-weight:600;font-size:12px;border-radius:999px;padding:4px 10px}
+.viral-home .bf-clock{display:inline-flex;align-items:center;gap:4px;font-variant-numeric:tabular-nums;font-weight:600}
+.viral-home .bf-clock b{background:#fff;color:#9a3412;border:1px solid #fed7aa;border-radius:8px;min-width:34px;text-align:center;padding:2px 6px}
+.viral-home .bf-clock i{font-style:normal;color:#ea580c;font-size:11px;font-weight:600}

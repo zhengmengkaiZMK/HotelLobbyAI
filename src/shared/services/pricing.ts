@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
+import { isBlackFridayEnabled, resolvePackPrice } from '@/shared/lib/black-friday';
 import { getAllConfigs, type Configs } from '@/shared/models/config';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
@@ -69,7 +70,10 @@ export async function getPricingPlans(locale: string): Promise<PricingItem[]> {
 
   // Fresh read so an admin price/credit edit is what checkout charges.
   const configs = await getAllConfigs(true);
-  return items.map((item) => applyPlanOverrides(item, configs));
+  const promo = isBlackFridayEnabled(configs);
+  return items.map((item) =>
+    resolvePackPrice(applyPlanOverrides(item, configs), promo ? configs : null)
+  );
 }
 
 /**

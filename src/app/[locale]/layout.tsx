@@ -14,6 +14,7 @@ import { UtmCapture } from '@/shared/blocks/common/utm-capture';
 import { GaEvents } from '@/shared/blocks/common/ga-events';
 import { AdsConversionListener } from '@/shared/blocks/common/ads-conversion-listener';
 import { Toaster } from '@/shared/components/ui/sonner';
+import { BlackFridayModal } from '@/shared/blocks/viral-home/black-friday-modal';
 import { AppContextProvider } from '@/shared/contexts/app';
 import { getMetadata } from '@/shared/lib/seo';
 import { getAllConfigs } from '@/shared/models/config';
@@ -171,6 +172,7 @@ export default async function LocaleLayout({
           <ThemeProvider>
             <AppContextProvider>
               {children}
+              <BlackFridayModal />
               <Toaster position="top-center" richColors />
             </AppContextProvider>
           </ThemeProvider>

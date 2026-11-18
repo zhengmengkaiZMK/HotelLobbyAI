@@ -9,8 +9,11 @@ import { Link } from '@/core/i18n/navigation';
 import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
+import { blackFridayOffer, packOnSale } from '@/shared/lib/black-friday';
 import { planFeatureLines } from '@/shared/lib/video-yield';
 import { PricingItem } from '@/shared/types/blocks/pricing';
+
+import { BlackFridayIntro, SalePrice, useSalePlans } from './black-friday-ui';
 
 // Pricing section shared by the homepage historically and the /pricing page.
 // The pricing page offers one-time credit packs (Pay Once) as the default tab,
@@ -33,8 +36,9 @@ export function PricingSection({
   const locale = useLocale();
   const zh = locale === 'zh';
   const t = (en: string, cn: string) => (zh ? cn : en);
-  const available = plans.filter((p) => p.interval === group);
-  const creditPacks = plans.filter((p) => p.interval === 'one-time');
+  const { view, active } = useSalePlans(plans);
+  const available = view.filter((p) => p.interval === group);
+  const creditPacks = view.filter((p) => p.interval === 'one-time');
   const showingPacks = enablePayOnce && group === 'one-time';
   const cards = showingPacks ? creditPacks : available;
 
@@ -88,10 +92,14 @@ export function PricingSection({
     <>
       <section className="sec sec-alt" id="pricing">
         <div className="container">
-          <div className="sec-head">
-            <p className="kick">{t('Pricing', '定价')}</p>
-            <h2>{t('Simple pricing. Scale when you go viral.', '定价简单，爆火了再扩量。')}</h2>
-          </div>
+          {active ? (
+            <BlackFridayIntro zh={zh} />
+          ) : (
+            <div className="sec-head">
+              <p className="kick">{t('Pricing', '定价')}</p>
+              <h2>{t('Simple pricing. Scale when you go viral.', '定价简单，爆火了再扩量。')}</h2>
+            </div>
+          )}
           <div className={`bill-toggle${enablePayOnce ? ' with-once' : ''}`}>
             {enablePayOnce && (
               <button
@@ -132,11 +140,17 @@ export function PricingSection({
                   {item.label && !featured && (
                     <span className="tag">{t(item.label, item.label === 'Most popular' ? '最受欢迎' : item.label)}</span>
                   )}
-                  <h3>{item.title}</h3>
-                  <div className="price">
-                    {item.price}
-                    <small>{item.unit}</small>
+                  <div className="pcard-title">
+                    <h3>{item.title}</h3>
+                    {packOnSale(item) && blackFridayOffer(item.product_id) ? (
+                      <span className="off-pill">{blackFridayOffer(item.product_id)?.badge}</span>
+                    ) : null}
                   </div>
+                  <SalePrice
+                    price={item.price}
+                    original={packOnSale(item) ? item.original_price : ''}
+                    unit={item.unit}
+                  />
                   <span className="anchor">
                     {t(
                       `${(item.credits || 0).toLocaleString()} credits`,

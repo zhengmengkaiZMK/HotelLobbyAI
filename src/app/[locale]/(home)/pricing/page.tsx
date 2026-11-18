@@ -7,7 +7,8 @@ import { getAllConfigs } from '@/shared/models/config';
 import { getCurrentSubscription } from '@/shared/models/subscription';
 import { getUserInfo } from '@/shared/models/user';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
-import { getPricingPackFaq } from '@/shared/lib/pricing-copy';
+import { getPricingPackFaq, CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
+import { isBlackFridayEnabled, packOnSale, salePackLabel } from '@/shared/lib/black-friday';
 import {
   buildOfferExtrasJsonLd,
   buildProductImageUrls,
@@ -38,7 +39,22 @@ export async function generateMetadata({
   params: Promise<{ locale: string }>;
 }) {
   const { locale } = await params;
-  const m = META[locale === 'zh' ? 'zh' : 'en'];
+  const zh = locale === 'zh';
+  const configs = await getAllConfigs(true);
+  const promo = isBlackFridayEnabled(configs);
+  const m = promo
+    ? zh
+      ? {
+          ...META.zh,
+          description:
+            'Black Friday 限时至 11 月 30 日 24:00（东八区）。一次性积分包：Starter $9.9（90 积分）、Popular $16（原价 $19.9，180 积分）、Creator $28（原价 $39.9，480 积分）、Max $69.9（950 积分）。月付价格不变。',
+        }
+      : {
+          ...META.en,
+          description:
+            'Black Friday through Nov 30, 24:00 UTC+8. One-time packs: Starter $9.9 (90 credits), Popular $16 (was $19.9, 180 credits), Creator $28 (was $39.9, 480 credits), and Max $69.9 (950). Monthly prices stay the same.',
+        }
+    : META[zh ? 'zh' : 'en'];
   const canonical =
     locale === 'zh' ? `${envConfigs.app_url}/zh/pricing` : `${envConfigs.app_url}/pricing`;
   const enUrl = `${envConfigs.app_url}/pricing`;
@@ -89,11 +105,36 @@ export default async function PricingPage({
   const currentSubscription = user ? await getCurrentSubscription(user.id) : null;
 
   const zh = locale === 'zh';
-  const m = META[zh ? 'zh' : 'en'];
   const appUrl = envConfigs.app_url;
   const pageUrl = zh ? `${appUrl}/zh/pricing` : `${appUrl}/pricing`;
   const packs = plans.filter((p) => p.interval === 'one-time');
-  const faq = getPricingPackFaq(zh, creditsPerUsd);
+  const popularPlan = packs.find((item) => item.product_id === 'credits-once-popular');
+  const creatorPlan = packs.find((item) => item.product_id === 'credits-once-creator');
+  const m = packOnSale(popularPlan)
+    ? zh
+      ? {
+          ...META.zh,
+          description:
+            'Black Friday 限时至 11 月 30 日 24:00（东八区）。一次性积分包：Starter $9.9（90 积分）、Popular $16（原价 $19.9，180 积分）、Creator $28（原价 $39.9，480 积分）、Max $69.9（950 积分）。月付价格不变。',
+        }
+      : {
+          ...META.en,
+          description:
+            'Black Friday through Nov 30, 24:00 UTC+8. One-time packs: Starter $9.9 (90 credits), Popular $16 (was $19.9, 180 credits), Creator $28 (was $39.9, 480 credits), and Max $69.9 (950). Monthly prices stay the same.',
+        }
+    : META[zh ? 'zh' : 'en'];
+  const faq = getPricingPackFaq(zh, creditsPerUsd, {
+    popularPrice: salePackLabel(
+      popularPlan,
+      zh,
+      CANONICAL_PRICING.packPopularPrice
+    ),
+    creatorPrice: salePackLabel(
+      creatorPlan,
+      zh,
+      CANONICAL_PRICING.packCreatorPrice
+    ),
+  });
   const jsonLd = {
     '@context': 'https://schema.org',
     '@graph': [
