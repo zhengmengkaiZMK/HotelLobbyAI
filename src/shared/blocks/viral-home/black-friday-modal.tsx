@@ -116,15 +116,6 @@ function clearReopenIntent() {
   removeStorage(sessionStorage, BF_HOLD_KEY);
 }
 
-function armHold() {
-  writeStorage(sessionStorage, BF_HOLD_KEY, String(Date.now() + 20000));
-}
-
-function holdActive() {
-  const until = Number(readStorage(sessionStorage, BF_HOLD_KEY) || 0);
-  return Number.isFinite(until) && until > Date.now();
-}
-
 export function BlackFridayModal() {
   const locale = useLocale();
   const zh = locale.startsWith('zh');
@@ -146,10 +137,16 @@ export function BlackFridayModal() {
   const seenUserId = useRef<string | null>(null);
   const signWasOpen = useRef(false);
   const userDismiss = useRef(false);
+  const loginCheckSeen = useRef(false);
+  const settleTimer = useRef<number | null>(null);
+  const checkingRef = useRef(isCheckSign);
+  const popupEnabledRef = useRef(false);
 
   const configsReady = Object.keys(configs).length > 0;
   const popupOn =
     configsReady && !clock.expired && isBlackFridayPopupEnabled(configs);
+  checkingRef.current = isCheckSign;
+  popupEnabledRef.current = popupOn;
 
   const packs = PACKS.map((item) => {
     const creditsKey =
@@ -169,8 +166,9 @@ export function BlackFridayModal() {
 
   function reopenSalePopup() {
     removeStorage(sessionStorage, BF_PENDING_KEY);
+    removeStorage(sessionStorage, BF_HOLD_KEY);
     writeStorage(sessionStorage, BF_LOGIN_KEY, '1');
-    if (!holdActive()) armHold();
+    clearReopenIntent();
     setOpen(true);
   }
 
@@ -183,6 +181,7 @@ export function BlackFridayModal() {
   useEffect(() => {
     if (isShowSignModal && !user) {
       signWasOpen.current = true;
+      loginCheckSeen.current = false;
       writeStorage(sessionStorage, BF_PENDING_KEY, '1');
       return;
     }
@@ -194,7 +193,17 @@ export function BlackFridayModal() {
   }, [isShowSignModal, user, popupOn]);
 
   useEffect(() => {
-    if (isCheckSign || !configsReady || !clock.ready) return;
+    const loginPopupPending =
+      hasReopenIntent() || readStorage(sessionStorage, BF_PENDING_KEY) === '1';
+    if (isCheckSign) {
+      if (loginPopupPending) loginCheckSeen.current = true;
+      if (settleTimer.current) {
+        window.clearTimeout(settleTimer.current);
+        settleTimer.current = null;
+      }
+      return;
+    }
+    if (!configsReady || !clock.ready) return;
     if (skipPath(pathname)) return;
     if (typeof window !== 'undefined' && window.location.search.includes('checkout=success')) {
       clearReopenIntent();
@@ -203,47 +212,42 @@ export function BlackFridayModal() {
 
     const userId = user?.id ?? null;
     const popupEnabled = isBlackFridayPopupEnabled(configs);
+    const awaitingLoginPopup =
+      !!userId &&
+      (hasReopenIntent() || readStorage(sessionStorage, BF_PENDING_KEY) === '1') &&
+      readStorage(sessionStorage, BF_LOGIN_KEY) !== '1';
 
-    // Guest chose a pack, or the post-login popup was open when
-    // sign-in called router.refresh() / location.reload(). Keep it open.
-    if (userId && (hasReopenIntent() || holdActive())) {
+    // Sign-in sets the user, refreshes the page, then the header session
+    // check runs again. Open only after that check has finished and gone quiet.
+    if (awaitingLoginPopup) {
       bootstrapped.current = true;
       seenUserId.current = userId;
-      if (popupEnabled) reopenSalePopup();
-      return;
+      if (!popupEnabled) return;
+      if (settleTimer.current) window.clearTimeout(settleTimer.current);
+      const delay = loginCheckSeen.current ? 500 : 2500;
+      settleTimer.current = window.setTimeout(() => {
+        settleTimer.current = null;
+        if (checkingRef.current || !popupEnabledRef.current) return;
+        if (readStorage(sessionStorage, BF_LOGIN_KEY) === '1') return;
+        reopenSalePopup();
+      }, delay);
+      return () => {
+        if (settleTimer.current) {
+          window.clearTimeout(settleTimer.current);
+          settleTimer.current = null;
+        }
+      };
     }
-
-    const showAfterLogin = () => {
-      removeStorage(sessionStorage, BF_PENDING_KEY);
-      if (
-        popupEnabled &&
-        readStorage(sessionStorage, BF_LOGIN_KEY) !== '1'
-      ) {
-        writeStorage(sessionStorage, BF_LOGIN_KEY, '1');
-        if (!holdActive()) armHold();
-        setOpen(true);
-      }
-    };
 
     if (!bootstrapped.current) {
       bootstrapped.current = true;
       seenUserId.current = userId;
-      if (userId && readStorage(sessionStorage, BF_PENDING_KEY) === '1') {
-        showAfterLogin();
-        return;
-      }
       if (
         popupEnabled &&
         readStorage(localStorage, BF_SEEN_KEY) !== '1'
       ) {
         setOpen(true);
       }
-      return;
-    }
-
-    if (!seenUserId.current && userId) {
-      seenUserId.current = userId;
-      showAfterLogin();
       return;
     }
 
@@ -326,14 +330,6 @@ export function BlackFridayModal() {
           }
           if (userDismiss.current) {
             userDismiss.current = false;
-            dismiss();
-            return;
-          }
-          // Login calls router.refresh() or reloads the page. That close is
-          // not the user dismissing the offer, so put the dialog back.
-          if (hasReopenIntent() || holdActive()) {
-            if (popupOn) setOpen(true);
-            return;
           }
           dismiss();
         }}
