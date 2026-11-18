@@ -10,7 +10,8 @@ import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
 import { blackFridayOffer, packOnSale } from '@/shared/lib/black-friday';
-import { planFeatureLines } from '@/shared/lib/video-yield';
+import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
+import { creditsForDuration, planFeatureLines, videosAtCost } from '@/shared/lib/video-yield';
 import { PricingItem } from '@/shared/types/blocks/pricing';
 
 import { BlackFridayIntro, SalePrice, useSalePlans } from './black-friday-ui';
@@ -92,14 +93,18 @@ export function PricingSection({
     <>
       <section className="sec sec-alt" id="pricing">
         <div className="container">
-          {active ? (
-            <BlackFridayIntro zh={zh} />
-          ) : (
+          {enablePayOnce ? (
+            <div className="sec-head">
+              <p className="kick">{t('Pricing', '定价')}</p>
+              <h1>{t('Simple pricing. Scale when you go viral.', '定价简单，爆火了再扩量。')}</h1>
+            </div>
+          ) : active ? null : (
             <div className="sec-head">
               <p className="kick">{t('Pricing', '定价')}</p>
               <h2>{t('Simple pricing. Scale when you go viral.', '定价简单，爆火了再扩量。')}</h2>
             </div>
           )}
+          {active ? <BlackFridayIntro zh={zh} /> : null}
           <div className={`bill-toggle${enablePayOnce ? ' with-once' : ''}`}>
             {enablePayOnce && (
               <button
@@ -186,19 +191,38 @@ export function PricingSection({
                 '按清晰度和时长计费，只按输出秒数收费，参考视频不计费；任务失败或取消会退回积分。上面的条数按默认 15 秒 720p 计算。更长的模板更贵。以生成器按钮上的本次积分为准。'
               )}
             </span>
-            <div className="video-pricing-grid mt-4 grid grid-cols-1 gap-4 sm:grid-cols-3">
-              {videoCosts.map((row) => (
-                <div key={row.resolution}>
-                  <strong>{row.resolution}</strong>
-                  {row.costs.map((item) => (
-                    <span key={item.duration} className="block">
-                      {item.duration}s · {item.credits} {t('credits', '积分')}
-                    </span>
-                  ))}
-                </div>
-              ))}
+            <div className="mt-4 overflow-x-auto">
+              <table className="w-full border-collapse text-left text-sm">
+                <caption className="mb-2 text-left font-medium">
+                  {t(
+                    'Credits per second of output video. The reference video is not charged.',
+                    '按输出视频的每秒积分计费。参考视频不计费。'
+                  )}
+                </caption>
+                <thead>
+                  <tr className="border-b border-orange-200">
+                    <th className="py-2 pr-3 font-semibold">{t('Resolution', '清晰度')}</th>
+                    <th className="py-2 pr-3 font-semibold">{t('Credits per second', '每秒积分')}</th>
+                    <th className="py-2 pr-3 font-semibold">{t('15-second clip', '15 秒成片')}</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  {videoCosts.map((row) => {
+                    const fifteen = creditsForDuration(videoCosts, row.resolution, 15);
+                    const perSecond = fifteen > 0 ? Math.round((fifteen / 15) * 10) / 10 : 0;
+                    return (
+                      <tr key={row.resolution} className="border-b border-orange-100">
+                        <td className="py-2 pr-3">{row.resolution}</td>
+                        <td className="py-2 pr-3">{perSecond}</td>
+                        <td className="py-2 pr-3">{fifteen} {t('credits', '积分')}</td>
+                      </tr>
+                    );
+                  })}
+                </tbody>
+              </table>
             </div>
           </div>
+          {enablePayOnce && <CreditPackTable zh={zh} videoCosts={videoCosts} />}
           <p className="mt-6 text-center">
             <Link href="/subscribe">{t('View all plans and payment options', '查看全部套餐与支付选项')} →</Link>
           </p>
@@ -206,5 +230,59 @@ export function PricingSection({
       </section>
       <PaymentModal isLoading={loading} pricingItem={payment} onCheckout={checkout} />
     </>
+  );
+}
+
+function CreditPackTable({
+  zh,
+  videoCosts,
+}: {
+  zh: boolean;
+  videoCosts: ReturnType<typeof import('@/shared/lib/video-cost').getVideoCostTable>;
+}) {
+  const t = (en: string, cn: string) => (zh ? cn : en);
+  const clip = creditsForDuration(videoCosts, '720p', 15) || 75;
+  const perSecond = Math.round((clip / 15) * 10) / 10;
+  const secondPerCredit = perSecond > 0 ? Math.round((1 / perSecond) * 100) / 100 : 0.2;
+  const packs = [
+    ['Starter', CANONICAL_PRICING.packStarterPrice, CANONICAL_PRICING.packStarterCredits],
+    ['Popular', CANONICAL_PRICING.packPopularPrice, CANONICAL_PRICING.packPopularCredits],
+    ['Creator', CANONICAL_PRICING.packCreatorPrice, CANONICAL_PRICING.packCreatorCredits],
+    ['Max', CANONICAL_PRICING.packMaxPrice, CANONICAL_PRICING.packMaxCredits],
+  ] as const;
+
+  return (
+    <div className="mt-8 overflow-x-auto rounded-xl border border-orange-200 bg-white p-6 text-slate-800">
+      <table className="w-full border-collapse text-left text-sm">
+        <caption className="mb-3 text-left font-medium">
+          {t(
+            `One-time packs in US dollars. At 720p, 1 credit is ${secondPerCredit} seconds of output video (${perSecond} credits per second, ${clip} credits for 15 seconds). Pack credits do not expire. A failed or canceled generation returns those credits. Unused credits are not refunded as cash.`,
+            `一次性积分包价格为美元。720p 下 1 积分等于 ${secondPerCredit} 秒输出视频（每秒 ${perSecond} 积分，15 秒 ${clip} 积分）。积分包不过期。生成失败或取消会退回本次积分。没用完的积分不按现金退款。`
+          )}
+        </caption>
+        <thead>
+          <tr className="border-b border-orange-200">
+            <th className="py-2 pr-3 font-semibold">{t('Pack', '积分包')}</th>
+            <th className="py-2 pr-3 font-semibold">{t('Price (USD)', '价格（美元）')}</th>
+            <th className="py-2 pr-3 font-semibold">{t('Credits', '积分')}</th>
+            <th className="py-2 pr-3 font-semibold">{t('720p / 15s videos', '720p / 15 秒条数')}</th>
+            <th className="py-2 pr-3 font-semibold">{t('Expires', '是否过期')}</th>
+            <th className="py-2 pr-3 font-semibold">{t('Failed generation', '生成失败')}</th>
+          </tr>
+        </thead>
+        <tbody>
+          {packs.map(([name, price, credits]) => (
+            <tr key={name} className="border-b border-orange-100">
+              <td className="py-2 pr-3">{name}</td>
+              <td className="py-2 pr-3">{price} USD</td>
+              <td className="py-2 pr-3">{credits}</td>
+              <td className="py-2 pr-3">{videosAtCost(credits, clip)}</td>
+              <td className="py-2 pr-3">{t('No', '不过期')}</td>
+              <td className="py-2 pr-3">{t('Credits returned', '退回积分')}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
   );
 }

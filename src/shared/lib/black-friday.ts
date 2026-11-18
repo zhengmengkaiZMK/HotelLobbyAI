@@ -9,8 +9,11 @@ export const BLACK_FRIDAY_ENDS_AT = Date.parse('2026-12-01T00:00:00+08:00');
 
 export const BF_SEEN_KEY = 'vr_bf_popup_seen_v1';
 export const BF_LOGIN_KEY = 'vr_bf_login_popup';
+/** session + local. `popup` means: after login, show the sale modal again. */
 export const BF_INTENT_KEY = 'vr_bf_after_login';
 export const BF_PENDING_KEY = 'vr_bf_pending_login';
+/** sessionStorage value is a timestamp. While it is in the future, a login refresh must not dismiss the popup. */
+export const BF_HOLD_KEY = 'vr_bf_hold_until';
 
 export const BLACK_FRIDAY_OFFERS = {
   'credits-once-popular': {

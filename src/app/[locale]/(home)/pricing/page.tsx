@@ -10,8 +10,8 @@ import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { getPricingPackFaq, CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
 import { isBlackFridayEnabled, packOnSale, salePackLabel } from '@/shared/lib/black-friday';
 import {
-  buildOfferExtrasJsonLd,
   buildProductImageUrls,
+  digitalCreditOfferDescription,
 } from '@/shared/lib/product-schema';
 
 export const revalidate = 300;
@@ -164,8 +164,7 @@ export default async function PricingPage({
             priceCurrency: p.currency || 'USD',
             availability: 'https://schema.org/InStock',
             url: pageUrl,
-            description: `${p.credits || 0} credits, one-time`,
-            ...buildOfferExtrasJsonLd(),
+            description: digitalCreditOfferDescription(p.credits || 0, 'one-time'),
           })),
         }),
       },

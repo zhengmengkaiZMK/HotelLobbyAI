@@ -21,9 +21,12 @@ export interface Post {
   image?: string;
   content?: string;
   created_at?: string;
+  published_at?: string;
+  updated_at?: string;
   author_name?: string;
   author_role?: string;
   author_image?: string;
+  author_url?: string;
   url?: string;
   target?: string;
   categories?: Category[];

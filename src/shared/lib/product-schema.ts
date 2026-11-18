@@ -1,10 +1,8 @@
 /**
  * Shared JSON-LD helpers for Product / SoftwareApplication merchant data.
  *
- * ViralReel sells digital credits and subscriptions (no physical shipping),
- * so offers declare zero-cost digital delivery and a "returns not permitted"
- * policy — the standard pattern for digital SaaS products to satisfy
- * Google Merchant Listings requirements.
+ * ViralReel sells digital credits. Offers describe the credit pack in USD
+ * and do not include shipping, delivery country, or a physical return policy.
  */
 
 export function buildProductImageUrls(appUrl: string) {
@@ -53,42 +51,16 @@ export function buildTemplateSoftwareJsonLd({
   };
 }
 
-export function buildOfferExtrasJsonLd() {
-  return {
-    shippingDetails: {
-      '@type': 'OfferShippingDetails',
-      shippingRate: {
-        '@type': 'MonetaryAmount',
-        value: '0',
-        currency: 'USD',
-      },
-      shippingDestination: {
-        '@type': 'DefinedRegion',
-        addressCountry: 'US',
-      },
-      // Digital delivery: credits land in the account immediately after
-      // checkout. Google Merchant Listings requires deliveryTime alongside
-      // shippingRate/shippingDestination — 0-day handling, 0-1 day transit.
-      deliveryTime: {
-        '@type': 'DeliveryTime',
-        handlingTime: {
-          '@type': 'QuantitativeValue',
-          minValue: 0,
-          maxValue: 0,
-          unitCode: 'DAY',
-        },
-        transitTime: {
-          '@type': 'QuantitativeValue',
-          minValue: 0,
-          maxValue: 1,
-          unitCode: 'DAY',
-        },
-      },
-    },
-    hasMerchantReturnPolicy: {
-      '@type': 'MerchantReturnPolicy',
-      applicableCountry: 'US',
-      returnPolicyCategory: 'https://schema.org/MerchantReturnNotPermitted',
-    },
-  };
+/** Price text for a digital credit offer. No shipping or destination fields. */
+export function digitalCreditOfferDescription(
+  credits: number,
+  interval: 'one-time' | 'month' | 'year'
+) {
+  const delivery =
+    'Digital product priced in USD. Credits are added to the account after payment. No shipping and no delivery address.';
+  if (interval === 'one-time') {
+    return `${credits} credits, one-time purchase. ${delivery}`;
+  }
+  const period = interval === 'year' ? 'year' : 'month';
+  return `${credits} credits per ${period}. ${delivery}`;
 }

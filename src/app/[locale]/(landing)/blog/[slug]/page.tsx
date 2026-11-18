@@ -28,9 +28,7 @@ export async function generateMetadata({
   }
 
   const ogImage = post.image ? `${envConfigs.app_url}${post.image}` : undefined;
-  const isoDate = post.created_at && !Number.isNaN(new Date(post.created_at).getTime())
-    ? new Date(post.created_at).toISOString()
-    : undefined;
+  const isoDate = post.published_at || undefined;
 
   return {
     title: `${post.title} | ${t('title')}`,
@@ -77,9 +75,8 @@ export default async function BlogDetailPage({
     locale !== envConfigs.locale
       ? `${envConfigs.app_url}/${locale}/blog/${slug}`
       : `${envConfigs.app_url}/blog/${slug}`;
-  const isoDate = post.created_at && !Number.isNaN(new Date(post.created_at).getTime())
-    ? new Date(post.created_at).toISOString()
-    : undefined;
+  const isoDate = post.published_at || undefined;
+  const modifiedDate = post.updated_at || isoDate;
   const articleJsonLd = {
     '@context': 'https://schema.org',
     '@type': 'BlogPosting',
@@ -87,9 +84,16 @@ export default async function BlogDetailPage({
     description: post.description,
     image: post.image ? `${envConfigs.app_url}${post.image}` : undefined,
     datePublished: isoDate,
-    dateModified: isoDate,
+    dateModified: modifiedDate,
     author: post.author_name
-      ? { '@type': 'Person', name: post.author_name }
+      ? {
+          '@type': 'Person',
+          name: post.author_name,
+          ...(post.author_url
+            ? { url: `${envConfigs.app_url}${post.author_url}` }
+            : {}),
+          ...(post.author_role ? { jobTitle: post.author_role } : {}),
+        }
       : undefined,
     publisher: {
       '@type': 'Organization',

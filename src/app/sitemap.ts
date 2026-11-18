@@ -26,7 +26,7 @@ function safeLastModified(value: string | Date | null | undefined, fallback: Dat
   return Number.isNaN(date.getTime()) ? fallback : date;
 }
 
-// indexable landing routes (privacy/terms are disallowed in robots.ts)
+// indexable landing routes. Privacy and terms are allowed in robots.txt.
 const staticRoutes = [
   { path: '/', priority: 1, changeFrequency: 'daily' as const },
   { path: '/sasha-la-catrina-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
@@ -77,6 +77,9 @@ const staticRoutes = [
   { path: '/pricing', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/subscribe', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/blog', priority: 0.7, changeFrequency: 'daily' as const },
+  { path: '/authors/lena-ortiz', priority: 0.3, changeFrequency: 'monthly' as const },
+  { path: '/privacy-policy', priority: 0.3, changeFrequency: 'yearly' as const },
+  { path: '/terms-of-service', priority: 0.3, changeFrequency: 'yearly' as const },
   { path: '/updates', priority: 0.5, changeFrequency: 'weekly' as const },
   { path: '/docs', priority: 0.4, changeFrequency: 'monthly' as const },
 ];

@@ -13,7 +13,20 @@ import {
   Post as BlogPostType,
 } from '@/shared/types/blocks/blog';
 
+import { postIsoDate, resolveBlogAuthor } from '@/shared/lib/blog-author';
+
 import { getTaxonomies, TaxonomyStatus, TaxonomyType } from './taxonomy';
+
+function blogIdentity(name?: string, created?: string, updated?: string) {
+  const author = resolveBlogAuthor(name);
+  return {
+    author_name: author.name,
+    author_role: author.role,
+    author_url: author.url,
+    published_at: postIsoDate(created),
+    updated_at: postIsoDate(updated || created),
+  };
+}
 
 export type Post = typeof post.$inferSelect;
 export type NewPost = typeof post.$inferInsert;
@@ -251,9 +264,12 @@ export async function getPost({
             created_at: postData.createdAt.toISOString(),
             locale,
           }) || '',
-        author_name: postData.authorName || '',
+        ...blogIdentity(
+          postData.authorName || '',
+          postData.createdAt?.toISOString(),
+          postData.updatedAt?.toISOString()
+        ),
         author_image: postData.authorImage || '',
-        author_role: '',
         url: `${postPrefix}${postData.slug}`,
       };
 
@@ -319,9 +335,12 @@ export async function getLocalPost({
           locale,
         })
       : '',
-    author_name: frontmatter.author_name || '',
+    ...blogIdentity(
+      frontmatter.author_name,
+      frontmatter.created_at,
+      frontmatter.updated_at
+    ),
     author_image: frontmatter.author_image || '',
-    author_role: '',
     image: frontmatter.image || '',
     url: `${postPrefix}${slug}`,
   };
@@ -368,9 +387,12 @@ export async function getLocalPage({
           locale,
         })
       : '',
-    author_name: frontmatter.author_name || '',
+    ...blogIdentity(
+      frontmatter.author_name,
+      frontmatter.created_at,
+      frontmatter.updated_at
+    ),
     author_image: frontmatter.author_image || '',
-    author_role: '',
     url: `/${locale}/${slug}`,
   };
 
@@ -519,7 +541,11 @@ export async function getRemotePostsAndCategories({
           slug: post.slug,
           title: post.title || '',
           description: post.description || '',
-          author_name: post.authorName || '',
+          ...blogIdentity(
+            post.authorName || '',
+            post.createdAt?.toISOString(),
+            post.updatedAt?.toISOString()
+          ),
           author_image: post.authorImage || '',
           created_at:
             getPostDate({
@@ -616,7 +642,11 @@ export async function getLocalPostsAndCategories({
         slug: slug,
         title: post.data.title || '',
         description: post.data.description || '',
-        author_name: frontmatter.author_name || '',
+        ...blogIdentity(
+          frontmatter.author_name,
+          frontmatter.created_at,
+          frontmatter.updated_at
+        ),
         author_image: frontmatter.author_image || '',
         created_at: createdAt,
         date: frontmatter.date || createdAt,

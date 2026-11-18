@@ -6,7 +6,7 @@ import { buildHubFaqJsonLd } from '@/shared/lib/hub-faq';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
-  buildOfferExtrasJsonLd,
+  digitalCreditOfferDescription,
   buildProductImageUrls,
 } from '@/shared/lib/product-schema';
 import {
@@ -158,11 +158,14 @@ export default async function HomePage({
                 p.interval === 'one-time'
                   ? `${appUrl}/pricing`
                   : `${appUrl}/subscribe`,
-              description:
-                p.interval === 'one-time'
-                  ? `${p.credits} credits, one-time`
-                  : `${p.credits} credits per ${p.interval}`,
-              ...buildOfferExtrasJsonLd(),
+              description: digitalCreditOfferDescription(
+                p.credits || 0,
+                p.interval === 'year'
+                  ? 'year'
+                  : p.interval === 'month'
+                    ? 'month'
+                    : 'one-time'
+              ),
             })),
         }),
       },

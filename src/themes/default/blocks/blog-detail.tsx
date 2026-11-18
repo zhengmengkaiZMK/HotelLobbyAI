@@ -8,6 +8,7 @@ import { useLocale, useTranslations } from 'next-intl';
 import { useArticleVideos } from '@/shared/blocks/blog/article-video';
 import { MarkdownPreview } from '@/shared/blocks/common';
 import { Crumb } from '@/shared/blocks/common/crumb';
+import { BLOG_AUTHOR } from '@/shared/lib/blog-author';
 import { type Post as PostType } from '@/shared/types/blocks/blog';
 import { NavItem } from '@/shared/types/blocks/common';
 import { Link } from '@/core/i18n/navigation';
@@ -60,11 +61,32 @@ export function BlogDetail({ post }: { post: PostType }) {
               <h1 className="text-foreground mx-auto mb-4 w-full text-3xl font-bold md:max-w-4xl md:text-4xl">
                 {post.title}
               </h1>
-              <div className="text-muted-foreground text-md mb-8 flex items-center justify-center gap-4">
+              <div className="text-muted-foreground text-md mb-8 flex flex-wrap items-center justify-center gap-x-4 gap-y-2">
+                {post.author_name && (
+                  <span>
+                    {isZh ? '作者' : 'By'}{' '}
+                    {post.author_url ? (
+                      <Link href={post.author_url} className="text-foreground font-medium underline-offset-4 hover:underline">
+                        {post.author_name}
+                      </Link>
+                    ) : (
+                      <span className="text-foreground font-medium">{post.author_name}</span>
+                    )}
+                    {post.author_name === BLOG_AUTHOR.name && (
+                      <span> · {isZh ? BLOG_AUTHOR.roleZh : BLOG_AUTHOR.role}</span>
+                    )}
+                  </span>
+                )}
                 {post.created_at && (
-                  <div className="text-muted-foreground text-md mb-8 flex items-center justify-center gap-2">
-                    <CalendarIcon className="size-4" /> {post.created_at}
-                  </div>
+                  <span className="inline-flex items-center gap-2">
+                    <CalendarIcon className="size-4" />
+                    <time dateTime={post.published_at || undefined}>{isZh ? '发布于' : 'Published'} {post.created_at}</time>
+                  </span>
+                )}
+                {post.updated_at && (
+                  <time dateTime={post.updated_at}>
+                    {isZh ? '更新于' : 'Updated'} {post.updated_at.slice(0, 10)}
+                  </time>
                 )}
               </div>
             </div>
@@ -127,14 +149,24 @@ export function BlogDetail({ post }: { post: PostType }) {
                         )}
                         {post.author_name && (
                           <p className="text-foreground mb-1 text-lg font-semibold">
-                            {post.author_name}
+                            {post.author_url ? (
+                              <Link href={post.author_url} className="hover:underline">
+                                {post.author_name}
+                              </Link>
+                            ) : (
+                              post.author_name
+                            )}
                           </p>
                         )}
-                        {post.author_role && (
+                        {post.author_name === BLOG_AUTHOR.name ? (
+                          <p className="text-muted-foreground mb-4 text-sm">
+                            {isZh ? BLOG_AUTHOR.roleZh : BLOG_AUTHOR.role}
+                          </p>
+                        ) : post.author_role ? (
                           <p className="text-muted-foreground mb-4 text-sm">
                             {post.author_role}
                           </p>
-                        )}
+                        ) : null}
                       </div>
                     </div>
                   </div>

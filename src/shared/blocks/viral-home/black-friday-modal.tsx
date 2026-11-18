@@ -1,11 +1,11 @@
 'use client';
 
 import { useEffect, useRef, useState } from 'react';
-import { Check } from 'lucide-react';
+import { Check, X } from 'lucide-react';
 import { useLocale } from 'next-intl';
 import { toast } from 'sonner';
 
-import { useRouter, usePathname } from '@/core/i18n/navigation';
+import { usePathname } from '@/core/i18n/navigation';
 import { PaymentModal } from '@/shared/blocks/payment/payment-modal';
 import {
   Dialog,
@@ -16,6 +16,7 @@ import {
 import { useAppContext } from '@/shared/contexts/app';
 import { getCookie } from '@/shared/lib/cookie';
 import {
+  BF_HOLD_KEY,
   BF_INTENT_KEY,
   BF_LOGIN_KEY,
   BF_PENDING_KEY,
@@ -93,11 +94,41 @@ function skipPath(pathname: string) {
   );
 }
 
+function hasReopenIntent() {
+  const session = readStorage(sessionStorage, BF_INTENT_KEY);
+  const local = readStorage(localStorage, BF_INTENT_KEY);
+  return (
+    session === 'popup' ||
+    session === 'pricing' ||
+    local === 'popup' ||
+    local === 'pricing'
+  );
+}
+
+function setReopenIntent() {
+  writeStorage(sessionStorage, BF_INTENT_KEY, 'popup');
+  writeStorage(localStorage, BF_INTENT_KEY, 'popup');
+}
+
+function clearReopenIntent() {
+  removeStorage(sessionStorage, BF_INTENT_KEY);
+  removeStorage(localStorage, BF_INTENT_KEY);
+  removeStorage(sessionStorage, BF_HOLD_KEY);
+}
+
+function armHold() {
+  writeStorage(sessionStorage, BF_HOLD_KEY, String(Date.now() + 20000));
+}
+
+function holdActive() {
+  const until = Number(readStorage(sessionStorage, BF_HOLD_KEY) || 0);
+  return Number.isFinite(until) && until > Date.now();
+}
+
 export function BlackFridayModal() {
   const locale = useLocale();
   const zh = locale.startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
-  const router = useRouter();
   const pathname = usePathname() || '/';
   const {
     user,
@@ -113,6 +144,8 @@ export function BlackFridayModal() {
   const [payOpen, setPayOpen] = useState(false);
   const bootstrapped = useRef(false);
   const seenUserId = useRef<string | null>(null);
+  const signWasOpen = useRef(false);
+  const userDismiss = useRef(false);
 
   const configsReady = Object.keys(configs).length > 0;
   const popupOn =
@@ -134,39 +167,60 @@ export function BlackFridayModal() {
     writeStorage(localStorage, BF_SEEN_KEY, '1');
   }
 
-  function close() {
+  function reopenSalePopup() {
+    removeStorage(sessionStorage, BF_PENDING_KEY);
+    writeStorage(sessionStorage, BF_LOGIN_KEY, '1');
+    if (!holdActive()) armHold();
+    setOpen(true);
+  }
+
+  function dismiss() {
+    clearReopenIntent();
     markSeen();
     setOpen(false);
   }
 
   useEffect(() => {
     if (isShowSignModal && !user) {
+      signWasOpen.current = true;
       writeStorage(sessionStorage, BF_PENDING_KEY, '1');
+      return;
     }
-  }, [isShowSignModal, user]);
+    // Closed the login dialog without signing in: put the sale popup back.
+    if (signWasOpen.current && !user && hasReopenIntent() && popupOn) {
+      signWasOpen.current = false;
+      setOpen(true);
+    }
+  }, [isShowSignModal, user, popupOn]);
 
   useEffect(() => {
     if (isCheckSign || !configsReady || !clock.ready) return;
     if (skipPath(pathname)) return;
     if (typeof window !== 'undefined' && window.location.search.includes('checkout=success')) {
+      clearReopenIntent();
       return;
     }
 
     const userId = user?.id ?? null;
-    const goToPricing = () => {
-      removeStorage(sessionStorage, BF_INTENT_KEY);
-      removeStorage(sessionStorage, BF_PENDING_KEY);
-      markSeen();
-      setOpen(false);
-      router.push('/pricing');
-    };
+    const popupEnabled = isBlackFridayPopupEnabled(configs);
+
+    // Guest chose a pack, or the post-login popup was open when
+    // sign-in called router.refresh() / location.reload(). Keep it open.
+    if (userId && (hasReopenIntent() || holdActive())) {
+      bootstrapped.current = true;
+      seenUserId.current = userId;
+      if (popupEnabled) reopenSalePopup();
+      return;
+    }
+
     const showAfterLogin = () => {
       removeStorage(sessionStorage, BF_PENDING_KEY);
       if (
-        isBlackFridayPopupEnabled(configs) &&
+        popupEnabled &&
         readStorage(sessionStorage, BF_LOGIN_KEY) !== '1'
       ) {
         writeStorage(sessionStorage, BF_LOGIN_KEY, '1');
+        if (!holdActive()) armHold();
         setOpen(true);
       }
     };
@@ -174,16 +228,12 @@ export function BlackFridayModal() {
     if (!bootstrapped.current) {
       bootstrapped.current = true;
       seenUserId.current = userId;
-      if (userId && readStorage(sessionStorage, BF_INTENT_KEY) === 'pricing') {
-        goToPricing();
-        return;
-      }
       if (userId && readStorage(sessionStorage, BF_PENDING_KEY) === '1') {
         showAfterLogin();
         return;
       }
       if (
-        isBlackFridayPopupEnabled(configs) &&
+        popupEnabled &&
         readStorage(localStorage, BF_SEEN_KEY) !== '1'
       ) {
         setOpen(true);
@@ -193,19 +243,15 @@ export function BlackFridayModal() {
 
     if (!seenUserId.current && userId) {
       seenUserId.current = userId;
-      if (readStorage(sessionStorage, BF_INTENT_KEY) === 'pricing') {
-        goToPricing();
-        return;
-      }
       showAfterLogin();
       return;
     }
 
     seenUserId.current = userId;
-  }, [isCheckSign, configsReady, clock.ready, clock.expired, user?.id, pathname, configs, router]);
+  }, [isCheckSign, configsReady, clock.ready, clock.expired, user?.id, pathname, configs]);
 
   function askLogin() {
-    writeStorage(sessionStorage, BF_INTENT_KEY, 'pricing');
+    setReopenIntent();
     markSeen();
     setOpen(false);
     setIsShowSignModal(true);
@@ -256,6 +302,7 @@ export function BlackFridayModal() {
       askLogin();
       return;
     }
+    clearReopenIntent();
     if (configs.select_payment_enabled === 'true') {
       setPayment(item);
       setPayOpen(true);
@@ -270,8 +317,48 @@ export function BlackFridayModal() {
 
   return (
     <>
-      <Dialog open={show} onOpenChange={(next) => (next ? setOpen(true) : close())}>
-        <DialogContent className="max-h-[92vh] overflow-y-auto bg-white p-4 sm:max-w-3xl sm:p-8">
+      <Dialog
+        open={show}
+        onOpenChange={(next) => {
+          if (next) {
+            setOpen(true);
+            return;
+          }
+          if (userDismiss.current) {
+            userDismiss.current = false;
+            dismiss();
+            return;
+          }
+          // Login calls router.refresh() or reloads the page. That close is
+          // not the user dismissing the offer, so put the dialog back.
+          if (hasReopenIntent() || holdActive()) {
+            if (popupOn) setOpen(true);
+            return;
+          }
+          dismiss();
+        }}
+      >
+        <DialogContent
+          className="max-h-[92vh] overflow-y-auto bg-white p-4 sm:max-w-3xl sm:p-8"
+          showCloseButton={false}
+          onInteractOutside={() => {
+            userDismiss.current = true;
+          }}
+          onEscapeKeyDown={() => {
+            userDismiss.current = true;
+          }}
+        >
+          <button
+            type="button"
+            className="absolute top-4 right-4 rounded-xs opacity-70 hover:opacity-100"
+            onClick={() => {
+              userDismiss.current = true;
+              dismiss();
+            }}
+          >
+            <X className="size-4" />
+            <span className="sr-only">{t('Close', '关闭')}</span>
+          </button>
           <DialogTitle className="pr-8 text-center text-[26px] font-semibold tracking-tight text-zinc-950 sm:text-[32px]">
             {t('Black Friday on ViralReel', 'ViralReel 黑五限时优惠')}
           </DialogTitle>

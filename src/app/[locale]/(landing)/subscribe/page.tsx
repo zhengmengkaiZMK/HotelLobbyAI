@@ -7,7 +7,7 @@ import { getPricingPlans, getCreditsPerUsdFromConfigs } from '@/shared/services/
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
-  buildOfferExtrasJsonLd,
+  digitalCreditOfferDescription,
   buildProductImageUrls,
 } from '@/shared/lib/product-schema';
 import { getCurrentSubscription } from '@/shared/models/subscription';
@@ -118,8 +118,10 @@ export default async function SubscribePage({
               priceCurrency: p.currency || 'USD',
               availability: 'https://schema.org/InStock',
               url: `${appUrl}/subscribe`,
-              description: `${p.credits || 0} credits per ${p.interval === 'year' ? 'year' : 'month'}`,
-              ...buildOfferExtrasJsonLd(),
+              description: digitalCreditOfferDescription(
+                p.credits || 0,
+                p.interval === 'year' ? 'year' : 'month'
+              ),
             })),
         }),
       },

@@ -7,8 +7,6 @@ export default function robots(): MetadataRoute.Robots {
 
   const disallow = [
     '/*?*q=',
-    '/privacy-policy',
-    '/terms-of-service',
     '/settings/*',
     '/activity/*',
     '/admin/*',
