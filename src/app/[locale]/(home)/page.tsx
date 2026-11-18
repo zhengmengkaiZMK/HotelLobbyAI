@@ -79,9 +79,14 @@ export default async function HomePage({
 }) {
   const { locale } = await params;
   setRequestLocale(locale);
-  const plans = await getPricingPlans(locale);
-  const creditsPerUsd = await getCreditsPerUsdFromConfigs();
-  const videoCosts = getVideoCostTable(await getAllConfigs());
+  // Display prices can lag an admin edit by the config cache window.
+  // Checkout still calls getPricingPlans() with a fresh read.
+  const [plans, creditsPerUsd, configs] = await Promise.all([
+    getPricingPlans(locale, { fresh: false }),
+    getCreditsPerUsdFromConfigs(),
+    getAllConfigs(),
+  ]);
+  const videoCosts = getVideoCostTable(configs);
   const appUrl = envConfigs.app_url;
   const zh = locale === 'zh';
   const faqJsonLd = buildHubFaqJsonLd(zh, { videoCosts, creditsPerUsd });

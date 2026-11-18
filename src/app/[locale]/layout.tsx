@@ -38,7 +38,9 @@ const merriweather = localFont({
   weight: '300 900',
   variable: '--font-serif',
   display: 'swap',
-  preload: true,
+  // Body copy uses Inter. Serif and mono are rare (sale countdown, charts),
+  // so preloading them only adds render-blocking requests.
+  preload: false,
 });
 
 const jetbrainsMono = localFont({
@@ -46,7 +48,7 @@ const jetbrainsMono = localFont({
   weight: '100 800',
   variable: '--font-mono',
   display: 'swap',
-  preload: true,
+  preload: false,
 });
 
 export const generateMetadata = getMetadata();

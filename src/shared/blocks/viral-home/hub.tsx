@@ -92,7 +92,8 @@ function TrendCard({
           className="tv-video"
           src={item.video}
           poster={item.poster}
-          priority={priority}
+          posterPriority={priority}
+          deferPlayback
           quality="card"
           style={{
             background: `linear-gradient(165deg, ${item.colors[0]}, ${item.colors[1]})`,

@@ -63,13 +63,17 @@ function applyPlanOverrides(item: PricingItem, configs: Configs): PricingItem {
  * Always use this on the server side — including the checkout API —
  * so the charged amount always matches what the page displays.
  */
-export async function getPricingPlans(locale: string): Promise<PricingItem[]> {
+export async function getPricingPlans(
+  locale: string,
+  options?: { fresh?: boolean }
+): Promise<PricingItem[]> {
   const t = await getTranslations({ locale, namespace: 'pages.pricing' });
   const items = t.raw('page.sections.pricing.items') as PricingItem[];
   if (!Array.isArray(items)) return [];
 
-  // Fresh read so an admin price/credit edit is what checkout charges.
-  const configs = await getAllConfigs(true);
+  // Default is a fresh read so checkout charges the admin price immediately.
+  // Marketing HTML passes { fresh: false } and uses the 3-minute config cache.
+  const configs = await getAllConfigs(options?.fresh !== false);
   const promo = isBlackFridayEnabled(configs);
   return items.map((item) =>
     resolvePackPrice(applyPlanOverrides(item, configs), promo ? configs : null)

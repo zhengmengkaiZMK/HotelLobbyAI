@@ -22,6 +22,8 @@ const MOBILE_MAX_PX = 767;
 type Player = {
   id: string;
   priority: boolean;
+  /** Homepage grid: stay on the poster until the page is idle. */
+  deferred: boolean;
   near: boolean;
   visible: boolean;
   forced: boolean;
@@ -99,7 +101,7 @@ function reconcile() {
     (player) => player.el()?.isConnected
   );
   const eligible = list.filter(
-    (player) => player.near && (player.forced || !hold)
+    (player) => player.near && (player.forced || (!hold && !player.deferred))
   );
   eligible.sort((a, b) => {
     if (a.forced !== b.forced) return a.forced ? -1 : 1;
@@ -124,6 +126,35 @@ function scheduleReconcile() {
     scheduled = false;
     reconcile();
   });
+}
+
+let gridPlaybackOpen = false;
+let gridPlaybackQueued = false;
+
+function releaseDeferredPlayback() {
+  if (gridPlaybackOpen) return;
+  gridPlaybackOpen = true;
+  for (const player of players.values()) player.deferred = false;
+  reconcile();
+}
+
+/** Let the first paint finish before homepage card mp4s start. */
+function scheduleDeferredPlayback() {
+  if (gridPlaybackOpen || gridPlaybackQueued || typeof window === 'undefined') {
+    return;
+  }
+  gridPlaybackQueued = true;
+  const open = () => {
+    if (typeof window.requestIdleCallback === 'function') {
+      window.requestIdleCallback(() => releaseDeferredPlayback(), {
+        timeout: 1500,
+      });
+    } else {
+      window.setTimeout(releaseDeferredPlayback, 300);
+    }
+  };
+  if (document.readyState === 'complete') open();
+  else window.addEventListener('load', open, { once: true });
 }
 
 function ensureListeners() {
@@ -180,6 +211,10 @@ type LazyVideoProps = {
   style?: CSSProperties;
   /** Wins the first playback slot while it is actually in the viewport. */
   priority?: boolean;
+  /** Eager poster only. Does not preload the mp4 or take the playback slot. */
+  posterPriority?: boolean;
+  /** Stay on the poster until the window load + an idle callback. */
+  deferPlayback?: boolean;
   /**
    * Card grid: play the `-card.mp4` sibling and keep the poster on a lazy
    * image until the first frame is actually playing. Falls back to `src`.
@@ -222,6 +257,8 @@ const ActiveLazyVideo = forwardRef<
     className,
     style,
     priority = false,
+    posterPriority = false,
+    deferPlayback = false,
     quality = 'full',
     sound = false,
     muted: mutedProp,
@@ -257,6 +294,7 @@ const ActiveLazyVideo = forwardRef<
   const playFromGesture = (opts?: { muted?: boolean }) => {
     const player = players.get(id);
     if (player) {
+      player.deferred = false;
       player.forced = true;
       player.forcedAt = performance.now();
       player.near = true;
@@ -309,6 +347,7 @@ const ActiveLazyVideo = forwardRef<
     const player: Player = {
       id,
       priority,
+      deferred: deferPlayback && !gridPlaybackOpen,
       near: false,
       visible: false,
       forced: false,
@@ -322,6 +361,7 @@ const ActiveLazyVideo = forwardRef<
       },
     };
     players.set(id, player);
+    if (player.deferred) scheduleDeferredPlayback();
     ensureListeners();
     const el = ref.current;
     const observer = new IntersectionObserver(() => scheduleReconcile(), {
@@ -343,7 +383,7 @@ const ActiveLazyVideo = forwardRef<
       release(ref.current);
       queueMicrotask(reconcile);
     };
-  }, [id, priority]);
+  }, [id, priority, deferPlayback]);
 
   useEffect(() => {
     const el = ref.current;
@@ -453,8 +493,8 @@ const ActiveLazyVideo = forwardRef<
           alt=""
           aria-hidden="true"
           decoding="async"
-          loading={priority ? 'eager' : 'lazy'}
-          fetchPriority={priority ? 'high' : 'low'}
+          loading={priority || posterPriority ? 'eager' : 'lazy'}
+          fetchPriority={priority || posterPriority ? 'high' : 'low'}
           style={style}
         />
       ) : null}

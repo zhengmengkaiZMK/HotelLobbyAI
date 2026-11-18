@@ -1,4 +1,5 @@
 import { revalidateTag, unstable_cache } from 'next/cache';
+import { cache } from 'react';
 
 import { db } from '@/core/db';
 import { envConfigs } from '@/config';
@@ -114,7 +115,7 @@ export async function getConfigsFresh(): Promise<Configs> {
   return loadConfigsFromDb();
 }
 
-export async function getAllConfigs(fresh = false): Promise<Configs> {
+async function loadAllConfigs(fresh: boolean): Promise<Configs> {
   let dbConfigs: Configs = {};
 
   // only get configs from db in server side
@@ -145,6 +146,14 @@ export async function getAllConfigs(fresh = false): Promise<Configs> {
   };
 
   return configs;
+}
+
+// One in-flight read per request. `getAllConfigs()` and `getAllConfigs(false)`
+// share the cached snapshot; a fresh read stays separate for checkout.
+const loadAllConfigsCached = cache(loadAllConfigs);
+
+export function getAllConfigs(fresh = false): Promise<Configs> {
+  return loadAllConfigsCached(fresh === true);
 }
 
 export async function getPublicConfigs(fresh = false): Promise<Configs> {
