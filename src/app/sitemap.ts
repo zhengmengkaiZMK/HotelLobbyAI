@@ -8,6 +8,7 @@ import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
 import { BULIN_LONG_TAIL_ROUTES } from '@/shared/blocks/bulin-47/long-tails';
 import { CHARLIE_BROWN_LONG_TAIL_ROUTES } from '@/shared/blocks/charlie-brown-christmas/long-tails';
 import { DANCE_WITH_SANTA_LONG_TAIL_ROUTES } from '@/shared/blocks/dance-with-santa/long-tails';
+import { GIVE_IT_ALL_LONG_TAIL_ROUTES } from '@/shared/blocks/give-it-all/long-tails';
 import { FANCY_CAFE_LONG_TAIL_ROUTES } from '@/shared/blocks/fancy-cafe/long-tails';
 import { PIMPWALK_LONG_TAIL_ROUTES } from '@/shared/blocks/pimpwalk-entrance/long-tails';
 import { HIT_THE_ROAD_LONG_TAIL_ROUTES } from '@/shared/blocks/hit-the-road-dude/long-tails';
@@ -39,6 +40,8 @@ const staticRoutes = [
   ...CHARLIE_BROWN_LONG_TAIL_ROUTES,
   { path: '/dance-with-santa-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...DANCE_WITH_SANTA_LONG_TAIL_ROUTES,
+  { path: '/give-it-all-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  ...GIVE_IT_ALL_LONG_TAIL_ROUTES,
   { path: '/nostalgia-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/alors-on-danse-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...NOSTALGIA_LONG_TAIL_ROUTES,
@@ -120,6 +123,8 @@ export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
       for (const post of posts) {
         if (!post.url) continue;
         if (isHiddenFromBlog(post)) continue;
+        // 中文博客 noindex（用户要求），同步从 sitemap 移除，避免混合信号
+        if (locale === 'zh') continue;
         const url = localePath(locale, post.url);
         if (!url.startsWith('https://') && !url.startsWith('http://localhost')) continue;
         entries.push({

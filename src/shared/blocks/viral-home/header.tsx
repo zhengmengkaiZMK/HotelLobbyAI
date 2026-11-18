@@ -25,6 +25,7 @@ import './home.css';
 // tiny-desk, pedra, bulin, ozil, hotel) are still listed in the footer links
 // and on the homepage trending hub.
 const TRENDING_NAV_ORDER = [
+  'give-it-all-ai',
   'dance-with-santa',
   'never-let-her-pay',
   'santa-nice-list',

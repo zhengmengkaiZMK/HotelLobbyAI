@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'give-it-all-ai',
+    name: ['Give It All AI', 'Give It All AI 挂麦说唱'],
+    pitch: [
+      'One photo and you rap BigXthaPlug\'s "Give It All" verse at the hanging mic of his From The Block performance.',
+      '一张照片，你就站上 BigXthaPlug《Give It All》From The Block 演出的挂式麦克风前说唱。',
+    ],
+    href: '/give-it-all-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'classic'],
+    poster: '/templates/give-it-all-ai-the-original-poster.jpg',
+    video: '/templates/give-it-all-ai-the-original.mp4',
+    colors: ['#f59e0b', '#1c1917'],
+  },
+  {
     id: 'dance-with-santa',
     name: ['Dance with Santa', 'Dance with Santa 和圣诞老人共舞'],
     pitch: [

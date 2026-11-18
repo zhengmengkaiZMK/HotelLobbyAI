@@ -33,6 +33,10 @@ export async function generateMetadata({
   return {
     title: `${post.title} | ${t('title')}`,
     description: post.description,
+    // 中文博客文章不进索引（避免与英文原文内容重复；用户明确要求）
+    ...(locale === 'zh'
+      ? { robots: { index: false as const, follow: true as const } }
+      : {}),
     alternates: {
       canonical: canonicalUrl,
     },

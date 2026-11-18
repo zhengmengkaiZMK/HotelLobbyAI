@@ -51,6 +51,11 @@ import {
 } from '@/shared/blocks/dance-with-santa/long-tail-route';
 import { getDanceWithSantaLongTail } from '@/shared/blocks/dance-with-santa/long-tails';
 import {
+  generateLongTailMetadata as generateGiveItAllMetadata,
+  LongTailRoute as GiveItAllLongTailRoute,
+} from '@/shared/blocks/give-it-all/long-tail-route';
+import { getGiveItAllLongTail } from '@/shared/blocks/give-it-all/long-tails';
+import {
   generateLongTailMetadata as generateWassupMetadata,
   LongTailRoute as WassupLongTailRoute,
 } from '@/shared/blocks/wassup-in-a-minute/long-tail-route';
@@ -80,7 +85,7 @@ export const revalidate = 300;
 
 type Params = Promise<{ locale: string; slug: string }>;
 
-function series(slug: string): 'bicep-heart' | 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | 'pimpwalk' | 'dance-with-santa' | 'cite' | null {
+function series(slug: string): 'bicep-heart' | 'wassup' | 'hit' | 'tiny-desk' | 'nostalgia' | 'alors' | 'catrina' | 'charlie-brown' | 'fancy-cafe' | 'pimpwalk' | 'dance-with-santa' | 'give-it-all' | 'cite' | null {
   if (getBicepHeartLongTail(slug)) return 'bicep-heart';
   if (getPimpwalkLongTail(slug)) return 'pimpwalk';
   if (getFancyCafeLongTail(slug)) return 'fancy-cafe';
@@ -92,6 +97,7 @@ function series(slug: string): 'bicep-heart' | 'wassup' | 'hit' | 'tiny-desk' | 
   if (getTinyDeskLongTail(slug)) return 'tiny-desk';
   if (getNostalgiaLongTail(slug)) return 'nostalgia';
   if (getDanceWithSantaLongTail(slug)) return 'dance-with-santa';
+  if (getGiveItAllLongTail(slug)) return 'give-it-all';
   if (getCiteEntry(slug)) return 'cite';
   return null;
 }
@@ -111,6 +117,7 @@ export async function generateMetadata({ params }: { params: Params }) {
   if (kind === 'fancy-cafe') return generateFancyCafeMetadata(localeParams, slug);
   if (kind === 'pimpwalk') return generatePimpwalkMetadata(localeParams, slug);
   if (kind === 'dance-with-santa') return generateDanceWithSantaMetadata(localeParams, slug);
+  if (kind === 'give-it-all') return generateGiveItAllMetadata(localeParams, slug);
   if (kind === 'cite') return generateCiteMetadata(localeParams, slug);
   return generateLandingMetadata({
     params: Promise.resolve({ locale, slug }),
@@ -133,6 +140,7 @@ export default async function Page({ params }: { params: Params }) {
   if (kind === 'fancy-cafe') return <FancyCafeLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'pimpwalk') return <PimpwalkLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'dance-with-santa') return <DanceWithSantaLongTailRoute {...localeParams} slug={slug} />;
+  if (kind === 'give-it-all') return <GiveItAllLongTailRoute {...localeParams} slug={slug} />;
   if (kind === 'cite') return <CiteRoute {...localeParams} slug={slug} />;
   return <LandingDynamicPage params={Promise.resolve({ locale, slug })} />;
 }
