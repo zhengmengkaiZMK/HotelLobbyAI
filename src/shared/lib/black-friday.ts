@@ -95,7 +95,8 @@ export function resolvePackPrice<T extends PriceFields>(
   return item;
 }
 
-export function packOnSale(item: PriceFields) {
+export function packOnSale(item?: PriceFields | null) {
+  if (!item) return false;
   const offer = blackFridayOffer(item.product_id);
   return !!(
     offer &&
