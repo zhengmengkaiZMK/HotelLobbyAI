@@ -40,6 +40,7 @@ const staticRoutes = [
   ...CHARLIE_BROWN_LONG_TAIL_ROUTES,
   { path: '/dance-with-santa-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...DANCE_WITH_SANTA_LONG_TAIL_ROUTES,
+  { path: '/gta-5-goodbye-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/give-it-all-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...GIVE_IT_ALL_LONG_TAIL_ROUTES,
   { path: '/nostalgia-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },

@@ -35,6 +35,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'gta-5-goodbye-ai',
+    name: ['GTA 5 Goodbye AI', 'GTA 5 Goodbye AI 日落码头告别'],
+    pitch: [
+      'One photo and the three men hand you the game case and the keys on the sunset pier before GTA 6 takes over.',
+      '一张照片，三个人在日落码头上把游戏盒和车钥匙交给你——在 GTA 6 接管之前说再见。',
+    ],
+    href: '/gta-5-goodbye-ai-template',
+    badge: 'hot',
+    vibes: ['meme', 'classic'],
+    poster: '/templates/gta-goodbye-trio-keys-poster.jpg',
+    video: '/templates/gta-goodbye-trio-keys.mp4',
+    colors: ['#f59e0b', '#1c1917'],
+  },
+  {
     id: 'give-it-all-ai',
     name: ['Give It All AI', 'Give It All AI 挂麦说唱'],
     pitch: [
