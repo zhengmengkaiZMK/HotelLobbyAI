@@ -1,0 +1,5 @@
+# Same body as /llms.txt. A 200 is a proxy, not a redirect.
+# The OpenNext worker handles requests before this file, so the app route
+# is the path that actually runs in production. Kept so the asset router
+# stays pointed at the one source file.
+/.well-known/llms.txt /llms.txt 200
