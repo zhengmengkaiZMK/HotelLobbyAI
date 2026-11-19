@@ -65,7 +65,7 @@ export function GangstasParadiseHome({ creditsPerUsd = 12, videoCosts = getVideo
     [t('The friend who always grabs the aux', '总抢音响权限的朋友'), t('The friend who never sings', '从来不唱歌的朋友')],
     [t('The new manager', '新上任的主管'), t('The team lead', '团队老油条')],
     [t('The groom', '新郎'), t('The best man', '伴郎')],
-    [t('A parent', '家长'), t('Their teenager', '青春期的娃')],
+    [t('An adult friend, 18+', '成年朋友，18 岁以上'), t('Another adult, 18+', '另一位成年人，18 岁以上')],
     [t('You', '你自己'), t('Your dog (check the close-ups)', '你的狗（特写慎查）')],
   ] as const;
   return <div className="viral-home">{howToJsonLd ? <script type="application/ld+json" dangerouslySetInnerHTML={{ __html: JSON.stringify(howToJsonLd) }} /> : null}

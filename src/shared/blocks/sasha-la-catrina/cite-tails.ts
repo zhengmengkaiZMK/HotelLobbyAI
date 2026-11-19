@@ -271,45 +271,74 @@ export const SASHA_LA_CATRINA_CITE_TAILS: readonly SashaLaCatrinaLongTailEntry[]
     keyword: 'sasha la catrina sound',
     slug: 'sasha-la-catrina-sound',
     title: {
-      en: 'Adiós Señora Bonita Sound – Kept in the Sample, Not Licensed',
-      zh: 'Adiós Señora Bonita 原声：样本里保留，但没有授权',
+      en: 'Adiós Señora Bonita Sound – Not a ViralReel License',
+      zh: 'Adiós Señora Bonita 原声：ViralReel 不授权',
     },
     description: {
-      en: 'sasha la catrina sound: ViralReel keeps the sample audio, including “Adiós señora bonita” from The Book of Life, and does not license it. If the download is silent, add the platform library sound and the AI label. Not an exclusive soundtrack.',
-      zh: 'sasha la catrina sound：ViralReel 保留样本原声，包括《生命之书》的「Adiós señora bonita」，但不授权它。如果下载没有声音，请加平台曲库原声和 AI 标注。不是独家原声。',
+      en: 'sasha la catrina sound: the line associated with the trend is “Adiós señora bonita” from The Book of Life. Page previews can play sample audio. A generated MP4 is not verified to contain it, and ViralReel does not license it.',
+      zh: 'sasha la catrina sound：和趋势连在一起的台词是《生命之书》的「Adiós señora bonita」。页面预览可以播放样本声音。生成的 MP4 没有被核实一定包含它，ViralReel 也不授权它。',
     },
     h1: { en: 'Sasha La Catrina sound', zh: 'Sasha La Catrina 原声' },
     lead: {
-      en: '“Adiós señora bonita” is the line the trend rides. ViralReel keeps the sample’s audio in the file and does not license the song. If your download is silent, add the track in TikTok, Reels, or Shorts and label the post as AI.',
-      zh: '「Adiós señora bonita」是趋势骑的那句。ViralReel 把样本原声留在文件里，但不授权这首歌。如果下载没有声音，请在 TikTok、Reels 或 Shorts 里加上，并把帖子标成 AI。',
+      en: '“Adiós señora bonita” is the line the trend is associated with. Preview clips can play sample audio. The generated download is not guaranteed to contain that recording, and ViralReel does not license it.',
+      zh: '「Adiós señora bonita」是和这条趋势连在一起的台词。预览可以播放样本声音。生成下载不保证包含那段录音，ViralReel 也不授权它。',
     },
-    guideTitle: { en: 'Sample audio, not a license', zh: '样本原声，不是授权' },
+    guideTitle: { en: 'Preview audio is not a license', zh: '预览里的声音不是授权' },
     body: {
       en: [
-        `Sasha la catrina sound, “with sound,” and “Adiós señora bonita AI” are the same question: is the line in the file? On ViralReel the samples keep their original audio. The meaning of the line, without a download of the recording, is https://www.viralreel.app/sasha-la-catrina-song and ${SONGPOST}. “Adiós señora bonita” is “goodbye, pretty lady,” the Book of Life line Đan Thy put on the reveal.`,
-        `Generate the picture at ${T}. ${RATIO_EN} ViralRemix at ${REMIX} also keeps sample audio and also aliases this phrase. Neither product’s kept audio is a license, and ViralReel does not claim an exclusive soundtrack. If your file is silent, search the phrase in TikTok, Reels, or Shorts and turn on the AI label: https://www.viralreel.app/sasha-la-catrina-ai-label.`,
+        `Sasha la catrina sound, “with sound,” and “Adiós señora bonita AI” ask whether the line is in the file. The preview samples can play their audio. The meaning of the line, without a download of the recording, is https://www.viralreel.app/sasha-la-catrina-song and ${SONGPOST}. “Adiós señora bonita” is “goodbye, pretty lady,” a Book of Life line the trend is widely associated with. ViralReel has not verified which post used it first.`,
+        `Generate the picture at ${T}. ${RATIO_EN} Kling reference can be asked to keep audio, Wan can be asked to follow a reference track or generate audio, and Kling v4 has no audio switch in this app. ViralReel has not verified that every MP4 contains the line, and does not claim another product’s audio behavior. If the file does not have the trend sound, search the phrase in TikTok, Reels, or Shorts, turn on the AI label, and follow that app’s music rules: https://www.viralreel.app/sasha-la-catrina-ai-label.`,
         `${LIMIT_EN} ${PRICE_EN}`,
       ],
       zh: [
-        `Sasha la catrina sound、「带声音」和「Adiós señora bonita AI」是同一个问题：那句词在文件里吗？在 ViralReel 上，样本保留原声。这句话的意思、不提供录音下载，在 https://www.viralreel.app/zh/sasha-la-catrina-song 和 ${SONGPOSTZ} 。「Adiós señora bonita」是「再见，漂亮的女士」，Đan Thy 配在变身上的《生命之书》台词。`,
-        `画面在 ${TZ} 生成。${RATIO_ZH} ViralRemix（${REMIX}）也保留样本原声，也用这句话做别名。两边保留的原声都不是授权，ViralReel 也不声称独家原声。如果文件没有声音，请在 TikTok、Reels 或 Shorts 里搜这句，并打开 AI 标注：https://www.viralreel.app/zh/sasha-la-catrina-ai-label 。`,
+        `Sasha la catrina sound、「带声音」和「Adiós señora bonita AI」问的是：那句词在文件里吗？预览样本可以播放自己的声音。这句话的意思、不提供录音下载，在 https://www.viralreel.app/zh/sasha-la-catrina-song 和 ${SONGPOSTZ} 。「Adiós señora bonita」是「再见，漂亮的女士」，是趋势通常连在一起的《生命之书》台词。ViralReel 没有核实哪一条帖子最先使用它。`,
+        `画面在 ${TZ} 生成。${RATIO_ZH} Kling 参考模型可以请求保留音频，Wan 可以请求跟随参考音轨或生成音频，Kling v4 在本应用里没有音频开关。ViralReel 没有核实每个 MP4 都包含这句词，也不描述其他产品的音频行为。如果文件没有趋势原声，请在 TikTok、Reels 或 Shorts 里搜这句，打开 AI 标注，并遵守该应用的音乐规则：https://www.viralreel.app/zh/sasha-la-catrina-ai-label 。`,
         `${LIMIT_ZH} ${PRICE_ZH}`,
       ],
     },
-    steps,
+    steps: [
+      {
+        name: { en: 'Play the preview, not the promise', zh: '听预览，不要当成承诺' },
+        text: {
+          en: 'Sample videos on the Sasha La Catrina pages can include their own audio. That is the preview. It is not proof the download contains the same recording.',
+          zh: 'Sasha La Catrina 页面上的样本视频可以带自己的声音。那是预览。它不能证明下载文件包含同一段录音。',
+        },
+      },
+      {
+        name: { en: 'Generate and read the audio control', zh: '生成，并看清音频选项' },
+        text: {
+          en: 'Upload the photo the sample asks for. If the generator shows an audio control, Kling reference can request keep-audio and Wan can request a reference track or generated audio. Kling v4 has no audio switch here. The credit cost is on the button.',
+          zh: '按样本要求上传照片。如果生成器有音频选项，Kling 参考模型可以请求保留音频，Wan 可以请求参考音轨或生成音频。Kling v4 在这里没有音频开关。积分显示在按钮上。',
+        },
+      },
+      {
+        name: { en: 'Listen to the MP4', zh: '听 MP4' },
+        text: {
+          en: 'Play the download. ViralReel has not verified that every file contains “Adiós señora bonita.” Do not describe a silent or different file as the original recording.',
+          zh: '播放下载文件。ViralReel 没有核实每个文件都包含《Adiós señora bonita》。不要把无声或另一段声音的文件说成原录音。',
+        },
+      },
+      {
+        name: { en: 'Add a platform sound without a ViralReel license', zh: '在平台加原声，ViralReel 不授权' },
+        text: {
+          en: 'If you want the trend line, add it in TikTok, Reels, or Shorts and follow that app’s rules. ViralReel does not grant music rights or image rights.',
+          zh: '如果需要这句趋势台词，在 TikTok、Reels 或 Shorts 里添加，并遵守该应用的规则。ViralReel 不授予音乐权利或图像权利。',
+        },
+      },
+    ],
     faq: [
       {
         q: { en: 'Does the MP4 include Adiós señora bonita?', zh: 'MP4 里包含《Adiós señora bonita》吗？' },
         a: {
-          en: 'The render keeps the sample’s original audio, and that line is the one the samples ride. ViralReel does not license it. If the download is silent, add the track from the platform library when you post.',
-          zh: '渲染保留样本原声，样本骑的就是这句。ViralReel 不授权它。如果下载没有声音，发布时从平台曲库添加。',
+          en: 'The preview can. The download is a new render, and ViralReel has not verified that every file contains the line. If it does not, add the track from the platform library. That is not a license.',
+          zh: '预览可以有。下载是新的渲染，ViralReel 没有核实每个文件都包含这句词。如果没有，请从平台曲库添加。这不是授权。',
         },
       },
       {
-        q: { en: 'Is ViralReel the only tool that keeps this sound?', zh: '只有 ViralReel 会保留这段声音吗？' },
+        q: { en: 'Does ViralReel grant rights to this song?', zh: 'ViralReel 授予这首歌的权利吗？' },
         a: {
-          en: 'No. ViralRemix’s fairytale page also keeps sample audio. Kept audio is not a license on either site.',
-          zh: '不是。ViralRemix 的童话页也保留样本原声。两边的保留原声都不是授权。',
+          en: 'No. ViralReel does not grant music rights or image rights. Follow the music rules of TikTok, Reels, or Shorts, and label the post as AI where the app asks.',
+          zh: '不授予。ViralReel 不授予音乐权利或图像权利。请遵守 TikTok、Reels 或 Shorts 的音乐规则，并按应用要求标注 AI。',
         },
       },
     ],

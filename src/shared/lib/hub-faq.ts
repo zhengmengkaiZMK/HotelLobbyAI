@@ -73,22 +73,22 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
         zh: 'ViralReel 的重拍和提示词工具有什么不同？',
       },
       a: {
-        en: 'A prompt tool such as Kling or a general studio such as Higgsfield asks you to describe the shot, so the model invents a new clip. ViralReel starts from a fixed template — the set, the motion, and the framing — and places your photos into that format. Lip-sync and gestures are part of the template. You do not prompt-engineer the trend.',
-        zh: '可灵这类提示词工具，或 Higgsfield 这类通用工作室，需要你描述镜头，模型会另做一条新片子。ViralReel 从固定模板开始——布景、动作和构图都定好了——再把你的照片放进这个格式。口型同步和手势是模板的一部分。你不用为这条趋势写提示词。',
+        en: 'A prompt tool such as Kling or a general studio such as Higgsfield asks you to describe the shot, so the model invents a new clip. ViralReel starts from a fixed template — the set, the motion, and the framing — and places your photos into that format. Some templates are built around lip-sync or gestures. That is not true of every model. You do not prompt-engineer the trend.',
+        zh: '可灵这类提示词工具，或 Higgsfield 这类通用工作室，需要你描述镜头，模型会另做一条新片子。ViralReel 从固定模板开始——布景、动作和构图都定好了——再把你的照片放进这个格式。有的模板带口型或手势，不是每个模型都有。你不用为这条趋势写提示词。',
       },
     },
     {
       q: { en: 'How many photos do I need?', zh: '需要几张照片？' },
       a: {
-        en: 'It depends on the template. A duo such as Hotel Lobby or Cat Clapping uses two photos, one subject each. A single-subject template such as Burning Bridges, Bulin 47, Ozil Goal, Hit the Road Dude, Pedra do Sal, or Bby Wow uses one. Each template page tells you what to upload before you generate.',
-        zh: '看模板。Hotel Lobby 或 Cat Clapping 这种双人格式用两张照片，每张一个主体。Burning Bridges、Bulin 47、Ozil Goal、Hit the Road Dude、Pedra do Sal 或 Bby Wow 这种单人模板用一张。每个模板页会在生成前写明要上传什么。',
+        en: 'It depends on the template. A duo such as Hotel Lobby or Cat Clapping uses two photos, one subject each. A single-subject template such as Burning Bridges, Bulin 47, Ozil Goal, Hit the Road Dude, Pedra do Sal, or Bby Wow uses one. Wassup in a Minute takes one to four. Each template page tells you what to upload before you generate.',
+        zh: '看模板。Hotel Lobby 或 Cat Clapping 这种双人格式用两张照片，每张一个主体。Burning Bridges、Bulin 47、Ozil Goal、Hit the Road Dude、Pedra do Sal 或 Bby Wow 这种单人模板用一张。Wassup in a Minute 要一到四张。每个模板页会在生成前写明要上传什么。',
       },
     },
     {
       q: { en: 'What kind of photo works?', zh: '什么样的照片效果好？' },
       a: {
-        en: 'Use a clear, front-facing photo of one subject, with the face large enough to see and ordinary indoor light. A group shot, a profile, or two faces in one photo is the usual reason a face blends or drifts. The template page says whether it needs one photo or two, and which photo goes in which slot.',
-        zh: '用一张清晰的正面照，只放一个主体，脸要看得清，普通室内光即可。合照、侧脸，或一张照片里两张脸，是脸融在一起或走形的常见原因。模板页会写明要一张还是两张，以及哪张放在哪个位置。',
+        en: 'Use a clear, front-facing photo of one subject, with the face large enough to see and ordinary indoor light. A group shot, a profile, or two faces in one photo is the usual reason a face blends or drifts. The template page says how many photos to upload, and which photo goes in which slot.',
+        zh: '用一张清晰的正面照，只放一个主体，脸要看得清，普通室内光即可。合照、侧脸，或一张照片里两张脸，是脸融在一起或走形的常见原因。模板页会写明要传几张，以及哪张放在哪个位置。',
       },
     },
     {
@@ -155,8 +155,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
         zh: '一条视频要渲染多久？',
       },
       a: {
-        en: 'Most templates finish in about a minute. Length choices differ by template: many go up to 15 seconds, and some short clips are 4 or 6 seconds. The template page shows the options before you start.',
-        zh: '大多数模板大约一分钟完成。时长因模板而异：不少最长 15 秒，有的短片只有 4 秒或 6 秒。模板页会在开始前显示可选时长。',
+        en: 'Render time varies by template and model. The generator shows progress while you wait. That wait is not the clip length, and it is not a promise that every job finishes in 60 seconds. The template page shows the length options before you start.',
+        zh: '渲染时间因模板和模型而异。生成器会在等待时显示进度。这段等待不是片长，也不是承诺每次都在 60 秒内完成。模板页会在开始前显示可选时长。',
       },
     },
     {

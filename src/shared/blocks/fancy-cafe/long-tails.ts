@@ -138,12 +138,12 @@ export const FANCY_CAFE_LONG_TAILS: readonly LongTailEntry[] = [
       en: [
         'The video everyone is making has a fixed five-beat structure: the bare concrete cafe, the man perched on the tiny steel table, the woman in the black suit walking in and placing her cup on his table, the sideways look, the quiet climb-down. An AI video generator recreates that scene with your faces in it — ViralReel does it from two photos in the browser, and the render typically takes a few minutes.',
         `${EN_TEMPLATE} is the page. ${PHOTOS_EN} Pick the cast that matches the post you want: the Original Table Sitter, the Cream Suit (the 4.7M-play version), the Korean Couple (2.9M), the Spanish POV, the Green Trousers, or the Dog on the Table.`,
-        'You get a 15-second 9:16 MP4 with no watermark on paid exports. If the climb-down looks tangled, run the same photos again — the second take usually fixes the legs. Failed jobs are refunded automatically as credits.',
+        'You get a 15-second 9:16 MP4 with no watermark on paid exports. If the climb-down looks tangled, check that each photo is full-body, the legs are not cropped or hidden, and the pose is relaxed. Another render can look different, but it is not a guarantee that the legs come out right. Failed jobs are refunded automatically as credits.',
       ],
       zh: [
         '所有人都在做的这条视频有固定的五拍结构：空旷的水泥咖啡馆、坐在小钢桌上的男人、黑西装女人走进来把咖啡放在他桌上、那个眼神、默默爬下来。AI 视频生成器用你的脸重建这个场景——ViralReel 在浏览器里用两张照片完成，渲染通常几分钟。',
         `页面在 ${ZH_TEMPLATE} 。${PHOTOS_ZH} 选一条和你想发的帖子最接近的阵容：原版坐桌、奶油西装（470 万播放那条）、韩国情侣（290 万）、西语 POV、绿裤、狗狗坐桌。`,
-        '你会得到一条 15 秒 9:16 的 MP4，付费导出无水印。如果爬下来的动作乱了，用同样的照片再跑一次——第二遍通常就好了。失败的任务自动退积分。',
+        '你会得到一条 15 秒 9:16 的 MP4，付费导出无水印。如果爬下来的动作乱了，先检查每张照片是不是全身、腿有没有被裁掉或挡住、姿势是否放松。再生成一次结果可能不同，但不能保证腿就对了。失败的任务自动退积分。',
       ],
     },
     steps: makeVideoSteps,

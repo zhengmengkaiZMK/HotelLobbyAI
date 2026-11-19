@@ -212,12 +212,12 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       en: [
         'The look is older than the sound\'s fame. For years, fans of the football anime Blue Lock have drawn its players as Atlanta rappers — puffer jackets, gold chains, baggy jeans, a fanned stack of cash. The fan nickname for that style is Atlanta Lock.',
         'The sound is a jersey-club remix built on "From Time", the 2013 Drake song with Jhené Aiko. Its line "wassup, been a minute" is what most people hear as "wassup in a minute", which is why the trend is spelled so many ways: wassup been a minute, wassup wait a minute, wasala in a minute.',
-        'On 22 October 2026 the US animator @ristyisvalid posted several of those streetwear drawings swaying side to side on a white background; the follow-up post captioned "Wassup in a minute" passed a million views within days and gave the trend its name. Through 24–25 October fans redrew the edit with characters from other anime and AI "upload one photo" tutorials spread, which is the version ViralReel automates: you become the swaying character instead of a show character.',
+        'Late October 2026 posts associated with the US animator @ristyisvalid show streetwear drawings swaying on a white background, including a follow-up captioned "Wassup in a minute." ViralReel has not verified a view count, or that those posts were the first. Later redraws and upload-a-photo tutorials spread the idea of putting a person in the outfit. That is the version this template automates.',
       ],
       zh: [
         '画风的走红早于声音。几年来，《Blue Lock》足球动漫的粉丝一直把角色画成亚特兰大说唱歌手——羽绒服、金链子、阔腿裤、挥开的一沓现金。粉丝给这种画风的昵称是 Atlanta Lock。',
         '声音是一段 jersey club 混音，取自 Drake 与 Jhené Aiko 2013 年的《From Time》。歌词「wassup, been a minute」被大多数人听成「wassup in a minute」，所以这条趋势的写法五花八门：wassup been a minute、wassup wait a minute、wasala in a minute。',
-        '2026 年 10 月 22 日，美国动画师 @ristyisvalid 发布了几张街服角色在白底上左右摇摆的动画；次日标注「Wassup in a minute」的后续帖几天内破百万播放，趋势由此得名。10 月 24-25 日起，粉丝用其他动漫角色重绘这条剪辑，AI「上传一张照片」的教程也开始扩散——这正是 ViralReel 自动化的版本：成为摇摆角色的不是动漫人物，而是你。',
+        '2026 年 10 月下旬，与美国动画师 @ristyisvalid 相关的帖子里有白底街服角色左右摇摆的动画，其中一条后续帖的文案是「Wassup in a minute」。ViralReel 没有核实播放量，也没有核实这些帖子是不是最早的。后来的重绘和「上传一张照片」教程把「把人放进这身造型」传开了。这正是本模板自动化的版本。',
       ],
     },
     steps: makeVideoSteps,
