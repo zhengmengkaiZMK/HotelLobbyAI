@@ -153,6 +153,13 @@ export default async function LocaleLayout({
 
         {customerServiceMetaTags}
         {customerServiceHeadScripts}
+
+        <script
+          defer
+          src="https://www.pvuv.ai/f.js"
+          data-site="oXfydZcN"
+          data-api="https://in.pvuv.ai"
+        />
       </head>
       <body suppressHydrationWarning className="overflow-x-hidden">
         <NextTopLoader
