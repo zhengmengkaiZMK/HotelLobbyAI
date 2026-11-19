@@ -121,13 +121,13 @@ export const SASHA_LA_CATRINA_INTENT_TAILS: readonly SashaLaCatrinaLongTailEntry
       zh: 'Sasha La Catrina 的原声——《Adiós Señora Bonita》与《生命之书》 | ViralReel',
     },
     description: {
-      en: 'The sound behind the Sasha La Catrina trend: "Adiós señora bonita" from The Book of Life, the "adios SHASHA" video that put it on the reveal, and how to add it when you post.',
-      zh: 'Sasha La Catrina 趋势的原声：《生命之书》的《Adiós señora bonita》、把这句词配上变身的「adios SHASHA」视频，以及发布时怎么加。',
+      en: 'The line associated with the Sasha La Catrina trend: "Adiós señora bonita" from The Book of Life. Preview clips can include sample audio. A generated download is not a verified copy of that recording, and ViralReel does not license it.',
+      zh: '和 Sasha La Catrina 趋势连在一起的台词：《生命之书》的《Adiós señora bonita》。页面预览可以有样本声音。生成下载不能被当成已核实的原声拷贝，ViralReel 也不授权它。',
     },
     h1: { en: 'Sasha La Catrina song', zh: 'Sasha La Catrina 的原声' },
     lead: {
-      en: 'One line of Spanish, one animated film, and 70 million plays — the sound is half the meme.',
-      zh: '一句西语、一部动画、七千万播放——声音是这个梗的另一半。',
+      en: 'One line of Spanish from The Book of Life. The trend is widely associated with that line. ViralReel does not license it, and a generated download is not guaranteed to contain it.',
+      zh: '一句出自《生命之书》的西语。这条趋势通常和这句词连在一起。ViralReel 不授权它，生成下载也不保证一定包含它。',
     },
     guideTitle: {
       en: 'The sound, the line, and the film',
@@ -136,29 +136,58 @@ export const SASHA_LA_CATRINA_INTENT_TAILS: readonly SashaLaCatrinaLongTailEntry
     body: {
       en: [
         'The trend rides "Adiós señora bonita" ("goodbye, pretty lady"), the line associated with La Catrina\'s farewell scene in the 2014 animated film The Book of Life — the same film that gave the trend its whole fairytale look: the glowing gown, the flowered hat, the candle-lit land of the remembered. In the trend\'s captions the line runs "adiós Sasha, adiós señora bonita", which is where her nickname comes from.',
-        'The sound and the reveal fused on 25 October 2026, when Đan Thy\'s second video — captioned "adios SHASHA" — put the line on her flower-toss reveal and passed 31M plays. Every copy since keeps the sound on, which is why the sample clips on ViralReel render with their original audio.',
-        `If your download comes back silent, add the track from the TikTok sound library when you post — that is also how the algorithm files your clip under #fairytalecatrina. ViralReel does not license the song. Make the video at ${EN_TEMPLATE}.`,
+        'Posts from late October 2026 are widely associated with putting "Adiós señora bonita" on a flower-toss reveal, including a caption along the lines of "adios SHASHA." ViralReel has not verified a play count or that any one post was first. The preview clips on this site can play the sample audio. The downloaded MP4 is a new render: Kling reference can be asked to keep audio, Wan can be asked to follow a reference track or generate audio, and Kling v4 has no audio switch in this app. That request is not proof the file contains the line.',
+        `If the download does not contain the trend sound, add it from the TikTok, Reels, or Shorts library when you post, and follow that app’s music rules. ViralReel does not license the song and does not grant music rights. Make the video at ${EN_TEMPLATE}.`,
       ],
       zh: [
         '趋势骑的是《Adiós señora bonita》（「再见，美丽的女士」）——2014 年动画电影《生命之书》里与 La Catrina 告别场景相连的台词，也是给这条趋势提供整个童话造型的同一部电影：发光的裙装、花冠、烛光中的回忆之地。趋势文案里这句词写作「adiós Sasha, adiós señora bonita」——她的昵称就从这来。',
-        '声音和变身在 2026 年 10 月 25 日合体：Đan Thy 的第二条视频——文案「adios SHASHA」——把这句词配进撒花变身，破 3100 万播放。之后的二创全都保留原声，这也是 ViralReel 的样本片段带着原声渲染的原因。',
-        `如果下载的成片没声音，发布时从 TikTok 曲库添加——这也是算法把你的视频归进 #fairytalecatrina 的方式。ViralReel 不授权这首歌。制作页： ${ZH_TEMPLATE} 。`,
+        '2026 年 10 月下旬的帖子，通常被说成把《Adiós señora bonita》配上撒花变身，文案里有类似「adios SHASHA」的写法。ViralReel 没有核实播放量，也没有核实哪一条是最早的。本站预览可以播放样本声音。下载的 MP4 是新的渲染：Kling 参考模型可以请求保留音频，Wan 可以请求跟随参考音轨或生成音频，Kling v4 在本应用里没有音频开关。发出请求不等于文件里一定有这句词。',
+        `如果下载没有趋势原声，发布时从 TikTok、Reels 或 Shorts 曲库添加，并遵守该应用的音乐规则。ViralReel 不授权这首歌，也不授予音乐权利。制作页： ${ZH_TEMPLATE} 。`,
       ],
     },
-    steps: makeVideoSteps,
+    steps: [
+      {
+        name: { en: 'Hear the line on the preview', zh: '在预览里听这句词' },
+        text: {
+          en: 'The sample videos on the Sasha La Catrina pages can play their own audio, including the line associated with The Book of Life. That preview is not the file you download.',
+          zh: 'Sasha La Catrina 页面上的样本视频可以播放自己的声音，包括和《生命之书》连在一起的那句。这段预览不是你下载的文件。',
+        },
+      },
+      {
+        name: { en: 'Generate without assuming the soundtrack', zh: '生成时不要默认成片带原声' },
+        text: {
+          en: 'Open the template, upload the photo the sample asks for, and read the credit cost. Kling reference can be asked to keep audio, Wan can be asked to follow a reference track or generate audio, and Kling v4 has no audio switch here. None of those requests has been verified to put “Adiós señora bonita” in every MP4.',
+          zh: '打开模板，按样本要求上传照片，并看清积分。Kling 参考模型可以请求保留音频，Wan 可以请求跟随参考音轨或生成音频，Kling v4 在这里没有音频开关。这些请求都没有被核实为每个 MP4 都包含《Adiós señora bonita》。',
+        },
+      },
+      {
+        name: { en: 'Check the download', zh: '检查下载文件' },
+        text: {
+          en: 'Play the MP4. If the trend line is not in it, do not describe the file as containing the original recording.',
+          zh: '播放 MP4。如果里面没有这句趋势台词，就不要把文件说成包含原录音。',
+        },
+      },
+      {
+        name: { en: 'Add the platform sound if you need it', zh: '需要的话在平台里加原声' },
+        text: {
+          en: 'Add the line from the TikTok, Reels, or Shorts library when you post, turn on the AI label where the app asks, and follow that app’s music rules. ViralReel does not license the song and does not grant music or image rights.',
+          zh: '发布时从 TikTok、Reels 或 Shorts 曲库添加这句词，按应用要求打开 AI 标注，并遵守该应用的音乐规则。ViralReel 不授权这首歌，也不授予音乐或图像权利。',
+        },
+      },
+    ],
     faq: [
       {
         q: { en: 'What song is in the Catrina AI videos?', zh: 'Catrina AI 视频里的是什么歌？' },
         a: {
-          en: 'The line "Adiós señora bonita" from The Book of Life (El libro de la vida, 2014). The trend also calls it the "adios Sasha" sound, after Đan Thy\'s second video.',
-          zh: '《生命之书》（El libro de la vida，2014）里的台词《Adiós señora bonita》。因为 Đan Thy 的第二条视频，大家也叫它「adios Sasha」原声。',
+          en: 'The line "Adiós señora bonita" from The Book of Life (El libro de la vida, 2014). Captions also call it the "adios Sasha" sound. ViralReel has not verified which post used that caption first.',
+          zh: '《生命之书》（El libro de la vida，2014）里的台词《Adiós señora bonita》。文案里也有人叫它「adios Sasha」原声。ViralReel 没有核实哪一条帖子最先用了这个文案。',
         },
       },
       {
         q: { en: 'Is the sound in my download?', zh: '下载的成片里有声音吗？' },
         a: {
-          en: 'The render keeps the sample\'s original audio. If your file is silent, add "Adiós señora bonita" from the TikTok sound library when posting.',
-          zh: '渲染保留样本原声。如果文件没声音，发布时从 TikTok 曲库添加《Adiós señora bonita》。',
+          en: 'The preview can play the sample audio. The download is a new render, and ViralReel has not verified that every file contains the line. If it does not, add "Adiós señora bonita" from the platform library. That is not a license.',
+          zh: '预览可以播放样本声音。下载是新的渲染，ViralReel 没有核实每个文件都包含这句词。如果没有，请从平台曲库添加《Adiós señora bonita》。这不是授权。',
         },
       },
     ],

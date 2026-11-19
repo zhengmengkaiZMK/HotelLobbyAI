@@ -21,14 +21,14 @@ const META = {
     title:
       'ViralReel – AI Viral Video Templates | Make Trend Videos from Photos',
     description:
-      'Pick a trending template, upload your photos, and export a 9:16 video in about a minute — auto lip-sync and gestures included. No prompts. No editing apps.',
+      'Pick a trending template and upload the photos it asks for. Ratio, length, and render time vary by template and model. No prompts. No editing apps.',
     keywords:
       'viralreel, ai viral video templates, ai video from photos, trending ai video template, make trend videos',
   },
   zh: {
     title: 'ViralReel – AI 爆火视频模板 | 用照片做趋势视频',
     description:
-      '选一个正在流行的模板，上传照片，大约一分钟导出 9:16 竖屏视频——自动口型同步和手势都包含在内。不用写提示词，也不用剪辑软件。',
+      '选一个正在流行的模板，按该模板上传照片。画幅、片长和渲染时间因模板和模型而异。不用写提示词，也不用剪辑软件。',
     keywords: 'viralreel, ai 视频模板, 爆火视频模板, 照片生成视频, 趋势视频',
   },
 } as const;
@@ -124,7 +124,7 @@ export default async function HomePage({
         url: appUrl,
         publisher: { '@id': `${appUrl}/#organization` },
         description:
-          'Make viral AI videos from your photos. Pick a trending template, upload photos, and export a 9:16 video in about a minute.',
+          'Make viral AI videos from your photos. Pick a trending template and upload the photos it asks for. Ratio and render time vary by template and model.',
         inLanguage: locale,
       },
       {
@@ -136,12 +136,12 @@ export default async function HomePage({
         operatingSystem: 'Web',
         brand: { '@id': `${appUrl}/#organization` },
         description:
-          'Template-first AI video generator. Pick a trending template, upload photos, and export a 9:16 video with auto lip-sync and gestures. No prompts.',
+          'Template-first AI video generator. Pick a trending template and upload the photos it asks for. Ratio, length, and render time vary by template and model. No prompts.',
         featureList: [
           'Trending AI video templates',
           'Photo to video, no prompt required',
-          'Auto lip-sync and gestures',
-          '9:16 export for TikTok, Reels, and Shorts',
+          'Photo count, ratio, and render time vary by template and model',
+          '9:16 is available; some templates open on another ratio',
           'Credit cost shown before you generate',
         ],
         image: buildProductImageUrls(appUrl),

@@ -380,10 +380,10 @@ export function ViralHub({
     ],
     [
       Video,
-      t('9:16, ready to post', '9:16，可以直接发'),
+      t('Ratio depends on the template', '画幅看模板'),
       t(
-        'Export a vertical video for TikTok, Reels, and Shorts, then add the trend sound in the app.',
-        '导出竖屏视频，发给 TikTok、Reels 和 Shorts，再在 App 里加上热梗原声。'
+        'Many templates open on 9:16 for TikTok, Reels, and Shorts. Some open on 16:9 or 4:3. The generator shows the ratio before you render.',
+        '不少模板默认 9:16，对应 TikTok、Reels 和 Shorts。有的默认 16:9 或 4:3。生成器会在渲染前显示画幅。'
       ),
     ],
     [
@@ -406,15 +406,15 @@ export function ViralHub({
     [
       t('Upload your photos', '上传照片'),
       t(
-        'One clear photo per subject. The template page says whether it needs one or two.',
-        '每个主体一张清晰照片。模板页会说明要一张还是两张。'
+        'One clear photo per subject. The count varies: some templates need one, some two, and some take up to four. The template page says how many.',
+        '每个主体一张清晰照片。张数不一定：有的要一张，有的要两张，有的最多四张。模板页会写明。'
       ),
     ],
     [
-      t('Generate in about a minute', '大约一分钟生成'),
+      t('Generate', '生成'),
       t(
-        'Lip-sync and gestures are part of the template. Most renders finish in about 60 seconds.',
-        '口型同步和手势包含在模板里。大多数渲染大约 60 秒完成。'
+        'Render time depends on the template and the model. The generator shows progress. It does not promise a 60-second finish, and not every template includes lip-sync.',
+        '渲染时间取决于模板和模型。生成器会显示进度。这里不承诺 60 秒出片，也不是每个模板都有口型同步。'
       ),
     ],
     [
@@ -445,8 +445,8 @@ export function ViralHub({
             </h1>
             <p className="lead">
               {t(
-                'Pick a trending template, upload your photos, and export a 9:16 video in about a minute — auto lip-sync and gestures included. No prompts. No editing apps.',
-                '选一个正在流行的模板，上传照片，大约一分钟导出 9:16 竖屏视频——自动口型同步和手势都包含在内。不用写提示词，也不用剪辑软件。'
+                'Pick a trending template and upload the photos it asks for. Ratio, length, and render time vary by template and model. No prompts. No editing apps.',
+                '选一个正在流行的模板，按该模板上传照片。画幅、片长和渲染时间因模板和模型而异。不用写提示词，也不用剪辑软件。'
               )}
             </p>
             <div className="hero-cta">

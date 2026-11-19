@@ -425,8 +425,8 @@ export const FANCY_CAFE_CITE_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'What if the legs look wrong?', zh: '腿看起来不对怎么办？' },
         a: {
-          en: 'Use a full-body, relaxed photo and run it again. The second take usually fixes a tangled climb-down. Failed jobs return the credits.',
-          zh: '用全身、放松的照片再跑一次。第二遍通常能修好缠在一起的爬下动作。失败的任务会退积分。',
+          en: 'Check that the photo is full-body, the legs are not cropped or hidden, and the pose is relaxed. Another render can look different, but it is not a guarantee that the legs come out right. Failed jobs return the credits.',
+          zh: '先检查照片是不是全身、腿有没有被裁掉或挡住，姿势是否放松。再生成一次结果可能不同，但不能保证腿就对了。失败的任务会退积分。',
         },
       },
     ]
