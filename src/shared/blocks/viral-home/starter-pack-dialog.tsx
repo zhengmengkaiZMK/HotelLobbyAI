@@ -44,11 +44,15 @@ export function StarterPackDialog({
   onOpenChange,
   costCredits,
   balance,
+  subject = 'video',
+  subjectZh = '视频',
 }: {
   open: boolean;
   onOpenChange: (open: boolean) => void;
   costCredits: number;
   balance: number;
+  subject?: string;
+  subjectZh?: string;
 }) {
   const locale = useLocale();
   const zh = locale.startsWith('zh');
@@ -133,10 +137,15 @@ export function StarterPackDialog({
   }
 
   const title = t('Not enough credits', '积分不足');
-  const description = t(
-    `This video needs ${costCredits} credits. Your balance is ${balance}. Pick a credit pack — you will return to this page after checkout.`,
-    `本次生成需要 ${costCredits} 积分，当前余额 ${balance}。选择一个积分包，支付后会回到本页继续。`
-  );
+  const description = subject === 'video'
+    ? t(
+        `This video needs ${costCredits} credits. Your balance is ${balance}. Pick a credit pack — you will return to this page after checkout.`,
+        `本次生成需要 ${costCredits} 积分，当前余额 ${balance}。选择一个积分包，支付后会回到本页继续。`
+      )
+    : t(
+        `This ${subject} needs ${costCredits} credits. Your balance is ${balance}. Pick a one-time credit pack — you will return to this page after checkout.`,
+        `本次${subjectZh}需要 ${costCredits} 积分，当前余额 ${balance}。选择一个一次性积分包，支付后会回到本页继续。`
+      );
   const choices = (
     <PackChoices
       packs={packs}

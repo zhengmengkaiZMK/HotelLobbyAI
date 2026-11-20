@@ -1,5 +1,6 @@
 import { getTranslations } from 'next-intl/server';
 
+import { proposedStyleConfigText } from '@/shared/lib/image-tool';
 import { Tab } from '@/shared/types/blocks/common';
 
 export interface Setting {
@@ -1315,7 +1316,26 @@ export async function getSettings() {
       type: 'textarea',
       attributes: { rows: 5 },
       placeholder: 'gpt-image-2 | GPT Image | text-to-image,image-to-image',
-      tip: '每行：模型ID | 显示名称 | 生成方式。第三列可省略，默认文生图和图生图；留空不启用绘画。需兼容 OpenAI 图片接口。Base64 结果需要先配置 Storage 存储。',
+      tip: '每行：模型ID | 显示名称 | 生成方式。第三列可省略，默认文生图和图生图；留空不启用绘画。需兼容 OpenAI 图片接口。Base64 结果需要先配置 Storage 存储。GTA 图片工具只使用这里的绘画地址、密钥和模型，不会改用其他供应商。',
+      group: 'media_relay',
+      tab: 'ai_providers',
+    },
+    {
+      name: 'gta_image_model',
+      title: 'GTA 图片模型 ID / GTA Image Model ID',
+      type: 'text',
+      placeholder: 'gpt-image-2',
+      tip: '必须与上面「绘画模型」某一行的模型 ID 完全一致，并带有本次生成需要的 text-to-image 或 image-to-image。只配置了一个绘画模型时可以留空，系统会用那一个。配置了多个又留空时，图片工具会提示未选择模型，不会偷偷换供应商。',
+      group: 'media_relay',
+      tab: 'ai_providers',
+    },
+    {
+      name: 'gta_image_styles',
+      title: 'GTA 图片风格 / GTA Image Styles',
+      type: 'textarea',
+      attributes: { rows: 18 },
+      value: proposedStyleConfigText(),
+      tip: 'JSON 数组。每项字段：id（小写、数字、连字符）、name、可选 nameZh、thumbnail（留空、站内路径或以 https 开头的你有权使用的图片 URL）、prompt（只保存在服务端）、enabled、order、可选 size（1024x1024、1024x1536 或 1536x1024）。下面的文字是可编辑的原创默认提示词，不是运行中的配置；保存后才会生效。不要粘贴其他网站的预览图，除非你确认有权使用。',
       group: 'media_relay',
       tab: 'ai_providers',
     },

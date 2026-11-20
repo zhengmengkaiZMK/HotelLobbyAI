@@ -4,8 +4,10 @@ import {
   int,
   longtext,
   mysqlTable,
+  primaryKey,
   text,
   timestamp,
+  uniqueIndex,
   varchar,
 } from 'drizzle-orm/mysql-core';
 
@@ -468,6 +470,53 @@ export const aiTask = table(
     // Composite: Query user's AI tasks by media type and provider
     // Can also be used for: WHERE mediaType = ? AND provider = ? (left-prefix)
     index('idx_ai_task_media_type_status').on(table.mediaType, table.status),
+  ]
+);
+
+export const imageGeneration = table(
+  'image_generation',
+  {
+    id: varchar191('id').primaryKey(),
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    idempotencyKey: varchar191('idempotency_key').notNull(),
+    dayKey: varchar('day_key', { length: 10 }).notNull(),
+    scene: varchar('scene', { length: 100 }).notNull(),
+    billing: varchar('billing', { length: 16 }).notNull(),
+    status: varchar('status', { length: 16 }).notNull(),
+    provider: varchar('provider', { length: 50 }).notNull(),
+    model: varchar191('model').notNull(),
+    styleId: varchar191('style_id'),
+    costCredits: int('cost_credits').notNull().default(0),
+    creditId: varchar191('credit_id'),
+    aiTaskId: varchar191('ai_task_id'),
+    error: longtext('error'),
+    createdAt: timestamp('created_at').defaultNow().notNull(),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    uniqueIndex('uniq_image_generation_user_idem').on(table.userId, table.idempotencyKey),
+    index('idx_image_generation_ai_task').on(table.aiTaskId),
+    index('idx_image_generation_user_day').on(table.userId, table.dayKey, table.status),
+  ]
+);
+
+export const imageDailyFree = table(
+  'image_daily_free',
+  {
+    userId: varchar191('user_id')
+      .notNull()
+      .references(() => user.id, { onDelete: 'cascade' }),
+    dayKey: varchar('day_key', { length: 10 }).notNull(),
+    generationId: varchar191('generation_id').notNull(),
+    status: varchar('status', { length: 16 }).notNull(),
+    taskId: varchar191('task_id'),
+    updatedAt: timestamp('updated_at').defaultNow().onUpdateNow().notNull(),
+  },
+  (table) => [
+    primaryKey({ columns: [table.userId, table.dayKey] }),
+    index('idx_image_daily_free_generation').on(table.generationId),
   ]
 );
 

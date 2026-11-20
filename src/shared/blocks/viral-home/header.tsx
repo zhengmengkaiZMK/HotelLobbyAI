@@ -51,7 +51,7 @@ function closeMobileMenu(event: { currentTarget: EventTarget & Element }) {
 
 // Shared site header for all ViralReel pages.
 // onStart opens the page's own generator dialog (each page passes its own).
-export function ViralHeader({ onStart }: { onStart: () => void }) {
+export function ViralHeader({ onStart }: { onStart?: () => void }) {
   const zh = useLocale().startsWith('zh');
   const t = (en: string, cn: string) => (zh ? cn : en);
   const pathname = usePathname();
@@ -91,6 +91,9 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
         <div className="nav">
           <Brand />
           <nav className="menu" aria-label={t('Main navigation', '主导航')}>
+            <Link href="/gta-6-style-ai-image-generator" className="image-nav">
+              {t('Image Generator', '图片生成')}
+            </Link>
             <div className="has-sub">
               <button type="button" className="trending-link" aria-haspopup="true">
                 <Flame size={15} aria-hidden="true" />
@@ -168,14 +171,27 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
                 }}
               />
             </div>
-            <button className="btn btn-primary start-button" onClick={onStart}>
-              {t('Start creating', '开始创作')}
-            </button>
+            {onStart ? (
+              <button className="btn btn-primary start-button" onClick={onStart}>
+                {t('Start creating', '开始创作')}
+              </button>
+            ) : (
+              <Link href="/" className="btn btn-primary start-button">
+                {t('Start creating', '开始创作')}
+              </Link>
+            )}
             <details className="mobile-menu">
               <summary aria-label={t('Open menu', '打开菜单')}>
                 <Menu size={20} />
               </summary>
               <nav>
+                <Link
+                  href="/gta-6-style-ai-image-generator"
+                  className="image-nav"
+                  onClick={closeMobileMenu}
+                >
+                  {t('Image Generator', '图片生成')}
+                </Link>
                 <details className="mobile-sub" open>
                   <summary>
                     <Flame size={15} aria-hidden="true" />

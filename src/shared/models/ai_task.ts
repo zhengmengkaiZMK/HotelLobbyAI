@@ -1,11 +1,11 @@
-import { and, count, desc, eq, sql } from 'drizzle-orm';
+import { and, count, desc, eq } from 'drizzle-orm';
 
 import { db } from '@/core/db';
-import { aiTask, credit } from '@/config/db/schema';
+import { aiTask } from '@/config/db/schema';
 import { AITaskStatus } from '@/extensions/ai';
 import { appendUserToResult, User } from '@/shared/models/user';
 
-import { consumeCredits, CreditStatus } from './credit';
+import { consumeCredits, refundConsumedCredit } from './credit';
 
 export type AITask = typeof aiTask.$inferSelect & {
   user?: User;
@@ -18,7 +18,12 @@ export async function createAITask(newAITask: NewAITask) {
     // 1. create task record
     const [taskResult] = await tx.insert(aiTask).values(newAITask).returning();
 
-    if (newAITask.costCredits && newAITask.costCredits > 0 && ![AITaskStatus.FAILED, AITaskStatus.CANCELED].includes(newAITask.status as AITaskStatus)) {
+    if (
+      newAITask.costCredits &&
+      newAITask.costCredits > 0 &&
+      !newAITask.creditId &&
+      ![AITaskStatus.FAILED, AITaskStatus.CANCELED].includes(newAITask.status as AITaskStatus)
+    ) {
       // 2. consume credits
       const consumedCredit = await consumeCredits({
         userId: newAITask.userId,
@@ -56,33 +61,20 @@ export async function findAITaskById(id: string) {
 
 export async function updateAITaskById(id: string, updateAITask: UpdateAITask) {
   const result = await db().transaction(async (tx: any) => {
+    const [current] = await tx.select().from(aiTask).where(eq(aiTask.id, id));
+    // A successful image is terminal for billing. A late failure callback must
+    // not refund it or free that day's image entitlement.
+    if (
+      current?.mediaType === 'image' &&
+      current.status === AITaskStatus.SUCCESS &&
+      [AITaskStatus.FAILED, AITaskStatus.CANCELED].includes(updateAITask.status as AITaskStatus)
+    ) {
+      return current;
+    }
+
     // task failed or canceled, revoke credit consumption record
     if ([AITaskStatus.FAILED, AITaskStatus.CANCELED].includes(updateAITask.status as AITaskStatus) && updateAITask.creditId) {
-      // Claim the consumption atomically so repeated callbacks cannot refund twice.
-      const [consumedCredit] = await tx
-        .update(credit)
-        .set({ status: CreditStatus.DELETED })
-        .where(and(eq(credit.id, updateAITask.creditId), eq(credit.status, CreditStatus.ACTIVE)))
-        .returning();
-      if (consumedCredit) {
-        const consumedItems = JSON.parse(consumedCredit.consumedDetail || '[]');
-
-        // consumed record is already claimed above; only restore source grants
-
-        await Promise.all(
-          consumedItems.map((item: any) => {
-            if (item && item.creditId && item.creditsConsumed > 0) {
-              return tx
-                .update(credit)
-                .set({
-                  remainingCredits: sql`${credit.remainingCredits} + ${item.creditsConsumed}`,
-                })
-                .where(eq(credit.id, item.creditId));
-            }
-          })
-        );
-
-      }
+      await refundConsumedCredit(tx, updateAITask.creditId);
     }
 
     // update task
@@ -94,6 +86,15 @@ export async function updateAITaskById(id: string, updateAITask: UpdateAITask) {
 
     return result;
   });
+
+  if (result?.mediaType === 'image' && result.id && result.status) {
+    try {
+      const { settleImageGenerationForTask } = await import('@/shared/services/image-quota');
+      await settleImageGenerationForTask(db(), result.id, result.status);
+    } catch (error) {
+      console.error('settle image generation failed', error);
+    }
+  }
 
   return result;
 }

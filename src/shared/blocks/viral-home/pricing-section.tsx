@@ -191,6 +191,12 @@ export function PricingSection({
                 '按清晰度和时长计费，只按输出秒数收费，参考视频不计费；任务失败或取消会退回积分。上面的条数按默认 15 秒 720p 计算。更长的模板更贵。以生成器按钮上的本次积分为准。'
               )}
             </span>
+            <p className="mt-3 text-sm">
+              {t(
+                'Those video prices do not apply to images. The GTA 6 Style image tool gives each signed-in user one image per Asia/Shanghai day. After that, an image without a photo costs 2 credits and an image with a photo costs 4 credits. One-time packs on this page are the top-up. Video stays paid, and there is no signup credit grant.',
+                '上面的视频价格不用于图片。GTA 6 Style 图片工具给每位登录用户每个上海自然日一张图片。用完之后，不上传照片 2 积分，上传照片 4 积分。本页的一次性积分包用来加购。视频仍然付费，也没有注册赠送积分。'
+              )}
+            </p>
             <div className="mt-4 overflow-x-auto">
               <table className="w-full border-collapse text-left text-sm">
                 <caption className="mb-2 text-left font-medium">
