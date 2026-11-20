@@ -194,7 +194,7 @@ export function getSubscribeFaq(
       ],
       [
         '有免费试用吗？',
-        '月付没有免费试用，视频仍然按积分计费。GTA 6 Style 图片工具给登录用户每个上海自然日一张图片，这不增加积分，也不适用于视频。用完之后，不上传照片 2 积分，上传照片 4 积分。',
+        '不提供免费试用——按积分计费：每次渲染前生成器显示确切费用，渲染失败自动退还积分。',
       ],
       [
         '只想买一次积分，不订阅可以吗？',
@@ -217,7 +217,7 @@ export function getSubscribeFaq(
     ],
     [
       'Do you offer a free trial?',
-      'Monthly plans have no free trial, and video stays pay-per-credit. The GTA 6 Style image tool gives a signed-in user one image per Asia/Shanghai day. That does not add credits and does not apply to video. After it, an image without a photo costs 2 credits and an image with a photo costs 4 credits.',
+      'No — there is no free trial. Rendering is pay-per-credit: the exact cost shows in the generator before every render, and failed renders are refunded automatically.',
     ],
     [
       'Can I buy credits once instead of subscribing?',

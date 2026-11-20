@@ -1,4 +1,4 @@
-import { and, asc, count, desc, eq, gt, isNull, or, sql, sum } from 'drizzle-orm';
+import { and, asc, count, desc, eq, gt, isNull, or, sum } from 'drizzle-orm';
 
 import { db } from '@/core/db';
 import { credit } from '@/config/db/schema';
@@ -293,33 +293,6 @@ export async function consumeCredits({
 
   // use default transaction
   return await db().transaction(execute);
-}
-
-// Restore a consumed credit exactly once. A repeated call finds the row already
-// deleted and does not add the credits again.
-export async function refundConsumedCredit(tx: any, creditId: string): Promise<boolean> {
-  const [consumedCredit] = await tx
-    .update(credit)
-    .set({ status: CreditStatus.DELETED })
-    .where(and(eq(credit.id, creditId), eq(credit.status, CreditStatus.ACTIVE)))
-    .returning();
-  if (!consumedCredit) return false;
-
-  const consumedItems = JSON.parse(consumedCredit.consumedDetail || '[]');
-  await Promise.all(
-    consumedItems.map((item: any) => {
-      if (item && item.creditId && item.creditsConsumed > 0) {
-        return tx
-          .update(credit)
-          .set({
-            remainingCredits: sql`${credit.remainingCredits} + ${item.creditsConsumed}`,
-          })
-          .where(eq(credit.id, item.creditId));
-      }
-      return undefined;
-    })
-  );
-  return true;
 }
 
 // get remaining credits

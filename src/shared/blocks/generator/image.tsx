@@ -541,7 +541,6 @@ export function ImageGenerator({
           model,
           prompt: trimmedPrompt,
           options,
-          idempotencyKey: crypto.randomUUID(),
         }),
       });
 

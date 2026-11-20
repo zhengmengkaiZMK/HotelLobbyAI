@@ -1,4 +1,3 @@
-import { toPublicImageTask } from '@/shared/lib/image-tool';
 import { respData, respErr } from '@/shared/lib/resp';
 import {
   findAITaskById,
@@ -7,11 +6,6 @@ import {
 } from '@/shared/models/ai_task';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
-
-function presentTask(task: { mediaType?: string } & Record<string, unknown>) {
-  if (task.mediaType === 'image') return respData(toPublicImageTask(task));
-  return respData(task);
-}
 
 export async function POST(req: Request) {
   try {
@@ -38,7 +32,7 @@ export async function POST(req: Request) {
       if (['failed', 'canceled'].includes(task.status) && task.creditId) {
         await updateAITaskById(task.id, { status: task.status, creditId: task.creditId });
       }
-      return presentTask(task);
+      return respData(task);
     }
 
     const aiService = await getAIService();
@@ -77,7 +71,7 @@ export async function POST(req: Request) {
     task.taskInfo = updateAITask.taskInfo || null;
     task.taskResult = updateAITask.taskResult || null;
 
-    return presentTask(task);
+    return respData(task);
   } catch (e: any) {
     console.log('ai query failed', e);
     return respErr(e.message);

@@ -1,5 +1,5 @@
 import { sql } from 'drizzle-orm';
-import { index, integer, primaryKey, sqliteTable, text, uniqueIndex } from 'drizzle-orm/sqlite-core';
+import { index, integer, sqliteTable, text } from 'drizzle-orm/sqlite-core';
 
 // SQLite has no schema concept like Postgres. Keep a `table` alias to minimize diff with pg schema.
 const table = sqliteTable;
@@ -543,56 +543,6 @@ export const aiTask = table(
     // Composite: Query user's AI tasks by media type and provider
     // Can also be used for: WHERE mediaType = ? AND provider = ? (left-prefix)
     index('idx_ai_task_media_type_status').on(table.mediaType, table.status),
-  ]
-);
-
-// One row per image generation attempt. The free daily slot lives in
-// image_daily_free so a paid attempt cannot consume the unique day key.
-export const imageGeneration = table(
-  'image_generation',
-  {
-    id: text('id').primaryKey(),
-    userId: text('user_id')
-      .notNull()
-      .references(() => user.id, { onDelete: 'cascade' }),
-    idempotencyKey: text('idempotency_key').notNull(),
-    dayKey: text('day_key').notNull(),
-    scene: text('scene').notNull(),
-    billing: text('billing').notNull(),
-    status: text('status').notNull(),
-    provider: text('provider').notNull(),
-    model: text('model').notNull(),
-    styleId: text('style_id'),
-    costCredits: integer('cost_credits').notNull().default(0),
-    creditId: text('credit_id'),
-    aiTaskId: text('ai_task_id'),
-    error: text('error'),
-    createdAt: integer('created_at', { mode: 'timestamp_ms' }).notNull(),
-    updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
-  },
-  (table) => [
-    uniqueIndex('uniq_image_generation_user_idem').on(table.userId, table.idempotencyKey),
-    index('idx_image_generation_ai_task').on(table.aiTaskId),
-    index('idx_image_generation_user_day').on(table.userId, table.dayKey, table.status),
-  ]
-);
-
-// Atomic one-free-image-per-Shanghai-day lock. Primary key is the claim.
-export const imageDailyFree = table(
-  'image_daily_free',
-  {
-    userId: text('user_id')
-      .notNull()
-      .references(() => user.id, { onDelete: 'cascade' }),
-    dayKey: text('day_key').notNull(),
-    generationId: text('generation_id').notNull(),
-    status: text('status').notNull(),
-    taskId: text('task_id'),
-    updatedAt: integer('updated_at', { mode: 'timestamp_ms' }).notNull(),
-  },
-  (table) => [
-    primaryKey({ columns: [table.userId, table.dayKey] }),
-    index('idx_image_daily_free_generation').on(table.generationId),
   ]
 );
 
