@@ -3,21 +3,56 @@ import { getSessionCookie } from 'better-auth/cookies';
 import createIntlMiddleware from 'next-intl/middleware';
 
 import { routing } from '@/core/i18n/config';
+import { getPruneDecision } from '@/config/seo-pruning';
 
 const intlMiddleware = createIntlMiddleware(routing);
+
+// 410 body. Kept tiny: this response exists to tell crawlers the URL is gone,
+// not to sell anything. Inline styles so it needs no CSS chunk.
+const GONE_HTML = `<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Page removed</title><meta name="robots" content="noindex"></head><body style="margin:0;font-family:system-ui,-apple-system,Segoe UI,sans-serif;display:flex;min-height:100vh;align-items:center;justify-content:center;background:#fff;color:#111"><main style="max-width:32rem;padding:2rem;text-align:center"><h1 style="font-size:1.25rem;font-weight:500;margin:0 0 .75rem">This page has been removed</h1><p style="font-size:.9375rem;line-height:1.6;color:#555;margin:0 0 1.5rem">We retired this page because it repeated a template page without adding anything. Everything we still publish is listed on the homepage.</p><a href="/" style="display:inline-block;padding:.625rem 1.25rem;border:1px solid #111;border-radius:999px;color:#111;text-decoration:none;font-size:.9375rem">Go to ViralReel</a></main></body></html>`;
 
 export async function middleware(request: NextRequest) {
   const { pathname } = request.nextUrl;
 
-  // Handle internationalization first
+  // Resolve locale before anything else: the prune lists are keyed by bare slug.
+  const firstSegment = pathname.split('/')[1];
+  const hasLocale = routing.locales.includes(firstSegment as any);
+  const barePath = hasLocale
+    ? pathname.slice(firstSegment.length + 1) || '/'
+    : pathname;
+
+  // Content pruning. Runs before i18n so retired URLs never render, never hit
+  // ISR, and never cost a worker invocation on a full page.
+  const prune = getPruneDecision(barePath.replace(/^\//, ''));
+  if (prune) {
+    if (prune.type === 'redirect') {
+      const target = new URL(request.url);
+      const prefix =
+        hasLocale && firstSegment !== routing.defaultLocale
+          ? `/${firstSegment}`
+          : '';
+      target.pathname = `${prefix}/${prune.to}`;
+      target.search = '';
+      return NextResponse.redirect(target, 301);
+    }
+
+    return new NextResponse(GONE_HTML, {
+      status: 410,
+      headers: {
+        'content-type': 'text/html; charset=utf-8',
+        'x-robots-tag': 'noindex',
+        'cache-control': 'public, s-maxage=86400',
+      },
+    });
+  }
+
+  // Handle internationalization next
   const intlResponse = intlMiddleware(request);
 
   // Extract locale from pathname
-  const locale = pathname.split('/')[1];
-  const isValidLocale = routing.locales.includes(locale as any);
-  const pathWithoutLocale = isValidLocale
-    ? pathname.slice(locale.length + 1)
-    : pathname;
+  const locale = firstSegment;
+  const isValidLocale = hasLocale;
+  const pathWithoutLocale = barePath;
 
   const isPrivate =
     pathWithoutLocale.startsWith('/admin') ||

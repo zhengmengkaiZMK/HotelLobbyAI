@@ -1,3 +1,4 @@
+import type { LtBlocks } from '@/shared/blocks/long-tail-blocks/types';
 import {
   failedJobCreditRefundAnswer,
   paidExportWatermarkAnswer,
@@ -71,6 +72,8 @@ export interface LongTailEntry {
   body: { en: string[]; zh: string[] };
   steps: 'shared' | readonly TinyDeskHowToStep[];
   faq: LongTailFaqItem[];
+  /** Unique per-page blocks — never reuse across siblings. See `@/shared/blocks/long-tail-blocks/types`. */
+  blocks?: LtBlocks;
 }
 
 const makeVideoSteps = 'shared' as const;
@@ -478,6 +481,107 @@ export const TINY_DESK_LONG_TAILS: readonly LongTailEntry[] = [
           en: `No. On ViralReel that search lands on the Tiny Desk Outstanding template at ${EN_TEMPLATE}.`,
           zh: `没有。在 ViralReel，这个搜索对应的是 Tiny Desk Outstanding 模板：${ZH_TEMPLATE} 。`,
         },
+      },
+    ],
+    blocks: [
+      {
+        kind: 'compare',
+        title: {
+          en: 'Four names, one clip',
+          zh: '四个名字，同一个片段',
+        },
+        head: [
+          { en: 'What you search', zh: '你搜的词' },
+          { en: 'What it actually is', zh: '它到底是什么' },
+          { en: 'Who uses the name', zh: '谁在用这个名字' },
+        ],
+        rows: [
+          [
+            { en: 'Outstanding', zh: 'Outstanding' },
+            {
+              en: 'The Gap Band single from November 1982, on Gap Band IV',
+              zh: 'The Gap Band 1982 年 11 月的单曲，收录于《Gap Band IV》',
+            },
+            { en: 'The song itself', zh: '歌名本体' },
+          ],
+          [
+            { en: 'Charlie Wilson: Tiny Desk', zh: 'Charlie Wilson: Tiny Desk' },
+            {
+              en: 'The NPR concert published 5 June 2023; he closed the set with this song',
+              zh: '2023 年 6 月 5 日发布的 NPR 演出，他拿这首歌压轴',
+            },
+            { en: 'People looking for the real performance', zh: '找原片的人' },
+          ],
+          [
+            { en: 'washed anthem', zh: 'washed anthem' },
+            {
+              en: 'Sports TikTok’s nickname for that concert clip, used over teams past their peak',
+              zh: '体育 TikTok 给这段演出起的外号，配在已过巅峰的球队上',
+            },
+            { en: 'Sports fans and edit accounts', zh: '体育迷和剪辑号' },
+          ],
+          [
+            { en: 'Tiny Desk Outstanding', zh: 'Tiny Desk Outstanding' },
+            {
+              en: 'The ViralReel fan-parody template: 15 seconds, 9:16, three photo slots',
+              zh: 'ViralReel 的粉丝戏仿模板：15 秒、9:16、三个照片位',
+            },
+            { en: 'People who want to make their own version', zh: '想自己做一版的人' },
+          ],
+        ],
+      },
+      {
+        kind: 'facts',
+        title: {
+          en: 'The song and the clip, checked',
+          zh: '这首歌和这段片子的核对',
+        },
+        rows: [
+          {
+            k: { en: 'Song', zh: '歌曲' },
+            v: { en: 'The Gap Band — “Outstanding”', zh: 'The Gap Band《Outstanding》' },
+          },
+          {
+            k: { en: 'Released', zh: '发行' },
+            v: { en: 'November 1982, on the album Gap Band IV', zh: '1982 年 11 月，收录于专辑《Gap Band IV》' },
+          },
+          {
+            k: { en: 'Written by', zh: '词曲' },
+            v: { en: 'Raymond Calhoun, the band’s drummer', zh: '乐队鼓手 Raymond Calhoun' },
+          },
+          {
+            k: { en: 'Lead vocal', zh: '主唱' },
+            v: { en: 'Charlie Wilson, with brothers Robert and Ronnie in the band', zh: 'Charlie Wilson，乐队里还有他的兄弟 Robert 与 Ronnie' },
+          },
+          {
+            k: { en: 'Chart', zh: '榜单' },
+            v: {
+              en: 'No. 1 on Billboard’s Hot R&B singles chart in February 1983; No. 51 on the Hot 100',
+              zh: '1983 年 2 月登顶 Billboard Hot R&B 单曲榜；Hot 100 最高第 51 位',
+            },
+          },
+          {
+            k: { en: 'The clip the meme uses', zh: '梗用的片段' },
+            v: {
+              en: 'The finale of Charlie Wilson’s NPR Tiny Desk, published 5 June 2023',
+              zh: 'Charlie Wilson 的 NPR Tiny Desk 压轴段，2023 年 6 月 5 日发布',
+            },
+          },
+          {
+            k: { en: 'How much of it', zh: '用了多长' },
+            v: {
+              en: 'Roughly the last 19 seconds, five shots: the opening line, the band, the laugh close-up, the sax solo, the band again',
+              zh: '大约是最后 19 秒，五个镜头：开口那一句、乐队、大笑特写、萨克斯独奏、全体收尾',
+            },
+          },
+          {
+            k: { en: 'What ViralReel renders', zh: 'ViralReel 出的片长' },
+            v: {
+              en: '15 seconds, 9:16 — not the 19-second excerpt',
+              zh: '15 秒、9:16——不是那 19 秒原片段',
+            },
+          },
+        ],
       },
     ],
   },

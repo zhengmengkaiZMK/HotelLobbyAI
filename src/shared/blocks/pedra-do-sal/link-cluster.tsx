@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { pedraLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function PedraLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = pedraLinkGroups(zh);
+  const groups = pruneLinkGroups(pedraLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

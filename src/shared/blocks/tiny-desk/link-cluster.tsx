@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { tinyDeskLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function TinyDeskLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = tinyDeskLinkGroups(zh);
+  const groups = pruneLinkGroups(tinyDeskLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

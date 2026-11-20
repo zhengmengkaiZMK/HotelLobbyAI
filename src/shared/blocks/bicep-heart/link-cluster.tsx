@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { bicepHeartLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function BicepHeartLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = bicepHeartLinkGroups(zh);
+  const groups = pruneLinkGroups(bicepHeartLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

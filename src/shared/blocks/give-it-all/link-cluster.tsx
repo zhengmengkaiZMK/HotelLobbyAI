@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { giveItAllLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function GiveItAllLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = giveItAllLinkGroups(zh);
+  const groups = pruneLinkGroups(giveItAllLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

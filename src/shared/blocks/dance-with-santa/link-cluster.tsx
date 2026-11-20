@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { danceWithSantaLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function DanceWithSantaLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = danceWithSantaLinkGroups(zh);
+  const groups = pruneLinkGroups(danceWithSantaLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

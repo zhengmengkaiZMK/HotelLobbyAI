@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { fancyCafeLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function FancyCafeLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = fancyCafeLinkGroups(zh);
+  const groups = pruneLinkGroups(fancyCafeLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

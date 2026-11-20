@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { charlieBrownLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function CharlieBrownLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = charlieBrownLinkGroups(zh);
+  const groups = pruneLinkGroups(charlieBrownLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

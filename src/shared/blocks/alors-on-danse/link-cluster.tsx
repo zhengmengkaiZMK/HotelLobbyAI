@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { alorsOnDanseLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function AlorsOnDanseLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = alorsOnDanseLinkGroups(zh);
+  const groups = pruneLinkGroups(alorsOnDanseLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

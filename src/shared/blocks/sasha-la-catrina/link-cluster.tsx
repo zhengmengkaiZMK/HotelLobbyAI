@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { sashaLaCatrinaLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function SashaLaCatrinaLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = sashaLaCatrinaLinkGroups(zh);
+  const groups = pruneLinkGroups(sashaLaCatrinaLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

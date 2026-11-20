@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { babaLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function BabaLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = babaLinkGroups(zh);
+  const groups = pruneLinkGroups(babaLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

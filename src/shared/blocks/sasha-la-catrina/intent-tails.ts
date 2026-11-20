@@ -191,6 +191,100 @@ export const SASHA_LA_CATRINA_INTENT_TAILS: readonly SashaLaCatrinaLongTailEntry
         },
       },
     ],
+    blocks: [
+      {
+        kind: 'timeline',
+        title: {
+          en: 'Where the Catrina look comes from',
+          zh: '卡特里娜这身造型的来历',
+        },
+        items: [
+          {
+            when: { en: '1910–1913', zh: '1910–1913' },
+            what: {
+              en: 'José Guadalupe Posada makes the zinc etching La Calavera Garbancera — a skull in a flamboyant French hat, mocking Mexicans who denied their Indigenous roots to imitate European fashion.',
+              zh: 'José Guadalupe Posada 创作锌版画《La Calavera Garbancera》（鹰嘴豆骷髅）——一具戴着夸张法式帽子的骷髅，讽刺那些否认原住民血统、模仿欧洲时尚的墨西哥人。',
+            },
+          },
+          {
+            when: { en: '1946–47', zh: '1946–47' },
+            what: {
+              en: 'Diego Rivera paints her into the mural Dream of a Sunday Afternoon in the Alameda, gives her a full gown, and names her La Catrina. “Catrín” was slang for a dressed-up rich person.',
+              zh: 'Diego Rivera 把她画进壁画《阿拉梅达公园星期日下午之梦》，给她穿上整套礼服，并定名 La Catrina。「Catrín」在当时是「穿得讲究的有钱人」的俚语。',
+            },
+          },
+          {
+            when: { en: '2008', zh: '2008' },
+            what: {
+              en: 'Mexico’s Día de Muertos, of which she is the central figure, is added to the UNESCO list of intangible cultural heritage.',
+              zh: '以她为核心形象的墨西哥亡灵节被列入联合国教科文组织人类非物质文化遗产名录。',
+            },
+          },
+          {
+            when: { en: '2014', zh: '2014' },
+            what: {
+              en: 'The Book of Life reaches cinemas: the fairytale gown, the flowered hat, the candle-lit land of the remembered. That is the version the trend copies.',
+              zh: '《The Book of Life》上映：童话感的长裙、花饰宽檐帽、烛光里的记忆之地。趋势复制的就是这一版。',
+            },
+          },
+          {
+            when: { en: '1–2 November 2026', zh: '2026 年 11 月 1–2 日' },
+            what: {
+              en: 'Día de Muertos. The wave is busiest across these two days, which is when most Sasha La Catrina posts go up.',
+              zh: '亡灵节。这波趋势在这两天最热，多数 Sasha La Catrina 的帖子都在这时发布。',
+            },
+          },
+        ],
+      },
+      {
+        kind: 'facts',
+        title: {
+          en: 'The line, the film, the file',
+          zh: '那句词、那部电影、那个文件',
+        },
+        rows: [
+          {
+            k: { en: 'The line', zh: '台词' },
+            v: {
+              en: '“Adiós, señora bonita” — “goodbye, pretty lady”',
+              zh: '「Adiós, señora bonita」——「再见，美丽的女士」',
+            },
+          },
+          {
+            k: { en: 'Where it comes from', zh: '出处' },
+            v: {
+              en: 'The Book of Life (2014), the film the whole fairytale look comes from',
+              zh: '《The Book of Life》（2014），整身童话造型都出自这部片',
+            },
+          },
+          {
+            k: { en: 'When it plays in the trend', zh: '在趋势里出现的时机' },
+            v: {
+              en: 'On the reveal — the moment the flower crosses the frame and the face comes back painted',
+              zh: '揭面那一刻——花划过画面、脸带着彩绘回来的那一下',
+            },
+          },
+          {
+            k: { en: 'Captions people write', zh: '常见的文案写法' },
+            v: {
+              en: '“adiós Sasha, adiós señora bonita” — where the nickname Sasha came from',
+              zh: '「adiós Sasha, adiós señora bonita」——Sasha 这个昵称就是从这儿来的',
+            },
+          },
+          {
+            k: { en: 'Does ViralReel license it', zh: 'ViralReel 授权了吗' },
+            v: { en: 'No', zh: '没有' },
+          },
+          {
+            k: { en: 'Is it guaranteed in a download', zh: '下载文件里一定有吗' },
+            v: {
+              en: 'Not verified — play the MP4 once before you post',
+              zh: '未核实——发布前先播一遍 MP4',
+            },
+          },
+        ],
+      },
+    ],
   },
   {
     keyword: 'la catrina history',

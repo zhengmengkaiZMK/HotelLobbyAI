@@ -6,6 +6,7 @@ import { ArrowRight } from 'lucide-react';
 import { useLocale } from 'next-intl';
 
 import { Link, useRouter } from '@/core/i18n/navigation';
+import { LongTailBlocks } from '@/shared/blocks/long-tail-blocks/view';
 import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import type { VideoCostTable } from '@/shared/lib/video-yield';
@@ -91,6 +92,7 @@ export function SashaLaCatrinaLongTailView({
             {entry.body[lang].map((paragraph, index) => (
               <p key={index}>{paragraph}</p>
             ))}
+            <LongTailBlocks blocks={entry.blocks} zh={zh} />
             {steps.length > 0 ? (
               <ol>
                 {steps.map((step) => (
@@ -102,8 +104,6 @@ export function SashaLaCatrinaLongTailView({
             ) : null}
             <p className="guide-more">
               <Link href={SASHA_LA_CATRINA_TEMPLATE_PATH}>{makeLabel}</Link>
-              {' · '}
-              <Link href="/sasha-la-catrina-template">{zh ? '七个变身' : 'The seven reveals'}</Link>
               {' · '}
               <Link href="/sasha-la-catrina-tiktok">{zh ? 'TikTok 发布指南' : 'TikTok posting guide'}</Link>
               {' · '}

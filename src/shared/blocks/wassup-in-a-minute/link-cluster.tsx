@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { wassupLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function WassupLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = wassupLinkGroups(zh);
+  const groups = pruneLinkGroups(wassupLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

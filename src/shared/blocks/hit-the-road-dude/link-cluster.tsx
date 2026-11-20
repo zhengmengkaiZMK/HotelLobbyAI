@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { hitTheRoadLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function HitTheRoadLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = hitTheRoadLinkGroups(zh);
+  const groups = pruneLinkGroups(hitTheRoadLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

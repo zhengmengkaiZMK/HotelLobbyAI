@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { bulinLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function BulinLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = bulinLinkGroups(zh);
+  const groups = pruneLinkGroups(bulinLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

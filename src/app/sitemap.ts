@@ -2,6 +2,7 @@ import type { MetadataRoute } from 'next';
 
 import { absoluteSiteUrl } from '@/config/site-url';
 import { defaultLocale, locales } from '@/config/locale';
+import { isPrunedPath } from '@/config/seo-pruning';
 import { BABA_LONG_TAIL_ROUTES } from '@/shared/blocks/baba-dance/long-tails';
 import { BICEP_HEART_LONG_TAIL_ROUTES } from '@/shared/blocks/bicep-heart/long-tails';
 import { BBY_LONG_TAIL_ROUTES } from '@/shared/blocks/bby-wow/long-tails';
@@ -101,6 +102,9 @@ function staticEntries(): MetadataRoute.Sitemap {
   const entries: MetadataRoute.Sitemap = [];
   for (const locale of locales) {
     for (const route of staticRoutes) {
+      // 410/301 pages stay out of the sitemap: listing a URL we answer with
+      // Gone or Redirect is a contradictory signal. See config/seo-pruning.
+      if (isPrunedPath(route.path)) continue;
       const url = localePath(locale, route.path);
       if (!url.startsWith('https://') && !url.startsWith('http://localhost')) continue;
       entries.push({

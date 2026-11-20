@@ -32,7 +32,11 @@ export function UtmCapture() {
     if (getCookie(COOKIE_NAME)) return;
 
     const params = new URLSearchParams(window.location.search);
-    const utmSource = params.get('utm_source');
+    // utm_source first; `ref` is the legacy shape used by directory listings
+    // (Product Hunt, legit.show). Those links should move to utm_source because
+    // Google treats ?ref= as a separate URL, while it folds utm_* into the
+    // canonical one. Reading `ref` here keeps attribution intact during the switch.
+    const utmSource = params.get('utm_source') || params.get('ref');
     if (!utmSource) return;
 
     const sanitized = sanitizeUtmSource(utmSource);

@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { bbyLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function BbyLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = bbyLinkGroups(zh);
+  const groups = pruneLinkGroups(bbyLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

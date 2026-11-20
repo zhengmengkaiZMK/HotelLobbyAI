@@ -1,3 +1,4 @@
+import type { LtBlocks } from '@/shared/blocks/long-tail-blocks/types';
 import type { TemplateCostContext } from '@/shared/lib/pricing-copy';
 
 import { SASHA_LA_CATRINA_CITE_TAILS } from './cite-tails';
@@ -45,6 +46,8 @@ export interface SashaLaCatrinaLongTailEntry {
   body: { en: string[]; zh: string[] };
   steps: 'shared' | readonly SashaLaCatrinaHowToStep[];
   faq: SashaLaCatrinaLongTailFaqItem[];
+  /** Unique per-page blocks — never reuse across siblings. See `@/shared/blocks/long-tail-blocks/types`. */
+  blocks?: LtBlocks;
 }
 
 const makeVideoSteps = 'shared' as const;
@@ -117,6 +120,75 @@ export const SASHA_LA_CATRINA_LONG_TAILS: readonly SashaLaCatrinaLongTailEntry[]
           en: 'She is La Catrina herself — the elegant skeleton of Día de Muertos as she appears in The Book of Life. "Sasha" is what the Spanish side of TikTok calls her in this trend, and the CapCut template is named after her. She is not a new character.',
           zh: '她就是 La Catrina 本尊——亡灵节里优雅的骷髅女士，《生命之书》中的样子。「Sasha」是西语区 TikTok 在这条趋势里对她的爱称，CapCut 模板也以她命名。她不是新角色。',
         },
+      },
+    ],
+    blocks: [
+      {
+        kind: 'compare',
+        title: {
+          en: 'Three different things called Catrina',
+          zh: '三个都叫 Catrina 的东西',
+        },
+        head: [
+          { en: 'Term', zh: '词' },
+          { en: 'What it means', zh: '指什么' },
+          { en: 'Not the same as', zh: '不等于' },
+        ],
+        rows: [
+          [
+            { en: 'La Catrina', zh: 'La Catrina' },
+            {
+              en: 'Mexico’s Day of the Dead figure: Posada’s 1910–13 etching, dressed and named by Diego Rivera in 1946–47',
+              zh: '墨西哥亡灵节的形象：Posada 1910–13 年的版画，1946–47 年由 Diego Rivera 穿上礼服并定名',
+            },
+            { en: 'Not a ViralReel product and not owned by the trend', zh: '不是 ViralReel 的产品，也不属于这条趋势' },
+          ],
+          [
+            { en: 'The Book of Life Catrina', zh: '《The Book of Life》版卡特里娜' },
+            {
+              en: 'The 2014 film’s fairytale version — the gown, the flowered hat, the candlelight',
+              zh: '2014 年电影里的童话版——长裙、花饰宽檐帽、烛光',
+            },
+            { en: 'Not the historical etching, and not licensed here', zh: '不是历史上的版画，这里也没有授权' },
+          ],
+          [
+            { en: 'Sasha La Catrina', zh: 'Sasha La Catrina' },
+            {
+              en: 'The Spanish-side TikTok nickname for this 2026 one-photo reveal wave',
+              zh: '西语 TikTok 给 2026 年这波「一张照片变身」起的昵称',
+            },
+            { en: 'Not a second character, not a separate template', zh: '不是第二个角色，也不是另一个模板' },
+          ],
+        ],
+      },
+      {
+        kind: 'facts',
+        title: {
+          en: 'The seven samples, at a glance',
+          zh: '七个样本一览',
+        },
+        rows: [
+          {
+            k: { en: 'Flower Toss', zh: '撒花变身' },
+            v: {
+              en: 'The bedroom reveal that started it; a flower crosses the frame',
+              zh: '开创这条趋势的卧室变身；一朵花划过画面',
+            },
+          },
+          { k: { en: 'Second Face', zh: '同款另一张脸' }, v: { en: 'The same reveal, recast', zh: '同样的变身，换一张脸' } },
+          { k: { en: 'Song Reveal', zh: '歌声变身' }, v: { en: 'Reveal timed to the line', zh: '跟着那句词卡点的变身' } },
+          { k: { en: 'Ofrenda Reveal', zh: '祭坛揭面' }, v: { en: 'Set in front of an ofrenda', zh: '在祭坛前完成' } },
+          { k: { en: 'Catrín', zh: '男版 Catrín' }, v: { en: 'The male version of the figure', zh: '这个形象的男版' } },
+          { k: { en: 'Catrina Cat', zh: '猫咪变身' }, v: { en: 'A living pet, painted — not a memorial', zh: '在世的宠物上妆——不是纪念' } },
+          { k: { en: 'Grandmother', zh: '游行奶奶' }, v: { en: 'The older relative version', zh: '长辈版本' } },
+          {
+            k: { en: 'Length', zh: '时长' },
+            v: {
+              en: 'Locked to the sample: 5, 10, or 15 seconds. You do not set it separately.',
+              zh: '跟着样本锁定：5、10 或 15 秒，不能单独设。',
+            },
+          },
+        ],
       },
     ],
   },

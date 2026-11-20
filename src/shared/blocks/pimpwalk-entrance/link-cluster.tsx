@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { pimpwalkLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function PimpwalkLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = pimpwalkLinkGroups(zh);
+  const groups = pruneLinkGroups(pimpwalkLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (

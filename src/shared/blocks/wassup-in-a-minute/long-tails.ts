@@ -1,3 +1,4 @@
+import type { LtBlocks } from '@/shared/blocks/long-tail-blocks/types';
 import type { TemplateCostContext } from '@/shared/lib/pricing-copy';
 
 import { WASSUP_CITE_TAILS } from './cite-tails';
@@ -35,6 +36,12 @@ export interface LongTailEntry {
   /** `'shared'` reuses the template HowTo. Custom steps must stay honest about what ViralReel does not make. */
   steps: 'shared' | readonly WassupHowToStep[];
   faq: LongTailFaqItem[];
+  /**
+   * Unique per-page blocks (facts / timeline / checks / compare). Optional and
+   * deliberately uneven: a block that would fit two sibling pages belongs on the
+   * template landing page instead. See `@/shared/blocks/long-tail-blocks/types`.
+   */
+  blocks?: LtBlocks;
 }
 
 const makeVideoSteps = 'shared' as const;
@@ -235,6 +242,84 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
           en: 'No. It started in that fandom, but the AI wave is about putting yourself in the outfit. Anyone can make one from a photo on ViralReel.',
           zh: '不是。它起于那个粉丝圈，但 AI 浪潮的核心是把自己放进这身造型。任何人在 ViralReel 用一张照片都能做。',
         },
+      },
+    ],
+    blocks: [
+      {
+        kind: 'timeline',
+        title: {
+          en: 'How the wassup in a minute meme got here',
+          zh: 'Wassup in a Minute 梗的时间线',
+        },
+        items: [
+          {
+            when: { en: 'August 2018', zh: '2018 年 8 月' },
+            what: {
+              en: 'Blue Lock begins in Kodansha’s Weekly Shōnen Magazine (story by Muneyuki Kaneshiro, art by Yusuke Nomura). Its footballers become the raw material for fan redraws.',
+              zh: '《Blue Lock》在讲谈社《周刊少年Magazine》开始连载（原作金城宗幸、作画野村優介）。里面的球员成了同人重绘的素材。',
+            },
+          },
+          {
+            when: { en: 'October 2022', zh: '2022 年 10 月' },
+            what: {
+              en: 'The anime adaptation starts airing on TV Asahi, and redraws multiply. Fans restyle the players as Atlanta rappers — puffer jackets, chains, baggy jeans — and nickname the look Atlanta Lock.',
+              zh: '动画版在朝日电视台开播，重绘随之变多。粉丝把球员画成亚特兰大说唱歌手——羽绒服、金链、阔腿裤——并把这个画风叫作 Atlanta Lock。',
+            },
+          },
+          {
+            when: { en: 'Late October 2026', zh: '2026 年 10 月下旬' },
+            what: {
+              en: 'Posts tied to the US animator @ristyisvalid show streetwear drawings swaying on white, one captioned “Wassup in a minute.” The caption becomes the search name. ViralReel has not verified these were the first.',
+              zh: '与美国动画师 @ristyisvalid 相关的帖子里出现白底街服角色摇摆，其中一条文案是「Wassup in a minute」。这句文案成了搜索名。ViralReel 没有核实这些是否最早。',
+            },
+          },
+          {
+            when: { en: 'Early November 2026', zh: '2026 年 11 月初' },
+            what: {
+              en: 'Upload-a-photo tutorials move the trend from drawn characters to real people in the outfit. That is the version the ViralReel template automates.',
+              zh: '「上传一张照片」的教程把趋势从手绘角色转成真人套上造型。这就是 ViralReel 模板自动化的版本。',
+            },
+          },
+        ],
+      },
+      {
+        kind: 'compare',
+        title: {
+          en: 'Five spellings, one trend',
+          zh: '五种写法，同一条趋势',
+        },
+        head: [
+          { en: 'What people type', zh: '大家搜的写法' },
+          { en: 'Where it comes from', zh: '来源' },
+          { en: 'What it leads to', zh: '会搜到什么' },
+        ],
+        rows: [
+          [
+            { en: 'wassup in a minute', zh: 'wassup in a minute' },
+            { en: 'The mishearing that named the trend', zh: '把歌词听错后成了趋势名' },
+            { en: 'The sway edits themselves', zh: '摇摆剪辑本体' },
+          ],
+          [
+            { en: 'wassup been a minute', zh: 'wassup been a minute' },
+            { en: 'The actual lyric line', zh: '原歌词那一句' },
+            { en: 'The same jersey-club remix', zh: '同一段 jersey club 混音' },
+          ],
+          [
+            { en: 'wassup wait a minute', zh: 'wassup wait a minute' },
+            { en: 'A second mishearing', zh: '另一种听错' },
+            { en: 'The same trend, different spelling', zh: '同一条趋势，只是写法不同' },
+          ],
+          [
+            { en: 'wasala in a minute', zh: 'wasala in a minute' },
+            { en: 'Spanish-speaker phonetic spelling', zh: '西语听众的听写' },
+            { en: 'The same trend again', zh: '还是同一条趋势' },
+          ],
+          [
+            { en: 'Atlanta Lock', zh: 'Atlanta Lock' },
+            { en: 'Fans’ name for the outfit style', zh: '粉丝给这身造型起的名字' },
+            { en: 'The art style, not a second template', zh: '画风词，不是第二个模板' },
+          ],
+        ],
       },
     ],
   },
@@ -440,6 +525,118 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
           en: 'No. The AI video is a new sway of your photos. It does not license, cover, or export the Drake track or the jersey-club remix.',
           zh: '不会。AI 视频是用你的照片做的新摇摆。它不授权、不翻唱、也不导出 Drake 的原曲或那段 jersey club 混音。',
         },
+      },
+    ],
+    blocks: [
+      {
+        kind: 'facts',
+        title: {
+          en: 'The song, checked',
+          zh: '这首歌的事实核对',
+        },
+        rows: [
+          {
+            k: { en: 'Original track', zh: '原曲' },
+            v: { en: 'Drake — “From Time”, featuring Jhené Aiko', zh: 'Drake《From Time》，feat. Jhené Aiko' },
+          },
+          {
+            k: { en: 'Album', zh: '收录专辑' },
+            v: {
+              en: 'Nothing Was the Same, Drake’s third studio album, released September 2013',
+              zh: '《Nothing Was the Same》，Drake 第三张录音室专辑，2013 年 9 月发行',
+            },
+          },
+          {
+            k: { en: 'Place on the record', zh: '曲目位置' },
+            v: { en: 'Track 7, 5:22 long', zh: '第 7 首，时长 5:22' },
+          },
+          {
+            k: { en: 'Production', zh: '制作' },
+            v: {
+              en: 'Noah “40” Shebib; piano by Chilly Gonzales',
+              zh: 'Noah “40” Shebib 制作；钢琴由 Chilly Gonzales 演奏',
+            },
+          },
+          {
+            k: { en: 'What the trend actually plays', zh: '趋势里实际播放的' },
+            v: {
+              en: 'A jersey-club remix built on the track, not the album version',
+              zh: '在原曲基础上做的 jersey club 混音，不是专辑版',
+            },
+          },
+          {
+            k: { en: 'The line people hear', zh: '被听成的那句' },
+            v: {
+              en: '“Wassup, been a minute” — heard as “wassup in a minute”',
+              zh: '「Wassup, been a minute」——被听成「wassup in a minute」',
+            },
+          },
+          {
+            k: { en: 'ViralReel clip length', zh: 'ViralReel 片长' },
+            v: { en: '15 seconds, 9:16, one to four photos', zh: '15 秒，9:16，一至四张照片' },
+          },
+          {
+            k: { en: 'Audio in the download', zh: '导出文件里的音频' },
+            v: {
+              en: 'None. The MP4 is picture only; add the sound in the app',
+              zh: '没有。MP4 只有画面，原声在应用里另加',
+            },
+          },
+        ],
+      },
+      {
+        kind: 'compare',
+        title: {
+          en: 'Album version vs the remix in the trend',
+          zh: '专辑版与趋势混音的区别',
+        },
+        head: [
+          { en: 'Aspect', zh: '对比项' },
+          { en: '“From Time” (album)', zh: '《From Time》（专辑版）' },
+          { en: 'The jersey-club remix', zh: 'jersey club 混音版' },
+        ],
+        rows: [
+          [
+            { en: 'Tempo and feel', zh: '速度与听感' },
+            {
+              en: 'Slow contemporary R&B: finger snaps, a light piano, no club kick',
+              zh: '慢速当代 R&B：指响、轻钢琴，没有俱乐部底鼓',
+            },
+            {
+              en: 'Fast and percussive — built to loop a short vocal phrase',
+              zh: '快、打击感强，为循环一小句人声而做',
+            },
+          ],
+          [
+            { en: 'Length', zh: '时长' },
+            { en: '5:22 as released', zh: '发行版 5:22' },
+            {
+              en: 'Cut to the one line the edits need, so a 15-second clip fits',
+              zh: '只截剪辑需要的那一句，正好配 15 秒片子',
+            },
+          ],
+          [
+            { en: 'Vocals', zh: '人声' },
+            {
+              en: 'Drake on the verses, Jhené Aiko on the hook and her own verse',
+              zh: 'Drake 唱主歌，Jhené Aiko 唱 hook 和她自己那段',
+            },
+            { en: 'The album vocal, re-timed over the remix', zh: '专辑人声，套进混音的新节拍' },
+          ],
+          [
+            { en: 'Who owns it', zh: '版权归属' },
+            {
+              en: 'Drake, Jhené Aiko, and the label — no ViralReel licence',
+              zh: 'Drake、Jhené Aiko 与唱片公司——ViralReel 没有授权',
+            },
+            { en: 'The remix maker and the original rights holders', zh: '混音作者与原版权方' },
+          ],
+          [
+            { en: 'Can ViralReel export it', zh: 'ViralReel 能否导出' },
+            { en: 'No', zh: '不能' },
+            { en: 'No', zh: '不能' },
+          ],
+        ],
       },
     ],
   },

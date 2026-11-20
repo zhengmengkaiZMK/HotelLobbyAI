@@ -342,6 +342,75 @@ export const SASHA_LA_CATRINA_CITE_TAILS: readonly SashaLaCatrinaLongTailEntry[]
         },
       },
     ],
+    blocks: [
+      {
+        kind: 'checks',
+        title: {
+          en: 'Sound check before you post',
+          zh: '发布前的原声检查',
+        },
+        items: [
+          {
+            en: 'A preview that plays audio on this site is not proof the export carries it. The preview and the render are two different steps.',
+            zh: '在这个站上预览能听到声音，不等于导出文件里就有。预览和渲染是两步。',
+          },
+          {
+            en: 'Download the MP4 and play it once with the volume up before you upload it anywhere. Most “my Catrina video is silent” reports are this step skipped.',
+            zh: '下载 MP4 后先开声音播一遍再上传。大部分「我的 Catrina 视频没声音」都是漏了这一步。',
+          },
+          {
+            en: 'If it is silent, search “adiós señora bonita” in the TikTok, Reels, or Shorts sound picker and attach the trend sound there. The platform’s copy sits under the platform’s licence.',
+            zh: '如果没有声音，就在 TikTok、Reels 或 Shorts 的曲库里搜「adiós señora bonita」加上热梗原声。平台曲库里的那份在平台的授权下。',
+          },
+          {
+            en: 'Turn on the AI label when the app asks. The person on screen did not perform at any real Día de Muertos event.',
+            zh: '应用要求时打开 AI 标注。画面里的人没有在任何真实的亡灵节活动上表演过。',
+          },
+          {
+            en: 'Do not treat the file as a licensed copy of the recording. ViralReel does not license “Adiós señora bonita”, The Book of Life, or the original audio.',
+            zh: '不要把文件当成这段录音的授权拷贝。ViralReel 不授权「Adiós señora bonita」、《The Book of Life》或原始音频。',
+          },
+        ],
+      },
+      {
+        kind: 'compare',
+        title: {
+          en: 'Three things called “the sound”',
+          zh: '三个都被叫作「原声」的东西',
+        },
+        head: [
+          { en: 'Name', zh: '说法' },
+          { en: 'What it is', zh: '指的是什么' },
+          { en: 'Who can use it', zh: '谁能用' },
+        ],
+        rows: [
+          [
+            { en: 'The film line', zh: '电影台词' },
+            {
+              en: '“Adiós, señora bonita” as it appears in The Book of Life (2014)',
+              zh: '《The Book of Life》（2014）里的「Adiós, señora bonita」',
+            },
+            { en: 'The film’s rights holders', zh: '电影版权方' },
+          ],
+          [
+            { en: 'The trend sound', zh: '热梗原声' },
+            {
+              en: 'The version uploaded to TikTok, Reels, or Shorts and attached to the reveal edits',
+              zh: '被上传到 TikTok、Reels 或 Shorts 并配在变身剪辑上的那一版',
+            },
+            { en: 'Anyone using the platform’s in-app sound', zh: '在应用内用平台曲库的人' },
+          ],
+          [
+            { en: 'The preview audio', zh: '预览音频' },
+            {
+              en: 'What plays on a template page while you look at a sample',
+              zh: '你在模板页看样本时播放的声音',
+            },
+            { en: 'Nobody — it is a page preview, not a file', zh: '谁都不能——它是网页预览，不是文件' },
+          ],
+        ],
+      },
+    ],
   },
   {
     keyword: 'sasha la catrina no watermark',

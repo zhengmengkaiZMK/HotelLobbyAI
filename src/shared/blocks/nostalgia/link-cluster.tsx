@@ -1,4 +1,5 @@
 import { Link } from '@/core/i18n/navigation';
+import { pruneLinkGroups } from '@/shared/lib/seo-links';
 
 import { nostalgiaLinkGroups } from './long-tails';
 
@@ -9,7 +10,7 @@ export function NostalgiaLinkCluster({
   zh: boolean;
   currentPath?: string;
 }) {
-  const groups = nostalgiaLinkGroups(zh);
+  const groups = pruneLinkGroups(nostalgiaLinkGroups(zh));
   return (
     <div className="cluster">
       {groups.map((group) => (
