@@ -80,6 +80,7 @@ export default async function SettingsPage({
   'viral_family_models_never_let_her_pay',
   'viral_family_models_dance_with_santa',
   'viral_family_models_give_it_all_ai',
+  'viral_family_models_gta5_goodbye',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
@@ -106,6 +107,7 @@ export default async function SettingsPage({
   'viral_family_default_model_never_let_her_pay',
   'viral_family_default_model_dance_with_santa',
   'viral_family_default_model_give_it_all_ai',
+  'viral_family_default_model_gta5_goodbye',
 ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {

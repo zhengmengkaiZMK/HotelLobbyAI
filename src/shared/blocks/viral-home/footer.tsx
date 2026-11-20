@@ -44,6 +44,11 @@ export function ViralFooter() {
     chips?: { href: string; label: readonly [string, string] }[];
   }[] = [
     {
+      href: '/gta-5-goodbye-ai-template',
+      label: ['GTA 5 Goodbye AI', 'GTA 5 Goodbye AI 日落码头告别'],
+      chips: [{ href: '/blog/how-to-make-gta-5-goodbye-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
       href: '/give-it-all-ai-template',
       label: ['Give It All AI', 'Give It All AI 挂麦说唱'],
       chips: [{ href: '/blog/how-to-make-give-it-all-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
