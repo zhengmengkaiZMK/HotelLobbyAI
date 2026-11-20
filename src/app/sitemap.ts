@@ -75,7 +75,6 @@ const staticRoutes = [
   { path: '/ozil-ai-goal-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/cat-clapping-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/ai-video-generator-from-photos', priority: 0.8, changeFrequency: 'monthly' as const },
-  { path: '/gta-6-style-ai-image-generator', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/ai-duet-video-maker', priority: 0.8, changeFrequency: 'monthly' as const },
   // /ai-video-generator, /ai-image-generator, and /ai-music-generator stay
   // routable but are noindex and omitted here. They are thin boilerplate pages.

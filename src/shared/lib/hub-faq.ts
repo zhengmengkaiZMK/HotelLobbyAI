@@ -160,10 +160,10 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
       },
     },
     {
-      q: { en: 'Do I get free credits or a free image?', zh: '有免费积分或免费图片吗？' },
+      q: { en: 'Do I get free credits?', zh: '有免费积分吗？' },
       a: {
-        en: `Video renders are paid. ViralReel does not grant signup credits, and the daily image does not add spendable credits or make a video free. Signed-in users get one image per Asia/Shanghai day on the GTA 6 Style image tool, shared by text and photo modes. After that, an image without a photo costs 2 credits and an image with a photo costs 4 credits. The generator shows that cost before you start, and failed or canceled generations are refunded. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingEn}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits); the monthly detail page is ${subscribeEn}. Top-ups are ${ctx.creditsPerUsd} credits = $1.`,
-        zh: `视频按次付费。ViralReel 不赠送注册积分，每日图片也不会增加可花积分，也不能用来免费做视频。登录用户在 GTA 6 Style 图片工具上每个上海自然日有一张图片，文生图和图生图共用。用完之后，不上传照片 2 积分，上传照片 4 积分。生成器会在开始前显示费用，失败或取消会退回。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingZh}。月付套餐 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），月付详情页是 ${subscribeZh}。加购为 ${ctx.creditsPerUsd} 积分 = 1 美元。`,
+        en: `No — ViralReel does not offer free credits or a free trial; every render is paid. The generator always shows the credit cost before you render, and failed or canceled generations are refunded. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingEn}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits); the monthly detail page is ${subscribeEn}. Top-ups are ${ctx.creditsPerUsd} credits = $1.`,
+        zh: `没有。ViralReel 不提供免费积分或免费试用——每次渲染都计费。生成器总会在渲染前显示本次积分，失败或取消的生成会退回积分。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingZh}。月付套餐 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），月付详情页是 ${subscribeZh}。加购为 ${ctx.creditsPerUsd} 积分 = 1 美元。`,
       },
     },
   ];

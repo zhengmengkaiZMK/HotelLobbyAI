@@ -20,7 +20,6 @@
 .viral-home .community-link[data-brand=discord]:hover{color:#5865f2;background:#eef0fe}
 .viral-home .community-mobile{display:none}
 .viral-home .menu a{font-size:14px;color:#71717a;padding:6px 10px;border-radius:6px;transition:.15s;white-space:nowrap}
-.viral-home .menu a.image-nav,.viral-home .mobile-menu a.image-nav{font-weight:700;color:#c2410c}
 .viral-home .menu .menu-link{display:inline-flex;align-items:center;gap:5px;font-size:14px;color:#71717a;padding:6px 10px;border-radius:6px;transition:.15s;white-space:nowrap;background:transparent;border:0;line-height:1;cursor:pointer}
 .viral-home .menu .menu-link:hover{background:#f4f4f5;color:#09090b}
 .viral-home .menu a:hover{background:#f4f4f5;color:#09090b}
