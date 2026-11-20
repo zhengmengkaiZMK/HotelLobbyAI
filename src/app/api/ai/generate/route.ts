@@ -1,19 +1,22 @@
 import { envConfigs } from '@/config';
+import { db } from '@/core/db';
 import { AIMediaType } from '@/extensions/ai';
 import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getFalKlingV4ReferenceModel, getBaiduSeedanceModel, BAIDU_SEEDANCE_MODEL, FAL_KLING_REFERENCE_DEFAULT_MODEL, FAL_WAN_REFERENCE_DEFAULT_MODEL, FAL_KLING_V4_DEFAULT_MODEL } from '@/shared/lib/ai-models';
+import { prepareImageRequest } from '@/shared/lib/image-tool';
 import { getAllConfigs } from '@/shared/models/config';
 import { getUuid } from '@/shared/lib/hash';
 import { canUse1080p } from '@/shared/lib/plan-entitlements';
-import { respData, respErr } from '@/shared/lib/resp';
-import { createAITask, NewAITask } from '@/shared/models/ai_task';
+import { respData, respErr, respJson } from '@/shared/lib/resp';
+import { createAITask, findAITaskById, NewAITask } from '@/shared/models/ai_task';
 import { getRemainingCredits } from '@/shared/models/credit';
 import { getUserInfo } from '@/shared/models/user';
 import { getAIService } from '@/shared/services/ai';
+import { fulfillImageGeneration } from '@/shared/services/image-quota';
 import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost, getFalKlingV4VideoCost } from '@/shared/lib/video-cost';
 
 export async function POST(request: Request) {
   try {
-    let { provider, mediaType, model, prompt, options, scene, family } =
+    let { provider, mediaType, model, prompt, options, scene, family, styleId, idempotencyKey } =
       await request.json();
 
     if (!provider || !mediaType || !model) {
@@ -27,6 +30,27 @@ export async function POST(request: Request) {
     // fresh read: model gating, whitelist and billing keys must reflect admin
     // changes immediately (unstable_cache is per-isolate on Cloudflare)
     const configs = await getAllConfigs(true);
+    let preparedImage: ReturnType<typeof prepareImageRequest> | null = null;
+    if (mediaType === AIMediaType.IMAGE) {
+      preparedImage = prepareImageRequest({
+        provider,
+        model,
+        prompt,
+        scene,
+        styleId,
+        idempotencyKey,
+        options,
+        configs,
+      });
+      if (!preparedImage.ok) {
+        throw new Error(`${preparedImage.code}: ${preparedImage.message}`);
+      }
+      provider = preparedImage.provider;
+      model = preparedImage.model;
+      prompt = preparedImage.prompt;
+      scene = preparedImage.scene;
+      options = preparedImage.options;
+    }
     const aiService = await getAIService(configs);
     // per-family model gating (server-side enforcement of the admin
     // multi-select in 业务素材): when the family has a non-empty checked list,
@@ -79,6 +103,7 @@ export async function POST(request: Request) {
       }
       options = {
         ...(requiresImage ? { image_input: images } : {}),
+        ...(mediaType === AIMediaType.IMAGE && options?.size ? { size: options.size } : {}),
         ...(mediaType === AIMediaType.VIDEO
           ? {
               duration: options?.duration,
@@ -431,7 +456,7 @@ export async function POST(request: Request) {
     // get current user
     const user = await getUserInfo();
     if (!user) {
-      throw new Error('no auth, please sign in');
+      throw new Error(mediaType === AIMediaType.IMAGE ? 'NOT_SIGNED_IN: Sign in to generate an image' : 'no auth, please sign in');
     }
 
     // starter-tier / unpaid users are capped at 480p/720p export (MiniMax 2K
@@ -503,10 +528,14 @@ export async function POST(request: Request) {
       throw new Error('invalid mediaType');
     }
 
-    // check credits
-    const remainingCredits = await getRemainingCredits(user.id);
-    if (remainingCredits < costCredits) {
-      throw new Error('insufficient credits');
+    // Image attempts claim the daily free image or debit 2/4 credits inside
+    // fulfillImageGeneration. Checking the balance here would block a signed-in
+    // user whose balance is zero from using that free image.
+    if (mediaType !== AIMediaType.IMAGE) {
+      const remainingCredits = await getRemainingCredits(user.id);
+      if (remainingCredits < costCredits) {
+        throw new Error('insufficient credits');
+      }
     }
 
     const callbackUrl = `${envConfigs.app_url}/api/ai/notify/${provider}`;
@@ -518,6 +547,32 @@ export async function POST(request: Request) {
       callbackUrl,
       options,
     };
+
+    if (mediaType === AIMediaType.IMAGE && preparedImage?.ok) {
+      const outcome = await fulfillImageGeneration({
+        database: db(),
+        user,
+        idempotencyKey: preparedImage.idempotencyKey,
+        scene: preparedImage.scene,
+        provider,
+        model,
+        prompt,
+        styleId: preparedImage.styleId,
+        options,
+        costCredits: preparedImage.costCredits,
+        loadTask: async (id) => findAITaskById(id),
+        generate: () => aiProvider.generate({ params }),
+        createTask: (task) => createAITask(task as NewAITask),
+      });
+      if (!outcome.ok) {
+        return respJson(-1, `${outcome.code}: ${outcome.message}`, {
+          code: outcome.code,
+          costCredits: outcome.costCredits,
+          balance: outcome.balance,
+        });
+      }
+      return respData(outcome.task);
+    }
 
     // generate content
     const result = await aiProvider.generate({ params });
@@ -548,6 +603,11 @@ export async function POST(request: Request) {
     return respData(newAITask);
   } catch (e: any) {
     console.log('generate failed', e);
-    return respErr(e.message);
+    const message = typeof e?.message === 'string' ? e.message : 'generate failed';
+    if (/^(NOT_CONFIGURED|NOT_SIGNED_IN|SCENE_UNSUPPORTED|STYLE_NOT_FOUND|INVALID_REFERENCE|INSUFFICIENT_CREDITS|IN_PROGRESS|IMAGE_FAILED|INVALID_REQUEST):/.test(message)) {
+      const code = message.split(':')[0];
+      return respJson(-1, message, { code });
+    }
+    return respErr(message);
   }
 }

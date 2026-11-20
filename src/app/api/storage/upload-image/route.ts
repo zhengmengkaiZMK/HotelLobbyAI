@@ -1,4 +1,5 @@
 import { md5 } from '@/shared/lib/hash';
+import { assertUploadImage } from '@/shared/lib/image-tool';
 import { respData, respErr } from '@/shared/lib/resp';
 import { getStorageService } from '@/shared/services/storage';
 import { getUserInfo } from '@/shared/models/user';
@@ -46,9 +47,8 @@ export async function POST(req: Request) {
 
     for (const file of files) {
       // Validate file type
-      if (!file.type.startsWith('image/')) {
-        return respErr(`File ${file.name} is not an image`);
-      }
+      const uploadCheck = assertUploadImage({ type: file.type, size: file.size });
+      if (!uploadCheck.ok) return respErr(`${file.name}: ${uploadCheck.message}`);
 
       // Convert file to buffer
       const arrayBuffer = await file.arrayBuffer();

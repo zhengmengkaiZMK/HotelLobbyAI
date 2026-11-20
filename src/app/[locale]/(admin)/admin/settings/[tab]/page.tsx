@@ -4,6 +4,7 @@ import { PERMISSIONS, requireAllPermissions } from '@/core/rbac';
 import { Header, Main, MainHeader } from '@/shared/blocks/dashboard';
 import { FormCard } from '@/shared/blocks/form';
 import { getChatModels, parseModelList, getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanReferenceModel, getFalKlingV4ReferenceModel, getBaiduSeedanceModel } from '@/shared/lib/ai-models';
+import { parseImageStylesSafe, validateActiveImageModel } from '@/shared/lib/image-tool';
 import { getConfigsFresh, saveConfigs } from '@/shared/models/config';
 import { getUserInfo } from '@/shared/models/user';
 import {
@@ -140,6 +141,15 @@ export default async function SettingsPage({
     });
 
     if ('chat_models' in updates) getChatModels(updates.chat_models);
+    if ('gta_image_styles' in updates) {
+      const parsed = parseImageStylesSafe(updates.gta_image_styles);
+      if (!parsed.ok) throw new Error(parsed.message);
+    }
+    if ('gta_image_model' in updates || 'media_relay_image_models' in updates || 'gta_image_styles' in updates) {
+      const merged = { ...(await getConfigsFresh()), ...updates };
+      const modelCheck = validateActiveImageModel(merged);
+      if (!modelCheck.ok) throw new Error(modelCheck.message);
+    }
     for (const media of ['image', 'video'] as const) {
       const key = `media_relay_${media}_models`;
       if (key in updates) parseModelList(updates[key], media);
