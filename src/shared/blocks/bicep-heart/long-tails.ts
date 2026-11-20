@@ -23,7 +23,9 @@ export const BICEP_HEART_TEMPLATE_PATH = '/bicep-heart-ai-template';
 /** Blog roundups that already exist on ViralReel and mention flex trends. */
 export const BICEP_HEART_POSTS = {
   howTo: '/how-to-make-bicep-heart-ai-video',
-  explainer: '/bicep-heart-trend',
+  // `explainer` ('/bicep-heart-trend') was retired into the template page in the
+  // 2026-11-20 prune, so it is not listed here — the template page carries the
+  // trend timeline itself and must not be linked from itself.
   roundup: '/blog/october-2026-viral-ai-meme-videos',
 } as const;
 

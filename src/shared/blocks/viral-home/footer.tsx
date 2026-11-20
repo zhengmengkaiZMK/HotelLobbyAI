@@ -5,6 +5,7 @@
 import { useLocale } from 'next-intl';
 
 import { Link } from '@/core/i18n/navigation';
+import { resolveInternalHref } from '@/shared/lib/seo-links';
 
 import './home.css';
 
@@ -22,14 +23,22 @@ function FtplRow({
   label: readonly [string, string];
   chips?: readonly { href: string; label: readonly [string, string] }[];
 }) {
+  // Footer links are hand-maintained and can lag behind a prune. Resolve them
+  // at render so the footer never ships a link into a 410 or through a 301 hop.
+  const mainHref = resolveInternalHref(href);
+  if (!mainHref) return null;
   return (
     <div className="frow">
-      <Link href={href}>{label[0]}</Link>
-      {chips?.map((chip) => (
-        <Link key={chip.href} href={chip.href} className="fchip">
-          {chip.label[0]}
-        </Link>
-      ))}
+      <Link href={mainHref}>{label[0]}</Link>
+      {chips?.map((chip) => {
+        const chipHref = resolveInternalHref(chip.href);
+        if (!chipHref) return null;
+        return (
+          <Link key={chipHref} href={chipHref} className="fchip">
+            {chip.label[0]}
+          </Link>
+        );
+      })}
     </div>
   );
 }

@@ -103,10 +103,6 @@ export function AlorsOnDanseLongTailView({
             <p className="guide-more">
               <Link href={ALORS_ON_DANSE_TEMPLATE_PATH}>{makeLabel}</Link>
               {' · '}
-              <Link href="/alors-on-danse-template">{zh ? '七个版本' : 'The seven versions'}</Link>
-              {' · '}
-              <Link href="/alors-on-danse-tiktok">{zh ? 'TikTok 玩法' : 'TikTok how-to'}</Link>
-              {' · '}
               <Link href="/pricing">{pricingLabel}</Link>
             </p>
           </div>

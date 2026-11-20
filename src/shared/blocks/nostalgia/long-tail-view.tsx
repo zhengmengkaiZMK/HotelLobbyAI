@@ -103,10 +103,6 @@ export function NostalgiaLongTailView({
             <p className="guide-more">
               <Link href={NOSTALGIA_TEMPLATE_PATH}>{makeLabel}</Link>
               {' · '}
-              <Link href="/nostalgia-capcut">{zh ? '与 CapCut 的对照' : 'NostalgIA CapCut comparison'}</Link>
-              {' · '}
-              <Link href="/nostalgia-tiktok">{zh ? 'TikTok 玩法' : 'TikTok how-to'}</Link>
-              {' · '}
               <Link href="/pricing">{pricingLabel}</Link>
             </p>
           </div>

@@ -107,8 +107,6 @@ export function WassupLongTailView({
               {' · '}
               <Link href="/wassup-in-a-minute-meme">{zh ? '梗详解' : 'What the meme is'}</Link>
               {' · '}
-              <Link href="/wassup-in-a-minute-tiktok">{zh ? 'TikTok 玩法' : 'TikTok how-to'}</Link>
-              {' · '}
               <Link href="/pricing">{pricingLabel}</Link>
             </p>
           </div>
