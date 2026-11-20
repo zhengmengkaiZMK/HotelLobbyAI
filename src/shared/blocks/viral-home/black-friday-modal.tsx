@@ -355,10 +355,10 @@ export function BlackFridayModal() {
             <X className="size-4" />
             <span className="sr-only">{t('Close', '关闭')}</span>
           </button>
-          <DialogTitle className="pr-8 text-center text-[26px] font-semibold tracking-tight text-zinc-950 sm:text-[32px]">
+          <DialogTitle className="pr-8 text-center text-[22px] leading-snug font-semibold tracking-tight text-zinc-950 sm:text-[32px]">
             {t('Black Friday on ViralReel', 'ViralReel 黑五限时优惠')}
           </DialogTitle>
-          <DialogDescription className="text-center text-[15px] text-zinc-500">
+          <DialogDescription className="text-center text-[13px] text-zinc-500 sm:text-[15px]">
             {t(
               'Same credits. Limited time. Ends Nov 30.',
               '积分和权益不变。限时优惠，截止 11 月 30 日。'
@@ -377,7 +377,7 @@ export function BlackFridayModal() {
                 : '–:–:–:–'}
             </span>
           </div>
-          <div className="grid gap-6 pt-4 md:grid-cols-2">
+          <div className="grid gap-4 pt-3 sm:gap-6 sm:pt-4 md:grid-cols-2">
             {packs.map((item) => {
               const offer =
                 BLACK_FRIDAY_OFFERS[
@@ -395,7 +395,7 @@ export function BlackFridayModal() {
                   }`}
                 >
                   <span
-                    className={`absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 rounded-full px-3.5 py-0.5 text-xs font-semibold whitespace-nowrap ${
+                    className={`absolute top-0 left-1/2 hidden -translate-x-1/2 -translate-y-1/2 rounded-full px-3.5 py-0.5 text-xs font-semibold whitespace-nowrap sm:block ${
                       featured
                         ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-orange-50'
                         : 'border border-orange-200 bg-orange-50 text-orange-800'
@@ -403,13 +403,13 @@ export function BlackFridayModal() {
                   >
                     {featured ? t('Most popular', '最受欢迎') : t('Best value', '最划算')}
                   </span>
-                  <div className="mt-2 flex items-center justify-between gap-2">
+                  <div className="flex items-center justify-between gap-2 sm:mt-2">
                     <h3 className="text-base font-semibold">{item.title}</h3>
-                    <span className="rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-[11px] font-bold text-orange-700">
+                    <span className="rounded-full border border-orange-200 bg-orange-50 px-2 py-0.5 text-[11px] font-bold text-orange-700 sm:hidden">
                       {offer.badge}
                     </span>
                   </div>
-                  <p className="mt-3 text-[32px] font-semibold tracking-tight sm:text-4xl">
+                  <p className="mt-2 text-[26px] font-semibold tracking-tight sm:mt-3 sm:text-4xl">
                     {item.price}{' '}
                     <s className="text-base font-medium text-zinc-400">
                       {item.original_price}
@@ -422,7 +422,7 @@ export function BlackFridayModal() {
                     type="button"
                     disabled={loading}
                     onClick={() => buy(item)}
-                    className={`mt-4 h-10 w-full rounded-lg text-sm font-medium ${
+                    className={`mt-3 h-10 w-full rounded-lg text-sm font-medium sm:mt-4 ${
                       featured
                         ? 'bg-gradient-to-r from-orange-500 to-orange-600 text-orange-50 shadow-[0_1px_3px_#ea580c59]'
                         : 'border border-zinc-200 bg-white text-zinc-950'
@@ -432,7 +432,7 @@ export function BlackFridayModal() {
                       ? t('Redirecting…', '正在前往支付…')
                       : t(`Get ${item.title}`, `购买 ${item.title}`)}
                   </button>
-                  <ul className="mt-4 space-y-1.5 text-sm text-zinc-700">
+                  <ul className="mt-4 hidden space-y-1.5 text-sm text-zinc-700 sm:block">
                     {features.map((line) => (
                       <li key={line} className="flex gap-2">
                         <Check className="mt-0.5 size-4 shrink-0 text-emerald-500" />
@@ -444,6 +444,16 @@ export function BlackFridayModal() {
               );
             })}
           </div>
+          <button
+            type="button"
+            onClick={() => {
+              userDismiss.current = true;
+              dismiss();
+            }}
+            className="mt-3 w-full text-center text-sm text-zinc-400 underline-offset-2 hover:text-zinc-600 hover:underline sm:hidden"
+          >
+            {t('No thanks, maybe later', '暂不需要，稍后再说')}
+          </button>
         </DialogContent>
       </Dialog>
       <PaymentModal
