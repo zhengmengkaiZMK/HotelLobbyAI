@@ -161,7 +161,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     gta6_lovers_on_the_run: [15],
     gta6_vice_city_story: [15],
     gta6_nightclub: [12],
-    gta6_getaway_duo: [12, 5],
+    gta6_getaway_duo: [12],
     grandpa_dinner: [10],
     santa_nice_list: [10],
     charlie_brown_christmas: [8],
