@@ -80,6 +80,12 @@ export default async function SettingsPage({
   'viral_family_models_dance_with_santa',
   'viral_family_models_give_it_all_ai',
   'viral_family_models_gta5_goodbye',
+  'viral_family_models_gta6_trailer_ai',
+  'viral_family_models_gta6_wanted_level',
+  'viral_family_models_gta6_lovers_on_the_run',
+  'viral_family_models_gta6_vice_city_story',
+  'viral_family_models_gta6_nightclub',
+  'viral_family_models_gta6_getaway_duo',
     'viral_family_default_model_hotel',
     'viral_family_default_model_burning_bridges',
     'viral_family_default_model_bulin_47',
@@ -107,6 +113,12 @@ export default async function SettingsPage({
   'viral_family_default_model_dance_with_santa',
   'viral_family_default_model_give_it_all_ai',
   'viral_family_default_model_gta5_goodbye',
+  'viral_family_default_model_gta6_trailer_ai',
+  'viral_family_default_model_gta6_wanted_level',
+  'viral_family_default_model_gta6_lovers_on_the_run',
+  'viral_family_default_model_gta6_vice_city_story',
+  'viral_family_default_model_gta6_nightclub',
+  'viral_family_default_model_gta6_getaway_duo',
 ]);
   for (const setting of settings) {
     if (familyModelSettingNames.has(setting.name)) {

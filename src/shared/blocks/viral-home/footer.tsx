@@ -53,6 +53,18 @@ export function ViralFooter() {
     chips?: { href: string; label: readonly [string, string] }[];
   }[] = [
     {
+      href: '/gta-6-ai-templates',
+      label: ['GTA 6 AI Templates', 'GTA 6 AI 模板专题'],
+      chips: [
+        { href: '/gta-6-trailer-ai', label: ['Trailer AI', 'Trailer AI 预告片'] },
+        { href: '/gta-6-wanted-level', label: ['Wanted Level', 'Wanted Level 五星通缉'] },
+        { href: '/gta-6-lovers-on-the-run', label: ['Lovers on the Run', 'Lovers 亡命情侣'] },
+        { href: '/gta-6-vice-city-story', label: ['Vice City Story', 'Vice City Story 都市故事'] },
+        { href: '/gta-6-nightclub', label: ['Nightclub', 'Nightclub 夜店之夜'] },
+        { href: '/gta-6-getaway-duo', label: ['Getaway Duo', 'Getaway Duo 双人逃亡'] },
+      ],
+    },
+    {
       href: '/gta-5-goodbye-ai-template',
       label: ['GTA 5 Goodbye AI', 'GTA 5 Goodbye AI 日落码头告别'],
       chips: [{ href: '/blog/how-to-make-gta-5-goodbye-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],

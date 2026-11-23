@@ -1,0 +1,302 @@
+/* GTA 6 series pages — "Vice night" theme, scoped under .viral-home.g6 so it
+   layers on top of viral-home styles without touching them. The
+   header/footer/generator share viral-home/home.css (which scopes every rule
+   under .viral-home) — the wrapper MUST carry both classes. */
+
+.viral-home.g6 {
+  --g6a: #fb923c;
+  --g6b: #7c2d12;
+  --g6-ink: #1b1510;
+  --g6-mut: #6f5f52;
+  --g6-bg: #fffcf8;
+  --g6-alt: #fff5eb;
+  --g6-line: #f0e4d7;
+  color: var(--g6-ink);
+  background: var(--g6-bg);
+}
+.viral-home.g6 .container { max-width: 1120px; }
+
+/* ── Hero (dark neon panel, generator inside) ── */
+.viral-home.g6 .g6-hero {
+  background:
+    radial-gradient(1100px 480px at 15% -10%, rgba(251, 146, 60, 0.32), transparent 60%),
+    radial-gradient(900px 420px at 85% 0%, rgba(232, 121, 249, 0.28), transparent 55%),
+    radial-gradient(700px 380px at 50% 110%, rgba(34, 211, 238, 0.16), transparent 60%),
+    linear-gradient(180deg, #191019 0%, #241622 55%, #2b1524 100%);
+  color: #fff;
+  padding: 48px 0 72px;
+}
+.viral-home.g6 .g6-hero .g6-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  font-size: 13px; font-weight: 600; letter-spacing: 0.03em;
+  color: #ffd9b8;
+  border: 1px solid rgba(255, 217, 184, 0.35);
+  border-radius: 999px; padding: 6px 15px; margin: 0 0 20px;
+}
+.viral-home.g6 .g6-hero h1 {
+  font-size: clamp(27px, 4.4vw, 42px);
+  line-height: 1.2; letter-spacing: -0.015em;
+  margin: 0 0 16px; max-width: 880px;
+}
+.viral-home.g6 .g6-hl {
+  background: linear-gradient(92deg, #fb923c, #f472b6 60%, #c084fc);
+  -webkit-background-clip: text; background-clip: text; color: transparent;
+}
+.viral-home.g6 .g6-pitch {
+  font-size: clamp(15.5px, 2vw, 17.5px); line-height: 1.7;
+  color: rgba(255, 255, 255, 0.82); max-width: 800px; margin: 0 0 18px;
+}
+.viral-home.g6 .g6-specs { display: flex; flex-wrap: wrap; gap: 8px; margin: 0 0 28px; }
+.viral-home.g6 .g6-specs span {
+  font-size: 13px; font-weight: 600; color: #ffe9d6;
+  background: rgba(255, 255, 255, 0.09);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 999px; padding: 5px 13px;
+}
+.viral-home.g6 .g6-genbox {
+  background: #fff; border-radius: 20px; padding: 10px;
+  box-shadow: 0 24px 70px rgba(0, 0, 0, 0.45);
+  max-width: 900px;
+}
+
+/* ── Sections ── */
+.viral-home.g6 .g6-sec { padding: 72px 0; }
+.viral-home.g6 .g6-sec.g6-alt { background: var(--g6-alt); border-top: 1px solid var(--g6-line); border-bottom: 1px solid var(--g6-line); }
+.viral-home.g6 .g6-kick {
+  display: inline-flex; align-items: center; gap: 7px;
+  font-size: 12.5px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase;
+  color: var(--g6b); margin: 0 0 12px;
+}
+.viral-home.g6 .g6-sec h2 {
+  font-size: clamp(23px, 3.3vw, 32px);
+  line-height: 1.25; letter-spacing: -0.01em;
+  margin: 0 0 14px;
+}
+.viral-home.g6 .g6-sub {
+  color: var(--g6-mut); font-size: 16px; line-height: 1.7;
+  margin: 0 0 32px; max-width: 780px;
+}
+
+/* ── Flow (photo → video) ── */
+.viral-home.g6 .g6-flow {
+  display: flex; align-items: center; justify-content: center;
+  gap: clamp(16px, 3vw, 34px);
+  margin: 30px 0 22px;
+}
+.viral-home.g6 .g6-photos { display: flex; gap: 14px; justify-content: center; }
+.viral-home.g6 .g6-photo { text-align: center; margin: 0; }
+.viral-home.g6 .g6-photo img {
+  width: clamp(150px, 17vw, 196px); height: auto; aspect-ratio: 2 / 3;
+  object-fit: cover; border-radius: 16px;
+  border: 3px solid #fff;
+  box-shadow: 0 12px 30px rgba(124, 45, 18, 0.18);
+}
+.viral-home.g6 .g6-photo figcaption {
+  font-size: 12.5px; font-weight: 700; letter-spacing: 0.02em;
+  color: var(--g6-mut); margin-top: 10px;
+}
+.viral-home.g6 .g6-arrow {
+  display: flex; flex-direction: column; align-items: center; justify-content: center;
+  gap: 6px; color: var(--g6a); flex: 0 0 auto;
+}
+.viral-home.g6 .g6-out { margin: 0; flex: 0 0 auto; display: flex; flex-direction: column; align-items: center; }
+.viral-home.g6 .g6-clip {
+  position: relative;
+  width: min(300px, 78vw);
+  aspect-ratio: 9 / 16;
+  border-radius: 16px; overflow: hidden;
+  border: 3px solid #fff;
+  box-shadow: 0 12px 30px rgba(124, 45, 18, 0.18);
+}
+.viral-home.g6 .g6-clip.landscape { aspect-ratio: 16 / 9; width: min(440px, 86vw); }
+.viral-home.g6 .g6-clip .tv-video { object-fit: cover; border-radius: 0; }
+.viral-home.g6 .g6-hub-preview {
+  position: relative;
+  width: min(300px, 82%); aspect-ratio: 9 / 16;
+  border-radius: 16px; overflow: hidden;
+  border: 3px solid rgba(255, 255, 255, 0.25);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.5);
+}
+.viral-home.g6 .g6-clip-tag {
+  position: absolute; top: 12px; left: 12px; z-index: 2;
+  font-size: 12.5px; font-weight: 700; color: #fff;
+  background: rgba(0, 0, 0, 0.55); border-radius: 999px; padding: 4px 12px;
+  backdrop-filter: blur(4px);
+}
+.viral-home.g6 .g6-out figcaption {
+  font-size: 13.5px; line-height: 1.55; color: var(--g6-mut);
+  margin-top: 12px; max-width: 480px; text-align: center;
+}
+.viral-home.g6 .g6-flow-note {
+  font-size: 16px; line-height: 1.75; color: #43362c;
+  max-width: 880px; margin: 0 auto 28px; text-align: center;
+}
+.viral-home.g6 .g6-btn {
+  display: inline-flex; align-items: center; gap: 9px;
+  background: linear-gradient(92deg, var(--g6a), var(--g6b));
+  color: #fff; font-weight: 700; font-size: 15.5px;
+  border: 0; border-radius: 999px; padding: 13px 28px; cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease;
+}
+.viral-home.g6 .g6-btn:hover { transform: translateY(-1px); box-shadow: 0 12px 30px rgba(251, 146, 60, 0.35); }
+.viral-home.g6 .g6-btn-lg { font-size: 17px; padding: 15px 34px; }
+
+/* ── Storyboard ── */
+.viral-home.g6 .g6-story {
+  display: grid; grid-template-columns: repeat(auto-fit, minmax(235px, 1fr));
+  gap: 18px; margin: 0 auto 26px; max-width: 980px;
+}
+.viral-home.g6 .g6-story.dense { grid-template-columns: repeat(auto-fit, minmax(205px, 1fr)); }
+.viral-home.g6 .g6-scene {
+  background: #fff; border: 1px solid var(--g6-line); border-radius: 16px;
+  padding: 22px;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.viral-home.g6 .g6-scene:hover { box-shadow: 0 14px 34px rgba(124, 45, 18, 0.12); transform: translateY(-2px); }
+.viral-home.g6 .g6-num {
+  display: inline-grid; place-items: center; width: 36px; height: 36px;
+  border-radius: 11px; color: #fff; font-weight: 800; font-size: 15.5px;
+  background: linear-gradient(135deg, var(--g6a), var(--g6b));
+  margin-bottom: 12px;
+}
+.viral-home.g6 .g6-scene h3 { font-size: 16px; letter-spacing: -0.005em; margin: 0 0 8px; }
+.viral-home.g6 .g6-scene p { font-size: 14.5px; line-height: 1.7; color: var(--g6-mut); margin: 0; }
+.viral-home.g6 .g6-tip {
+  background: linear-gradient(135deg, #fff, #fff6ec);
+  border: 1px solid var(--g6-line);
+  border-left: 4px solid var(--g6a);
+  border-radius: 14px; padding: 18px 22px; max-width: 880px; margin: 0 auto;
+}
+.viral-home.g6 .g6-tip p { margin: 0; font-size: 15px; line-height: 1.75; color: #43362c; }
+
+/* ── Steps ── */
+.viral-home.g6 .g6-steps { list-style: none; margin: 0 auto; padding: 0; display: grid; gap: 16px; max-width: 880px; }
+.viral-home.g6 .g6-steps li {
+  display: flex; gap: 18px; align-items: flex-start;
+  background: #fff; border: 1px solid var(--g6-line); border-radius: 16px;
+  padding: 20px 24px;
+}
+.viral-home.g6 .g6-stepnum {
+  flex: 0 0 auto; display: inline-grid; place-items: center; width: 36px; height: 36px;
+  border-radius: 50%; background: linear-gradient(135deg, var(--g6a), var(--g6b));
+  color: #fff; font-weight: 800; font-size: 15.5px;
+  box-shadow: 0 6px 14px rgba(251, 146, 60, 0.35);
+}
+.viral-home.g6 .g6-steps h3 { font-size: 16px; margin: 4px 0 7px; }
+.viral-home.g6 .g6-steps p { font-size: 15px; line-height: 1.75; color: var(--g6-mut); margin: 0; }
+
+/* ── Trend prose ── */
+.viral-home.g6 .g6-prose { max-width: 880px; margin: 0 auto; }
+.viral-home.g6 .g6-prose h2 { margin-top: 36px; font-size: clamp(20px, 2.6vw, 25px); }
+.viral-home.g6 .g6-prose h2:first-of-type { margin-top: 6px; }
+.viral-home.g6 .g6-prose p { font-size: 16px; line-height: 1.85; color: #3d332b; margin: 14px 0 0; }
+
+/* ── Stats strip ── */
+.viral-home.g6 .g6-stats { background: #201318; color: #fff; padding: 44px 0; }
+.viral-home.g6 .g6-stats-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(230px, 1fr)); gap: 24px; }
+.viral-home.g6 .g6-statnum { font-size: 32px; font-weight: 800; letter-spacing: -0.01em; color: #ffc09a; }
+.viral-home.g6 .g6-wide-em { font-style: normal; font-size: 14px; font-weight: 600; color: rgba(255, 255, 255, 0.75); }
+.viral-home.g6 .g6-stats p { font-size: 14px; line-height: 1.6; color: rgba(255, 255, 255, 0.66); margin: 8px 0 0; }
+
+/* ── FAQ ── */
+.viral-home.g6 .g6-faq-list { max-width: 880px; margin: 0 auto; }
+.viral-home.g6 .g6-faq-list details {
+  background: #fff; border: 1px solid var(--g6-line); border-radius: 14px;
+  margin-bottom: 10px; padding: 0 20px;
+}
+.viral-home.g6 .g6-faq-list summary {
+  cursor: pointer; font-weight: 700; font-size: 16px; line-height: 1.5;
+  padding: 16px 0;
+}
+.viral-home.g6 .g6-faq-list details[open] summary { border-bottom: 1px solid var(--g6-line); }
+.viral-home.g6 .g6-faq-list p { font-size: 15px; line-height: 1.8; color: #43362c; padding: 16px 0; margin: 0; }
+
+/* ── Related ── */
+.viral-home.g6 .g6-rel { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 18px; margin: 26px auto 16px; max-width: 980px; }
+.viral-home.g6 .g6-relcard {
+  display: flex; gap: 16px; align-items: flex-start;
+  background: #fff; border: 1px solid var(--g6-line);
+  border-radius: 16px; padding: 16px; color: inherit; text-decoration: none;
+  transition: box-shadow 0.15s ease, transform 0.15s ease;
+}
+.viral-home.g6 .g6-relcard:hover { box-shadow: 0 14px 34px rgba(124, 45, 18, 0.14); transform: translateY(-2px); }
+.viral-home.g6 .g6-relcard img { width: 86px; height: 153px; object-fit: cover; border-radius: 12px; flex: 0 0 auto; }
+.viral-home.g6 .g6-relcard b { display: block; font-size: 15px; letter-spacing: -0.005em; }
+.viral-home.g6 .g6-relcard span { display: block; font-size: 12.5px; color: var(--g6a); font-weight: 700; margin: 4px 0 6px; }
+.viral-home.g6 .g6-relcard p { font-size: 13.5px; line-height: 1.6; color: var(--g6-mut); margin: 0; }
+.viral-home.g6 .g6-relmore { margin: 10px 0 0; font-size: 15px; font-weight: 700; }
+.viral-home.g6 .g6-relmore a { color: var(--g6b); }
+
+/* ── Hub grid ── */
+.viral-home.g6 .g6-hubgrid { display: grid; grid-template-columns: repeat(auto-fill, minmax(258px, 1fr)); gap: 20px; }
+.viral-home.g6 .g6-hubcard {
+  background: #fff; border: 1px solid var(--g6-line); border-radius: 18px;
+  overflow: hidden;
+  transition: box-shadow 0.15s ease, transform 0.15s ease, border-color 0.15s ease;
+}
+.viral-home.g6 .g6-hubcard.sel { box-shadow: 0 16px 38px rgba(124, 45, 18, 0.16); transform: translateY(-3px); border-color: var(--g6a); }
+.viral-home.g6 .g6-hubmedia { position: relative; display: block; width: 100%; aspect-ratio: 9 / 16; overflow: hidden; background: linear-gradient(165deg, var(--g6a), var(--g6b)); }
+.viral-home.g6 .g6-hubmedia .tv-video { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
+.viral-home.g6 .g6-hubdur {
+  position: absolute; top: 12px; right: 12px; z-index: 2;
+  font-size: 12.5px; font-weight: 800; color: #fff;
+  background: linear-gradient(92deg, var(--g6a), var(--g6b));
+  border-radius: 999px; padding: 4px 12px;
+}
+.viral-home.g6 .g6-hubmeta { padding: 16px 18px 18px; }
+.viral-home.g6 .g6-hubmeta b { font-size: 15.5px; letter-spacing: -0.005em; }
+.viral-home.g6 .g6-hubmeta > span { display: block; font-size: 12.5px; color: var(--g6a); font-weight: 700; margin: 5px 0 7px; }
+.viral-home.g6 .g6-hubmeta p { font-size: 13.5px; line-height: 1.6; color: var(--g6-mut); margin: 0 0 12px; }
+.viral-home.g6 .g6-hubopen { display: inline-flex; align-items: center; gap: 6px; font-size: 14px; font-weight: 700; color: var(--g6b); }
+
+/* ── Final CTA ── */
+.viral-home.g6 .g6-cta {
+  background:
+    radial-gradient(800px 300px at 20% 0%, rgba(251, 146, 60, 0.35), transparent 60%),
+    radial-gradient(700px 300px at 80% 100%, rgba(192, 132, 252, 0.3), transparent 60%),
+    #191019;
+  color: #fff; text-align: center; padding: 80px 0;
+}
+.viral-home.g6 .g6-cta h2 { font-size: clamp(25px, 3.6vw, 34px); letter-spacing: -0.015em; margin: 0 0 14px; }
+.viral-home.g6 .g6-cta p { color: rgba(255, 255, 255, 0.78); max-width: 660px; margin: 0 auto 28px; font-size: 16px; line-height: 1.7; }
+
+
+/* ── Per-series layout variants ── */
+.viral-home.g6 .g6-cta-row { text-align: center; }
+.viral-home.g6 .g6-sec-head.center { text-align: center; }
+.viral-home.g6 .g6-sec-head.center .g6-sub { margin-left: auto; margin-right: auto; }
+.viral-home.g6 .g6-hero-center { text-align: center; }
+.viral-home.g6 .g6-hero-center .g6-badge { margin-left: auto; margin-right: auto; }
+.viral-home.g6 .g6-hero-center h1,
+.viral-home.g6 .g6-hero-center .g6-pitch { margin-left: auto; margin-right: auto; }
+.viral-home.g6 .g6-hero-center .g6-specs { justify-content: center; }
+.viral-home.g6 .g6-hero-center .g6-genbox { margin: 0 auto; }
+.viral-home.g6 .g6-relmore { text-align: left; }
+
+/* ── Hub hero: copy left, video right ── */
+.viral-home.g6 .g6-hub-hero-grid {
+  display: grid;
+  grid-template-columns: minmax(0, 1.15fr) minmax(0, 0.85fr);
+  gap: clamp(28px, 5vw, 60px);
+  align-items: center;
+}
+.viral-home.g6 .g6-hub-hero-grid h1 { max-width: none; }
+.viral-home.g6 .g6-hub-hero-copy > p:not(.g6-badge) { max-width: none; }
+.viral-home.g6 .g6-hub-hero-media { display: flex; justify-content: center; }
+.viral-home.g6 .g6-hub-hero-media .g6-hub-preview { width: min(320px, 100%); }
+
+/* ── Responsive ── */
+@media (max-width: 760px) {
+  .viral-home.g6 .g6-flow { flex-direction: column; }
+  .viral-home.g6 .g6-arrow { flex-direction: row; padding: 4px 0; }
+  .viral-home.g6 .g6-photo img { width: 150px; }
+  .viral-home.g6 .g6-sec { padding: 52px 0; }
+  .viral-home.g6 .g6-hero { padding: 34px 0 52px; }
+  .viral-home.g6 .g6-prose h2 { margin-top: 28px; }
+  .viral-home.g6 .g6-hub-hero-grid { grid-template-columns: 1fr; gap: 26px; }
+  .viral-home.g6 .g6-hub-hero-copy { text-align: center; }
+  .viral-home.g6 .g6-hub-hero-copy .g6-badge { margin-left: auto; margin-right: auto; }
+  .viral-home.g6 .g6-hub-hero-copy h1 { margin-left: auto; margin-right: auto; }
+  .viral-home.g6 .g6-hub-hero-copy p:not(.g6-badge) { margin-left: auto; margin-right: auto; }
+  .viral-home.g6 .g6-hub-hero-copy .g6-specs { justify-content: center; }
+}

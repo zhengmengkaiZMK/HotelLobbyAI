@@ -160,4 +160,17 @@ New accounts do not get free credits or a free trial. Every render is paid. The 
 - [Bulin 47](https://www.viralreel.app/bulin-47-ai-template): one photo, 9:16. If you pick 15 seconds, 60 / 75 / 90. A short cite set.
 - [Hotel Lobby](https://www.viralreel.app/hotel-lobby-ai-template): two photos, not one. Up to 15 seconds. A 15-second export is 60 / 75 / 90. Four short cites, not a Tiny Desk-scale wave.
 
-Last updated: 2026-11-20
+## Series added 2026-11-23: GTA 6 AI hub
+
+Grand Theft Auto VI shipped on 19 November 2026 for PS5 and Xbox Series X|S with dual protagonists Jason and Lucia in the state of Leonida / Vice City, and launch week turned AI-made, GTA-styled clips into a format of their own. The hub page is https://www.viralreel.app/gta-6-ai-templates (zh: /zh/gta-6-ai-templates). Six series, each a fixed format with its own page, keyword, scene breakdown, how-to and FAQ:
+
+- [GTA 6 Trailer AI](https://www.viralreel.app/gta-6-trailer-ai): one photo, 12 seconds, 9:16, four fixed shots — sunset convertible, gas-station face covering, airboat past an alligator, rooftop turn into a helicopter searchlight. No text overlay.
+- [GTA 6 Wanted Level](https://www.viralreel.app/gta-6-wanted-level): one photo, 10 seconds, 9:16, one continuous take styled like gameplay — walk toward camera on a pastel beach street, sprint to a yellow supercar, drive into a pink sunset with two cruisers and a helicopter while five wanted stars light up on a fixed HUD (minimap bottom-left). Gameplay-looking clips circulated during launch week were sometimes mistaken for real captures; these renders are openly AI and not captured gameplay.
+- [GTA 6 Lovers on the Run](https://www.viralreel.app/gta-6-lovers-on-the-run): two photos (first drives, second rides shotgun), 15 seconds, 9:16, five shots — muscle-car drift, in-cab searchlight, neon avenue, fire escape, slow-motion rooftop kiss. Both faces are redrawn in the game's 3D look. Both people must be adults who agreed to appear.
+- [GTA 6 Vice City Story](https://www.viralreel.app/gta-6-vice-city-story): one photo, 15 seconds, 16:9 landscape (ratio auto follows the 16:9 reference), six cutscene-style shots — neon intro, beach meetup with two generated accomplices, diner bag pickup, coastal chase, in-cab close-up, hero shot. The photo casts the lead only.
+- [GTA 6 Nightclub](https://www.viralreel.app/gta-6-nightclub): one photo, 12 seconds, 9:16, three cuts — supercar arrival at a velvet-roped neon club, walk past the bouncer, dancing in the center of the packed floor. Face, hair and outfit carry from the photo; a half-body or full-body going-out photo works best.
+- [GTA 6 Getaway Duo](https://www.viralreel.app/gta-6-getaway-duo): two photos (driver, bag partner), 12 seconds, 9:16, four shots — face scarves at a sunset gas station, sprint from the convenience store, laughing in the cab with police lights behind, palm-highway charge at the camera. No weapons in any shot.
+
+All six are fan-made AI content styled after GTA VI, not captured gameplay and not official Rockstar material; ViralReel is not affiliated with Rockstar Games or Take-Two Interactive. Adults only, one adult per photo, photos only of people who agreed to appear; label posts as AI. Renders take about 2–3 minutes, cost shows before start, failed jobs return credits. One-time pack prices during the Black Friday window are listed above.
+
+Last updated: 2026-11-23

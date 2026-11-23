@@ -64,6 +64,7 @@ export function ViralHeader({ onStart }: { onStart: () => void }) {
     pathname === '/' ? `#${id}` : zh ? `/zh#${id}` : `/#${id}`;
   const links: { href: string; label: string }[] = [
     { href: homeHash('trending'), label: t('Templates', '模板') },
+    { href: '/gta-6-ai-templates', label: 'GTA 6' },
     { href: homeHash('how'), label: t('How it works', '使用教程') },
     { href: '/pricing', label: t('Pricing', '定价') },
     { href: '/blog', label: t('Blog', '博客') },

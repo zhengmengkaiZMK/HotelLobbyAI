@@ -206,7 +206,7 @@
 .viral-home footer{background:#09090b;color:#a1a1aa;font-size:13.5px}
 .viral-home .fgrid{display:grid;grid-template-columns:1.6fr .8fr .9fr 2fr 1.1fr;gap:32px;padding:56px 0}
 .viral-home .ftpl{display:flex;flex-direction:column}
-.viral-home .ftpl .frow{display:flex;align-items:baseline;gap:10px;margin-bottom:9px}
+.viral-home .ftpl .frow{display:flex;align-items:baseline;gap:10px;margin-bottom:9px;flex-wrap:wrap;row-gap:4px}
 .viral-home .ftpl .frow a{margin-bottom:0;white-space:nowrap}
 .viral-home .ftpl .frow .fchip{font-size:12px;color:#71717a}
 .viral-home .ftpl .frow .fchip:hover{color:#fff}

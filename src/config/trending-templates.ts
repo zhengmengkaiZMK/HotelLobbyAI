@@ -12,6 +12,7 @@ export const TRENDING_VIBES = [
   { id: 'dance', label: ['Dance & music', '舞蹈与音乐'] },
   { id: 'classic', label: ['Classic', '经典'] },
   { id: 'pets', label: ['Pets', '宠物'] },
+  { id: 'gta6', label: ['GTA 6', 'GTA 6'] },
 ] as const;
 
 export type TrendingVibeId = (typeof TRENDING_VIBES)[number]['id'];
@@ -34,6 +35,85 @@ export interface TrendingTemplate {
 }
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
+  {
+    id: 'gta-6-trailer-ai',
+    name: ['GTA 6 Trailer AI', 'GTA 6 Trailer AI 预告片'],
+    pitch: [
+      'One photo, a 12-second GTA VI-style fan trailer: sunset convertible, gas station, airboat, rooftop searchlight.',
+      '一张照片，12 秒 GTA VI 风格预告片：日落敞篷车、加油站、气垫船、天台探照灯。',
+    ],
+    href: '/gta-6-trailer-ai',
+    badge: 'hot',
+    vibes: ['gta6', 'meme'],
+    poster: '/templates/gta-6-trailer-ai-poster.jpg',
+    video: '/templates/gta-6-trailer-ai.mp4',
+    colors: ['#fb923c', '#7c2d12'],
+  },
+  {
+    id: 'gta-6-wanted-level',
+    name: ['GTA 6 Wanted Level', 'GTA 6 Wanted Level 五星通缉'],
+    pitch: [
+      'One photo, a 10-second one-take gameplay-style chase — five wanted stars light up as you drive into the pink sunset.',
+      '一张照片，10 秒一镜到底实机风格追逐——五星点亮，你冲进粉色日落。',
+    ],
+    href: '/gta-6-wanted-level',
+    vibes: ['gta6', 'meme'],
+    poster: '/templates/gta-6-wanted-level-poster.jpg',
+    video: '/templates/gta-6-wanted-level.mp4',
+    colors: ['#f472b6', '#831843'],
+  },
+  {
+    id: 'gta-6-lovers-on-the-run',
+    name: ['GTA 6 Lovers on the Run', 'GTA 6 Lovers on the Run 亡命情侣'],
+    pitch: [
+      'Two photos — driver and passenger — in a 15-second chase romance ending on a slow-motion rooftop kiss.',
+      '两张照片——司机与副驾——15 秒追逐爱情，慢镜头天台之吻收尾。',
+    ],
+    href: '/gta-6-lovers-on-the-run',
+    vibes: ['gta6', 'couples'],
+    poster: '/templates/gta-6-lovers-on-the-run-poster.jpg',
+    video: '/templates/gta-6-lovers-on-the-run.mp4',
+    colors: ['#e879f9', '#701a75'],
+  },
+  {
+    id: 'gta-6-vice-city-story',
+    name: ['GTA 6 Vice City Story', 'GTA 6 Vice City Story 都市故事'],
+    pitch: [
+      'One photo leads a 15-second 16:9 cutscene story — neon intro, beach meetup, diner bag, coastal chase, hero close-up.',
+      '一张照片主演 15 秒 16:9 过场故事——霓虹亮相、海边会合、餐厅取包、滨海追逐、主角收尾。',
+    ],
+    href: '/gta-6-vice-city-story',
+    vibes: ['gta6', 'meme'],
+    poster: '/templates/gta-6-vice-city-story-poster.jpg',
+    video: '/templates/gta-6-vice-city-story.mp4',
+    colors: ['#22d3ee', '#155e75'],
+  },
+  {
+    id: 'gta-6-nightclub',
+    name: ['GTA 6 Nightclub', 'GTA 6 Nightclub 夜店之夜'],
+    pitch: [
+      'One photo rides a supercar to a neon club and dances in the center of the floor — your outfit comes straight from the photo.',
+      '一张照片开超跑进霓虹夜店，在舞池中央跳舞——穿搭直接来自照片。',
+    ],
+    href: '/gta-6-nightclub',
+    vibes: ['gta6', 'dance'],
+    poster: '/templates/gta-6-nightclub-poster.jpg',
+    video: '/templates/gta-6-nightclub.mp4',
+    colors: ['#c084fc', '#4c1d95'],
+  },
+  {
+    id: 'gta-6-getaway-duo',
+    name: ['GTA 6 Getaway Duo', 'GTA 6 Getaway Duo 双人逃亡'],
+    pitch: [
+      'Two photos — a driver and a bag partner — in a 12-second gas-station getaway with police lights behind.',
+      '两张照片——司机和拿包搭档——12 秒加油站逃亡，警灯在身后闪烁。',
+    ],
+    href: '/gta-6-getaway-duo',
+    vibes: ['gta6', 'couples'],
+    poster: '/templates/gta-6-getaway-duo-poster.jpg',
+    video: '/templates/gta-6-getaway-duo.mp4',
+    colors: ['#fbbf24', '#78350f'],
+  },
   {
     id: 'gta-5-goodbye-ai',
     name: ['GTA 5 Goodbye AI', 'GTA 5 Goodbye AI 日落码头告别'],
