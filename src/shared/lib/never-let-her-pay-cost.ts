@@ -1,5 +1,7 @@
 import {
+  bfSaleNotice,
   CANONICAL_PRICING,
+  resolveBfOn,
   type TemplateCostContext,
 } from '@/shared/lib/pricing-copy';
 import { formatCreditCount, usdFromCredits } from '@/shared/lib/video-yield';
@@ -56,10 +58,11 @@ export function neverLetHerPayTwelveSecondCostAnswer(
     neverLetHerPayTwelveSecondCosts(ctx);
   const pricing = pricingUrl(zh, '/pricing');
   const subscribe = pricingUrl(zh, '/subscribe');
+  const bf = resolveBfOn(ctx.bfOn) ? ` ${bfSaleNotice(zh)}` : '';
   if (zh) {
-    return `Never Let Her Pay 这条片子在公开积分表上是 12 秒：480p 是 ${formatCreditCount(p480)} 积分，720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd720}），1080p 是 ${formatCreditCount(p1080)} 积分。这是每秒 4 / 5 / 6 积分乘以 12 秒，不是 15 秒的 60 / 75 / 90。生成器按钮是所选模型的实扣积分；按钮若显示别的数字，按按钮扣。没有免费积分，也没有免费试用。90 积分的 Starter 包（${packs.packStarterPrice}）按公开的 720p / 12 秒（${formatCreditCount(p720)} 积分）大约能做 1 条，见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}。失败或取消的渲染会退回这次的积分。`;
+    return `Never Let Her Pay 这条片子在公开积分表上是 12 秒：480p 是 ${formatCreditCount(p480)} 积分，720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd720}），1080p 是 ${formatCreditCount(p1080)} 积分。这是每秒 4 / 5 / 6 积分乘以 12 秒，不是 15 秒的 60 / 75 / 90。生成器按钮是所选模型的实扣积分；按钮若显示别的数字，按按钮扣。没有免费积分，也没有免费试用。90 积分的 Starter 包（${packs.packStarterPrice}）按公开的 720p / 12 秒（${formatCreditCount(p720)} 积分）大约能做 1 条，见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}。失败或取消的渲染会退回这次的积分。${bf}`;
   }
-  return `A 12-second Never Let Her Pay clip on the published table is ${formatCreditCount(p480)} credits at 480p, ${formatCreditCount(p720)} credits at 720p (about ${usd720} at ${creditsPerUsd} credits = $1), and ${formatCreditCount(p1080)} credits at 1080p. That row is 4 / 5 / 6 credits per second times 12 seconds. It is not the 15-second 60 / 75 / 90 table. The generator button is the exact charge for the model you pick; if the button shows a different number, you pay the button. There are no free credits and no free trial. A 90-credit Starter pack (${packs.packStarterPrice}) covers about 1 video at the published 720p / 12s rate (${formatCreditCount(p720)} credits), at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits) at ${subscribe}. Failed or canceled renders return those credits.`;
+  return `A 12-second Never Let Her Pay clip on the published table is ${formatCreditCount(p480)} credits at 480p, ${formatCreditCount(p720)} credits at 720p (about ${usd720} at ${creditsPerUsd} credits = $1), and ${formatCreditCount(p1080)} credits at 1080p. That row is 4 / 5 / 6 credits per second times 12 seconds. It is not the 15-second 60 / 75 / 90 table. The generator button is the exact charge for the model you pick; if the button shows a different number, you pay the button. There are no free credits and no free trial. A 90-credit Starter pack (${packs.packStarterPrice}) covers about 1 video at the published 720p / 12s rate (${formatCreditCount(p720)} credits), at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits) at ${subscribe}. Failed or canceled renders return those credits.${bf}`;
 }
 
 /** { en, zh } pair for the hub FAQ, which is not locale-switched at call time. */

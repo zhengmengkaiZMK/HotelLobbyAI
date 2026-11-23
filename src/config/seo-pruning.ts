@@ -108,6 +108,8 @@ export const SEO_GONE_SLUGS: readonly string[] = [
 
 /** Consolidated into a stronger page. Key and value are slugs without the leading slash. */
 export const SEO_REDIRECTS: Readonly<Record<string, string>> = {
+  // empty string = the homepage (the template gallery hub)
+  'ai-video-generator-from-photos': '',
   'ai-tiny-desk-band': 'tiny-desk-outstanding-ai-template',
   'all-loss-tiny-desk': 'tiny-desk-outstanding-ai-template',
   'alors-on-danse-ai': 'alors-on-danse-ai-template',
@@ -332,7 +334,8 @@ export function getPruneDecision(slug: string): PruneDecision {
   if (!key) return null;
   if (goneSet.has(key)) return { type: 'gone' };
   const to = SEO_REDIRECTS[key];
-  if (to) return { type: 'redirect', to };
+  // `to` may be '' (= the homepage); only undefined means "not pruned".
+  if (to !== undefined) return { type: 'redirect', to };
   return null;
 }
 

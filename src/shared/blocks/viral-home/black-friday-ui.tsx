@@ -79,8 +79,8 @@ export function BlackFridayIntro({ zh }: { zh: boolean }) {
         <h2>{zh ? 'Black Friday 限时优惠' : 'Black Friday limited offer'}</h2>
         <p className="sub">
           {zh
-            ? '只优惠一次性积分包，积分和权益不变。截止 11 月 30 日 24:00（东八区）。'
-            : 'One-time packs only. Credits stay the same. Ends Nov 30, 24:00 UTC+8.'}
+            ? '只优惠一次性积分包，积分和权益不变。截止 2026 年 11 月 30 日 24:00（东八区）。'
+            : 'One-time packs only. Credits stay the same. Ends Nov 30, 2026, 24:00 UTC+8.'}
         </p>
       </div>
       <div className="bf-banner" role="timer" aria-live="off">

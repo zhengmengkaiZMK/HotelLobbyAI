@@ -1,4 +1,5 @@
 import { getVideoCostTable } from '@/shared/lib/video-cost';
+import { isBlackFridayWindow } from '@/shared/lib/black-friday';
 import {
   creditsForDuration,
   formatCreditCount,
@@ -15,6 +16,29 @@ import {
 export interface TemplateCostContext {
   videoCosts?: VideoCostTable;
   creditsPerUsd?: number;
+  /**
+   * Black Friday sale is live. When omitted, falls back to the time window
+   * (ends 2026-11-30 24:00 UTC+8). Pass `false` explicitly when the page
+   * reads the admin switch and the sale is off.
+   */
+  bfOn?: boolean;
+}
+
+/**
+ * One Black Friday sentence appended to every answer that quotes pack
+ * prices, so the sale price, the list price, and the deadline appear
+ * together wherever prices do. Deadline is 2026-11-30 24:00 UTC+8
+ * (= 2026-12-01T00:00:00+08:00 in black-friday.ts).
+ */
+export function bfSaleNotice(zh: boolean): string {
+  return zh
+    ? '黑五优惠进行中：一次性积分包 Popular $16（原价 $19.9）、Creator $28（原价 $39.9），积分和权益不变，截止 2026 年 11 月 30 日 24:00（东八区），活动结束后恢复原价。'
+    : 'Black Friday sale: the Popular one-time pack is $16 (was $19.9) and Creator is $28 (was $39.9), same credits, through Nov 30, 2026, 24:00 UTC+8; list prices return after the sale.';
+}
+
+/** Resolve the caller flag, or fall back to the time window. */
+export function resolveBfOn(bfOn?: boolean): boolean {
+  return bfOn ?? isBlackFridayWindow();
 }
 
 /** Credits for one clip. Defaults to the public 15-second row, not the 8-second row. */
@@ -58,10 +82,11 @@ export function templateLiveCostAnswer(
   );
   const pricing = pricingUrl(zh, '/pricing');
   const subscribe = pricingUrl(zh, '/subscribe');
+  const bf = resolveBfOn(ctx.bfOn) ? ` ${bfSaleNotice(zh)}` : '';
   if (zh) {
-    return `${product.zh}这条片子是 ${seconds} 秒：480p 是 ${formatCreditCount(p480)} 积分，720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd}），1080p 是 ${formatCreditCount(p1080)} 积分。以生成器按钮上的本次积分为准。没有免费积分，也没有免费试用。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}。8 秒、12 秒和 30 秒的行仍在定价表上，更长的模板更贵。`;
+    return `${product.zh}这条片子是 ${seconds} 秒：480p 是 ${formatCreditCount(p480)} 积分，720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd}），1080p 是 ${formatCreditCount(p1080)} 积分。以生成器按钮上的本次积分为准。没有免费积分，也没有免费试用。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}。8 秒、12 秒和 30 秒的行仍在定价表上，更长的模板更贵。${bf}`;
   }
-  return `A ${seconds}-second ${product.en} clip is ${formatCreditCount(p480)} credits at 480p, ${formatCreditCount(p720)} credits at 720p (about ${usd} at ${creditsPerUsd} credits = $1), and ${formatCreditCount(p1080)} credits at 1080p. The generator button is the price for this render. There are no free credits and no free trial. One-time packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits) at ${subscribe}. 8-second, 12-second, and 30-second rows stay on the pricing table. Longer templates cost more.`;
+  return `A ${seconds}-second ${product.en} clip is ${formatCreditCount(p480)} credits at 480p, ${formatCreditCount(p720)} credits at 720p (about ${usd} at ${creditsPerUsd} credits = $1), and ${formatCreditCount(p1080)} credits at 1080p. The generator button is the price for this render. There are no free credits and no free trial. One-time packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits) at ${subscribe}. 8-second, 12-second, and 30-second rows stay on the pricing table. Longer templates cost more.${bf}`;
 }
 
 export function paidExportWatermarkAnswer(zh: boolean) {
@@ -124,30 +149,42 @@ function pricingUrl(zh: boolean, path: '/pricing' | '/subscribe') {
 /** Shared "how much does this template cost" answer for template FAQs. */
 export function templateHowMuchAnswer(
   product: { en: string; zh: string },
-  monthly: MonthlyPricing = defaultMonthly
+  monthly: MonthlyPricing = defaultMonthly,
+  bfOn?: boolean
 ): { en: string; zh: string } {
   const packs = CANONICAL_PRICING;
+  const bf = resolveBfOn(bfOn) ? ` ${bfSaleNotice(true)}` : '';
+  const bfEn = resolveBfOn(bfOn) ? ` ${bfSaleNotice(false)}` : '';
   return {
-    en: `ViralReel charges credits. The ${product.en} generator shows the exact cost for the resolution and duration you pick before you start. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingUrl(false, '/pricing')}. Monthly plans start at ${monthly.starterPrice}/mo (${monthly.starterCredits} credits) on ${pricingUrl(false, '/subscribe')}; Plus is ${monthly.plusPrice}/mo (${monthly.plusCredits} credits) and Pro is ${monthly.proPrice}/mo (${monthly.proCredits} credits). Top-ups are ${packs.creditsPerUsd} credits = $1. Failed or canceled generations are refunded automatically.`,
-    zh: `ViralReel 按积分计费。${product.zh}生成器会在开始之前，按所选分辨率和时长显示本次消耗。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingUrl(true, '/pricing')}。月付套餐 ${monthly.starterPrice}/月起（每月 ${monthly.starterCredits} 积分），见 ${pricingUrl(true, '/subscribe')}；Plus 为 ${monthly.plusPrice}/月（${monthly.plusCredits} 积分），Pro 为 ${monthly.proPrice}/月（${monthly.proCredits} 积分）。加购为 ${packs.creditsPerUsd} 积分 = 1 美元。失败或取消的生成会自动退回积分。`,
+    en: `ViralReel charges credits. The ${product.en} generator shows the exact cost for the resolution and duration you pick before you start. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingUrl(false, '/pricing')}. Monthly plans start at ${monthly.starterPrice}/mo (${monthly.starterCredits} credits) on ${pricingUrl(false, '/subscribe')}; Plus is ${monthly.plusPrice}/mo (${monthly.plusCredits} credits) and Pro is ${monthly.proPrice}/mo (${monthly.proCredits} credits). Top-ups are ${packs.creditsPerUsd} credits = $1. Failed or canceled generations are refunded automatically.${bfEn}`,
+    zh: `ViralReel 按积分计费。${product.zh}生成器会在开始之前，按所选分辨率和时长显示本次消耗。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingUrl(true, '/pricing')}。月付套餐 ${monthly.starterPrice}/月起（每月 ${monthly.starterCredits} 积分），见 ${pricingUrl(true, '/subscribe')}；Plus 为 ${monthly.plusPrice}/月（${monthly.plusCredits} 积分），Pro 为 ${monthly.proPrice}/月（${monthly.proCredits} 积分）。加购为 ${packs.creditsPerUsd} 积分 = 1 美元。失败或取消的生成会自动退回积分。${bf}`,
   };
 }
 
 export function getPricingPackFaq(
   zh: boolean,
   creditsPerUsd: number,
-  sale?: { popularPrice?: string; creatorPrice?: string }
+  sale?: { popularPrice?: string; creatorPrice?: string; bf?: boolean }
 ): [string, string][] {
   const packs = CANONICAL_PRICING;
   const popularPrice = sale?.popularPrice || packs.packPopularPrice;
   const creatorPrice = sale?.creatorPrice || packs.packCreatorPrice;
+  const bf =
+    sale?.bf ??
+    (popularPrice !== packs.packPopularPrice ||
+      creatorPrice !== packs.packCreatorPrice);
+  const bfNote = bf
+    ? zh
+      ? '目前是黑五优惠活动：Popular $16（原价 $19.9）、Creator $28（原价 $39.9），积分和权益不变，截止 2026 年 11 月 30 日 24:00（东八区），活动结束后恢复原价。'
+      : 'These are Black Friday sale prices: Popular $16 (was $19.9) and Creator $28 (was $39.9), same credits, through Nov 30, 2026, 24:00 UTC+8; list prices return after the sale.'
+    : '';
   const pricing = pricingUrl(zh, '/pricing');
   const subscribe = pricingUrl(zh, '/subscribe');
   if (zh) {
     return [
       [
         '一次性积分包可以取消吗？',
-        `不能按订阅那样取消，因为这一页的积分包是一次性付款，没有续费。Starter ${packs.packStarterPrice}（${packs.packStarterCredits} 积分）、Popular ${popularPrice}（${packs.packPopularCredits} 积分）、Creator ${creatorPrice}（${packs.packCreatorCredits} 积分）、Max ${packs.packMaxPrice}（${packs.packMaxCredits} 积分）。月付套餐在订阅页：Starter ${packs.monthlyStarterPrice}/月（每月 ${packs.monthlyStarterCredits} 积分）、Plus ${packs.plusPrice}/月（${packs.plusCredits} 积分）、Pro ${packs.proPrice}/月（${packs.proCredits} 积分），见 ${subscribe}。月付可以在账单页取消，当前周期结束前仍可使用。`,
+        `不能按订阅那样取消，因为这一页的积分包是一次性付款，没有续费。Starter ${packs.packStarterPrice}（${packs.packStarterCredits} 积分）、Popular ${popularPrice}（${packs.packPopularCredits} 积分）、Creator ${creatorPrice}（${packs.packCreatorCredits} 积分）、Max ${packs.packMaxPrice}（${packs.packMaxCredits} 积分）。${bfNote} 月付套餐在订阅页：Starter ${packs.monthlyStarterPrice}/月（每月 ${packs.monthlyStarterCredits} 积分）、Plus ${packs.plusPrice}/月（${packs.plusCredits} 积分）、Pro ${packs.proPrice}/月（${packs.proCredits} 积分），见 ${subscribe}。月付可以在账单页取消，当前周期结束前仍可使用。`,
       ],
       [
         '没用完的积分会过期吗？',
@@ -162,7 +199,7 @@ export function getPricingPackFaq(
   return [
     [
       'Can I cancel a one-time credit pack?',
-      `There is nothing to cancel. Packs on this page are a single payment: Starter ${packs.packStarterPrice} (${packs.packStarterCredits} credits), Popular ${popularPrice} (${packs.packPopularCredits} credits), Creator ${creatorPrice} (${packs.packCreatorCredits} credits), and Max ${packs.packMaxPrice} (${packs.packMaxCredits} credits). Monthly plans are on the subscribe page: Starter ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits), Plus ${packs.plusPrice}/mo (${packs.plusCredits} credits), and Pro ${packs.proPrice}/mo (${packs.proCredits} credits), at ${subscribe}. You can cancel a monthly plan from billing and keep access until the period ends.`,
+      `There is nothing to cancel. Packs on this page are a single payment: Starter ${packs.packStarterPrice} (${packs.packStarterCredits} credits), Popular ${popularPrice} (${packs.packPopularCredits} credits), Creator ${creatorPrice} (${packs.packCreatorCredits} credits), and Max ${packs.packMaxPrice} (${packs.packMaxCredits} credits). ${bfNote} Monthly plans are on the subscribe page: Starter ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits), Plus ${packs.plusPrice}/mo (${packs.plusCredits} credits), and Pro ${packs.proPrice}/mo (${packs.proCredits} credits), at ${subscribe}. You can cancel a monthly plan from billing and keep access until the period ends.`,
     ],
     [
       'Do unused credits expire?',

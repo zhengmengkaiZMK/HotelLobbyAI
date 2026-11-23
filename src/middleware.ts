@@ -31,7 +31,10 @@ export async function middleware(request: NextRequest) {
         hasLocale && firstSegment !== routing.defaultLocale
           ? `/${firstSegment}`
           : '';
-      target.pathname = `${prefix}/${prune.to}`;
+      // Empty target = the homepage (keep the locale prefix without a slug).
+      target.pathname = prune.to
+        ? `${prefix}/${prune.to}`
+        : prefix || '/';
       target.search = '';
       return NextResponse.redirect(target, 301);
     }

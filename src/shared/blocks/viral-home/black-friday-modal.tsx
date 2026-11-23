@@ -360,8 +360,8 @@ export function BlackFridayModal() {
           </DialogTitle>
           <DialogDescription className="text-center text-[13px] text-zinc-500 sm:text-[15px]">
             {t(
-              'Same credits. Limited time. Ends Nov 30.',
-              '积分和权益不变。限时优惠，截止 11 月 30 日。'
+              'Same credits. Limited time. Ends Nov 30, 2026, 24:00 UTC+8.',
+              '积分和权益不变。限时优惠，截止 2026 年 11 月 30 日 24:00（东八区）。'
             )}
           </DialogDescription>
           <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-2 rounded-xl border border-orange-200 bg-orange-50 px-3 py-2.5 text-sm text-orange-950">

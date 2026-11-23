@@ -1,4 +1,4 @@
-import { CANONICAL_PRICING } from '@/shared/lib/pricing-copy';
+import { CANONICAL_PRICING, bfSaleNotice, resolveBfOn } from '@/shared/lib/pricing-copy';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import {
   creditsForDuration,
@@ -11,9 +11,23 @@ import {
 // Site-level FAQ for the aggregate homepage.
 // Visible answers and FAQPage JSON-LD share this list.
 
+// Unified product facts — every ratio / lip-sync statement on the site
+// must match these two sentences (single source of truth for GEO).
+export const RATIO_FACTS = {
+  en: 'The generator supports 9:16, 16:9, 1:1, 4:3, and auto — auto matches the reference clip’s size, which is how the 4:3 source trends keep their framing.',
+  zh: '生成器支持 9:16、16:9、1:1、4:3、auto（画幅与参考片段尺寸一致）等多种规格。',
+} as const;
+
+export const LIPSYNC_FACTS = {
+  en: 'Lip sync is supported.',
+  zh: '支持口型同步。',
+} as const;
+
 export interface HubFaqContext {
   videoCosts: VideoCostTable;
   creditsPerUsd: number;
+  /** Black Friday sale live (admin switch + window). Falls back to the time window. */
+  bfOn?: boolean;
 }
 
 interface HubFaqEntry {
@@ -48,13 +62,15 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
   const pricingZh = pricingPage(true);
   const subscribeEn = subscribePage(false);
   const subscribeZh = subscribePage(true);
+  const bf = resolveBfOn(ctx.bfOn) ? ` ${bfSaleNotice(true)}` : '';
+  const bfEn = resolveBfOn(ctx.bfOn) ? ` ${bfSaleNotice(false)}` : '';
 
   return [
     {
       q: { en: 'What is ViralReel?', zh: 'ViralReel 是什么？' },
       a: {
-        en: 'ViralReel is a template-first AI video site for short-form trends. You pick a format, upload photos, and export a vertical video. You do not write a prompt or open an editing app. ViralReel (viralreel.app) is an independent site. It is not an official product of the songs, artists, clubs, or platforms behind each trend.',
-        zh: 'ViralReel 是做短视频趋势的模板站。选一个格式，上传照片，导出竖屏视频。不用写提示词，也不用打开剪辑软件。ViralReel（viralreel.app）是独立站点，不是各条趋势背后的歌曲、艺人、俱乐部或平台的官方产品。',
+        en: 'ViralReel is a template-first AI video site for short-form trends. You pick a format, upload photos, and export a video. You do not write a prompt or open an editing app. ViralReel (viralreel.app) is an independent site. It is not an official product of the songs, artists, clubs, or platforms behind each trend.',
+        zh: 'ViralReel 是做短视频趋势的模板站。选一个格式，上传照片，导出视频。不用写提示词，也不用打开剪辑软件。ViralReel（viralreel.app）是独立站点，不是各条趋势背后的歌曲、艺人、俱乐部或平台的官方产品。',
       },
     },
     {
@@ -63,8 +79,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
         zh: 'ViralReel 和 ChatGPT 或通用 AI 视频工具有什么不同？',
       },
       a: {
-        en: 'ChatGPT and generic video tools ask you to describe a shot, so the model invents a new clip. ViralReel starts from a fixed template — the set, the motion, and the framing — and places your photos into that format. Lip-sync and gestures are part of the template.',
-        zh: 'ChatGPT 和通用视频工具让你描述一个镜头，模型会另做一条新片子。ViralReel 从固定模板开始——布景、动作和构图都定好了——再把你的照片放进这个格式。口型同步和手势是模板的一部分。',
+        en: 'ChatGPT and generic video tools ask you to describe a shot, so the model invents a new clip. ViralReel starts from a fixed template — the set, the motion, and the framing — and places your photos into that format. Lip sync is supported.',
+        zh: 'ChatGPT 和通用视频工具让你描述一个镜头，模型会另做一条新片子。ViralReel 从固定模板开始——布景、动作和构图都定好了——再把你的照片放进这个格式。支持口型同步。',
       },
     },
     {
@@ -73,8 +89,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
         zh: 'ViralReel 的重拍和提示词工具有什么不同？',
       },
       a: {
-        en: 'A prompt tool such as Kling or a general studio such as Higgsfield asks you to describe the shot, so the model invents a new clip. ViralReel starts from a fixed template — the set, the motion, and the framing — and places your photos into that format. Some templates are built around lip-sync or gestures. That is not true of every model. You do not prompt-engineer the trend.',
-        zh: '可灵这类提示词工具，或 Higgsfield 这类通用工作室，需要你描述镜头，模型会另做一条新片子。ViralReel 从固定模板开始——布景、动作和构图都定好了——再把你的照片放进这个格式。有的模板带口型或手势，不是每个模型都有。你不用为这条趋势写提示词。',
+        en: 'A prompt tool such as Kling or a general studio such as Higgsfield asks you to describe the shot, so the model invents a new clip. ViralReel starts from a fixed template — the set, the motion, and the framing — and places your photos into that format. Lip sync is supported. You do not prompt-engineer the trend.',
+        zh: '可灵这类提示词工具，或 Higgsfield 这类通用工作室，需要你描述镜头，模型会另做一条新片子。ViralReel 从固定模板开始——布景、动作和构图都定好了——再把你的照片放进这个格式。支持口型同步。你不用为这条趋势写提示词。',
       },
     },
     {
@@ -101,8 +117,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
     {
       q: { en: 'Can I export 9:16?', zh: '可以导出 9:16 吗？' },
       a: {
-        en: 'Yes. The generator includes 9:16 for TikTok, Instagram Reels, and YouTube Shorts. Some templates open on 16:9 because the source trend is widescreen; switch to 9:16 before you generate. 1:1 is on the same control.',
-        zh: '可以。生成器有 9:16，对应 TikTok、Instagram Reels 和 YouTube Shorts。有的模板默认 16:9，因为原趋势是宽画幅；生成前改成 9:16 即可。同一组控件里也可以选 1:1。',
+        en: `Yes. ${RATIO_FACTS.en} 9:16 is for TikTok, Instagram Reels, and YouTube Shorts. The generator shows the ratio before you render.`,
+        zh: `可以。${RATIO_FACTS.zh}9:16 对应 TikTok、Instagram Reels 和 YouTube Shorts。生成器会在渲染前显示画幅。`,
       },
     },
     {
@@ -111,8 +127,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
         zh: '重拍一条视频要多少积分？',
       },
       a: {
-        en: `The generator button is the price for the current render. On the public 15-second table, 480p is ${formatCreditCount(costs.p480)} credits, 720p is ${formatCreditCount(costs.p720)} credits (about ${costs.usd} at ${ctx.creditsPerUsd} credits = $1), and 1080p is ${formatCreditCount(costs.p1080)} credits. A one-time Starter pack is ${packs.packStarterPrice} for ${packs.packStarterCredits} credits, about ${formatCreditCount(costs.starterVideos)} videos at default 720p / 15s. Longer templates cost more. 8-second, 12-second, and 30-second rows stay on the pricing table. The full table is at ${pricingEn}.`,
-        zh: `以生成器按钮上的本次积分为准。公开的 15 秒积分表上，480p 是 ${formatCreditCount(costs.p480)} 积分，720p 是 ${formatCreditCount(costs.p720)} 积分（按 ${ctx.creditsPerUsd} 积分 = 1 美元，约 ${costs.usd}），1080p 是 ${formatCreditCount(costs.p1080)} 积分。一次性 Starter 积分包 ${packs.packStarterPrice}，${packs.packStarterCredits} 积分，按默认 720p / 15 秒大约 ${formatCreditCount(costs.starterVideos)} 条。更长的模板更贵。8 秒、12 秒和 30 秒的行仍在定价表上。完整对照表见 ${pricingZh}。`,
+        en: `The generator button is the price for the current render. On the public 15-second table, 480p is ${formatCreditCount(costs.p480)} credits, 720p is ${formatCreditCount(costs.p720)} credits (about ${costs.usd} at ${ctx.creditsPerUsd} credits = $1), and 1080p is ${formatCreditCount(costs.p1080)} credits. A one-time Starter pack is ${packs.packStarterPrice} for ${packs.packStarterCredits} credits, about ${formatCreditCount(costs.starterVideos)} videos at default 720p / 15s. Longer templates cost more. 8-second, 12-second, and 30-second rows stay on the pricing table. The full table is at ${pricingEn}.${bfEn}`,
+        zh: `以生成器按钮上的本次积分为准。公开的 15 秒积分表上，480p 是 ${formatCreditCount(costs.p480)} 积分，720p 是 ${formatCreditCount(costs.p720)} 积分（按 ${ctx.creditsPerUsd} 积分 = 1 美元，约 ${costs.usd}），1080p 是 ${formatCreditCount(costs.p1080)} 积分。一次性 Starter 积分包 ${packs.packStarterPrice}，${packs.packStarterCredits} 积分，按默认 720p / 15 秒大约 ${formatCreditCount(costs.starterVideos)} 条。更长的模板更贵。8 秒、12 秒和 30 秒的行仍在定价表上。完整对照表见 ${pricingZh}。${bf}`,
       },
     },
     {
@@ -162,8 +178,8 @@ function buildHubFaq(ctx: HubFaqContext): HubFaqEntry[] {
     {
       q: { en: 'Do I get free credits?', zh: '有免费积分吗？' },
       a: {
-        en: `No — ViralReel does not offer free credits or a free trial; every render is paid. The generator always shows the credit cost before you render, and failed or canceled generations are refunded. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingEn}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits); the monthly detail page is ${subscribeEn}. Top-ups are ${ctx.creditsPerUsd} credits = $1.`,
-        zh: `没有。ViralReel 不提供免费积分或免费试用——每次渲染都计费。生成器总会在渲染前显示本次积分，失败或取消的生成会退回积分。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingZh}。月付套餐 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），月付详情页是 ${subscribeZh}。加购为 ${ctx.creditsPerUsd} 积分 = 1 美元。`,
+        en: `No — ViralReel does not offer free credits or a free trial; every render is paid. The generator always shows the credit cost before you render, and failed or canceled generations are refunded. One-time credit packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) on ${pricingEn}. Monthly plans start at ${packs.monthlyStarterPrice}/mo (${packs.monthlyStarterCredits} credits); the monthly detail page is ${subscribeEn}. Top-ups are ${ctx.creditsPerUsd} credits = $1.${bfEn}`,
+        zh: `没有。ViralReel 不提供免费积分或免费试用——每次渲染都计费。生成器总会在渲染前显示本次积分，失败或取消的生成会退回积分。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricingZh}。月付套餐 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），月付详情页是 ${subscribeZh}。加购为 ${ctx.creditsPerUsd} 积分 = 1 美元。${bf}`,
       },
     },
   ];

@@ -75,9 +75,10 @@ const staticRoutes = [
   ...HIT_THE_ROAD_LONG_TAIL_ROUTES,
   { path: '/ozil-ai-goal-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/cat-clapping-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
-  { path: '/ai-video-generator-from-photos', priority: 0.8, changeFrequency: 'monthly' as const },
   { path: '/ai-duet-video-maker', priority: 0.8, changeFrequency: 'monthly' as const },
-  // /ai-video-generator, /ai-image-generator, and /ai-music-generator stay
+  // /ai-video-generator-from-photos is retired: the page file was removed and
+  // seo-pruning.ts 301s the URL to the homepage. /ai-video-generator,
+  // /ai-image-generator, and /ai-music-generator stay
   // routable but are noindex and omitted here. They are thin boilerplate pages.
   { path: '/pricing', priority: 0.8, changeFrequency: 'weekly' as const },
   { path: '/subscribe', priority: 0.8, changeFrequency: 'weekly' as const },

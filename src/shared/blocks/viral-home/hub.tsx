@@ -164,10 +164,13 @@ export function ViralHub({
   plans,
   creditsPerUsd = 12,
   videoCosts = getVideoCostTable(),
+  bfOnServer = false,
 }: {
   plans: PricingItem[];
   creditsPerUsd?: number;
   videoCosts?: ReturnType<typeof getVideoCostTable>;
+  /** Server-side Black Friday flag so SSR text matches the JSON-LD before client configs load. */
+  bfOnServer?: boolean;
 }) {
   const locale = useLocale();
   const zh = locale.startsWith('zh');
@@ -358,7 +361,11 @@ export function ViralHub({
     }
   }
 
-  const faq = getHubFaqPairs(zh, { videoCosts, creditsPerUsd });
+  const faq = getHubFaqPairs(zh, {
+    videoCosts,
+    creditsPerUsd,
+    bfOn: sale.configsReady ? sale.active : bfOnServer,
+  });
   const scrollToTrends = () =>
     document.getElementById('trending')?.scrollIntoView({ behavior: 'smooth' });
   const why = [
@@ -380,10 +387,10 @@ export function ViralHub({
     ],
     [
       Video,
-      t('Ratio depends on the template', '画幅看模板'),
+      t('Multiple aspect ratios', '多种画幅可选'),
       t(
-        'Many templates open on 9:16 for TikTok, Reels, and Shorts. Some open on 16:9 or 4:3. The generator shows the ratio before you render.',
-        '不少模板默认 9:16，对应 TikTok、Reels 和 Shorts。有的默认 16:9 或 4:3。生成器会在渲染前显示画幅。'
+        '9:16, 16:9, 1:1, 4:3, and auto are supported — auto matches the reference clip’s size. The generator shows the ratio before you render.',
+        '支持 9:16、16:9、1:1、4:3、auto（画幅与参考片段尺寸一致）等多种规格。生成器会在渲染前显示画幅。'
       ),
     ],
     [
@@ -413,8 +420,8 @@ export function ViralHub({
     [
       t('Generate', '生成'),
       t(
-        'Render time depends on the template and the model. The generator shows progress. It does not promise a 60-second finish, and not every template includes lip-sync.',
-        '渲染时间取决于模板和模型。生成器会显示进度。这里不承诺 60 秒出片，也不是每个模板都有口型同步。'
+        'Render time depends on the template and the model. The generator shows progress. It does not promise a 60-second finish. Lip sync is supported.',
+        '渲染时间取决于模板和模型。生成器会显示进度。这里不承诺 60 秒出片。支持口型同步。'
       ),
     ],
     [
@@ -445,8 +452,8 @@ export function ViralHub({
             </h1>
             <p className="lead">
               {t(
-                'Pick a trending template and upload the photos it asks for. Ratio, length, and render time vary by template and model. No prompts. No editing apps.',
-                '选一个正在流行的模板，按该模板上传照片。画幅、片长和渲染时间因模板和模型而异。不用写提示词，也不用剪辑软件。'
+                'Pick a trending template and upload the photos it asks for. Length and render time vary by template and model; 9:16, 16:9, 1:1, 4:3, and auto ratios are supported. No prompts. No editing apps.',
+                '选一个正在流行的模板，按该模板上传照片。片长和渲染时间因模板和模型而异；画幅支持 9:16、16:9、1:1、4:3、auto（画幅与参考片段尺寸一致）。不用写提示词，也不用剪辑软件。'
               )}
             </p>
             <div className="hero-cta">

@@ -47,12 +47,12 @@ export async function generateMetadata({
       ? {
           ...META.zh,
           description:
-            'Black Friday 限时至 11 月 30 日 24:00（东八区）。一次性积分包：Starter $9.9（90 积分）、Popular $16（原价 $19.9，180 积分）、Creator $28（原价 $39.9，480 积分）、Max $69.9（950 积分）。月付价格不变。',
+            'Black Friday 限时至 2026 年 11 月 30 日 24:00（东八区）。一次性积分包：Starter $9.9（90 积分）、Popular $16（原价 $19.9，180 积分）、Creator $28（原价 $39.9，480 积分）、Max $69.9（950 积分）。月付价格不变。',
         }
       : {
           ...META.en,
           description:
-            'Black Friday through Nov 30, 24:00 UTC+8. One-time packs: Starter $9.9 (90 credits), Popular $16 (was $19.9, 180 credits), Creator $28 (was $39.9, 480 credits), and Max $69.9 (950). Monthly prices stay the same.',
+            'Black Friday through Nov 30, 2026, 24:00 UTC+8. One-time packs: Starter $9.9 (90 credits), Popular $16 (was $19.9, 180 credits), Creator $28 (was $39.9, 480 credits), and Max $69.9 (950). Monthly prices stay the same.',
         }
     : META[zh ? 'zh' : 'en'];
   const canonical =
@@ -115,12 +115,12 @@ export default async function PricingPage({
       ? {
           ...META.zh,
           description:
-            'Black Friday 限时至 11 月 30 日 24:00（东八区）。一次性积分包：Starter $9.9（90 积分）、Popular $16（原价 $19.9，180 积分）、Creator $28（原价 $39.9，480 积分）、Max $69.9（950 积分）。月付价格不变。',
+            'Black Friday 限时至 2026 年 11 月 30 日 24:00（东八区）。一次性积分包：Starter $9.9（90 积分）、Popular $16（原价 $19.9，180 积分）、Creator $28（原价 $39.9，480 积分）、Max $69.9（950 积分）。月付价格不变。',
         }
       : {
           ...META.en,
           description:
-            'Black Friday through Nov 30, 24:00 UTC+8. One-time packs: Starter $9.9 (90 credits), Popular $16 (was $19.9, 180 credits), Creator $28 (was $39.9, 480 credits), and Max $69.9 (950). Monthly prices stay the same.',
+            'Black Friday through Nov 30, 2026, 24:00 UTC+8. One-time packs: Starter $9.9 (90 credits), Popular $16 (was $19.9, 180 credits), Creator $28 (was $39.9, 480 credits), and Max $69.9 (950). Monthly prices stay the same.',
         }
     : META[zh ? 'zh' : 'en'];
   const faq = getPricingPackFaq(zh, creditsPerUsd, {

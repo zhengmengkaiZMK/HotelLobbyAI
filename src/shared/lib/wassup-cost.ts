@@ -1,4 +1,4 @@
-import { CANONICAL_PRICING, type TemplateCostContext } from '@/shared/lib/pricing-copy';
+import { bfSaleNotice, CANONICAL_PRICING, resolveBfOn, type TemplateCostContext } from '@/shared/lib/pricing-copy';
 import { formatCreditCount, usdFromCredits } from '@/shared/lib/video-yield';
 
 /**
@@ -52,10 +52,11 @@ export function wassupFifteenSecondCostAnswer(
     wassupFifteenSecondCosts(ctx);
   const pricing = pricingUrl(zh, '/pricing');
   const subscribe = pricingUrl(zh, '/subscribe');
+  const bf = resolveBfOn(ctx.bfOn) ? ` ${bfSaleNotice(zh)}` : '';
   if (zh) {
-    return `一条 wassup in a minute 成片固定 15 秒。默认积分表上，480p 是 ${formatCreditCount(p480)} 积分，720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd720}），1080p 是 ${formatCreditCount(p1080)} 积分。生成器会在开始前显示这个确切数字——换分辨率或模型，按钮上的数字会变。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}。加购为 ${creditsPerUsd} 积分 = 1 美元。每次渲染都计费：开始前显示确切费用，失败的任务会退积分，没有免费试用。`;
+    return `一条 wassup in a minute 成片固定 15 秒。默认积分表上，480p 是 ${formatCreditCount(p480)} 积分，720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd720}），1080p 是 ${formatCreditCount(p1080)} 积分。生成器会在开始前显示这个确切数字——换分辨率或模型，按钮上的数字会变。一次性积分包 ${packs.packStarterPrice} 起（${packs.packStarterCredits} 积分），见 ${pricing}。月付 ${packs.monthlyStarterPrice}/月起（每月 ${packs.monthlyStarterCredits} 积分），见 ${subscribe}。加购为 ${creditsPerUsd} 积分 = 1 美元。每次渲染都计费：开始前显示确切费用，失败的任务会退积分，没有免费试用。${bf}`;
   }
-  return `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 480p is ${formatCreditCount(p480)} credits, 720p is ${formatCreditCount(p720)} credits (about ${usd720} at ${creditsPerUsd} credits = $1), and 1080p is ${formatCreditCount(p1080)} credits. The generator shows that exact number before you start — change the resolution or the model and the button changes. One-time packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/month (${packs.monthlyStarterCredits} credits) at ${subscribe}. Top-ups are ${creditsPerUsd} credits = $1. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically.`;
+  return `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 480p is ${formatCreditCount(p480)} credits, 720p is ${formatCreditCount(p720)} credits (about ${usd720} at ${creditsPerUsd} credits = $1), and 1080p is ${formatCreditCount(p1080)} credits. The generator shows that exact number before you start — change the resolution or the model and the button changes. One-time packs start at ${packs.packStarterPrice} (${packs.packStarterCredits} credits) at ${pricing}. Monthly plans start at ${packs.monthlyStarterPrice}/month (${packs.monthlyStarterCredits} credits) at ${subscribe}. Top-ups are ${creditsPerUsd} credits = $1. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically.${bf}`;
 }
 
 /** First sentences under the hub H1. The phrase “wassup in a minute” leads. */
