@@ -217,6 +217,22 @@ export function Gta6SeriesHome({
           </figure>
         </div>
         <p className="g6-flow-note">{zh ? series.showcase.note[1] : series.showcase.note[0]}</p>
+        <div className="g6-evidence">
+          <b>{t('About this example', '示例说明')}</b>
+          <span>
+            {t(
+              'Demo material, shown to illustrate the fixed format — not a user generation. Your own video is rendered fresh from the photo you upload: ',
+              '以下为示意素材，用于展示固定格式，非用户实际生成。你的视频是用你上传的照片现场渲染的：'
+            )}
+            {series.photos === 2 ? t('2 photos in', '2 张照片进') : t('1 photo in', '1 张照片进')} · {t('fixed', '固定')} {series.duration}s · {zh ? series.ratio[1] : series.ratio[0]}
+          </span>
+          <span>
+            {t(
+              'The credit cost for your chosen resolution shows on the generate button before you start; failed renders are refunded automatically. Blurry, dark, filtered or group photos are the most common cause of a weak result — see the photo tips above before uploading.',
+              '所选分辨率的确切积分会在开始前显示在生成按钮上；失败自动退回积分。模糊、偏暗、重滤镜或多人合照是最常见的翻车原因——上传前先看上方的照片建议。'
+            )}
+          </span>
+        </div>
         <div className="g6-cta-row">
           <button type="button" className="g6-btn" onClick={start}>
             <Camera size={16} />

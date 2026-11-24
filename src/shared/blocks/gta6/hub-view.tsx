@@ -10,7 +10,7 @@ import { ViralFooter } from '@/shared/blocks/viral-home/footer';
 import { ViralHeader } from '@/shared/blocks/viral-home/header';
 import { track } from '@/shared/lib/analytics';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
-import { GTA6_SERIES } from './series-data';
+import { GTA6_HUB_FAQ, GTA6_SERIES } from './series-data';
 import './gta6.css';
 
 /**
@@ -41,15 +41,15 @@ export function Gta6HubHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable
             <div className="g6-hub-hero-copy">
               <p className="g6-badge">
                 <Wand2 size={15} aria-hidden="true" />
-                <span>{t('GTA VI shipped Nov 19, 2026 — six formats, one photo each', 'GTA VI 已于 2026 年 11 月 19 日发售——六种玩法，每种一张照片')}</span>
+                <span>{t('GTA VI shipped Nov 19, 2026 — six series, 1–2 photos each', 'GTA VI 已于 2026 年 11 月 19 日发售——六个系列，1-2 张照片即可开做')}</span>
               </p>
               <h1>
                 {t('GTA 6 AI Templates — six series that put you in Vice City', 'GTA 6 AI 模板专题——六个带你进罪恶都市的系列')}
               </h1>
               <p>
                 {t(
-                  'Pick a GTA 6 series below: a four-shot fan trailer, a five-star one-take chase, a two-photo romance, a widescreen cutscene story, a nightclub entrance, or a duo getaway. Upload one clear photo and the template does the rest — your video is ready in about 2–3 minutes.',
-                  '从下面选一个 GTA 6 系列：四镜头粉丝预告片、五星通缉一镜到底、双人追逐爱情、横版过场故事、夜店入场、双人逃亡。上传一张清晰照片，剩下交给模板——大约 2-3 分钟就能拿到你的成片。'
+                  'Explore six GTA-inspired AI video templates: a four-shot fan trailer, a five-star one-take chase, a two-photo romance, a widescreen cutscene story, a nightclub entrance, or a duo getaway. Upload one or two photos, depending on the template you choose, and your video is ready in about 2–3 minutes.',
+                  '六个 GTA 风格 AI 视频模板任你选：四镜头粉丝预告片、五星通缉一镜到底、双人追逐爱情、横版过场故事、夜店入场、双人逃亡。按模板要求上传 1-2 张照片，大约 2-3 分钟就能拿到你的成片。'
                 )}
               </p>
               <div className="g6-specs" role="list">
@@ -80,8 +80,8 @@ export function Gta6HubHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable
             <h2>{t('The GTA 6 AI series, in one place', 'GTA 6 AI 系列，一页看完')}</h2>
             <p className="g6-sub">
               {t(
-                'Each card is its own series page with its own keyword, scene breakdown, how-to and FAQ. Hover a card to preview, click to open the series.',
-                '每张卡片都对应一个独立的系列页——各自的关键词、镜头拆解、教程和 FAQ。点击卡片进入对应系列页。'
+                'Each card spells out who it is for — solo or duo — the scene it drops you into and the clip it outputs, with photo count and duration on every card. Hover to preview, click to open the series.',
+                '每张卡片都写清了适合单人还是双人、把你放进什么场景、输出什么效果，照片数量和时长标在卡片上。悬停预览，点击进入系列页。'
               )}
             </p>
             <div className="g6-hubgrid">
@@ -105,7 +105,7 @@ export function Gta6HubHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable
                   <div className="g6-hubmeta">
                     <b>{zh ? item.name[1] : item.name[0]}</b>
                     <span>
-                      {item.photos} {t('photo(s)', '张照片')} · {zh ? item.ratio[1] : item.ratio[0]}
+                      {item.photos === 2 ? t('2 photos', '2 张照片') : t('1 photo', '1 张照片')} · {zh ? item.ratio[1] : item.ratio[0]}
                     </span>
                     <p>{zh ? item.pitch[1] : item.pitch[0]}</p>
                     <Link className="g6-hubopen" href={`/${item.slug}`}>
@@ -151,6 +151,36 @@ export function Gta6HubHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable
                 '每个系列都是固定格式——镜头、顺序和时长都不变——唯一的变量是谁来主演。这也是这些页面诚实的原因：每条成片都是粉丝向 AI 内容并明确标注，ViralReel（viralreel.app）与 Rockstar Games 或 Take-Two Interactive 无关联。请使用已同意出镜的成年人照片，并在发布时打开 AI 生成标注。'
               )}
             </p>
+          </div>
+        </section>
+
+        <section className="g6-sec" id="g6-hub-faq">
+          <div className="container">
+            {(() => {
+              const faq = GTA6_HUB_FAQ;
+              return (
+                <>
+                  <div className="g6-sec-head center">
+                    <p className="g6-kick">{t('Choosing a series', '选择系列')}</p>
+                    <h2>{t('GTA 6 AI templates, answered', 'GTA 6 AI 模板常见问题')}</h2>
+                    <p className="g6-sub">
+                      {t(
+                        'Short answers to the questions people ask before picking a series — who each one is for and what it renders.',
+                        '选系列之前最常问的问题，一条条答清楚——每个系列适合谁、输出什么。'
+                      )}
+                    </p>
+                  </div>
+                  <div className="g6-faq-list">
+                    {faq.map((item) => (
+                      <details key={item.q[0]}>
+                        <summary>{zh ? item.q[1] : item.q[0]}</summary>
+                        <p>{zh ? item.a[1] : item.a[0]}</p>
+                      </details>
+                    ))}
+                  </div>
+                </>
+              );
+            })()}
           </div>
         </section>
 

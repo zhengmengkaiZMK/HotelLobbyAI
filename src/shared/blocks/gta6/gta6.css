@@ -131,6 +131,23 @@
   font-size: 16px; line-height: 1.75; color: #43362c;
   max-width: 880px; margin: 0 auto 28px; text-align: center;
 }
+.viral-home.g6 .g6-evidence {
+  max-width: 880px; margin: 0 auto;
+  border: 1px solid var(--g6-line);
+  border-left: 3px solid var(--g6a);
+  border-radius: 12px;
+  background: rgba(255, 255, 255, 0.55);
+  padding: 16px 20px;
+  display: grid; gap: 8px;
+  text-align: left;
+}
+.viral-home.g6 .g6-evidence b {
+  font-size: 13px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase;
+  color: var(--g6b);
+}
+.viral-home.g6 .g6-evidence span {
+  font-size: 14px; line-height: 1.7; color: #5a4a3d;
+}
 .viral-home.g6 .g6-btn {
   display: inline-flex; align-items: center; gap: 9px;
   background: linear-gradient(92deg, var(--g6a), var(--g6b));

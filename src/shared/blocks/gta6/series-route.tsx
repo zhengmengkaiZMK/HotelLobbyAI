@@ -3,7 +3,7 @@ import { setRequestLocale } from 'next-intl/server';
 import { envConfigs } from '@/config';
 import { Gta6SeriesHome } from '@/shared/blocks/gta6/series-view';
 import { Gta6HubHome } from '@/shared/blocks/gta6/hub-view';
-import { GTA6_SERIES, getGta6Series } from '@/shared/blocks/gta6/series-data';
+import { GTA6_HUB_FAQ, getGta6Series } from '@/shared/blocks/gta6/series-data';
 import { getAllConfigs } from '@/shared/models/config';
 import { getVideoCostTable } from '@/shared/lib/video-cost';
 import { buildTemplateSoftwareJsonLd } from '@/shared/lib/product-schema';
@@ -79,18 +79,15 @@ export async function generateGta6Metadata(slug: string, locale: Locale) {
   } as Record<string, unknown>;
 }
 
-/** FAQ JSON-LD for a series page or the hub (shared FAQ is built per slug). */
+/** FAQ JSON-LD for a series page or the hub (hub FAQ is the visible hub list). */
 function faqJsonLdFor(slug: string, zh: boolean) {
   let pairs: readonly [string, string][];
   if (slug === 'gta-6-ai-templates') {
-    pairs = GTA6_SERIES.map((s) => [
-      zh ? `什么是${s.name[1]}？` : `What is ${s.name[0]}?`,
-      [
-        zh
-          ? `${s.name[1]} 是 ViralReel 的模板：${s.photos === 2 ? '两张照片' : '一张照片'}生成 ${s.duration} 秒、${zh ? s.ratio[1] : s.ratio[0]}的固定格式成片，约 2-3 分钟出片。详见 https://www.viralreel.app${zh ? '/zh' : ''}/${s.slug} 。`
-          : `${s.name[0]} is a ViralReel template: ${s.photos === 2 ? 'two photos' : 'one photo'} become a fixed ${s.duration}-second format (${s.ratio[0]}), rendered in about 2–3 minutes. Details at https://www.viralreel.app/${s.slug}.`,
-      ][zh ? 1 : 0],
-    ] as [string, string]);
+    // Exactly the Q&As rendered visibly in the hub FAQ section — never more,
+    // never fewer.
+    pairs = GTA6_HUB_FAQ.map(
+      (item) => [zh ? item.q[1] : item.q[0], zh ? item.a[1] : item.a[0]] as [string, string]
+    );
   } else {
     const series = getGta6Series(slug);
     if (!series) return null;
