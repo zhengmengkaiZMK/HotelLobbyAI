@@ -19,11 +19,12 @@ import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { Brand } from './footer';
 import './home.css';
 
-// Top-nav Trending submenu: keep it to the nine newest series so the
-// dropdown stays scannable, plus a fixed "All trends" entry pointing at the
-// homepage templates hub. Templates removed from here (wassup, ba-ba-ba,
-// tiny-desk, pedra, bulin, ozil, hotel) are still listed in the footer links
-// and on the homepage trending hub.
+// Top-nav Trending submenu: newest-first list, capped at NINE entries in
+// trendingNavItems() so the dropdown stays scannable, plus a fixed "All
+// trends" entry pointing at the homepage templates hub. Templates that fall
+// off the cap (and older ones like wassup, ba-ba-ba, tiny-desk, pedra, bulin,
+// ozil, hotel) are still listed in the footer links and on the homepage
+// trending hub.
 const TRENDING_NAV_ORDER = [
   'gta-5-goodbye-ai',
   'give-it-all-ai',
@@ -40,10 +41,14 @@ const TRENDING_NAV_ORDER = [
   'sasha-la-catrina',
 ] as const;
 
+const TRENDING_NAV_MAX = 9;
+
 function trendingNavItems(): TrendingTemplate[] {
-  return TRENDING_NAV_ORDER.map((id) =>
-    TRENDING_TEMPLATES.find((item) => item.id === id)
-  ).filter((item): item is TrendingTemplate => Boolean(item?.href));
+  // Newest first — hard cap so the submenu never grows past nine entries
+  // regardless of how many series get added to the front of the list.
+  return TRENDING_NAV_ORDER.slice(0, TRENDING_NAV_MAX)
+    .map((id) => TRENDING_TEMPLATES.find((item) => item.id === id))
+    .filter((item): item is TrendingTemplate => Boolean(item?.href));
 }
 
 function closeMobileMenu(event: { currentTarget: EventTarget & Element }) {
