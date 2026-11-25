@@ -125,7 +125,6 @@ export function BlogDetail({ post }: { post: PostType }) {
                 <nav aria-label={isZh ? '相关资源' : 'Related resources'} className="mt-12 border-t pt-8">
                   <p className="text-foreground mb-3 font-semibold">{isZh ? '相关资源' : 'Related resources'}</p>
                   <div className="flex flex-wrap gap-x-4 gap-y-2 text-sm">
-                    <Link href="/ai-video-generator" className="text-primary underline-offset-4 hover:underline">{isZh ? 'AI 视频生成器' : 'AI video generator'}</Link>
                     <Link href="/blog" className="text-primary underline-offset-4 hover:underline">{isZh ? '使用教程' : 'How-to guides'}</Link>
                     <Link href="/pricing" className="text-primary underline-offset-4 hover:underline">{isZh ? '定价' : 'Pricing'}</Link>
                   </div>

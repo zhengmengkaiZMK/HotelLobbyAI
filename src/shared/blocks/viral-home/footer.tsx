@@ -53,6 +53,11 @@ export function ViralFooter() {
     chips?: { href: string; label: readonly [string, string] }[];
   }[] = [
     {
+      href: '/365-elevator-ai-template',
+      label: ['365 Elevator', '365 Elevator 电梯双人'],
+      chips: [{ href: '/blog/how-to-make-365-elevator-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
       href: '/gta-6-ai-templates',
       label: ['GTA 6 AI Templates', 'GTA 6 AI 模板专题'],
       chips: [

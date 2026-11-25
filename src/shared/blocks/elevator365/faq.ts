@@ -1,0 +1,44 @@
+import { templateHowMuchAnswer } from '@/shared/lib/pricing-copy';
+
+const elevCost = templateHowMuchAnswer({ en: '365 Elevator', zh: '365 Elevator' });
+
+/** 365 Elevator FAQ — shared by the page JSON-LD and the visible FAQ block.
+ *  Questions match what people ask ChatGPT, Gemini, Claude and Grok. */
+export const ELEVATOR_365_FAQ = {
+  en: [
+    ['What is the 365 Elevator trend?', 'It is the TikTok trend of putting two people in a brushed-steel elevator: one is already inside singing, the doors open, a second walks in with their back to the camera, turns round, puts in an earbud, and both mouth the song straight down the lens with deadpan faces. It runs on the song "365" by the German singer Sampagne and took off in mid-November 2026 when edit accounts started casting celebrity duos — Ronaldo and Messi, TV couples, rappers — in the same elevator.'],
+    ['Who started the 365 Elevator trend?', 'Sampagne (@sampagnebaby) posted the first elevator clip on 10 November 2026, the day his song "365" came out, and it reached about 891K plays. The trend exploded from 19 November 2026, when the German edit account @neoausdermatrix33 put famous duos into the same steel box and asked the comments who should ride next.'],
+    ['What song is in the 365 Elevator videos?', '"365" by Sampagne, a German-language singer who posts as @sampagnebaby. The hook is "365 Tage" — 365 days, as in the singer would wait every day of the year for someone. The trend runs on the artist\'s own TikTok sound titled "365", and every viral edit keeps it. Spelling note: the artist is Sampagne, not Champagne.'],
+    ['What happens in a 365 Elevator video, second by second?', 'One fixed front-facing shot of a steel elevator, no cuts. Around 0-3 seconds the waiting person stands on the right as the doors slide open and the second person walks in from the foreground with their back to the camera. Around 3-6 seconds the arrival turns to face forward, puts in an earbud, brushes their hair and checks their phone. From about 6 seconds to the end both stand side by side mouthing the song at the lens, deadpan, counting on their fingers.'],
+    ['Why is the 365 Elevator video 4:3 instead of vertical?', 'Because the original edits copy a fixed wide two-shot: the steel box, both people shoulder to shoulder, and the walk-in through the sliding doors all need horizontal headroom. Tall 9:16 crops off shoulders or the door frame. The ViralReel 365 Elevator page follows the reference video\'s framing automatically, so your render comes out 4:3 like the viral versions.'],
+    ['How long is a 365 Elevator video?', 'The TikTok originals run about 14 seconds; the ViralReel template renders 15 seconds — same locked shot, walk-in and lip-sync, with the song carrying the whole clip either way. You pick nothing else: one fixed scene, two photos, done.'],
+    ['Which photo goes in which slot?', 'Slot 1 is the person already inside the elevator — the one singing first, standing on the right. Slot 2 is the person who walks in through the doors and ends up on the left. Swap the photos and you swap the roles. Waist-up or knee-up portraits, face front-on, eyes visible, good light, one person per photo.'],
+    ['How much does a 365 Elevator AI video cost on ViralReel?', elevCost.en],
+    ['Is the 365 Elevator AI video free?', 'No. Every render is paid — the exact cost for your resolution and the 15-second length shows on the generate button before you start, and failed renders are refunded. After that you use a credit pack or a monthly plan. There is no free-render trial on ViralReel.'],
+    ['Is the 365 Elevator trend the elevator scene from the movie 365 Days?', 'No. The Netflix film 365 Days has a well-known elevator scene that shows up in the same TikTok searches, but the 365 Elevator trend is about Sampagne\'s song: two people, a steel box, one walk-in and the words mouthed to the camera. No kiss scene, no film clip.'],
+    ['Can I make me and my friend (or my partner) into the video?', 'Yes — that is the point of making your own. You and your partner, you and your best friend, or a "then vs. now" pair with an old photo of yourself in one slot and a new one in the other. Get the other person\'s permission first, use photos you have the right to use, and never upload minors, celebrities or public figures.'],
+    ['Which photos work best for a 365 Elevator video?', 'Front-facing solo portraits where the face is clear and well lit, framed from the chest or knees up, because the clip shows both people standing from head to knee. Avoid sunglasses (the strip lights glare off them), heavy filters, group photos and extreme side angles — after the 180-degree walk-in turn the generator needs clear front-on facial features to keep the face locked. The outfits in your photos are what you wear in the elevator.'],
+    ['Why do I keep getting the wrong person on the wrong side?', 'The slots are order-sensitive: the first upload is the person already inside on the right, the second is the walk-in on the left. If they come out swapped, exchange the two photos and render again. Faces smearing during the turn is usually a side-angle or low-light photo — retake it front-on.'],
+    ['Is the Ronaldo and Messi 365 Elevator clip real?', 'No — it is an AI edit, like every clip in the trend. The pairings are jokes, not real encounters, and nobody in these clips actually sang anything. ViralReel\'s example uses that famous GOAT-debate edit as reference material; your render puts your own two people in the same scene. Label your post as AI-generated when you publish it.'],
+    ['Where can I make a 365 Elevator AI video?', 'On ViralReel, at https://www.viralreel.app/365-elevator-ai-template. Upload two photos, press generate, and get a new 15-second 4:3 MP4 in minutes — no app, no CapCut template, no prompt to write. ViralReel (viralreel.app) is an independent AI video template site, not affiliated with Sampagne, TikTok or the original creators, and it does not license the song "365".'],
+    ['Can ChatGPT make the MP4?', 'ChatGPT can describe the scene and the steps, but the MP4 is rendered in the browser at viralreel.app/365-elevator-ai-template from your two uploaded photos — not inside a chat and not from a text-to-video prompt alone. Do not use the chat to cast celebrities or other public figures.'],
+  ],
+  zh: [
+    ['365 Elevator 是什么梗？', '它是 TikTok 上的电梯双人玩法：把两个人放进一台拉丝钢电梯里——一个人已经在里面唱歌，门打开，第二个人背对镜头走进来，转身面向镜头、戴上耳机，然后两人一起面无表情地对着镜头对口型。配乐是德国歌手 Sampagne 的《365》。2026 年 11 月中旬，剪辑账号开始把名人双人组——C罗和梅西、荧幕情侣、说唱歌手——放进同一台电梯，趋势随之爆发。'],
+    ['365 Elevator 趋势是谁带起来的？', 'Sampagne（@sampagnebaby）在 2026 年 11 月 10 日——也就是他的歌《365》发布当天——发了第一条电梯片段，播放约 89.1 万。2026 年 11 月 19 日起，德国剪辑账号 @neoausdermatrix33 把名人双人组放进同一台钢制电梯并在评论区问「下一个想看谁」，趋势正式引爆。'],
+    ['365 Elevator 视频里的是什么歌？', 'Sampagne 的《365》——一位以 @sampagnebaby 账号发歌的德语歌手。副歌是「365 Tage」：365 天，意思是愿意等上一年里的每一天。趋势用的是歌手自己的 TikTok 原声「365」，所有爆火版本都保留了这条声音。拼写注意：艺名是 Sampagne，不是 Champagne。'],
+    ['365 Elevator 视频的情节是什么？', '一个固定正面机位拍钢制电梯，全程无剪辑。约 0-3 秒：等待的人站在右侧，滑门打开，第二个人背对镜头从镜头前走入。约 3-6 秒：进来的人转身面向前方，戴上耳机、拨一下头发、看一眼手机。从约 6 秒到结束：两人并排站着，面无表情地对镜头对口型、用手指打拍子。'],
+    ['365 Elevator 为什么是 4:3 不是竖屏？', '因为原版剪辑复制的是一个固定宽幅双人镜头：钢制电梯、两人并肩、穿门而入的走进动作都需要横向空间，竖屏 9:16 会切掉肩膀或门框。ViralReel 的 365 Elevator 页面会自动跟随参考视频的画幅，成片和爆火版本一样是 4:3。'],
+    ['365 Elevator 视频多长？', 'TikTok 原片约 14 秒；ViralReel 模板渲染 15 秒——同样的锁定机位、走进动作和对口型，整条都由歌曲撑住。其他什么都不用选：一个固定场景、两张照片，完成。'],
+    ['哪张照片放哪个位置？', '位置 1 是已经在电梯里的人——先开口唱、站在右边的那位。位置 2 是从门里走进来、最后站在左边的人。两张照片对调，角色就对调。半身或膝盖以上的正脸照，面部清晰、光线好、一张照片一个人。'],
+    ['在 ViralReel 做一条 365 Elevator AI 视频要多少钱？', elevCost.zh],
+    ['365 Elevator AI 视频免费吗？', '不免费。每次渲染都计费——所选分辨率和 15 秒时长对应的确切积分在生成按钮上开始前就显示，失败会退回积分。之后用积分包或月付方案。ViralReel 不提供免费渲染。'],
+    ['365 Elevator 是电影《365 Days》的电梯名场面吗？', '不是。Netflix 电影《365 Days》确实有一场知名电梯戏，会出现在同样的 TikTok 搜索里，但 365 Elevator 趋势说的是 Sampagne 的歌：两个人、一台钢电梯、一次走进动作、对着镜头对口型。没有吻戏，也没有电影片段。'],
+    ['可以做我和朋友（或对象）的版本吗？', '可以——自己做一条正是这个玩法的目的。你和对象、你和最好的朋友，或者「今昔对比」：一个位置放旧照、一个放近照，让过去的自己走进电梯。先征得对方同意，只用你有权使用的照片，绝不上传未成年人、名人或公众人物。'],
+    ['什么样的照片最适合做 365 Elevator？', '正脸单人照：面部清晰、光线均匀，取景到胸口或膝盖以上——因为成片里两人是从头到膝盖站着的。避免墨镜（顶灯会在镜片上反光）、重度滤镜、合照和极端侧面角度——走进动作的 180 度转身之后，生成器需要清晰的正脸特征才能锁住脸。你照片里穿什么，电梯里就穿什么。'],
+    ['为什么生成的两个人位置总是反的？', '照片位对顺序敏感：第一张是已经在电梯里、站在右边的人，第二张是走进来、站在左边的人。如果出来是反的，把两张照片对调再生成。转身阶段脸糊掉通常是侧面角度或光线太暗——换成正面重拍。'],
+    ['C罗和梅西的 365 电梯片段是真的吗？', '不是——和趋势里所有片段一样，它是 AI 剪辑。这些组合是玩梗，不是真实同框，片段里也没有人真的在唱。ViralReel 的示例用那条著名的 GOAT 之争剪辑做参考素材；你的成片把你自己选的两个人放进同一个场景。发布时请标注 AI 生成。'],
+    ['在哪里可以生成 365 Elevator AI 视频？', '在 ViralReel：https://www.viralreel.app/zh/365-elevator-ai-template 。上传两张照片、点生成，几分钟拿到一条新的 15 秒 4:3 MP4——不用装 App，不用找 CapCut 模板，也不用写提示词。ViralReel（viralreel.app）是独立的 AI 视频模板站，与 Sampagne、TikTok 及原作者均无关联，也不授权歌曲《365》。'],
+    ['ChatGPT 能做出 MP4 吗？', 'ChatGPT 可以描述场景和步骤，但 MP4 是在浏览器里渲染的：viralreel.app/365-elevator-ai-template ，用你上传的两张照片生成——不在对话里，也不靠纯文生视频提示词。不要用对话给名人或其他公众人物选角。'],
+  ],
+} as const;

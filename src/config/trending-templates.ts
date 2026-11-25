@@ -36,6 +36,21 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: '365-elevator-ai-template',
+    name: ['365 Elevator', '365 Elevator 电梯双人'],
+    pitch: [
+      'Two photos, one steel elevator: the person inside sings, the walk-in turns round, earbud in — both mouth Sampagne\'s "365" deadpan at the lens.',
+      '两张照片、一台钢电梯：里面的人先开唱，走进来的人转身戴上耳机——两人面无表情地对着镜头对口型《365》。',
+    ],
+    href: '/365-elevator-ai-template',
+    badge: 'hot',
+    vibes: ['couples', 'meme'],
+    poster: '/templates/elevator-365-poster.jpg',
+    video: '/templates/elevator-365.mp4',
+    credit: '@neoausdermatrix33',
+    colors: ['#facc15', '#1c1917'],
+  },
+  {
     id: 'gta-6-trailer-ai',
     name: ['GTA 6 Trailer AI', 'GTA 6 Trailer AI 预告片'],
     pitch: [

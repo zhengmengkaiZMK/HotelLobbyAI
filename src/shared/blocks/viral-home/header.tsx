@@ -26,6 +26,7 @@ import './home.css';
 // ozil, hotel) are still listed in the footer links and on the homepage
 // trending hub.
 const TRENDING_NAV_ORDER = [
+  '365-elevator-ai-template',
   'gta-5-goodbye-ai',
   'give-it-all-ai',
   'dance-with-santa',
