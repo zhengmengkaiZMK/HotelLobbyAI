@@ -185,8 +185,8 @@ export default async function AiTasksPage({
         callback: (item: AITask) => <StatusBadge status={item.status} t={t} />,
       },
       { name: 'mediaType', title: t('fields.media_type'), type: 'label' },
-      { name: 'provider', title: t('fields.provider'), type: 'label' },
-      { name: 'model', title: t('fields.model'), type: 'label' },
+      // provider / model deliberately omitted: users only need to know what was
+      // generated and what it cost, not which upstream engine served the job
       { name: 'costCredits', title: t('fields.cost_credits'), type: 'label' },
       { name: 'createdAt', title: t('fields.created_at'), type: 'time' },
       {
@@ -211,10 +211,11 @@ export default async function AiTasksPage({
     data: aiTasks,
     emptyMessage: t('list.empty_message'),
     // fixed-height area: 5 preview-sized rows ≈ 1200px keeps every page (full,
-    // last-partial or empty) at the same height; min-width forces the table
-    // into its horizontal scroll container on narrow screens
+    // last-partial or empty) at the same height. No artificial min-width here:
+    // cells are whitespace-nowrap, so the table only scrolls when the real
+    // content cannot fit — dropping provider/model left a forced 960px floor
+    // that scrolled on any screen narrower than that for no reason.
     wrapperClassName: 'min-h-[1200px]',
-    tableClassName: 'min-w-[960px]',
     pagination: {
       total,
       page,
