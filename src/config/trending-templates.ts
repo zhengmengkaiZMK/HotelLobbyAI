@@ -36,6 +36,35 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'hand-of-god-ai-template',
+    name: ['Hand of God', 'Hand of God 金色巨手'],
+    pitch: [
+      'One photo, giant golden hands: they take yours on a seaside promenade, a flash turns your clothes white, and they lift you above the turquoise sea.',
+      '一张照片、两只金色巨手：海边步道牵起你的手，白光一闪衣服变白，把你举到碧海之上。',
+    ],
+    href: '/hand-of-god-ai-template',
+    badge: 'hot',
+    vibes: ['meme'],
+    poster: '/templates/handofgod-golden-poster.jpg',
+    video: '/templates/handofgod-golden.mp4',
+    credit: '@lunita35787',
+    colors: ['#fcd34d', '#92400e'],
+  },
+  {
+    id: 'aura-farming-ai-template',
+    name: ['Aura Farming', 'Aura Farming 龙舟船头'],
+    pitch: [
+      'One photo, the bow of a red dragon boat: you clap a steady rhythm at the tip while the crew rows hard behind you, arms wide at the close.',
+      '一张照片、一条龙舟船头：你在船头淡定拍手领节奏，身后整队划手奋力划桨，结尾侧身张臂收在水面上。',
+    ],
+    href: '/aura-farming-ai-template',
+    badge: 'hot',
+    vibes: ['meme'],
+    poster: '/templates/aurafarming-boat-poster.jpg',
+    video: '/templates/aurafarming-boat.mp4',
+    colors: ['#f97316', '#7c2d12'],
+  },
+  {
     id: '365-elevator-ai-template',
     name: ['365 Elevator', '365 Elevator 电梯双人'],
     pitch: [

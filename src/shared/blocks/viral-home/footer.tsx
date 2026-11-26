@@ -53,6 +53,16 @@ export function ViralFooter() {
     chips?: { href: string; label: readonly [string, string] }[];
   }[] = [
     {
+      href: '/hand-of-god-ai-template',
+      label: ['Hand of God', 'Hand of God 金色巨手'],
+      chips: [{ href: '/blog/how-to-make-hand-of-god-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
+      href: '/aura-farming-ai-template',
+      label: ['Aura Farming', 'Aura Farming 龙舟船头'],
+      chips: [{ href: '/blog/how-to-make-aura-farming-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
       href: '/365-elevator-ai-template',
       label: ['365 Elevator', '365 Elevator 电梯双人'],
       chips: [{ href: '/blog/how-to-make-365-elevator-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],

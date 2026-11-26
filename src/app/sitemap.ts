@@ -42,6 +42,8 @@ const staticRoutes = [
   { path: '/dance-with-santa-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   ...DANCE_WITH_SANTA_LONG_TAIL_ROUTES,
   { path: '/gta-5-goodbye-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/hand-of-god-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
+  { path: '/aura-farming-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/365-elevator-ai-template', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/gta-6-ai-templates', priority: 0.9, changeFrequency: 'weekly' as const },
   { path: '/gta-6-trailer-ai', priority: 0.9, changeFrequency: 'weekly' as const },
