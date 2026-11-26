@@ -51,6 +51,11 @@ DATABASE_PROVIDER = "d1"
 DB_SINGLETON_ENABLED = "true"
 DB_MAX_CONNECTIONS = "1"
 
+# pvuv.ai 爬虫上报：记录 AI 助手 / 搜索引擎抓了哪些页面。
+# 令牌是 ingest-only secret，绝不放这里，也不提交进仓库：
+#   npx wrangler secret put PVUV_INGEST_TOKEN
+PVUV_SITE = "oXfydZcN"
+
 # OpenNext 增量缓存（unstable_cache / ISR 持久化；无此项时每请求都会重查 D1）
 [[r2_buckets]]
 binding = "NEXT_INC_CACHE_R2_BUCKET"

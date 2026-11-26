@@ -5,7 +5,13 @@
  * switch off restores the existing checkout amount.
  */
 
-export const BLACK_FRIDAY_ENDS_AT = Date.parse('2026-12-01T00:00:00+08:00');
+/**
+ * Sale deadline, written in Beijing time. 2026-12-01 12:59 +08:00 is
+ * 2026-11-30 23:59 EST — the last minute of Cyber Monday. The previous value
+ * (2026-12-01 00:00 +08:00) resolved to 11-30 11:00 EST and silently cut the
+ * US Monday afternoon, the biggest buying window of the whole run.
+ */
+export const BLACK_FRIDAY_ENDS_AT = Date.parse('2026-12-01T12:59:00+08:00');
 
 export const BF_SEEN_KEY = 'vr_bf_popup_seen_v1';
 export const BF_LOGIN_KEY = 'vr_bf_login_popup';
