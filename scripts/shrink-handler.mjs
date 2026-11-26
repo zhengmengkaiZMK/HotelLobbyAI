@@ -1,16 +1,24 @@
 /**
- * Shrink handler.mjs by deduplicating the 210 inline __RSC_MANIFEST
- * assignments (30+ MB of the ~58 MB worker). ~99% of each manifest's content
- * (ssrModuleMapping / clientModuleMapping chunk tables) is identical across
- * routes, so we extract the common subtree once and rewrite every assignment
- * to `apply(SHARED, <sparse residual>)`.
+ * Shrink handler.mjs by deduplicating the ~200 inline __RSC_MANIFEST
+ * assignments (30+ MB of the ~60 MB worker). Two passes:
+ *
+ * 1. Shared tree: ~99% of each manifest (ssrModuleMapping / clientModuleMapping
+ *    chunk tables) is identical across routes — extract the common subtree once
+ *    and rewrite every assignment to `apply(SHARED, <sparse residual>)`.
+ * 2. Chunk-array dictionary: the residuals still embed one `chunks` array per
+ *    client module (tens of webpack chunk filenames), and those arrays are
+ *    massively repeated across modules AND routes (28k arrays → ~160 unique).
+ *    Every array seen more than once becomes an entry in a top-level
+ *    `__RSC_ARR` table; residuals reference it by index.
  *
  * Run AFTER `opennextjs-cloudflare build`, BEFORE `wrangler deploy`:
  *   node scripts/shrink-handler.mjs
  *
- * Safety: every rewritten assignment is verified (shared+residual must
- * deep-equal the original JSON); if any verification fails the handler is
- * restored untouched and the script exits non-zero.
+ * Safety: every rewritten assignment is verified twice — (a) data-level, the
+ * reconstructed shared+residual must deep-equal the original object, and
+ * (b) emission-level, the emitted JS (with __RSC_ARR references) is evaluated
+ * in a temp module and must deep-equal the residual data. On any failure the
+ * handler is restored untouched and the script exits non-zero.
  */
 import fs from "node:fs";
 import path from "node:path";
@@ -98,7 +106,7 @@ async function main() {
   if (sharedSize < avg * 0.3) { console.log("[shrink-handler] shared tree too small, aborting"); return; }
   console.log(`[shrink-handler] shared tree ${(sharedSize / 1024).toFixed(0)} KB, avg original ${(avg / 1024).toFixed(0)} KB, max residual ${(Math.max(...residualSizes) / 1024).toFixed(1)} KB`);
 
-  // verify all before writing
+  // verify all before writing (data level)
   for (let i = 0; i < assigns.length; i++) {
     if (!deepEq(applyTree(shared, residuals[i]), jsons[i])) {
       console.error(`[shrink-handler] verification FAILED for ${assigns[i].key} — handler left untouched`);
@@ -107,12 +115,54 @@ async function main() {
   }
   console.log(`[shrink-handler] verified ${assigns.length} manifests round-trip equal`);
 
-  const sharedCode = `var __RSC_SHARED_MANIFEST=${JSON.stringify(shared)};var __RSC_APPLY=(s,r)=>{if(r===undefined)return structuredClone(s);if(s===null||typeof s!=="object"||Array.isArray(s)||r===null||typeof r!=="object"||Array.isArray(r))return structuredClone(r);const o=structuredClone(s);for(const k in r)o[k]=r[k]!==null&&typeof r[k]==="object"&&!Array.isArray(r[k])&&o[k]!==null&&typeof o[k]==="object"&&!Array.isArray(o[k])?__RSC_APPLY(o[k],r[k]):structuredClone(r[k]);return o;};\n`;
+  // ---- pass 2: chunk-array dictionary across residuals ----
+  // Every array (chunks lists, css lists, ...) appearing more than once across
+  // all residuals becomes `__RSC_ARR[i]`; singletons stay inline.
+  const arrCount = new Map();
+  const collect = (v) => {
+    if (Array.isArray(v)) {
+      const s = JSON.stringify(v);
+      arrCount.set(s, (arrCount.get(s) || 0) + 1);
+      for (const item of v) collect(item);
+    } else if (isObj(v)) {
+      for (const item of Object.values(v)) collect(item);
+    }
+  };
+  residuals.forEach(collect);
+  const dictEntries = [...arrCount.entries()].filter(([, n]) => n >= 2);
+  const dict = new Map(dictEntries.map(([s], i) => [s, i]));
+  const dictArrays = dictEntries.map(([s]) => JSON.parse(s));
+  const dictBytes = dictEntries.reduce((t, [s]) => t + s.length, 0);
+  const dupTotal = dictEntries.reduce((t, [, n]) => t + n, 0);
+  console.log(`[shrink-handler] chunk-array dict: ${dict.size} unique arrays (${(dictBytes / 1048576).toFixed(2)} MB) for ${dupTotal} occurrences`);
+
+  // serializer: reference dictionary arrays instead of inlining them
+  const emit = (v) => {
+    if (Array.isArray(v)) {
+      const s = JSON.stringify(v);
+      const idx = dict.get(s);
+      if (idx !== undefined) return `__RSC_ARR[${idx}]`;
+      return `[${v.map(emit).join(",")}]`;
+    }
+    if (isObj(v)) {
+      const parts = Object.entries(v).map(([k, item]) => `${JSON.stringify(k)}:${emit(item)}`);
+      return `{${parts.join(",")}}`;
+    }
+    return JSON.stringify(v);
+  };
+
+  const sharedCode = `var __RSC_SHARED_MANIFEST=${JSON.stringify(shared)};var __RSC_ARR=[${dictArrays.map((a) => JSON.stringify(a)).join(",")}];var __RSC_APPLY=(s,r)=>{if(r===undefined)return structuredClone(s);if(s===null||typeof s!=="object"||Array.isArray(s)||r===null||typeof r!=="object"||Array.isArray(r))return structuredClone(r);const o=structuredClone(s);for(const k in r)o[k]=r[k]!==null&&typeof r[k]==="object"&&!Array.isArray(r[k])&&o[k]!==null&&typeof o[k]==="object"&&!Array.isArray(o[k])?__RSC_APPLY(o[k],r[k]):structuredClone(r[k]);return o;};\n`;
+
+  // emission-level verification: eval each emitted residual JS and compare to
+  // the residual data (catches serializer bugs before touching the handler)
+  const emitted = residuals.map((r) => (Object.keys(r).length ? emit(r) : "undefined"));
+  await verifyEmitted(emitted, residuals, dictArrays);
+
   // replace assignments from last to first
   let out = src;
   for (let i = assigns.length - 1; i >= 0; i--) {
     const a = assigns[i];
-    const replacement = `globalThis.__RSC_MANIFEST[${JSON.stringify(a.key)}]=__RSC_APPLY(__RSC_SHARED_MANIFEST,${residualSizes[i] > 0 ? JSON.stringify(residuals[i]) : "undefined"})`;
+    const replacement = `globalThis.__RSC_MANIFEST[${JSON.stringify(a.key)}]=__RSC_APPLY(__RSC_SHARED_MANIFEST,${emitted[i]})`;
     out = out.slice(0, a.assignStart) + replacement + out.slice(a.end);
   }
   // Insert the shared declarations at the VERY TOP of the handler: esbuild's
@@ -143,6 +193,25 @@ async function evalJsonTexts(texts) {
   try {
     const mod = await import(`file://${tmp}?t=${Date.now()}`);
     return mod.default;
+  } finally {
+    fs.rmSync(tmp, { force: true });
+  }
+}
+
+/** Evaluate the emitted residual expressions (which reference __RSC_ARR) in a
+ * temp module and confirm each reconstructs the original residual data. */
+async function verifyEmitted(emitted, residuals, dictArrays) {
+  const tmp = path.join(path.dirname(HANDLER), `.shrink-verify-${process.pid}.mjs`);
+  fs.writeFileSync(tmp, `var __RSC_ARR=[${dictArrays.map((a) => JSON.stringify(a)).join(",")}];\nexport default [${emitted.join(",")}];\n`);
+  try {
+    const mod = await import(`file://${tmp}?t=${Date.now()}`);
+    for (let i = 0; i < residuals.length; i++) {
+      if (!deepEq(mod.default[i], residuals[i])) {
+        console.error(`[shrink-handler] emission verification FAILED for residual #${i} — handler left untouched`);
+        process.exit(1);
+      }
+    }
+    console.log(`[shrink-handler] verified ${residuals.length} emitted residuals evaluate back equal`);
   } finally {
     fs.rmSync(tmp, { force: true });
   }
