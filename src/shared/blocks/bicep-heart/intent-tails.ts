@@ -57,12 +57,12 @@ export const BICEP_HEART_INTENT_TAILS: readonly BicepHeartLongTailEntry[] = [
     body: {
       en: [
         `Step zero is the photo. ${PHOTO_EN} A vertical original beats a recompressed screenshot.`,
-        `Then the render. Open ${T}, pick one of nine sets — Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, or a new trend replay — and upload the photo into the single slot labeled Your Photo. Keep the ratio on 9:16 and the length on 7 seconds, read the credit line, and press Generate. The clip lands in My generations in about 2–3 minutes; failed jobs refund automatically.`,
+        `Then the render. Open ${T}, pick one of nine sets — Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, or a new trend replay — and upload the photo into the single slot labeled Your Photo. Keep the ratio on 9:16 and the length on 7 seconds, read the credit line, and press Generate. The clip lands in My generations in 2–7 minutes at 720p; failed jobs refund automatically.`,
         `Then the posting. ${SOUND_EN} The pose, the timing, and the beat-by-beat breakdown are at ${POSE} if you want to understand what the render is doing.`,
       ],
       zh: [
         `第零步是照片。${PHOTO_ZH} 竖版原图胜过反复压缩的截图。`,
-        `然后是渲染。打开 ${TZ} ，九套阵容里选一套——健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻或新复刻版本——把照片传进唯一的「你的照片」位置。画幅保持 9:16、时长 7 秒，看清积分行，点「立即生成」。约 2-3 分钟后出片在「我的生成」里；失败任务自动退积分。`,
+        `然后是渲染。打开 ${TZ} ，九套阵容里选一套——健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻或新复刻版本——把照片传进唯一的「你的照片」位置。画幅保持 9:16、时长 7 秒，看清积分行，点「立即生成」。720p 下通常 2–7 分钟后出片在「我的生成」里；失败任务自动退积分。`,
         `最后是发布。${SOUND_ZH} 想理解渲染在做什么，姿势与逐拍拆解在 ${POSEZ} 。`,
       ],
     },
@@ -78,8 +78,8 @@ export const BICEP_HEART_INTENT_TAILS: readonly BicepHeartLongTailEntry[] = [
       {
         q: { en: 'How long does the whole flow take?', zh: '整个流程要多久？' },
         a: {
-          en: 'Under a minute of setup and about 2–3 minutes of render. First-time accounts also need a sign-up, which is another minute.',
-          zh: '设置不到一分钟，渲染约 2-3 分钟。新账号还要注册一次，再加一分钟。',
+          en: 'Under a minute of setup and 2–7 minutes of render at 720p. First-time accounts also need a sign-up, which is another minute.',
+          zh: '设置不到一分钟，720p 下渲染通常 2–7 分钟。新账号还要注册一次，再加一分钟。',
         },
       },
     ],
@@ -192,8 +192,8 @@ export const BICEP_HEART_INTENT_TAILS: readonly BicepHeartLongTailEntry[] = [
       zh: 'Bicep Heart 生成器：需要什么，返回什么',
     },
     description: {
-      en: 'bicep heart generator: inputs are one photo and a set; outputs are a silent 7-second 9:16 MP4 in about 2–3 minutes. Credit cost shown before you start, failed jobs refunded.',
-      zh: 'bicep heart generator：输入是一张照片和一套阵容；输出是约 2-3 分钟后的一条无声 7 秒 9:16 MP4。开始前显示积分，失败自动退。',
+      en: 'bicep heart generator: inputs are one photo and a set; outputs are a silent 7-second 9:16 MP4 in 2–7 minutes at 720p. Credit cost shown before you start, failed jobs refunded.',
+      zh: 'bicep heart generator：输入是一张照片和一套阵容；输出是 720p 下通常 2–7 分钟后的一条无声 7 秒 9:16 MP4。开始前显示积分，失败自动退。',
     },
     h1: { en: 'Bicep heart generator', zh: 'Bicep heart 生成器' },
     lead: {
@@ -207,12 +207,12 @@ export const BICEP_HEART_INTENT_TAILS: readonly BicepHeartLongTailEntry[] = [
     body: {
       en: [
         'Inputs: one photo (waist-up adult, arms visible), the set you pick, the resolution, and nothing else — the pose is fixed. The Cat and Dog sets take a pet photo instead.',
-        `Outputs: a new silent 7-second 9:16 MP4, usually ready in about 2–3 minutes, saved to My generations for download. Make it at ${T}. ${PHOTO_EN}`,
+        `Outputs: a new silent 7-second 9:16 MP4, usually ready in 2–7 minutes at 720p, saved to My generations for download. Make it at ${T}. ${PHOTO_EN}`,
         `Limits: one person per render (the pose is single-subject), no licensed soundtrack in the file, and hand placement can vary between runs. ${SOUND_EN} The CapCut comparison is at ${CAPCUT}.`,
       ],
       zh: [
         '输入：一张照片（半身、成年人、双臂可见）、你选的阵容、分辨率，仅此而已——姿势是固定的。猫咪和狗狗套装改用宠物照片。',
-        `输出：一条新的无声 7 秒 9:16 MP4，通常约 2-3 分钟完成，存到「我的生成」里下载。在 ${TZ} 制作。${PHOTO_ZH}`,
+        `输出：一条新的无声 7 秒 9:16 MP4，720p 下通常 2–7 分钟完成，存到「我的生成」里下载。在 ${TZ} 制作。${PHOTO_ZH}`,
         `限制：每次渲染一个人（姿势是单人格式）、文件里没有已授权的配乐、每次运行的手部形态可能有差异。${SOUND_ZH} CapCut 对照在 ${CAPCUTZ} 。`,
       ],
     },

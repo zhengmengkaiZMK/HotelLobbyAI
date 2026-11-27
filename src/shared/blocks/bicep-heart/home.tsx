@@ -54,7 +54,7 @@ export function BicepHeartHome({ creditsPerUsd = 12, videoCosts = getVideoCostTa
     t('One photo to video, no prompt', '一张照片出片，无需提示词') + ' — ' + t('upload a clear waist-up photo and AI does the arm-heart animation', '上传一张清晰的半身照，AI 完成弯举比心动画'),
     t('Transparent pay-per-render pricing', '透明的按次计价') + ' — ' + t('no free-credit gimmicks: the exact credit cost shows live in the generator before every render, and failed renders are refunded automatically', '没有免费积分的噱头：每次渲染前实时显示确切积分费用，渲染失败自动退还'),
     t('480p / 720p / 1080p exports', '480p / 720p / 1080p 导出') + ' — ' + t('the exact credit cost for your model and resolution is shown live in the generator before you render', '所用模型和清晰度的确切积分费用，在渲染前实时显示在生成器里'),
-    t('Browser-based generator', '浏览器直接生成') + ' — ' + t('no app install; render usually takes 2–3 minutes and the MP4 downloads from your generations page', '不用装 App；渲染通常 2-3 分钟，MP4 在生成记录页下载'),
+    t('Browser-based generator', '浏览器直接生成') + ' — ' + t('no app install; render usually takes 2–7 minutes at 720p and the MP4 downloads from your generations page', '不用装 App；720p 下渲染通常 2–7 分钟，MP4 在生成记录页下载'),
     t('Failed renders are refunded automatically', '渲染失败自动退还积分') + ' — ' + t('and the MP4 is silent by design: add the trend sound in TikTok, Reels, or Shorts', '且 MP4 默认无声：在 TikTok、Reels 或 Shorts 里加热梗原声'),
   ] as const;
   const steps = BICEP_HEART_HOW_TO_STEPS.map((step) => [zh ? step.name.zh : step.name.en, zh ? step.text.zh : step.text.en] as const);

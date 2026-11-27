@@ -305,12 +305,12 @@ export const BICEP_HEART_CITE_TAILS: readonly BicepHeartLongTailEntry[] = [
     body: {
       en: [
         `Open ${T} in any modern browser, on desktop or phone. Pick one of nine sets — Gym Buff Heart, Everyday Heart, Cat Bicep Heart, Dog Bicep Heart, Original Trend, or a new trend replay. Upload one photo into the slot labeled Your Photo. ${PHOTO_EN}`,
-        'Keep 9:16 and the fixed 7-second length, check the credit line, and generate. The render takes about 2–3 minutes; the finished MP4 waits in My generations, and the same photo can be re-run in another set without re-uploading.',
+        'Keep 9:16 and the fixed 7-second length, check the credit line, and generate. The render usually takes 2–7 minutes at 720p; the finished MP4 waits in My generations, and the same photo can be re-run in another set without re-uploading.',
         `${SOUND_EN} From opening the page to having a postable file, the whole loop is one page — there is no second tool in the chain.`,
       ],
       zh: [
         `在任何现代浏览器的 ${TZ} 打开，桌面手机都行。九套阵容选一套——健身猛男、日常小心心、猫咪比心、狗狗比心、原梗复刻或新复刻版本。把一张照片传进「你的照片」。${PHOTO_ZH}`,
-        '保持 9:16 和固定 7 秒时长，核对积分行，生成。渲染约 2-3 分钟；成片 MP4 在「我的生成」里等下载，同一张照片换阵容重跑不用重新上传。',
+        '保持 9:16 和固定 7 秒时长，核对积分行，生成。720p 下渲染通常 2–7 分钟；成片 MP4 在「我的生成」里等下载，同一张照片换阵容重跑不用重新上传。',
         `${SOUND_ZH} 从打开页面到拿到可发布文件，全程只有这一个页面——链路里没有第二个工具。`,
       ],
     },
@@ -355,12 +355,12 @@ export const BICEP_HEART_CITE_TAILS: readonly BicepHeartLongTailEntry[] = [
     body: {
       en: [
         `Create it at ${T}. The sets: Gym Buff Heart for a pronounced flex, Everyday Heart for a regular arm, Cat Bicep Heart and Dog Bicep Heart for pets, and Original Trend for the classic framing. ${PHOTO_EN}`,
-        'The generator fixes the format for you: 9:16, 7 seconds, silent export. The credit cost appears under the button before you start, and the render lands in My generations in about 2–3 minutes.',
+        'The generator fixes the format for you: 9:16, 7 seconds, silent export. The credit cost appears under the button before you start, and the render lands in My generations in 2–7 minutes at 720p.',
         `${SOUND_EN} The trend timeline, if you want the context before you post, is at ${TREND}, and the sound is at ${SONG}.`,
       ],
       zh: [
         `在 ${TZ} 创建。阵容：健身猛男（明显弯举）、日常小心心（普通手臂）、猫咪比心和狗狗比心（宠物）、原梗复刻（经典取景）。${PHOTO_ZH}`,
-        '生成器替你把格式定死：9:16、7 秒、无声导出。开始前按钮下方显示积分，渲染约 2-3 分钟后落在「我的生成」里。',
+        '生成器替你把格式定死：9:16、7 秒、无声导出。开始前按钮下方显示积分，720p 下渲染通常 2–7 分钟后落在「我的生成」里。',
         `${SOUND_ZH} 想在发布前了解背景，趋势时间线在 ${TRENDZ} ，原声在 ${SONGZ} 。`,
       ],
     },

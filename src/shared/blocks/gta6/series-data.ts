@@ -77,8 +77,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         'GTA 6 Trailer AI：一张照片做 GTA VI 风格粉丝预告片',
       ],
       description: [
-        'GTA 6 Trailer AI on ViralReel: upload one clear photo and get a 12-second, 9:16 GTA VI-style fan trailer in four fixed shots — sunset convertible, gas station, airboat, rooftop. Rendered in about 2–3 minutes. Not affiliated with Rockstar Games.',
-        'ViralReel 的 GTA 6 Trailer AI：上传一张清晰照片，生成 12 秒 9:16 竖屏、四个固定镜头的 GTA VI 风格粉丝预告片——日落敞篷车、加油站、气垫船、天台。约 2-3 分钟出片。与 Rockstar Games 无关联。',
+        'GTA 6 Trailer AI on ViralReel: upload one clear photo and get a 12-second, 9:16 GTA VI-style fan trailer in four fixed shots — sunset convertible, gas station, airboat, rooftop. Rendered at 720p in 2–7 minutes depending on clip length. Not affiliated with Rockstar Games.',
+        'ViralReel 的 GTA 6 Trailer AI：上传一张清晰照片，生成 12 秒 9:16 竖屏、四个固定镜头的 GTA VI 风格粉丝预告片——日落敞篷车、加油站、气垫船、天台。720p 下通常 2–7 分钟出片。与 Rockstar Games 无关联。',
       ],
       keywords: [
         'gta 6 trailer ai, gta 6 ai trailer, gta 6 ai video generator, gta 6 trailer from photo, gta vi ai template, gta 6 fan trailer',
@@ -128,8 +128,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         text: ['The clip is locked to 12 seconds with the four shots in a fixed order. Framing defaults to 9:16 vertical — 16:9 and 1:1 are selectable in the generator if you need another shape, but the shots are framed for vertical. Pick the resolution (480p or 720p; 1080p is available on the Popular plan and above).', '成片固定 12 秒，四个镜头按固定顺序排列。默认 9:16 竖屏——需要别的形状时，生成器里也可以选 16:9 或 1:1，但模板镜头是按竖屏构图的。选好分辨率（480p 或 720p；1080p 为 Popular 及以上方案权益）。'],
       },
       {
-        name: ['Generate and wait 2–3 minutes', '生成，等 2-3 分钟'],
-        text: ['Read the credit cost on the generate button, start the render, and keep the tab open — video generation usually takes 2–3 minutes. Failed or canceled renders are refunded automatically.', '看清生成按钮上的积分，开始渲染，别关页面——视频生成通常需要 2-3 分钟。失败或取消的生成会自动退回积分。'],
+        name: ['Generate and wait a few minutes', '生成，等几分钟'],
+        text: ['Read the credit cost on the generate button, start the render, and keep the tab open — video generation usually takes 2–7 minutes at 720p. Failed or canceled renders are refunded automatically.', '看清生成按钮上的积分，开始渲染，别关页面——视频生成通常需要 2–7 分钟（720p）。失败或取消的生成会自动退回积分。'],
       },
       {
         name: ['Download and post it as your launch trailer', '下载，当作你的发售预告发出去'],
@@ -163,7 +163,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['What is GTA 6 Trailer AI?', 'It is a ViralReel template that turns one clear photo into a 12-second, 9:16 GTA VI-style fan trailer in four fixed shots — sunset convertible, gas-station face covering, airboat sprint past an alligator, and a rooftop turn into a helicopter searchlight. The face, hairstyle and build from your photo carry through all four shots.'],
       ['How much does a GTA 6 Trailer AI video cost?', cost('GTA 6 Trailer AI', 'GTA 6 Trailer AI').en],
       ['Is GTA 6 Trailer AI free?', 'No. ViralReel does not offer free credits — every render is paid, and the exact cost shows on the generate button before you start. Failed or canceled renders are refunded automatically. Credit packs are at viralreel.app/pricing and monthly plans at viralreel.app/subscribe.'],
-      ['How long does a GTA 6 Trailer AI render take?', 'About 2–3 minutes for the 12-second clip. Keep the tab open while it renders; the progress bar shows the queue and generation stages. Failed renders return your credits.'],
+      ['How long does a GTA 6 Trailer AI render take?', 'Typically 2–7 minutes at 720p for the 12-second clip. Keep the tab open while it renders; the progress bar shows the queue and generation stages. Failed renders return your credits.'],
       ['What happens in the four shots?', 'Shot 1: you drive a convertible down a palm-lined boulevard at sunset. Shot 2: you cross a gas-station lot and pull a bandana over your nose. Shot 3: you race an airboat across the swamp past an alligator. Shot 4: on a rooftop above the glowing city, a searchlight sweeps past as you turn into the camera. The order is fixed and there is no text overlay.'],
       ['What photo should I upload?', 'One recent photo of one adult: front-facing, evenly lit, eyes visible, no sunglasses or heavy filters. Head-and-shoulders works; a half-body shot also carries your build. The airboat shot is the hardest on photo quality, so the sharper the original, the better that shot looks.'],
       ['What aspect ratio is the result?', '9:16 vertical, matching the launch-week clips on TikTok, Instagram Reels and YouTube Shorts. 16:9 and 1:1 are selectable in the generator if you need another shape, but the template shots are framed for vertical.'],
@@ -180,7 +180,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['GTA 6 Trailer AI 是什么？', '它是 ViralReel 的一个模板：一张清晰照片，生成 12 秒 9:16 竖屏、四个固定镜头的 GTA VI 风格粉丝预告片——日落敞篷车、加油站拉面巾、气垫船掠过鳄鱼、天台转身迎上直升机探照灯。照片里的脸、发型和身形贯穿全部四个镜头。'],
       ['做一条 GTA 6 Trailer AI 视频要多少钱？', cost('GTA 6 Trailer AI', 'GTA 6 Trailer AI').zh],
       ['GTA 6 Trailer AI 免费吗？', '不免费。ViralReel 不提供免费积分——每次渲染都计费，开始前生成按钮上会显示确切费用。失败或取消的生成会自动退回积分。积分包在 viralreel.app/zh/pricing，月付在 viralreel.app/zh/subscribe。'],
-      ['GTA 6 Trailer AI 生成要多久？', '12 秒的成片大约 2-3 分钟。渲染时保持页面打开；进度条会显示排队和生成阶段。失败的渲染会退回积分。'],
+      ['GTA 6 Trailer AI 生成要多久？', '12 秒的成片在 720p 下通常 2–7 分钟。渲染时保持页面打开；进度条会显示排队和生成阶段。失败的渲染会退回积分。'],
       ['四个镜头里会发生什么？', '镜头 1：你开敞篷车沿棕榈大道迎着落日驶去。镜头 2：你穿过加油站空地，把面巾拉上鼻梁。镜头 3：你开气垫船全速穿过沼泽，掠过一条鳄鱼。镜头 4：在城市上空的天台，探照灯扫过，你转身面向镜头。顺序固定，画面上没有文字。'],
       ['应该上传什么照片？', '一张近期拍摄的单人成年人照片：正脸、光线均匀、眼睛可见，不要墨镜和重滤镜。头肩照就可以，半身照还能带上身形。气垫船那一镜最吃照片质量，原图越清晰，那一镜越好看。'],
       ['成片是什么画幅？', '9:16 竖屏，和发售周 TikTok、Instagram Reels、YouTube Shorts 上的片段一致。需要别的形状时，生成器里也可以选 16:9 或 1:1，但模板镜头是按竖屏构图的。'],
@@ -216,8 +216,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         'GTA 6 Wanted Level：一张照片做五星通缉 AI 实机画面',
       ],
       description: [
-        'GTA 6 Wanted Level on ViralReel: one photo becomes a 10-second, 9:16 one-take clip that looks like GTA VI gameplay — HUD minimap, five wanted stars, yellow supercar, police chase into a pink sunset. Rendered in about 2–3 minutes. Fan-made AI content, not affiliated with Rockstar Games.',
-        'ViralReel 的 GTA 6 Wanted Level：一张照片生成 10 秒 9:16 一镜到底、看起来像 GTA VI 实机的片段——小地图 HUD、五颗通缉星、黄色超跑、警车追进粉色日落。约 2-3 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
+        'GTA 6 Wanted Level on ViralReel: one photo becomes a 10-second, 9:16 one-take clip that looks like GTA VI gameplay — HUD minimap, five wanted stars, yellow supercar, police chase into a pink sunset. Rendered at 720p in 2–7 minutes depending on clip length. Fan-made AI content, not affiliated with Rockstar Games.',
+        'ViralReel 的 GTA 6 Wanted Level：一张照片生成 10 秒 9:16 一镜到底、看起来像 GTA VI 实机的片段——小地图 HUD、五颗通缉星、黄色超跑、警车追进粉色日落。720p 下通常 2–7 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
       ],
       keywords: [
         'gta 6 wanted level, gta 6 ai gameplay, gta 6 wanted level ai, gta 6 police chase ai video, gta 6 five stars ai, gta 6 gameplay from photo',
@@ -267,8 +267,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         text: ['The clip is locked to 10 seconds, one continuous take with the HUD fixed in place. Framing defaults to 9:16 vertical — 16:9 and 1:1 are selectable in the generator. Pick 480p or 720p (1080p is available on the Popular plan and above) — the take, the stars and the chase are identical at every tier.', '成片固定 10 秒，一镜到底、HUD 固定在原位。默认 9:16 竖屏，生成器里也可选 16:9 或 1:1。选 480p 或 720p（1080p 为 Popular 及以上方案权益）——每一档的镜头、星星和追逐完全一样。'],
       },
       {
-        name: ['Generate and wait 2–3 minutes', '生成，等 2-3 分钟'],
-        text: ['Check the credit cost on the button, start the render, and leave the tab open. Generation usually takes 2–3 minutes; failed or canceled renders are refunded automatically.', '看清按钮上的积分，开始渲染，别关页面。生成通常需要 2-3 分钟；失败或取消的生成会自动退回积分。'],
+        name: ['Generate and wait a few minutes', '生成，等几分钟'],
+        text: ['Check the credit cost on the button, start the render, and leave the tab open. Generation usually takes 2–7 minutes at 720p; failed or canceled renders are refunded automatically.', '看清按钮上的积分，开始渲染，别关页面。生成通常需要 2–7 分钟（720p）；失败或取消的生成会自动退回积分。'],
       },
       {
         name: ['Post it with a crime-worthy caption', '配一个「罪名」发出去'],
@@ -302,7 +302,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['What is GTA 6 Wanted Level?', 'It is a ViralReel template that turns one photo into a 10-second, 9:16 one-take clip styled like GTA VI gameplay: you walk toward the camera on a pastel beach street, sprint to a yellow supercar, and drive into a pink sunset with two police cars and a helicopter behind you while five wanted stars light up on a fixed HUD.'],
       ['How much does a GTA 6 Wanted Level video cost?', cost('GTA 6 Wanted Level', 'GTA 6 Wanted Level').en],
       ['Is GTA 6 Wanted Level free?', 'No. Every render is paid — the exact credit cost shows on the generate button before you start, and ViralReel does not offer free credits. Failed or canceled renders are refunded. Packs: viralreel.app/pricing; monthly: viralreel.app/subscribe.'],
-      ['How long does the render take?', 'About 2–3 minutes for the 10-second clip. Keep the tab open; the progress bar covers upload, queue and generation. Failed renders return the credits automatically.'],
+      ['How long does the render take?', 'Typically 2–7 minutes at 720p for the 10-second clip. Keep the tab open; the progress bar covers upload, queue and generation. Failed renders return the credits automatically.'],
       ['What happens in the clip?', 'One continuous take: you walk into frame on a pastel art-deco beach street, the camera swings behind you, you sprint to a yellow supercar with scissor doors, and the chase rolls out toward a pink sunset — two cruisers and a helicopter on your tail while the five stars light up one by one. The minimap sits bottom-left and the stars top-right the whole time.'],
       ['What photo works best?', 'One adult, front-facing, evenly lit, eyes visible. The opening seconds show your face to the camera; after that the shot is your back. Sunglasses, masks, low hats and heavy filters hurt exactly where it matters. No group photos — the clip has one character.'],
       ['What aspect ratio is it?', '9:16 vertical, one continuous take — the shape TikTok, Reels and Shorts use for this trend. 16:9 and 1:1 are selectable in the generator, but the HUD and framing are built for vertical.'],
@@ -319,7 +319,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['GTA 6 Wanted Level 是什么？', '它是 ViralReel 的一个模板：一张照片生成 10 秒 9:16 一镜到底、GTA VI 实机风格的片段：你沿粉彩海滨大街走向镜头，冲向黄色超跑，在两辆警车和一架直升机的追逐下驶向粉色日落，固定 HUD 上的五颗通缉星一颗颗点亮。'],
       ['做一条 GTA 6 Wanted Level 视频要多少钱？', cost('GTA 6 Wanted Level', 'GTA 6 Wanted Level').zh],
       ['GTA 6 Wanted Level 免费吗？', '不免费。每次渲染都计费——开始前生成按钮上会显示确切积分，ViralReel 不提供免费积分。失败或取消的生成会退回。积分包：viralreel.app/zh/pricing；月付：viralreel.app/zh/subscribe。'],
-      ['生成要多久？', '10 秒的成片大约 2-3 分钟。保持页面打开；进度条覆盖上传、排队和生成。失败会自动退回积分。'],
+      ['生成要多久？', '10 秒的成片在 720p 下通常 2–7 分钟。保持页面打开；进度条覆盖上传、排队和生成。失败会自动退回积分。'],
       ['片段里会发生什么？', '一镜到底：你走上粉彩色装饰艺术风格的海滨大街，镜头绕到你身后，你冲向一辆剪刀门黄色超跑，追逐冲向粉色日落——两辆警车和一架直升机紧追，五颗通缉星一颗颗点亮。小地图全程固定在左下角，星星在右上角。'],
       ['什么照片最合适？', '一位成年人、正脸、光线均匀、眼睛可见。开场几秒会把你的脸给到镜头，之后就只剩背影。墨镜、口罩、压低的帽檐和重滤镜坏的都是最关键的那几秒。不要合照——片段里只有一位主角。'],
       ['成片是什么画幅？', '9:16 竖屏、一镜到底——这条趋势在 TikTok、Reels 和 Shorts 上的标准形状。生成器里也可以选 16:9 或 1:1，但 HUD 和构图都是按竖屏设计的。'],
@@ -355,8 +355,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         'GTA 6 Lovers on the Run：两张照片做 AI 追车爱情短片',
       ],
       description: [
-        'GTA 6 Lovers on the Run on ViralReel: two photos become a 15-second, 9:16 GTA VI-style chase romance — muscle car drift, helicopter searchlight, fire-escape run, rooftop kiss. Rendered in about 2–3 minutes. Fan-made AI content, not affiliated with Rockstar Games.',
-        'ViralReel 的 GTA 6 Lovers on the Run：两张照片生成 15 秒 9:16 的 GTA VI 风格追逐爱情——肌肉车漂移、直升机探照灯、消防梯狂奔、天台之吻。约 2-3 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
+        'GTA 6 Lovers on the Run on ViralReel: two photos become a 15-second, 9:16 GTA VI-style chase romance — muscle car drift, helicopter searchlight, fire-escape run, rooftop kiss. Rendered at 720p in 2–7 minutes depending on clip length. Fan-made AI content, not affiliated with Rockstar Games.',
+        'ViralReel 的 GTA 6 Lovers on the Run：两张照片生成 15 秒 9:16 的 GTA VI 风格追逐爱情——肌肉车漂移、直升机探照灯、消防梯狂奔、天台之吻。720p 下通常 2–7 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
       ],
       keywords: [
         'gta 6 lovers on the run, gta 6 lovers ai, gta 6 couple chase video, gta 6 jason lucia ai video, gta 6 kiss rooftop ai, two photo gta 6 template',
@@ -415,7 +415,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       },
       {
         name: ['Generate the 15-second chase', '生成 15 秒追逐'],
-        text: ['The clip is locked to 15 seconds with the five shots in order. Framing defaults to 9:16 vertical — 16:9 and 1:1 are selectable in the generator. Pick the resolution, read the credit cost, and start — rendering usually takes 2–3 minutes. Failed renders are refunded.', '成片固定 15 秒，五个镜头按顺序排列。默认 9:16 竖屏，生成器里也可选 16:9 或 1:1。选好分辨率，看清积分，开始生成——渲染通常 2-3 分钟。失败会退回积分。'],
+        text: ['The clip is locked to 15 seconds with the five shots in order. Framing defaults to 9:16 vertical — 16:9 and 1:1 are selectable in the generator. Pick the resolution, read the credit cost, and start — rendering usually takes 2–7 minutes at 720p. Failed renders are refunded.', '成片固定 15 秒，五个镜头按顺序排列。默认 9:16 竖屏，生成器里也可选 16:9 或 1:1。选好分辨率，看清积分，开始生成——720p 下渲染通常 2–7 分钟。失败会退回积分。'],
       },
       {
         name: ['Post it as your launch-week love story', '当作发售周的爱情故事发出去'],
@@ -449,7 +449,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['What is GTA 6 Lovers on the Run?', 'It is a ViralReel template that turns two photos into a 15-second, 9:16 GTA VI-style chase romance: a muscle-car drift, an in-cab searchlight moment, a neon-avenue flyby, a fire-escape sprint, and a slow-motion rooftop kiss under the helicopter. The first photo drives; the second rides shotgun.'],
       ['How much does a GTA 6 Lovers on the Run video cost?', cost('GTA 6 Lovers on the Run', 'GTA 6 Lovers on the Run').en],
       ['Is it free?', 'No. ViralReel has no free credits — the generate button shows the exact cost before you start, and failed or canceled renders are refunded automatically. Credit packs: viralreel.app/pricing; monthly plans: viralreel.app/subscribe.'],
-      ['How long does the render take?', 'About 2–3 minutes for the 15-second clip. Keep the tab open while it renders; failed renders return your credits.'],
+      ['How long does the render take?', 'Typically 2–7 minutes at 720p for the 15-second clip. Keep the tab open while it renders; failed renders return your credits.'],
       ['What happens in the five shots?', 'Shot 1: the muscle car drifts a wet corner with two cruisers behind. Shot 2: through the windshield — the driver grips the wheel, the passenger looks back, the searchlight sweeps the cabin. Shot 3: the neon-avenue flyby with the helicopter low. Shot 4: the alley stop and fire-escape run. Shot 5: the slow-motion rooftop kiss, camera orbiting, police lights in the distance.'],
       ['Which photo goes first?', 'The first photo is the driver and the second is the passenger — swap them to swap the seats. Each photo should be a separate, front-facing, evenly-lit portrait of one adult. Hairstyles carry through best, so choose photos whose hair is how you want it on screen.'],
       ['What aspect ratio is the result?', '9:16 vertical across five cinematic shots — the format TikTok, Reels and Shorts use for this trend. 16:9 and 1:1 are selectable, but the shots are framed for vertical.'],
@@ -466,7 +466,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['GTA 6 Lovers on the Run 是什么？', '它是 ViralReel 的一个模板：两张照片生成 15 秒 9:16 的 GTA VI 风格追逐爱情：肌肉车漂移、车内探照灯、霓虹大道飞驰、消防梯狂奔，以及直升机下的慢镜头天台之吻。第一张照片开车，第二张坐副驾。'],
       ['做一条 GTA 6 Lovers on the Run 视频要多少钱？', cost('GTA 6 Lovers on the Run', 'GTA 6 Lovers on the Run').zh],
       ['免费吗？', '不免费。ViralReel 没有免费积分——生成按钮开始前会显示确切费用，失败或取消的生成自动退回。积分包：viralreel.app/zh/pricing；月付：viralreel.app/zh/subscribe。'],
-      ['生成要多久？', '15 秒的成片大约 2-3 分钟。渲染时保持页面打开；失败会退回积分。'],
+      ['生成要多久？', '15 秒的成片在 720p 下通常 2–7 分钟。渲染时保持页面打开；失败会退回积分。'],
       ['五个镜头里会发生什么？', '镜头 1：肌肉车在湿弯漂移，两辆警车紧随。镜头 2：挡风玻璃内——司机握方向盘，副驾回头张望，探照灯扫进车厢。镜头 3：直升机压低飞过霓虹大道。镜头 4：后巷急停、冲上消防梯。镜头 5：慢镜头天台之吻，镜头环绕，远处警灯闪烁。'],
       ['哪张照片放第一？', '第一张是司机，第二张是副驾——对调照片就是对调座位。每张都应该是分开的、正脸、光线均匀的单人成年人人像。发型保留得最稳，挑发型就是你想在片中呈现的样子的照片。'],
       ['成片是什么画幅？', '9:16 竖屏，五个电影感镜头——这条趋势在 TikTok、Reels 和 Shorts 上的格式。也可以选 16:9 或 1:1，但镜头是按竖屏构图的。'],
@@ -502,8 +502,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         'GTA 6 Vice City Story：一张照片做横版 AI 过场故事',
       ],
       description: [
-        'GTA 6 Vice City Story on ViralReel: one photo becomes a 15-second, 16:9 GTA VI-style cutscene story in six shots — neon intro, beach meetup, diner pickup, coastal chase, hero close-up. Rendered in about 2–3 minutes. Fan-made AI content, not affiliated with Rockstar Games.',
-        'ViralReel 的 GTA 6 Vice City Story：一张照片生成 15 秒 16:9、六镜头的 GTA VI 风格过场故事——霓虹亮相、海边会合、餐厅取包、滨海追逐、主角特写。约 2-3 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
+        'GTA 6 Vice City Story on ViralReel: one photo becomes a 15-second, 16:9 GTA VI-style cutscene story in six shots — neon intro, beach meetup, diner pickup, coastal chase, hero close-up. Rendered at 720p in 2–7 minutes depending on clip length. Fan-made AI content, not affiliated with Rockstar Games.',
+        'ViralReel 的 GTA 6 Vice City Story：一张照片生成 15 秒 16:9、六镜头的 GTA VI 风格过场故事——霓虹亮相、海边会合、餐厅取包、滨海追逐、主角特写。720p 下通常 2–7 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
       ],
       keywords: [
         'gta 6 vice city story, gta 6 vice city ai video, gta 6 cutscene ai, gta 6 story from photo, gta 6 landscape ai video, vice city ai template',
@@ -562,7 +562,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       },
       {
         name: ['Generate the 15-second story', '生成 15 秒故事'],
-        text: ['The clip is locked to 15 seconds with the six shots in order. Choose the resolution, check the credit cost on the button, and start the render — it usually takes 2–3 minutes, and failures are refunded.', '成片固定 15 秒，六个镜头按顺序。选好分辨率，看清按钮上的积分，开始渲染——通常 2-3 分钟，失败会退回。'],
+        text: ['The clip is locked to 15 seconds with the six shots in order. Choose the resolution, check the credit cost on the button, and start the render — it usually takes 2–7 minutes at 720p, and failures are refunded.', '成片固定 15 秒，六个镜头按顺序。选好分辨率，看清按钮上的积分，开始渲染——通常 2–7 分钟（720p），失败会退回。'],
       },
       {
         name: ['Post it where widescreen wins', '发到横版吃香的地方'],
@@ -596,7 +596,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['What is GTA 6 Vice City Story?', 'It is a ViralReel template that turns one photo into a 15-second, 16:9 landscape story in the GTA VI cutscene style, in six fixed shots: neon street intro, beach meetup with two accomplices, diner bag pickup, coastal-highway chase, in-cab close-up, and a final hero shot under the neon.'],
       ['How much does a GTA 6 Vice City Story video cost?', cost('GTA 6 Vice City Story', 'GTA 6 Vice City Story').en],
       ['Is it free?', 'No. Every render is paid; the exact cost shows on the generate button before you start. ViralReel does not offer free credits, and failed or canceled renders are refunded. Packs: viralreel.app/pricing; monthly: viralreel.app/subscribe.'],
-      ['How long does the render take?', 'About 2–3 minutes for the 15-second clip. Keep the tab open; the progress bar shows the stages, and failed renders return the credits automatically.'],
+      ['How long does the render take?', 'Typically 2–7 minutes at 720p for the 15-second clip. Keep the tab open; the progress bar shows the stages, and failed renders return the credits automatically.'],
       ['What happens in the six shots?', 'Shot 1: your close-up under rain-slick neon. Shot 2: the beach meetup beside the dark muscle car. Shot 3: the diner, where you take the duffel bag. Shot 4: the coastal-highway chase with police lights behind. Shot 5: the in-cab close-up of your face. Shot 6: the confident hero pose beside the car under the neon.'],
       ['Why is this one 16:9 landscape?', 'Because it is built like a game cutscene: the widescreen frame holds the crew, the car, the palms and the skyline together, which is what a story format needs. The generator\'s ratio control defaults to auto and follows the 16:9 reference; the other five GTA 6 formats are 9:16 vertical.'],
       ['What photo should I upload?', 'One adult, front-facing or slightly angled, evenly lit and in focus — head-and-shoulders or half-body. Only the lead comes from your photo; the accomplices are generated. Skip sunglasses, masks, heavy beautification and faraway shots.'],
@@ -613,7 +613,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['GTA 6 Vice City Story 是什么？', '它是 ViralReel 的一个模板：一张照片生成 15 秒 16:9 横版、GTA VI 过场风格的六镜头故事：霓虹街头亮相、海边与两位同伙会合、餐厅取包、滨海公路追逐、驾驶室特写、霓虹灯下的主角收尾。'],
       ['做一条 GTA 6 Vice City Story 视频要多少钱？', cost('GTA 6 Vice City Story', 'GTA 6 Vice City Story').zh],
       ['免费吗？', '不免费。每次渲染都计费；开始前生成按钮上会显示确切费用。ViralReel 不提供免费积分，失败或取消的生成会退回。积分包：viralreel.app/zh/pricing；月付：viralreel.app/zh/subscribe。'],
-      ['生成要多久？', '15 秒的成片大约 2-3 分钟。保持页面打开；进度条会显示各阶段，失败自动退回积分。'],
+      ['生成要多久？', '15 秒的成片在 720p 下通常 2–7 分钟。保持页面打开；进度条会显示各阶段，失败自动退回积分。'],
       ['六个镜头里会发生什么？', '镜头 1：雨后霓虹下的人物近景。镜头 2：深色肌肉车旁的海边会合。镜头 3：餐厅，你拿起旅行包。镜头 4：滨海公路追逐，警灯在后。镜头 5：驾驶室里你的脸部特写。镜头 6：霓虹灯下车旁的自信收尾。'],
       ['为什么这条是 16:9 横版？', '因为它按游戏过场动画构建：横版构图能同时装下同伙、车、棕榈树和天际线，这是故事格式的需要。生成器的画幅控件默认 auto 并跟随 16:9 参考片；本系列其他五个格式都是 9:16 竖屏。'],
       ['应该上传什么照片？', '一位成年人，正脸或轻微侧脸，光线均匀、对焦清楚——头肩照或半身照。只有主角来自你的照片；同伙由场景生成。不要墨镜、口罩、重度美颜和远景小人。'],
@@ -649,8 +649,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         'GTA 6 Nightclub：一张照片做超跑进夜店的 AI 跳舞视频',
       ],
       description: [
-        'GTA 6 Nightclub on ViralReel: one photo becomes a 12-second, 9:16 GTA VI-style club night in three shots — supercar arrival, walk past the bouncer, dancing in the center of the packed floor. Rendered in about 2–3 minutes. Fan-made AI content, not affiliated with Rockstar Games.',
-        'ViralReel 的 GTA 6 Nightclub：一张照片生成 12 秒 9:16、三镜头的 GTA VI 风格夜店之夜——超跑到场、越过保安、舞池中央跳舞。约 2-3 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
+        'GTA 6 Nightclub on ViralReel: one photo becomes a 12-second, 9:16 GTA VI-style club night in three shots — supercar arrival, walk past the bouncer, dancing in the center of the packed floor. Rendered at 720p in 2–7 minutes depending on clip length. Fan-made AI content, not affiliated with Rockstar Games.',
+        'ViralReel 的 GTA 6 Nightclub：一张照片生成 12 秒 9:16、三镜头的 GTA VI 风格夜店之夜——超跑到场、越过保安、舞池中央跳舞。720p 下通常 2–7 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
       ],
       keywords: [
         'gta 6 nightclub, gta 6 nightclub ai, gta 6 dance ai video, gta 6 vice city club template, gta 6 party ai, nightclub ai from photo',
@@ -696,8 +696,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         text: ['The clip is locked to 12 seconds with three fixed cuts. Framing defaults to 9:16 vertical — 16:9 and 1:1 are selectable in the generator. Pick 480p or 720p (1080p is available on the Popular plan and above) — 720p pays off most in the laser-lit dance-floor shot where details are dense.', '成片固定 12 秒，三个固定硬切。默认 9:16 竖屏，生成器里也可选 16:9 或 1:1。选 480p 或 720p（1080p 为 Popular 及以上方案权益）——灯光密集的舞池镜头最能体现 720p 的价值。'],
       },
       {
-        name: ['Generate and wait 2–3 minutes', '生成，等 2-3 分钟'],
-        text: ['Check the credit cost, start the render, and keep the tab open. Generation usually takes 2–3 minutes; failed or canceled renders return your credits automatically.', '看清积分，开始渲染，保持页面打开。生成通常 2-3 分钟；失败或取消自动退回积分。'],
+        name: ['Generate and wait a few minutes', '生成，等几分钟'],
+        text: ['Check the credit cost, start the render, and keep the tab open. Generation usually takes 2–7 minutes at 720p; failed or canceled renders return your credits automatically.', '看清积分，开始渲染，保持页面打开。生成通常 2–7 分钟（720p）；失败或取消自动退回积分。'],
       },
       {
         name: ['Post it as your launch-night plan', '当作发售之夜的去处发出去'],
@@ -731,7 +731,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['What is GTA 6 Nightclub?', 'It is a ViralReel template that turns one photo into a 12-second, 9:16 GTA VI-style club night in three fixed cuts: a supercar pulling up to a neon nightclub, you stepping out and walking past the bouncer, and you dancing in the center of a packed, laser-lit floor while the camera orbits.'],
       ['How much does a GTA 6 Nightclub video cost?', cost('GTA 6 Nightclub', 'GTA 6 Nightclub').en],
       ['Is it free?', 'No. ViralReel does not offer free credits — the exact cost shows on the generate button before you start, and failed renders are refunded automatically. Credit packs: viralreel.app/pricing; monthly plans: viralreel.app/subscribe.'],
-      ['How long does the render take?', 'About 2–3 minutes for the 12-second clip. Keep the tab open while it renders; failed or canceled renders return your credits.'],
+      ['How long does the render take?', 'Typically 2–7 minutes at 720p for the 12-second clip. Keep the tab open while it renders; failed or canceled renders return your credits.'],
       ['What happens in the three shots?', 'Shot 1: the supercar glides up to the velvet-roped club entrance at night. Shot 2: you step out of the scissor doors facing the camera and walk past the bouncer inside. Shot 3: you dance in the center of the packed floor — lasers, smoke, DJ booth — while the camera circles you.'],
       ['Does my outfit carry into the video?', 'Yes — that is this template\'s signature. The face, hairstyle, build and clothes from your photo are what appear in the club, so upload a half-body or full-body photo in the outfit you want. A face-only crop leaves the wardrobe to the template.'],
       ['What aspect ratio is it?', '9:16 vertical across three cuts — the format TikTok, Reels and Shorts use. 16:9 and 1:1 are selectable, but the club shots are framed for vertical.'],
@@ -748,7 +748,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['GTA 6 Nightclub 是什么？', '它是 ViralReel 的一个模板：一张照片生成 12 秒 9:16、三个固定硬切的 GTA VI 风格夜店之夜：超跑停在霓虹夜店门口，你下车越过保安进场，最后在挤满人、激光乱舞的舞池中央跳舞，镜头环绕。'],
       ['做一条 GTA 6 Nightclub 视频要多少钱？', cost('GTA 6 Nightclub', 'GTA 6 Nightclub').zh],
       ['免费吗？', '不免费。ViralReel 不提供免费积分——开始前生成按钮上会显示确切费用，失败自动退回积分。积分包：viralreel.app/zh/pricing；月付：viralreel.app/zh/subscribe。'],
-      ['生成要多久？', '12 秒的成片大约 2-3 分钟。渲染时保持页面打开；失败或取消会退回积分。'],
+      ['生成要多久？', '12 秒的成片在 720p 下通常 2–7 分钟。渲染时保持页面打开；失败或取消会退回积分。'],
       ['三个镜头里会发生什么？', '镜头 1：夜晚超跑滑行停在拉着天鹅绒围绳的夜店门口。镜头 2：你从剪刀门下车面向镜头，越过保安走进场内。镜头 3：你在挤满人的舞池中央跳舞——激光、烟雾、DJ 台——镜头绕着你转。'],
       ['我的穿搭会带进视频吗？', '会——这正是这条模板的招牌。夜库里出现的就是照片里的脸、发型、身形和衣服，所以上传一张你想要造型的半身或全身照。只拍脸的特写会把穿搭交给模板自由发挥。'],
       ['成片是什么画幅？', '9:16 竖屏、三个硬切——TikTok、Reels 和 Shorts 的格式。也可以选 16:9 或 1:1，但夜店镜头是按竖屏构图的。'],
@@ -784,8 +784,8 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
         'GTA 6 Getaway Duo：两张照片和朋友一起做 AI 逃亡视频',
       ],
       description: [
-        'GTA 6 Getaway Duo on ViralReel: two photos become a 12-second, 9:16 GTA VI-style getaway in four shots — gas-station scarves, convenience-store sprint, in-cab laughter with police lights, palm-highway charge. Rendered in about 2–3 minutes. Fan-made AI content, not affiliated with Rockstar Games.',
-        'ViralReel 的 GTA 6 Getaway Duo：两张照片生成 12 秒 9:16、四镜头的 GTA VI 风格逃亡——加油站面巾、便利店冲刺、车内大笑配警灯、棕榈公路冲锋。约 2-3 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
+        'GTA 6 Getaway Duo on ViralReel: two photos become a 12-second, 9:16 GTA VI-style getaway in four shots — gas-station scarves, convenience-store sprint, in-cab laughter with police lights, palm-highway charge. Rendered at 720p in 2–7 minutes depending on clip length. Fan-made AI content, not affiliated with Rockstar Games.',
+        'ViralReel 的 GTA 6 Getaway Duo：两张照片生成 12 秒 9:16、四镜头的 GTA VI 风格逃亡——加油站面巾、便利店冲刺、车内大笑配警灯、棕榈公路冲锋。720p 下通常 2–7 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。',
       ],
       keywords: [
         'gta 6 getaway duo, gta 6 duo ai video, gta 6 two person template, gta 6 getaway ai, gta 6 friends ai video, duo photo gta 6',
@@ -840,7 +840,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       },
       {
         name: ['Generate the 12-second getaway', '生成 12 秒逃亡'],
-        text: ['The clip is locked to 12 seconds with four fixed shots and no dialogue. Framing defaults to 9:16 vertical — 16:9 and 1:1 are selectable in the generator. Pick the resolution, read the credit cost, and start — rendering usually takes 2–3 minutes, and failures are refunded.', '成片固定 12 秒，四个固定镜头、全程无对白。默认 9:16 竖屏，生成器里也可选 16:9 或 1:1。选好分辨率，看清积分，开始生成——渲染通常 2-3 分钟，失败会退回。'],
+        text: ['The clip is locked to 12 seconds with four fixed shots and no dialogue. Framing defaults to 9:16 vertical — 16:9 and 1:1 are selectable in the generator. Pick the resolution, read the credit cost, and start — rendering usually takes 2–7 minutes at 720p, and failures are refunded.', '成片固定 12 秒，四个固定镜头、全程无对白。默认 9:16 竖屏，生成器里也可选 16:9 或 1:1。选好分辨率，看清积分，开始生成——渲染通常 2–7 分钟（720p），失败会退回。'],
       },
       {
         name: ['Post it as the duo answer', '当作双人档的回答发出去'],
@@ -874,7 +874,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['What is GTA 6 Getaway Duo?', 'It is a ViralReel template that turns two photos into a 12-second, 9:16 GTA VI-style getaway in four fixed shots: pulling face scarves up at a sunset gas station, sprinting from the convenience store with a travel bag, laughing in the cab with police lights behind, and charging toward the camera down a palm highway. Photo one drives; photo two carries the bag.'],
       ['How much does a GTA 6 Getaway Duo video cost?', cost('GTA 6 Getaway Duo', 'GTA 6 Getaway Duo').en],
       ['Is it free?', 'No. Every render is paid — the exact credit cost shows on the generate button before you start, and ViralReel does not offer free credits. Failed or canceled renders are refunded. Packs: viralreel.app/pricing; monthly: viralreel.app/subscribe.'],
-      ['How long does the render take?', 'About 2–3 minutes for the 12-second clip. Keep the tab open; failed renders return the credits automatically.'],
+      ['How long does the render take?', 'Typically 2–7 minutes at 720p for the 12-second clip. Keep the tab open; failed renders return the credits automatically.'],
       ['What happens in the four shots?', 'Shot 1: the two of you pull scarves up at the gas station in golden light. Shot 2: you burst out of the convenience store, bag in hand, sprinting for the muscle car. Shot 3: scarves come down in the cab as you laugh with police lights behind. Shot 4: the muscle car charges toward the camera down the palm-lined highway.'],
       ['Which photo goes where?', 'The first photo is the driver and the second is the bag partner — swap them to swap the roles. Each photo should be a separate single-person portrait of an adult, front-facing and evenly lit. Eyes, hair and outfits matter most because the scarves cover the lower face in the opening shots.'],
       ['Are there weapons in the video?', 'No. The template is built without weapons in any shot — the getaway feel comes from scarves, the travel bag, the muscle car and the police lights. That is also why it posts comfortably on every platform.'],
@@ -891,7 +891,7 @@ export const GTA6_SERIES: readonly Gta6Series[] = [
       ['GTA 6 Getaway Duo 是什么？', '它是 ViralReel 的一个模板：两张照片生成 12 秒 9:16、四个固定镜头的 GTA VI 风格逃亡：日落加油站拉面巾、抱着旅行袋冲出便利店、警灯之下车内大笑、沿棕榈公路冲向镜头。第一张照片开车，第二张拿包。'],
       ['做一条 GTA 6 Getaway Duo 视频要多少钱？', cost('GTA 6 Getaway Duo', 'GTA 6 Getaway Duo').zh],
       ['免费吗？', '不免费。每次渲染都计费——开始前生成按钮上会显示确切积分，ViralReel 不提供免费积分。失败或取消的生成会退回。积分包：viralreel.app/zh/pricing；月付：viralreel.app/zh/subscribe。'],
-      ['生成要多久？', '12 秒的成片大约 2-3 分钟。保持页面打开；失败自动退回积分。'],
+      ['生成要多久？', '12 秒的成片在 720p 下通常 2–7 分钟。保持页面打开；失败自动退回积分。'],
       ['四个镜头里会发生什么？', '镜头 1：金色光线下你们在加油站一起拉上面巾。镜头 2：你们从便利店冲出来，拎着包奔向肌肉车。镜头 3：车内面巾拉下，你们大笑，警灯在身后闪烁。镜头 4：肌肉车沿棕榈公路正面冲向镜头。'],
       ['哪张照片放哪个位置？', '第一张是司机，第二张是拿包搭档——对调照片就是对调角色。每张都应该是分开的单人成年人人像，正脸、光线均匀。开场几个镜头面巾遮住下半张脸，所以眼睛、发型和穿搭最关键。'],
       ['视频里有武器吗？', '没有。这条模板任何镜头都不出现武器——逃亡感全部来自面巾、旅行袋、肌肉车和警灯。这也是它在所有平台都能放心发布的原因。'],
@@ -922,50 +922,50 @@ export const GTA6_HUB_FAQ: readonly { q: readonly [string, string]; a: readonly 
   {
     q: ['Which GTA 6 AI template should I pick?', '哪个 GTA 6 AI 模板适合我？'],
     a: [
-      'Pick by scene and cast. Solo and cinematic: GTA 6 Trailer AI (four-shot fan trailer) or GTA 6 Vice City Story (widescreen cutscene). Two people: GTA 6 Lovers on the Run (getaway romance) or GTA 6 Getaway Duo (driver-and-passenger escape). Night out: GTA 6 Nightclub. Pure action chase: GTA 6 Wanted Level. Every series renders in about 2–3 minutes and costs credits by the resolution you pick.',
-      '按场景和人数选。单人、电影感：GTA 6 Trailer AI（四镜头预告片）或 GTA 6 Vice City Story（横版过场）。两个人：GTA 6 Lovers on the Run（逃亡爱情）或 GTA 6 Getaway Duo（驾驶座与副驾逃亡）。夜店之夜：GTA 6 Nightclub。纯动作追逐：GTA 6 Wanted Level。每个系列约 2-3 分钟出片，积分按所选分辨率计算。',
+      'Pick by scene and cast. Solo and cinematic: GTA 6 Trailer AI (four-shot fan trailer) or GTA 6 Vice City Story (widescreen cutscene). Two people: GTA 6 Lovers on the Run (getaway romance) or GTA 6 Getaway Duo (driver-and-passenger escape). Night out: GTA 6 Nightclub. Pure action chase: GTA 6 Wanted Level. Every series renders at 720p in 2–7 minutes and costs credits by the resolution you pick.',
+      '按场景和人数选。单人、电影感：GTA 6 Trailer AI（四镜头预告片）或 GTA 6 Vice City Story（横版过场）。两个人：GTA 6 Lovers on the Run（逃亡爱情）或 GTA 6 Getaway Duo（驾驶座与副驾逃亡）。夜店之夜：GTA 6 Nightclub。纯动作追逐：GTA 6 Wanted Level。每个系列 720p 下通常 2–7 分钟出片，积分按所选分辨率计算。',
     ],
   },
   {
     q: ['What is GTA 6 Trailer AI?', 'GTA 6 Trailer AI 是什么？'],
     a: [
-      'A solo, 9:16 vertical template: one photo becomes a fixed 12-second, four-shot fan trailer — sunset convertible, gas station, airboat sprint, rooftop searchlight. Rendered in about 2–3 minutes.',
-      '单人 9:16 竖屏模板：一张照片生成固定 12 秒、四镜头的粉丝预告片——日落敞篷车、加油站、气垫船冲刺、天台探照灯。约 2-3 分钟出片。',
+      'A solo, 9:16 vertical template: one photo becomes a fixed 12-second, four-shot fan trailer — sunset convertible, gas station, airboat sprint, rooftop searchlight. Rendered at 720p in 2–7 minutes depending on clip length.',
+      '单人 9:16 竖屏模板：一张照片生成固定 12 秒、四镜头的粉丝预告片——日落敞篷车、加油站、气垫船冲刺、天台探照灯。720p 下通常 2–7 分钟出片。',
     ],
   },
   {
     q: ['What is GTA 6 Wanted Level?', 'GTA 6 Wanted Level 是什么？'],
     a: [
-      'A solo, 9:16 vertical template: one photo becomes a fixed 10-second one-take chase through traffic while the five-star wanted HUD stacks up. Rendered in about 2–3 minutes.',
-      '单人 9:16 竖屏模板：一张照片生成固定 10 秒的一镜到底追逐，五星通缉 HUD 全程在位。约 2-3 分钟出片。',
+      'A solo, 9:16 vertical template: one photo becomes a fixed 10-second one-take chase through traffic while the five-star wanted HUD stacks up. Rendered at 720p in 2–7 minutes depending on clip length.',
+      '单人 9:16 竖屏模板：一张照片生成固定 10 秒的一镜到底追逐，五星通缉 HUD 全程在位。720p 下通常 2–7 分钟出片。',
     ],
   },
   {
     q: ['What is GTA 6 Lovers on the Run?', 'GTA 6 Lovers on the Run 是什么？'],
     a: [
-      'A duo, 9:16 vertical template: two photos (you and your partner) become a fixed 15-second, five-shot getaway romance — muscle-car drift, motel stop, desert road. Rendered in about 2–3 minutes.',
-      '双人 9:16 竖屏模板：两张照片（你和搭档）生成固定 15 秒、五镜头的逃亡爱情——肌肉车漂移、汽车旅馆、荒漠公路。约 2-3 分钟出片。',
+      'A duo, 9:16 vertical template: two photos (you and your partner) become a fixed 15-second, five-shot getaway romance — muscle-car drift, motel stop, desert road. Rendered at 720p in 2–7 minutes depending on clip length.',
+      '双人 9:16 竖屏模板：两张照片（你和搭档）生成固定 15 秒、五镜头的逃亡爱情——肌肉车漂移、汽车旅馆、荒漠公路。720p 下通常 2–7 分钟出片。',
     ],
   },
   {
     q: ['What is GTA 6 Vice City Story?', 'GTA 6 Vice City Story 是什么？'],
     a: [
-      'A solo, 16:9 landscape cutscene story — the only widescreen series: one photo becomes a fixed 15-second, six-shot Vice City narrative under rain-slick neon. Built for YouTube and gaming channels; rendered in about 2–3 minutes.',
-      '单人 16:9 横版过场故事——全系列唯一的宽屏：一张照片生成固定 15 秒、六镜头的罪恶都市叙事，雨夜霓虹开场。适合 YouTube 和游戏频道；约 2-3 分钟出片。',
+      'A solo, 16:9 landscape cutscene story — the only widescreen series: one photo becomes a fixed 15-second, six-shot Vice City narrative under rain-slick neon. Built for YouTube and gaming channels; rendered at 720p in 2–7 minutes depending on clip length.',
+      '单人 16:9 横版过场故事——全系列唯一的宽屏：一张照片生成固定 15 秒、六镜头的罪恶都市叙事，雨夜霓虹开场。适合 YouTube 和游戏频道；720p 下通常 2–7 分钟出片。',
     ],
   },
   {
     q: ['What is GTA 6 Nightclub?', 'GTA 6 Nightclub 是什么？'],
     a: [
-      'A solo, 9:16 vertical template: one photo becomes a fixed 12-second, three-cut club night — supercar arrival, entrance past the bouncer, dance-floor orbit under lasers. Rendered in about 2–3 minutes.',
-      '单人 9:16 竖屏模板：一张照片生成固定 12 秒、三硬切的夜店之夜——超跑到场、越过保安进场、激光舞池环绕运镜。约 2-3 分钟出片。',
+      'A solo, 9:16 vertical template: one photo becomes a fixed 12-second, three-cut club night — supercar arrival, entrance past the bouncer, dance-floor orbit under lasers. Rendered at 720p in 2–7 minutes depending on clip length.',
+      '单人 9:16 竖屏模板：一张照片生成固定 12 秒、三硬切的夜店之夜——超跑到场、越过保安进场、激光舞池环绕运镜。720p 下通常 2–7 分钟出片。',
     ],
   },
   {
     q: ['What is GTA 6 Getaway Duo?', 'GTA 6 Getaway Duo 是什么？'],
     a: [
-      'A duo, 9:16 vertical template: two photos become a fixed 12-second, four-shot escape — driver and passenger trading looks mid-chase, cut by fixed hard cuts. Rendered in about 2–3 minutes.',
-      '双人 9:16 竖屏模板：两张照片生成固定 12 秒、四镜头的双人逃亡——驾驶座与副驾在追逐中交换眼神，硬切固定。约 2-3 分钟出片。',
+      'A duo, 9:16 vertical template: two photos become a fixed 12-second, four-shot escape — driver and passenger trading looks mid-chase, cut by fixed hard cuts. Rendered at 720p in 2–7 minutes depending on clip length.',
+      '双人 9:16 竖屏模板：两张照片生成固定 12 秒、四镜头的双人逃亡——驾驶座与副驾在追逐中交换眼神，硬切固定。720p 下通常 2–7 分钟出片。',
     ],
   },
 ];

@@ -22,8 +22,8 @@ export const HAND_OF_GOD_HOW_TO_STEPS: readonly HandOfGodHowToStep[] = [
   {
     name: { en: 'Generate and wait a few minutes', zh: '生成并等待几分钟' },
     text: {
-      en: 'Press Generate. Rendering usually takes 2–3 minutes. The result is a new clip of you on the promenade: the golden hands take your hands, the flash turns your clothes white, and you rise above the turquoise sea. Keep the window open while it renders.',
-      zh: '点「立即生成」。渲染通常需要 2-3 分钟。成片是一条全新的视频：金色巨手牵起你的手，白光一闪衣服变白，你被举到碧海之上。渲染期间别关窗口。',
+      en: 'Press Generate. Rendering usually takes 2–7 minutes at 720p. The result is a new clip of you on the promenade: the golden hands take your hands, the flash turns your clothes white, and you rise above the turquoise sea. Keep the window open while it renders.',
+      zh: '点「立即生成」。渲染通常需要 2–7 分钟（720p）。成片是一条全新的视频：金色巨手牵起你的手，白光一闪衣服变白，你被举到碧海之上。渲染期间别关窗口。',
     },
   },
   {

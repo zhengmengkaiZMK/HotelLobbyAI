@@ -48,8 +48,8 @@ export function Gta6HubHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable
               </h1>
               <p>
                 {t(
-                  'Explore six GTA-inspired AI video templates: a four-shot fan trailer, a five-star one-take chase, a two-photo romance, a widescreen cutscene story, a nightclub entrance, or a duo getaway. Upload one or two photos, depending on the template you choose, and your video is ready in about 2–3 minutes.',
-                  '六个 GTA 风格 AI 视频模板任你选：四镜头粉丝预告片、五星通缉一镜到底、双人追逐爱情、横版过场故事、夜店入场、双人逃亡。按模板要求上传 1-2 张照片，大约 2-3 分钟就能拿到你的成片。'
+                  'Explore six GTA-inspired AI video templates: a four-shot fan trailer, a five-star one-take chase, a two-photo romance, a widescreen cutscene story, a nightclub entrance, or a duo getaway. Upload one or two photos, depending on the template you choose, and your video is ready in 2–7 minutes at 720p.',
+                  '六个 GTA 风格 AI 视频模板任你选：四镜头粉丝预告片、五星通缉一镜到底、双人追逐爱情、横版过场故事、夜店入场、双人逃亡。按模板要求上传 1-2 张照片，720p 下通常 2–7 分钟就能拿到你的成片。'
                 )}
               </p>
               <div className="g6-specs" role="list">
@@ -189,8 +189,8 @@ export function Gta6HubHome({ creditsPerUsd = 12, videoCosts = getVideoCostTable
             <h2>{t('Pick a series, upload a photo, post it this week', '选一个系列，上传照片，这周就发')}</h2>
             <p>
               {t(
-                'Pick your series, drop in a photo, and your video is ready in 2–3 minutes. Six Vice City looks are waiting — the only thing missing is your face in one of them.',
-                '选一个系列，上传一张照片，2-3 分钟成片就到手。六种罪恶都市玩法都在等你——缺的只是把你的脸放进去。'
+                'Pick your series, drop in a photo, and your video is ready in 2–7 minutes at 720p. Six Vice City looks are waiting — the only thing missing is your face in one of them.',
+                '选一个系列，上传一张照片，720p 下通常 2–7 分钟成片就到手。六种罪恶都市玩法都在等你——缺的只是把你的脸放进去。'
               )}
             </p>
             <Link className="g6-btn g6-btn-lg" href="#g6-series" onClick={scrollToGenerator}>

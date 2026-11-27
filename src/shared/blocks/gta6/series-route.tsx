@@ -35,8 +35,8 @@ function hubMeta(locale: Locale) {
     ? 'GTA 6 AI 模板专题：六个把照片放进罪恶都市的系列'
     : 'GTA 6 AI Templates – Six Series That Put You in Vice City';
   const description = zh
-    ? 'GTA 6 AI 模板专题页：GTA 6 Trailer AI（12 秒 1 张照片）、Wanted Level（10 秒 1 张）、Lovers on the Run（15 秒 2 张）、Vice City Story（15 秒 1 张、16:9）、Nightclub（12 秒 1 张）、Getaway Duo（12 秒 2 张）。约 2-3 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。'
-    : 'The GTA 6 AI hub: GTA 6 Trailer AI (12s, 1 photo), Wanted Level (10s, 1), Lovers on the Run (15s, 2), Vice City Story (15s, 1, 16:9), Nightclub (12s, 1), Getaway Duo (12s, 2). Renders in about 2–3 minutes. Fan-made AI content, not affiliated with Rockstar Games.';
+    ? 'GTA 6 AI 模板专题页：GTA 6 Trailer AI（12 秒 1 张照片）、Wanted Level（10 秒 1 张）、Lovers on the Run（15 秒 2 张）、Vice City Story（15 秒 1 张、16:9）、Nightclub（12 秒 1 张）、Getaway Duo（12 秒 2 张）。720p 下通常 2–7 分钟出片。粉丝向 AI 内容，与 Rockstar Games 无关联。'
+    : 'The GTA 6 AI hub: GTA 6 Trailer AI (12s, 1 photo), Wanted Level (10s, 1), Lovers on the Run (15s, 2), Vice City Story (15s, 1, 16:9), Nightclub (12s, 1), Getaway Duo (12s, 2). Renders at 720p in 2–7 minutes depending on clip length. Fan-made AI content, not affiliated with Rockstar Games.';
   const keywords = zh
     ? 'gta 6 ai, gta 6 ai 模板, gta 6 ai 视频, gta 6 trailer ai, gta 6 wanted level, gta 6 lovers on the run, gta 6 vice city story, gta 6 nightclub, gta 6 getaway duo, 照片生成 gta 6 视频'
     : 'gta 6 ai, gta 6 ai templates, gta 6 ai video, gta 6 trailer ai, gta 6 wanted level, gta 6 lovers on the run, gta 6 vice city story, gta 6 nightclub, gta 6 getaway duo, photo to gta 6 video';

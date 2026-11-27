@@ -22,8 +22,8 @@ export const AURA_FARMING_HOW_TO_STEPS: readonly AuraFarmingHowToStep[] = [
   {
     name: { en: 'Generate and wait a few minutes', zh: '生成并等待几分钟' },
     text: {
-      en: 'Press Generate. Rendering usually takes 2–3 minutes. The result is a new clip of you at the tip of the red dragon boat: steady claps, a side-to-side sway, the crew pulling hard behind you, and a final profile shot with both arms swung wide. Keep the window open while it renders.',
-      zh: '点「立即生成」。渲染通常需要 2-3 分钟。成片是一条全新的视频：你站在红色龙舟船头，节奏平稳地拍手、左右摇摆，身后整队划手奋力划桨，最后侧身张开双臂收尾。渲染期间别关窗口。',
+      en: 'Press Generate. Rendering usually takes 2–7 minutes at 720p. The result is a new clip of you at the tip of the red dragon boat: steady claps, a side-to-side sway, the crew pulling hard behind you, and a final profile shot with both arms swung wide. Keep the window open while it renders.',
+      zh: '点「立即生成」。渲染通常需要 2–7 分钟（720p）。成片是一条全新的视频：你站在红色龙舟船头，节奏平稳地拍手、左右摇摆，身后整队划手奋力划桨，最后侧身张开双臂收尾。渲染期间别关窗口。',
     },
   },
   {
