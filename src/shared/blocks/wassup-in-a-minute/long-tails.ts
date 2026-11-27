@@ -504,6 +504,10 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       en: 'What the wassup in a minute song is',
       zh: 'wassup in a minute 的歌是什么',
     },
+    stepsTitle: {
+      en: 'How to make a video with the wassup in a minute song',
+      zh: '怎么做出带 wassup in a minute 这首歌的视频',
+    },
     body: {
       en: [
         'People searching for the wassup in a minute song want the sound behind the swaying anime edits. It is a jersey-club remix built on "From Time", Drake\'s 2013 track with Jhené Aiko. Early in the remix the vocal says "wassup, been a minute", which most listeners hear as "wassup in a minute" — the mishearing that named the trend.',
@@ -722,6 +726,10 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     guideTitle: {
       en: 'How the "wassup in a minute filter" actually works',
       zh: '「wassup in a minute 滤镜」实际上怎么用',
+    },
+    stepsTitle: {
+      en: 'How to get the wassup in a minute look without a filter',
+      zh: '没有滤镜怎么拿到 wassup in a minute 的效果',
     },
     body: {
       en: [
