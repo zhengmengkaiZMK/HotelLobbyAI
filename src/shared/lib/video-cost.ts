@@ -34,6 +34,22 @@ export function getVideoGenerationCost(
 }
 
 /**
+ * Whether a settings payload carries at least one rate the pricers above read.
+ *
+ * The generators quote a price before the user spends anything, and every rate
+ * they use lives in the site settings: `video_cost_{resolution}_{tier}` for the
+ * tier table (relay models included) or one of the `*credits_per_second*` keys
+ * for the fal models. A payload without any of those is either truncated or
+ * still empty, and the pricers would then answer with their built-in defaults -
+ * a price the server may not agree with. Callers should show no figure at all
+ * in that case rather than quote a fallback.
+ */
+export function hasVideoPricingConfig(configs?: Record<string, unknown>) {
+  if (!configs) return false;
+  return Object.keys(configs).some((k) => k.startsWith('video_cost_') || k.includes('credits_per_second'));
+}
+
+/**
  * Credit table shown on the homepage / pricing page. Computed with the Wan
  * 3.0 Reference billing formula (the model users actually pay for): unit
  * price from `fal_wan_reference_credits_per_second_{480p|720p|1080p}` plus

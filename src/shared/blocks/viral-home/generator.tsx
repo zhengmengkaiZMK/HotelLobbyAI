@@ -12,7 +12,7 @@ import { getRelayModels, getTaskRelayModels, getFalReferenceModel, getFalWanRefe
 import { track } from '@/shared/lib/analytics';
 import { TemplateDef } from './templates';
 import { StarterPackDialog } from './starter-pack-dialog';
-import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost, getFalKlingV4VideoCost } from '@/shared/lib/video-cost';
+import { getVideoGenerationCost, getOmniVideoCost, getFalReferenceVideoCost, getFalWanReferenceVideoCost, getFalKlingV4VideoCost, hasVideoPricingConfig } from '@/shared/lib/video-cost';
 import { checkImageSpec, measureImage, measureImageFile, formatRatio, type ImageMeta, type ImageRequirementIssue } from '@/shared/lib/image-requirements';
 import { LazyVideo, type LazyVideoHandle } from '@/shared/blocks/common/lazy-video';
 
@@ -45,7 +45,7 @@ function SampleThumb({ video, poster }: { video: string; poster: string }) {
 export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdit = false, preferModel, embedded = false }: { template: TemplateDef; open: boolean; onOpenChange: (open: boolean) => void; allowPromptEdit?: boolean; preferModel?: string; embedded?: boolean }) {
   const zh = useLocale() === 'zh';
   const text = (en: string, cn: string) => zh ? cn : en;
-  const { user, configs, setIsShowSignModal, fetchUserCredits, isCheckSign } = useAppContext();
+  const { user, configs, configsStatus, fetchConfigs, setIsShowSignModal, fetchUserCredits, isCheckSign } = useAppContext();
   const router = useRouter();
   const isMobile = useIsMobile();
   const [showStarterPack, setShowStarterPack] = useState(false);
@@ -357,13 +357,27 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
   // duration options and the per-second rate all come from `configs`, which is
   // fetched in the browser (POST /api/config/get-configs). Before that the code
   // falls back to the built-in model list, and the price it computes is one no
-  // user is ever charged. Hold the line at a placeholder until the real config
-  // is in — the old behaviour served a wrong price to first paint and to every
-  // crawler that does not run JS.
-  const [configsReady, setConfigsReady] = useState(false);
+  // user is ever charged. So the line stays at a placeholder until the settings
+  // are really in — but it must not sit there forever: when the request fails
+  // (or a header-less page never starts one) the placeholder would be a lie.
+  const [configsRequested, setConfigsRequested] = useState(false);
   useEffect(() => {
-    if (Object.keys(configs).length > 0) setConfigsReady(true);
-  }, [configs]);
+    if (configsStatus !== 'idle' || configsRequested) return;
+    setConfigsRequested(true);
+    fetchConfigs();
+  }, [configsStatus, configsRequested, fetchConfigs]);
+  // A 200 with an empty or truncated payload counts as unavailable, not as
+  // ready: the pricers would then answer with their built-in defaults, which is
+  // the number #39 was about. A payload that merely leaves some key out is fine
+  // - the server falls back the same way, so client and charge still agree.
+  const creditState: 'pending' | 'known' | 'unavailable' =
+    configsStatus === 'ready'
+      ? hasVideoPricingConfig(configs)
+        ? 'known'
+        : 'unavailable'
+      : configsStatus === 'error'
+        ? 'unavailable'
+        : 'pending';
   const [busy, setBusy] = useState(false);
   const [task, setTask] = useState<{ id: string; start: number } | null>(null);
   const [progress, setProgress] = useState(0);
@@ -644,7 +658,7 @@ export function TemplateGenerator({ template, open, onOpenChange, allowPromptEdi
     {(family !== 'tiny_desk_outstanding' && (isFalRef || (isFalWan && (familyRefAudio || wanAllowGenerated)))) && <div className="param-row"><div className="seg" aria-label={text('Audio', '音频')}><button type="button" aria-pressed={keepAudio} className={keepAudio ? 'sel' : ''} onClick={() => setKeepAudio((v) => !v)}>{keepAudio ? (isFalWan ? (familyRefAudio ? text('Use reference audio', '使用参考音频') : text('Generate audio', '生成音频')) : text('Keep original audio', '保留参考视频原声')) : text('No audio', '不带原声')}</button></div></div>}
     <div className="param-row"><div className="seg" aria-label={text('Aspect ratio', '画幅比例')}>{ratioOptions.map((v) => <button key={v} aria-pressed={activeRatio === v} className={activeRatio === v ? 'sel' : ''} onClick={() => { ratioTouched.current = true; setRatio(v); }}>{v === 'adaptive' ? text('auto', '自动') : v}</button>)}</div><div className="seg" aria-label={text('Resolution', '分辨率')}>{resolutionOptions.map((v) => { const hdLocked = isHdTier(v) && !hdAllowed; const modelLocked = !isTaskRelay && v === '1080p' && unsupported1080; return <button key={v} disabled={hdLocked || modelLocked} title={hdLocked ? text('1080p is available on the Popular plan and above', '1080p 为 Popular 及以上方案权益') : modelLocked ? text('This model supports up to 720p', '此模型最高支持720p') : undefined} aria-pressed={activeResolution === v} className={activeResolution === v ? 'sel' : ''} onClick={() => setResolution(v)}>{v}</button>; })}</div><div className="seg" aria-label={text('Duration', '视频时长')}>{durationOptions.map((v) => <button key={v} aria-pressed={activeDuration === v} className={activeDuration === v ? 'sel' : ''} onClick={() => setDuration(v)}>{text(`${v}s`, `${v} 秒`)}</button>)}</div></div>
     {configs.viral_show_model_selector !== 'false' && <details className="advanced"><summary>{text('Model', '模型')}</summary><label>{text('Model', '模型')}<select value={model ? `${model.provider}:${model.value}` : ''} onChange={(e) => setSelected(e.target.value)}>{allowedModels.map((m) => <option key={`${m.provider}:${m.value}`} value={`${m.provider}:${m.value}`}>{m.label}</option>)}</select></label></details>}</fieldset>
-    <button className="btn-gen" disabled={busy || checkingAccount || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{checkingAccount ? text('Checking account…', '登录状态检查中…') : busy ? liveLabel(text('Generating…', '生成中…')) : text('Generate', '立即生成')}</button><p className="gen-hint">{text('Minimum image resolution: 300×300 or above', '图片分辨率最低要求 300×300 以上')}</p>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{liveLabel(label)}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits" data-state={configsReady ? 'known' : 'pending'}>{configsReady ? <>{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{family === 'baba_dance' && ` · ${text('the full video is 30s — the Popular credit pack is recommended', '本视频完整版共 30s，建议购买 Popular 积分包')}`}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</> : text('Calculating credits…', '积分计算中…')}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
+    <button className="btn-gen" disabled={busy || checkingAccount || uploading.some(Boolean) || !model || !prompt.trim()} onClick={generate}>{checkingAccount ? text('Checking account…', '登录状态检查中…') : busy ? liveLabel(text('Generating…', '生成中…')) : text('Generate', '立即生成')}</button><p className="gen-hint">{text('Minimum image resolution: 300×300 or above', '图片分辨率最低要求 300×300 以上')}</p>{busy && (() => { const label = stage === 'uploading' ? text('Uploading reference photos…', '正在上传参考照片…') : stage === 'pending' ? text('Waiting in queue…', '排队等待模型…') : text('Generating your video…', '正在生成视频…'); return <div className="gen-progress" role="status"><div className="gp-row"><span>{liveLabel(label)}</span><b>{Math.round(progress)}%</b></div><Progress value={progress} className="gp-bar"/><p className="gp-hint">{text('Video generation usually takes 2–3 minutes. Please keep this window open and wait patiently.', '视频生成通常需要 2-3 分钟，请耐心等待，不要关闭当前窗口。')}</p></div>; })()}<p className="credits" data-state={creditState}>{creditState === 'known' ? <>{text(`This generation = ${costCredits} credits`, `本次生成 = ${costCredits} 积分`)}{family === 'baba_dance' && ` · ${text('the full video is 30s — the Popular credit pack is recommended', '本视频完整版共 30s，建议购买 Popular 积分包')}`}{user && ` · ${text('Balance', '余额')} ${user.credits?.remainingCredits ?? 0}`}</> : creditState === 'pending' ? text('Calculating credits…', '积分计算中…') : text('Credit settings didn’t load — the charge shows in My generations', '积分配置加载失败——实际扣费以「生成记录」为准')}</p>{!model && <p className="error">{text('No image-to-video model configured.', '尚未配置图生视频模型。')}</p>}{error && <p role="alert" className="error">{error}</p>}<div className="result-actions"><Link className="btn btn-outline" href="/activity/ai-tasks">{text('My generations', '生成记录')}</Link><Link className="btn btn-outline" href="/pricing">{text('Get credits', '购买积分')}</Link></div>
     {configs.debug_show_request_payload === 'true' && <div className="result-actions"><button type="button" className="btn btn-outline" style={{ fontSize: 12, opacity: .7 }} onClick={() => { if (debugOpen) { setDebugOpen(false); return; } setDebugPayload(JSON.stringify(buildPayload(images.slice(0, slotCount).filter(Boolean) as string[]), null, 2)); setDebugOpen(true); }}>{text('Debug: request payload', '调试：查看 Request 参数')}</button></div>}
     {configs.debug_show_request_payload === 'true' && debugOpen && <pre style={{ maxHeight: 260, overflow: 'auto', fontSize: 11, lineHeight: 1.5, background: 'rgba(127,127,127,.12)', padding: '8px 10px', borderRadius: 8, whiteSpace: 'pre-wrap', wordBreak: 'break-all', textAlign: 'left', margin: 0 }}>{debugPayload}</pre>}
     </div></div>;
