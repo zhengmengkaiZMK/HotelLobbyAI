@@ -114,8 +114,8 @@ export function Gta6SeriesHome({
   const howToJsonLd = buildHowToJsonLdFromSteps({
     name: t(`How to make a ${series.name[0]} video`, `如何制作${series.name[1]}视频`),
     description: t(
-      `Upload ${photosWord}, keep the fixed ${series.duration}-second spec, and render in about 2–3 minutes on ViralReel.`,
-      `上传${photosWord}，保持固定的 ${series.duration} 秒规格，在 ViralReel 约 2-3 分钟出片。`
+      `Upload ${photosWord}, keep the fixed ${series.duration}-second spec, and render at 720p in 2–7 minutes on ViralReel.`,
+      `上传${photosWord}，保持固定的 ${series.duration} 秒规格，在 ViralReel 720p 下通常 2–7 分钟出片。`
     ),
     url: pageUrl,
     steps: series.howTo.map((step) => ({

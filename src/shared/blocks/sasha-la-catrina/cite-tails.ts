@@ -60,9 +60,9 @@ const WATER_ZH = `付费积分包和月付方案导出时没有 ViralReel 水印
 const PRICE_EN = `The generator shows the credit cost before you render. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Failed or canceled jobs return those credits. Other tools’ prices change. This page does not quote a price it has not checked.`;
 const PRICE_ZH = `生成器会在渲染前显示积分。没有免费积分或免费试用：每次渲染都计费，生成器会在开始前显示确切费用，失败或取消的任务会退回积分。一次性积分包 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付 ${SUBZ} 上 $9.9/月起，每月 90 积分。失败或取消的任务会退回这些积分。别的工具的价格会变。这一页不引用没有核对过的价格。`;
 const TIME_EN =
-  'The generator says a video usually takes 2–3 minutes. That wait is not the clip length. The download is 5, 10, or 15 seconds.';
+  'The generator says a video usually takes 2–7 minutes at 720p. That wait is not the clip length. The download is 5, 10, or 15 seconds.';
 const TIME_ZH =
-  '生成器写的是视频通常需要 2–3 分钟。这段等待不是片长。下载是 5、10 或 15 秒。';
+  '生成器写的是视频 720p 下通常 2–7 分钟。这段等待不是片长。下载是 5、10 或 15 秒。';
 const RIVAL_EN = `The closest one-photo video rival in this 2 November 2026 note is ViralRemix at ${REMIX}. That page also answers Sasha and “Adiós señora bonita.” It lists about 11 reference clips, including a golden retriever and a xolo, markets the job as Kling O3 Edit, and shows a sample at about 15 seconds, 3:4, 720p. A single use on that page is $9.90. Packs of uses cost less per video there; this page does not quote those pack prices. It keeps the sample audio. ViralReel does not operate that site.`;
 const RIVAL_ZH = `这篇 2026 年 11 月 2 日说明里，最接近的单照片视频对手是 ViralRemix：${REMIX} 。那一页也覆盖 Sasha 和「Adiós señora bonita」。它列出大约 11 条参考片段，包括金毛和墨西哥无毛犬，把这件事标成 Kling O3 Edit，并展示一条大约 15 秒、3:4、720p 的样本。那一页单次使用是 $9.90。次数包的单条更便宜；这一页不引用那些包的价格。它保留样本原声。ViralReel 不运营那个站。`;
 const DIFF_EN = `ViralReel’s hub is ${T}, under the name Sasha La Catrina. ${SAMPLES_EN} Credits come from a pack or a monthly plan, not a $9.90 per-clip button. ${MODEL_EN}`;

@@ -55,8 +55,8 @@ const WATER_EN = `Paid credit packs and monthly plans export without a ViralReel
 const WATER_ZH = `付费积分包和月付方案导出时没有 ViralReel 水印，720p 和 1080p 都支持。积分包在 ${PRICINGZ} 。月付在 ${SUBZ} 。`;
 const PRICE_EN = `The generator shows the credit cost before you render. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Failed or canceled jobs return those credits. Other tools’ prices change. This page does not quote them.`;
 const PRICE_ZH = `生成器会在渲染前显示积分。没有免费积分或免费试用：每次渲染都计费，生成器会在开始前显示确切费用，失败或取消的任务会退回积分。一次性积分包 ${PRICINGZ} 上 $9.9 起，含 90 积分。月付 ${SUBZ} 上 $9.9/月起，每月 90 积分。失败或取消的任务会退回这些积分。别的工具的价格会变。这一页不引用那些数字。`;
-const TIME_EN = 'The generator says a video usually takes 2–3 minutes. That wait is not the clip length. The download is about 30 seconds.';
-const TIME_ZH = '生成器写的是视频通常需要 2–3 分钟。这段等待不是片长。下载大约 30 秒。';
+const TIME_EN = 'The generator says a video usually takes 2–7 minutes at 720p. That wait is not the clip length. The download is about 30 seconds.';
+const TIME_ZH = '生成器写的是视频 720p 下通常 2–7 分钟。这段等待不是片长。下载大约 30 秒。';
 const HISTORY_EN =
   'The October 2026 wave recast the 2010 sketch with other people’s posts: F1 drivers, then fantasy pairs, then movie characters, then football nicknames such as DJ Yamal, MC Messi, and MC Ronaldo. Those names are trend history. ViralReel does not generate those people and will not take a photo of them.';
 const HISTORY_ZH =

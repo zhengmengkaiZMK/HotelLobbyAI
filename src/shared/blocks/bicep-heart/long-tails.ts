@@ -187,8 +187,8 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
     },
     h1: { en: 'Bicep heart AI generator', zh: 'Bicep heart AI 生成器' },
     lead: {
-      en: 'The bicep heart AI generator on ViralReel takes one photo and one click: the pose is fixed, the credit cost is shown up front, and the render lands in about 2–3 minutes.',
-      zh: 'ViralReel 的 bicep heart AI 生成器只要一张照片加一次点击：姿势是固定的，积分提前显示，渲染约 2-3 分钟出片。',
+      en: 'The bicep heart AI generator on ViralReel takes one photo and one click: the pose is fixed, the credit cost is shown up front, and the render lands in 2–7 minutes at 720p.',
+      zh: 'ViralReel 的 bicep heart AI 生成器只要一张照片加一次点击：姿势是固定的，积分提前显示，渲染720p 下通常 2–7 分钟出片。',
     },
     guideTitle: {
       en: 'How the generator works',
@@ -198,12 +198,12 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
       en: [
         'There is no prompt box on the bicep heart template. The scene, the timing and the selfie-style camera are preset; the only inputs are one photo and the set you pick. The upload slot is labeled Your Photo.',
         `Open ${EN_TEMPLATE} and pick a set. ${SETS_EN} ${PHOTO_EN} Keep 9:16 and 7 seconds, read the credit line under the Generate button, and start.`,
-        'Renders usually finish in about 2–3 minutes and appear in My generations. Failed jobs are refunded automatically. You can generate the same photo again in a different set without re-uploading.',
+        'Renders usually finish in 2–7 minutes at 720p and appear in My generations. Failed jobs are refunded automatically. You can generate the same photo again in a different set without re-uploading.',
       ],
       zh: [
         'Bicep heart 模板没有提示词框。场景、节奏和自拍式机位都已预设；唯一的输入是一张照片和你选的阵容。上传位置写的是「你的照片」。',
         `打开 ${ZH_TEMPLATE} 选一套阵容。${SETS_ZH} ${PHOTO_ZH} 保持 9:16 和 7 秒，看清「立即生成」下方的积分行，再开始。`,
-        '渲染通常 2-3 分钟左右完成，出片在「我的生成」里。失败任务自动退积分。同一张照片换一套阵容再生成，不用重新上传。',
+        '渲染在 720p 下通常 2–7 分钟完成，出片在「我的生成」里。失败任务自动退积分。同一张照片换一套阵容再生成，不用重新上传。',
       ],
     },
     steps: makeVideoSteps,
@@ -547,12 +547,12 @@ export const BICEP_HEART_LONG_TAILS: readonly BicepHeartLongTailEntry[] = [
     body: {
       en: [
         `${PHOTO_EN} A vertical photo in a calm, tidy room works best — the render keeps your photo\'s setting, so the heart happens in your own room, not a studio you have never seen.`,
-        `Make it at ${EN_TEMPLATE}. ${SETS_EN} The render takes about 2–3 minutes; the download is a new silent 7-second 9:16 MP4. The same photo can be re-run in a different set without uploading again, and failed jobs are refunded.`,
+        `Make it at ${EN_TEMPLATE}. ${SETS_EN} The render usually takes 2–7 minutes at 720p; the download is a new silent 7-second 9:16 MP4. The same photo can be re-run in a different set without uploading again, and failed jobs are refunded.`,
         `${SOUND_EN} Results and hand placement can vary between renders — watch the whole clip before you post, and re-roll if the heart did not close cleanly.`,
       ],
       zh: [
         `${PHOTO_ZH} 竖版照片、安静整洁的房间最好——成片会保留你照片里的场景，比心发生在你自己的房间里，而不是一个陌生的工作室。`,
-        `在 ${ZH_TEMPLATE} 制作。${SETS_ZH} 渲染约 2-3 分钟；下载的是一条新的无声 7 秒 9:16 MP4。同一张照片换阵容重跑不用重新上传，失败任务自动退积分。`,
+        `在 ${ZH_TEMPLATE} 制作。${SETS_ZH} 720p 下渲染通常 2–7 分钟；下载的是一条新的无声 7 秒 9:16 MP4。同一张照片换阵容重跑不用重新上传，失败任务自动退积分。`,
         `${SOUND_ZH} 每次渲染的手部形态可能有差异——发布前把整条看完，如果心没合干净就重跑一次。`,
       ],
     },
