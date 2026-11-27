@@ -19,13 +19,14 @@ import { useIsMobile } from '@/shared/hooks/use-mobile';
 import { Brand } from './footer';
 import './home.css';
 
-// Top-nav Trending submenu: newest-first list, capped at ELEVEN entries in
+// Top-nav Trending submenu: newest-first list, capped at TWELVE entries in
 // trendingNavItems() so the dropdown stays scannable, plus a fixed "All
 // trends" entry pointing at the homepage templates hub. Templates that fall
 // off the cap (and older ones like wassup, ba-ba-ba, tiny-desk, pedra, bulin,
 // ozil, hotel) are still listed in the footer links and on the homepage
 // trending hub.
 const TRENDING_NAV_ORDER = [
+  'huss-huss-huss-ai-template',
   'hand-of-god-ai-template',
   'aura-farming-ai-template',
   '365-elevator-ai-template',
@@ -44,7 +45,7 @@ const TRENDING_NAV_ORDER = [
   'sasha-la-catrina',
 ] as const;
 
-const TRENDING_NAV_MAX = 11;
+const TRENDING_NAV_MAX = 12;
 
 function trendingNavItems(): TrendingTemplate[] {
   // Newest first — hard cap so the submenu never grows past nine entries

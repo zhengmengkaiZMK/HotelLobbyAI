@@ -53,6 +53,11 @@ export function ViralFooter() {
     chips?: { href: string; label: readonly [string, string] }[];
   }[] = [
     {
+      href: '/huss-huss-huss-ai-template',
+      label: ['Huss Huss Huss', 'Huss Huss Huss 双人梗舞'],
+      chips: [{ href: '/blog/how-to-make-huss-huss-huss-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],
+    },
+    {
       href: '/hand-of-god-ai-template',
       label: ['Hand of God', 'Hand of God 金色巨手'],
       chips: [{ href: '/blog/how-to-make-hand-of-god-ai-video', label: [t('How-to', '教程'), t('How-to', '教程')] }],

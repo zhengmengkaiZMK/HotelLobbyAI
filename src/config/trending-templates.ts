@@ -36,6 +36,20 @@ export interface TrendingTemplate {
 
 export const TRENDING_TEMPLATES: TrendingTemplate[] = [
   {
+    id: 'huss-huss-huss-ai-template',
+    name: ['Huss Huss Huss', 'Huss Huss Huss 双人梗舞'],
+    pitch: [
+      'Two photos, two dancers: your duo runs the viral "everybody goes out partying except me" living-room routine, groove to sprinter finish.',
+      '两张照片、两位舞者：你们的双人组合复刻爆火的「全城都去蹦迪除了我」客厅梗舞，从摇摆到冲刺收尾。',
+    ],
+    href: '/huss-huss-huss-ai-template',
+    badge: 'hot',
+    vibes: ['meme'],
+    poster: '/templates/husshuss-duo-poster.jpg',
+    video: '/templates/husshuss-duo.mp4',
+    colors: ['#4ade80', '#14532d'],
+  },
+  {
     id: 'hand-of-god-ai-template',
     name: ['Hand of God', 'Hand of God 金色巨手'],
     pitch: [
