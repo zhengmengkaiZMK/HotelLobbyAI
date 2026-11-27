@@ -60,8 +60,8 @@ const FAQ_ENTRIES: FaqEntry[] = [
   {
     q: { en: 'What aspect ratio should a Hotel Lobby AI video use?', zh: 'Hotel Lobby AI 视频用什么画幅？' },
     a: () => ({
-      en: 'The original COLORS performance is a wide, locked-off shot, so the ViralReel Hotel Lobby generator opens on 16:9. Use 9:16 when the post is for TikTok, Instagram Reels or YouTube Shorts. 1:1 is available as well. Length is chosen in the generator, up to 15 seconds.',
-      zh: '原版 COLORS 表演是固定机位的宽画幅，所以 ViralReel 的 Hotel Lobby 生成器默认 16:9。发给 TikTok、Instagram Reels 或 YouTube Shorts 时用 9:16。也可以选 1:1。时长在生成器里选，最长 15 秒。',
+      en: 'The original COLORS performance is a wide, locked-off shot, so the ViralReel Hotel Lobby generator opens on 16:9. Use 9:16 when the post is for TikTok, Instagram Reels or YouTube Shorts. 1:1 is available as well. Length is chosen in the generator: 5, 10, 15, 20 or 30 seconds.',
+      zh: '原版 COLORS 表演是固定机位的宽画幅，所以 ViralReel 的 Hotel Lobby 生成器默认 16:9。发给 TikTok、Instagram Reels 或 YouTube Shorts 时用 9:16。也可以选 1:1。时长在生成器里选，可选 5、10、15、20、30 秒。',
     }),
   },
   {
