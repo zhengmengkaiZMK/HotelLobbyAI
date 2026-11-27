@@ -76,8 +76,10 @@ export async function LongTailRoute({
     name: step.name[lang],
     text: step.text[lang],
   }));
+  // The HowTo names the steps, so it must not borrow a heading that describes
+  // something else (e.g. "where the meme comes from").
   const howToJsonLd = buildHowToJsonLdFromSteps({
-    name: entry.guideTitle[lang],
+    name: (entry.stepsTitle ?? entry.guideTitle)[lang],
     description: entry.description[lang],
     url: pageUrl,
     steps,
