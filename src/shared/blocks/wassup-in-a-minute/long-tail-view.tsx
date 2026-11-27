@@ -43,6 +43,29 @@ export function WassupLongTailView({
   const faq = buildLongTailFaq(entry, zh);
   const makeLabel = zh ? '用一张照片制作 AI 视频' : 'Make the AI video from one photo';
   const pricingLabel = zh ? '查看定价' : 'See pricing';
+  // Entries whose guide heading is about the origin ("where this comes from")
+  // keep their steps in a separate section with their own heading, so the page
+  // and the HowTo markup both name the steps for what they are.
+  const stepsTitle = entry.stepsTitle?.[lang];
+  const stepsList =
+    steps.length > 0 ? (
+      <ol>
+        {steps.map((step) => (
+          <li key={step.name}>
+            <strong>{step.name}.</strong> {step.text}
+          </li>
+        ))}
+      </ol>
+    ) : null;
+  const guideMore = (
+    <p className="guide-more">
+      <Link href={WASSUP_TEMPLATE_PATH}>{makeLabel}</Link>
+      {' · '}
+      <Link href="/wassup-in-a-minute-meme">{zh ? '梗详解' : 'What the meme is'}</Link>
+      {' · '}
+      <Link href="/pricing">{pricingLabel}</Link>
+    </p>
+  );
 
   return (
     <div className="viral-home">
@@ -93,24 +116,22 @@ export function WassupLongTailView({
               <p key={index}>{paragraph}</p>
             ))}
             <LongTailBlocks blocks={entry.blocks} zh={zh} />
-            {steps.length > 0 ? (
-              <ol>
-                {steps.map((step) => (
-                  <li key={step.name}>
-                    <strong>{step.name}.</strong> {step.text}
-                  </li>
-                ))}
-              </ol>
-            ) : null}
-            <p className="guide-more">
-              <Link href={WASSUP_TEMPLATE_PATH}>{makeLabel}</Link>
-              {' · '}
-              <Link href="/wassup-in-a-minute-meme">{zh ? '梗详解' : 'What the meme is'}</Link>
-              {' · '}
-              <Link href="/pricing">{pricingLabel}</Link>
-            </p>
+            {stepsTitle ? null : stepsList}
+            {stepsTitle ? null : guideMore}
           </div>
         </section>
+        {stepsTitle && stepsList ? (
+          <section className="sec" id="how-to">
+            <div className="container guide">
+              <div className="sec-head">
+                <p className="kick">{zh ? '制作步骤' : 'Step by step'}</p>
+                <h2>{stepsTitle}</h2>
+              </div>
+              {stepsList}
+              {guideMore}
+            </div>
+          </section>
+        ) : null}
         <section className="sec sec-alt" id="faq">
           <div className="container">
             <div className="sec-head">

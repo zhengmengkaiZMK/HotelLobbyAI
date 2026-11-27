@@ -32,6 +32,15 @@ export interface LongTailEntry {
   h1: Copy;
   lead: Copy;
   guideTitle: Copy;
+  /**
+   * Set only when the guide heading does NOT describe the how-to steps. The view
+   * then splits the page into two sections — the guide, and a separate steps
+   * section under this heading — and the HowTo JSON-LD takes its name from here.
+   * Needed when `guideTitle` answers "where does this come from" while `steps`
+   * answers "how do I make one": a single heading cannot cover both, and the
+   * schema name would otherwise claim the steps are the origin story.
+   */
+  stepsTitle?: Copy;
   body: { en: string[]; zh: string[] };
   /** `'shared'` reuses the template HowTo. Custom steps must stay honest about what ViralReel does not make. */
   steps: 'shared' | readonly WassupHowToStep[];
@@ -214,6 +223,10 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     guideTitle: {
       en: 'Where the Wassup in a Minute meme comes from',
       zh: 'Wassup in a Minute 梗的来源',
+    },
+    stepsTitle: {
+      en: 'How to make your own Wassup in a Minute video from one photo',
+      zh: '怎么用一张照片做出你自己的 Wassup in a Minute 视频',
     },
     body: {
       en: [
