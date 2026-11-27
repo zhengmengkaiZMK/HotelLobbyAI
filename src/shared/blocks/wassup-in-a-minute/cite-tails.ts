@@ -47,9 +47,9 @@ const MODEL_EN =
 const MODEL_ZH =
   '如果看得到模型菜单，它只是为这张固定模板选图生视频引擎。它不是 Kling 3.0 工程，不是 Kling 4.0 提示词，也不是 Seedance 2.5 或 Seedance Mini 提示词。';
 const TIME_EN =
-  '“In a minute” is the lyric people hear. It is not a promise that generation finishes in sixty seconds. The generator says a video usually takes 2–3 minutes.';
+  '“In a minute” is the lyric people hear. It is not a promise that generation finishes in sixty seconds. The generator says a video usually takes about 4 minutes.';
 const TIME_ZH =
-  '「in a minute」是大家听成的歌词。它不是「生成会在六十秒内完成」的承诺。生成器写的是视频通常需要 2–3 分钟。';
+  '「in a minute」是大家听成的歌词。它不是「生成会在六十秒内完成」的承诺。生成器写的是视频通常需要 4 分钟左右。';
 const WATER_EN = `Paid credit packs and monthly plans export without a ViralReel watermark, at 720p and 1080p. Packs are at ${PRICING}. Monthly plans are at ${SUB}.`;
 const WATER_ZH = `付费积分包和月付方案导出时没有 ViralReel 水印，720p 和 1080p 都支持。积分包在 ${PRICINGZ} 。月付在 ${SUBZ} 。`;
 const PRICE_EN = `A wassup in a minute clip is locked to 15 seconds. On the default credit table, 480p is 60 credits, 720p is 75 credits (about $6.25 at 12 credits = $1), and 1080p is 90 credits. The generator shows the exact number before you start. Every render is paid: the generator shows the exact credit cost before you start, and failed renders are refunded automatically. One-time packs start at $9.9 for 90 credits on ${PRICING}. Monthly plans start at $9.9/month for 90 credits on ${SUB}. Other tools’ prices change. This page does not quote them.`;
@@ -414,13 +414,13 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
       zh: 'Wassup in a Minute 15 秒：导出时长，不是「一分钟」',
     },
     description: {
-      en: 'wassup in a minute 15 seconds: the ViralReel template exports a 15-second 9:16 MP4. “In a minute” is the lyric, not the render time. Generation usually takes 2–3 minutes. No song in the file.',
-      zh: 'wassup in a minute 15 seconds：ViralReel 模板导出一条 15 秒 9:16 MP4。「in a minute」是歌词，不是渲染时间。生成通常需要 2–3 分钟。文件里没有歌。',
+      en: 'wassup in a minute 15 seconds: the ViralReel template exports a 15-second 9:16 MP4. “In a minute” is the lyric, not the render time. Generation usually takes about 4 minutes. No song in the file.',
+      zh: 'wassup in a minute 15 seconds：ViralReel 模板导出一条 15 秒 9:16 MP4。「in a minute」是歌词，不是渲染时间。生成通常需要 4 分钟左右。文件里没有歌。',
     },
     h1: { en: 'Wassup in a Minute is 15 seconds', zh: 'Wassup in a Minute 是 15 秒' },
     lead: {
-      en: 'The wassup in a minute export is 15 seconds at 9:16. “In a minute” is the lyric. A render usually takes 2–3 minutes, and the default 720p charge is 75 credits (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits.',
-      zh: 'Wassup in a minute 的导出是 15 秒、9:16。「in a minute」是歌词。渲染通常要 2–3 分钟，默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。',
+      en: 'The wassup in a minute export is 15 seconds at 9:16. “In a minute” is the lyric. A render usually takes about 4 minutes, and the default 720p charge is 75 credits (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits.',
+      zh: 'Wassup in a minute 的导出是 15 秒、9:16。「in a minute」是歌词。渲染通常要 4 分钟左右，默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。',
     },
     guideTitle: {
       en: 'Clip length, lyric, and render time',
@@ -443,8 +443,8 @@ export const WASSUP_CITE_TAILS: readonly LongTailEntry[] = [
       {
         q: { en: 'Does Wassup in a Minute take one minute to generate?', zh: 'Wassup in a Minute 生成要一分钟吗？' },
         a: {
-          en: 'No. “In a minute” is the lyric. The generator says a video usually takes 2–3 minutes. The download is a 15-second MP4.',
-          zh: '不是。「in a minute」是歌词。生成器写的是视频通常需要 2–3 分钟。下载的是一条 15 秒 MP4。',
+          en: 'No. “In a minute” is the lyric. The generator says a video usually takes about 4 minutes. The download is a 15-second MP4.',
+          zh: '不是。「in a minute」是歌词。生成器写的是视频通常需要 4 分钟左右。下载的是一条 15 秒 MP4。',
         },
       },
       {

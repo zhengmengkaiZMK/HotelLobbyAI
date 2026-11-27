@@ -21,11 +21,11 @@ export function getWassupFaq(
   if (zh) {
     return [
       ['Wassup in a minute 是什么趋势？', `Wassup in a minute 是 2026 年 10 月下旬的白底摇摆：街服角色左右摇摆，成片是 15 秒、9:16。在 ViralReel 用一至四张照片做一条新的：${template} 。Atlanta Lock 只是这种街服观感的粉丝昵称，不是会画出来的 Blue Lock 角色。`],
-      ['怎么制作 wassup in a minute？', `制作 wassup in a minute 就四步：打开 ${template} ，上传一至四张照片，在五种造型里选一套，下载 15 秒 9:16 的 MP4。渲染通常要 2–3 分钟。然后在 TikTok、Reels 或 Shorts 里加热梗原声和 AI 标注。公开页面没有空白提示词框。`],
+      ['怎么制作 wassup in a minute？', `制作 wassup in a minute 就四步：打开 ${template} ，上传一至四张照片，在五种造型里选一套，下载 15 秒 9:16 的 MP4。渲染通常要 4 分钟左右。然后在 TikTok、Reels 或 Shorts 里加热梗原声和 AI 标注。公开页面没有空白提示词框。`],
       ['Wassup in a minute 能免费试吗？', '不能。ViralReel 没有免费积分或免费试用——每次渲染都计费，开始前显示确切费用。之后的 wassup in a minute 消耗积分。'],
       ['Wassup in a minute 是永远免费吗？', '不是。Wassup in a minute 不是永远免费。没有免费积分或免费试用：每次渲染都计费，开始前显示确切费用。之后用 $9.9 起、90 积分的一次性积分包，或 $9.9/月起、每月 90 积分的月付。'],
       ['Wassup in a minute 要多少钱？', cost],
-      ['Wassup in a minute 要等多久才好？', '一条 wassup in a minute 通常要 2–3 分钟才渲染完。「in a minute」是歌词，不是等待时间。做好的成片是 15 秒。'],
+      ['Wassup in a minute 要等多久才好？', '一条 wassup in a minute 通常要 4 分钟左右才渲染完。「in a minute」是歌词，不是等待时间。做好的成片是 15 秒。'],
       ['Wassup in a minute 的片长是多少？', 'ViralReel 上的 wassup in a minute 是 15 秒、9:16。不是 10 秒，不是 8 秒，也不是一分钟。'],
       ['Wassup in a minute 的视频带歌吗？', '不带。Wassup in a minute 的下载文件不含那首歌。请在 TikTok、Reels 或 Shorts 里另加 jersey club 混音。ViralReel 不授权这段音频。'],
       ['做 wassup in a minute 需要提示词、ChatGPT、Kling 或 Seedance 吗？', `不需要。ViralReel 上的 wassup in a minute 不用写提示词，不用把 ChatGPT 的文字贴进来，也不是 Kling 或 Seedance 工程。上传一至四张照片然后生成。说明页：${site(true, '/wassup-in-a-minute-prompt')} 、${site(true, '/wassup-in-a-minute-chatgpt')} 。`],
@@ -47,11 +47,11 @@ export function getWassupFaq(
   }
   return [
     ['What is the wassup in a minute trend?', `Wassup in a minute is the late-October 2026 sway: streetwear characters rocking side to side on white, as a 15-second 9:16 clip. On ViralReel you make a new one from one to four photos at ${template}. Atlanta Lock is only the fan nickname for that streetwear look, not a Blue Lock character the template will draw.`],
-    ['How do I make a wassup in a minute video?', `Make a wassup in a minute video in four steps: open ${template}, upload one to four photos, pick one of five outfits, and download the 15-second 9:16 MP4. A render usually takes 2–3 minutes. Then add the trend sound and the AI label in TikTok, Reels, or Shorts. The public page has no blank prompt box.`],
+    ['How do I make a wassup in a minute video?', `Make a wassup in a minute video in four steps: open ${template}, upload one to four photos, pick one of five outfits, and download the 15-second 9:16 MP4. A render usually takes about 4 minutes. Then add the trend sound and the AI label in TikTok, Reels, or Shorts. The public page has no blank prompt box.`],
     ['Can I try wassup in a minute for free?', 'No — rendering is pay-per-credit: the exact cost shows in the generator before every render, and failed renders are refunded automatically.'],
     ['Is wassup in a minute free forever?', 'No. Wassup in a minute is not free forever. Starter credits cover a first template video. After that, use a one-time pack from $9.9 for 90 credits or a monthly plan from $9.9/month for 90 credits.'],
     ['How much does a wassup in a minute video cost?', cost],
-    ['How long until a wassup in a minute video is ready?', 'A wassup in a minute render usually takes 2–3 minutes. “In a minute” is the lyric, not the wait. The finished clip is 15 seconds.'],
+    ['How long until a wassup in a minute video is ready?', 'A wassup in a minute render usually takes about 4 minutes. “In a minute” is the lyric, not the wait. The finished clip is 15 seconds.'],
     ['How long is a wassup in a minute clip?', 'A wassup in a minute clip on ViralReel is 15 seconds at 9:16. It is not 10 seconds, not 8 seconds, and not one minute long.'],
     ['Does a wassup in a minute video include the song?', 'No. A wassup in a minute download does not include the song. Add the jersey-club remix in TikTok, Reels, or Shorts. ViralReel does not license that audio.'],
     ['Do I need a prompt, ChatGPT, Kling, or Seedance for wassup in a minute?', `No. Wassup in a minute on ViralReel does not need a prompt, a ChatGPT paste, a Kling project, or a Seedance prompt. Upload one to four photos and generate. See ${site(false, '/wassup-in-a-minute-prompt')} and ${site(false, '/wassup-in-a-minute-chatgpt')}.`],

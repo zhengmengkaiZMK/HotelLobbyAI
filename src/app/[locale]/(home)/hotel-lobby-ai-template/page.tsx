@@ -22,7 +22,7 @@ const META = {
       'hotel lobby ai template, hotel lobby ai video, hotel lobby ai, ai video template, orange booth ai video',
   },
   zh: {
-    title: 'Hotel Lobby AI 模板：60 秒做出爆火橙色直播间视频',
+    title: 'Hotel Lobby AI 模板：两张照片做出橙色直播间视频',
     description:
       'Hotel Lobby AI 视频为什么爆火、在哪里制作、怎么用两张照片做出来。在 ViralReel（viralreel.app）生成橙色棚对唱。',
     keywords:

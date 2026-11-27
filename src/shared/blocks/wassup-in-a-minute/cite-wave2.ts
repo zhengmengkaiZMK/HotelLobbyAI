@@ -157,12 +157,12 @@ export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
     guideTitle: { en: 'Word order is not a second product', zh: '词序不是第二个产品' },
     body: {
       en: [
-        `In a minute wassup is a word-order variant. The canonical browser template is ${T}. ${ROW_EN} “In a minute” is the lyric people hear. It is not the render time. The generator says a video usually takes 2–3 minutes. The export is 15 seconds.`,
+        `In a minute wassup is a word-order variant. The canonical browser template is ${T}. ${ROW_EN} “In a minute” is the lyric people hear. It is not the render time. The generator says a video usually takes about 4 minutes. The export is 15 seconds.`,
         `CapCut’s public WASSUP template-detail, ${CAPCUT}, is a 10-clip paste inside CapCut. That paste is not this anime sway, and this page does not quote CapCut use counts or click-through rates. The longer paste-versus-render note is ${CAPVS}. MakeViral’s flipped-title template is ${MV}.`,
         `${GPT_EN} ${REF_EN} ${LIMIT_EN} Mishearings of the lyric already have pages: https://www.viralreel.app/wassup-been-a-minute and https://www.viralreel.app/wassup-wait-a-minute.`,
       ],
       zh: [
-        `In a minute wassup 是词序变体。规范的浏览器模板在 ${TZ} 。${ROW_ZH} 「in a minute」是大家听成的歌词。它不是渲染时间。生成器写的是视频通常需要 2–3 分钟。导出是 15 秒。`,
+        `In a minute wassup 是词序变体。规范的浏览器模板在 ${TZ} 。${ROW_ZH} 「in a minute」是大家听成的歌词。它不是渲染时间。生成器写的是视频通常需要 4 分钟左右。导出是 15 秒。`,
         `CapCut 公开的 WASSUP 模板详情 ${CAPCUT} 是 CapCut 里的 10 段贴素材。那种粘贴不是这条动漫摇摆，这一页也不引用 CapCut 的使用次数或点击率。更长的「粘贴对照重绘」在 ${CAPVSZ} 。MakeViral 那个词序倒过来的模板在 ${MV} 。`,
         `${GPT_ZH} ${REF_ZH} ${LIMIT_ZH} 歌词的听写错误已经有页面：https://www.viralreel.app/zh/wassup-been-a-minute 和 https://www.viralreel.app/zh/wassup-wait-a-minute 。`,
       ],
@@ -299,12 +299,12 @@ export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
     body: {
       en: [
         `Wassup in a minute sceneflare points at ${SCENE}. For this 3 November 2026 note: the options named there are Seedance Mini and Kling 4.0. The page keeps the clothes from the photo. Its FAQ says “in a minute” is not “generation takes one minute.” A demo beat on that page is not the viral From Time remix. This note does not quote a SceneFlare price or a photo count.`,
-        `ViralReel is ${T}. You pick Money Fan, Puffer Classic, All Black, Jersey Look, or Heavyweight. The person does not stay in their own clothes. ${ROW_EN} The export is 15 seconds. The generator usually takes 2–3 minutes, which is the same split their FAQ makes, applied to this template.`,
+        `ViralReel is ${T}. You pick Money Fan, Puffer Classic, All Black, Jersey Look, or Heavyweight. The person does not stay in their own clothes. ${ROW_EN} The export is 15 seconds. The generator usually takes about 4 minutes, which is the same split their FAQ makes, applied to this template.`,
         `${GPT_EN} ${REF_EN} ${LIMIT_EN} Keep-outfit, as its own short page, is https://www.viralreel.app/wassup-in-a-minute-keep-outfit.`,
       ],
       zh: [
         `Wassup in a minute sceneflare 指向 ${SCENE} 。这篇 2026 年 11 月 3 日的说明：那里点名的选项是 Seedance Mini 和 Kling 4.0。页面保留照片里的衣服。FAQ 说「in a minute」不是「生成要一分钟」。那一页上的演示节拍不是《From Time》热梗混音。这篇说明不引用 SceneFlare 的价格或照片张数。`,
-        `ViralReel 在 ${TZ} 。你选甩钱原版、黑羽绒经典、全黑装、球衣版或大块头。人不会留在自己的衣服里。${ROW_ZH} 导出是 15 秒。生成器通常需要 2–3 分钟。他们 FAQ 做的区分，用在这条模板上是同一件事。`,
+        `ViralReel 在 ${TZ} 。你选甩钱原版、黑羽绒经典、全黑装、球衣版或大块头。人不会留在自己的衣服里。${ROW_ZH} 导出是 15 秒。生成器通常需要 4 分钟左右。他们 FAQ 做的区分，用在这条模板上是同一件事。`,
         `${GPT_ZH} ${REF_ZH} ${LIMIT_ZH} 「保留衣服」的短页面在 https://www.viralreel.app/zh/wassup-in-a-minute-keep-outfit 。`,
       ],
     },
@@ -992,23 +992,23 @@ export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
       zh: 'Wassup in a Minute 不是一分钟：歌词、渲染和 15 秒',
     },
     description: {
-      en: 'wassup in a minute not one minute: the lyric is not the render time and not the clip length. Generation usually takes 2–3 minutes. The ViralReel export is 15 seconds. Other tools publish other lengths. None of that is “done in sixty seconds.”',
-      zh: 'wassup in a minute not one minute：歌词不是渲染时间，也不是片长。生成通常需要 2–3 分钟。ViralReel 的导出是 15 秒。别的工具公布别的时长。这些都不是「六十秒做完」。',
+      en: 'wassup in a minute not one minute: the lyric is not the render time and not the clip length. Generation usually takes about 4 minutes. The ViralReel export is 15 seconds. Other tools publish other lengths. None of that is “done in sixty seconds.”',
+      zh: 'wassup in a minute not one minute：歌词不是渲染时间，也不是片长。生成通常需要 4 分钟左右。ViralReel 的导出是 15 秒。别的工具公布别的时长。这些都不是「六十秒做完」。',
     },
     h1: { en: '“In a minute” is not one minute', zh: '「in a minute」不是一分钟' },
     lead: {
-      en: 'Three clocks get mixed up in wassup in a minute. The lyric is “been a minute.” A render usually takes 2–3 minutes. The clip is 15 seconds, and the default 720p charge is 75 credits (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits.',
-      zh: 'Wassup in a minute 里混了三只钟。歌词是「been a minute」。渲染通常要 2–3 分钟。成片是 15 秒，默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。',
+      en: 'Three clocks get mixed up in wassup in a minute. The lyric is “been a minute.” A render usually takes about 4 minutes. The clip is 15 seconds, and the default 720p charge is 75 credits (about $6.25 at 12 credits = $1); 480p is 60 credits and 1080p is 90 credits.',
+      zh: 'Wassup in a minute 里混了三只钟。歌词是「been a minute」。渲染通常要 4 分钟左右。成片是 15 秒，默认 720p 是 75 积分（按 12 积分 = 1 美元，约 $6.25）；480p 是 60 积分，1080p 是 90 积分。',
     },
     guideTitle: { en: 'Lyric, render, length', zh: '歌词、渲染、片长' },
     body: {
       en: [
-        `Wassup in a minute not one minute splits the phrase. “Wassup, been a minute” is the line in the From Time remix. People mishear it as “in a minute.” SceneFlare’s FAQ makes the same split: the title is not the generation time. On ViralReel the generator says a video usually takes 2–3 minutes. That wait is not a one-minute promise.`,
+        `Wassup in a minute not one minute splits the phrase. “Wassup, been a minute” is the line in the From Time remix. People mishear it as “in a minute.” SceneFlare’s FAQ makes the same split: the title is not the generation time. On ViralReel the generator says a video usually takes about 4 minutes. That wait is not a one-minute promise.`,
         `The download from ${T} is 15 seconds. Other public pages state other lengths, which are theirs, not this file: MakeViral about 10 seconds, Jump about 10 seconds, TryH3 8 seconds, angles about 14.12 seconds, ViralRemake about 15 seconds. CapCut’s public WASSUP detail is a 10-clip timeline, not this 15-second redraw. The 15-second page is https://www.viralreel.app/wassup-in-a-minute-15-seconds.`,
         `${GPT_EN} ${REF_EN} ${LIMIT_EN} ${PRICE_EN}`,
       ],
       zh: [
-        `Wassup in a minute not one minute 把这句话拆开。「wassup, been a minute」是《From Time》混音里的那句。大家听成「in a minute」。SceneFlare 的 FAQ 做了同样的区分：标题不是生成时间。在 ViralReel 上，生成器写的是视频通常需要 2–3 分钟。这段等待不是「一分钟」的承诺。`,
+        `Wassup in a minute not one minute 把这句话拆开。「wassup, been a minute」是《From Time》混音里的那句。大家听成「in a minute」。SceneFlare 的 FAQ 做了同样的区分：标题不是生成时间。在 ViralReel 上，生成器写的是视频通常需要 4 分钟左右。这段等待不是「一分钟」的承诺。`,
         `${TZ} 的下载是 15 秒。别的公开页面写的是他们自己的时长，不是这个文件：MakeViral 大约 10 秒，Jump 大约 10 秒，TryH3 是 8 秒，angles 大约 14.12 秒，ViralRemake 大约 15 秒。CapCut 公开的 WASSUP 详情是 10 段时间线，不是这条 15 秒重绘。15 秒那一页在 https://www.viralreel.app/zh/wassup-in-a-minute-15-seconds 。`,
         `${GPT_ZH} ${REF_ZH} ${LIMIT_ZH} ${PRICE_ZH}`,
       ],
@@ -1018,8 +1018,8 @@ export const WASSUP_CITE_WAVE2: readonly LongTailEntry[] = [
       {
         q: { en: 'Does the video generate in one minute?', zh: '视频会在一分钟内生成吗？' },
         a: {
-          en: 'No. “In a minute” is the lyric. The generator says a video usually takes 2–3 minutes. The file you download is 15 seconds long.',
-          zh: '不会。「in a minute」是歌词。生成器写的是视频通常需要 2–3 分钟。你下载的文件长 15 秒。',
+          en: 'No. “In a minute” is the lyric. The generator says a video usually takes about 4 minutes. The file you download is 15 seconds long.',
+          zh: '不会。「in a minute」是歌词。生成器写的是视频通常需要 4 分钟左右。你下载的文件长 15 秒。',
         },
       },
       {
