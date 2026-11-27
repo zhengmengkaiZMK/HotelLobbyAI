@@ -14,14 +14,14 @@ const META = {
   en: {
     title: 'Burning Bridges AI Template – Make the Viral Office Party Dance Video',
     description:
-      'Turn one photo into the viral Burning Bridges party dance video: you as the main dancer, office party crowd cheering around you. Templates, prompt tips, and pricing — generate in 60 seconds.',
+      'Turn one photo into the viral Burning Bridges party dance video: you as the main dancer, office party crowd cheering around you. Templates, prompt tips, and pricing — a 720p render usually takes 2–7 minutes.',
     keywords:
       'burning bridges ai video, burning bridges ai template, burning bridges meme generator, office party dance ai video, the office party ai template, ai dance video from photo',
   },
   zh: {
     title: 'Burning Bridges AI 模板：一张照片变成派对舞王爆火视频',
     description:
-      'Burning Bridges 爆火玩法完全指南：把你的照片变成办公室派对舞池中央的领舞者，同事围观喝彩。模板、提示词技巧与价格——60 秒生成可发布视频。',
+      'Burning Bridges 爆火玩法完全指南：把你的照片变成办公室派对舞池中央的领舞者，同事围观喝彩。模板、提示词技巧与价格——720p 下渲染通常 2–7 分钟。',
     keywords:
       'burning bridges ai 视频, burning bridges 模板, 派对跳舞 ai 视频, 办公室派对 ai 模板, 照片生成跳舞视频',
   },
