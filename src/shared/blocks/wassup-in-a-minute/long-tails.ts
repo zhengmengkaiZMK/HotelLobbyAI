@@ -69,8 +69,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute AI', zh: 'Wassup in a Minute AI' },
     lead: {
-      en: 'Wassup in a minute AI on ViralReel is a new 15-second 9:16 sway from one to four photos. It is not the original edit, and the MP4 does not include the song. A render usually takes 2–3 minutes.',
-      zh: 'ViralReel 上的 wassup in a minute AI 是用一至四张照片做的新 15 秒、9:16 摇摆。这不是原片，MP4 也不含那首歌。渲染通常要 2–3 分钟。',
+      en: 'Wassup in a minute AI on ViralReel is a new 15-second 9:16 sway from one to four photos. It is not the original edit, and the MP4 does not include the song. A 15-second render usually takes about 4 minutes.',
+      zh: 'ViralReel 上的 wassup in a minute AI 是用一至四张照片做的新 15 秒、9:16 摇摆。这不是原片，MP4 也不含那首歌。15 秒的片子渲染通常约 4 分钟。',
     },
     guideTitle: {
       en: 'How to make a Wassup in a Minute AI video',
@@ -167,8 +167,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute template', zh: 'Wassup in a Minute 模板' },
     lead: {
-      en: 'The wassup in a minute template is five outfits and one sway: upload one to four photos and export 15 seconds at 9:16. You do not write a prompt. A render usually takes 2–3 minutes.',
-      zh: 'Wassup in a minute 模板是五套造型、同一种摇摆：上传一至四张照片，导出 15 秒、9:16。不用写提示词。渲染通常要 2–3 分钟。',
+      en: 'The wassup in a minute template is five outfits and one sway: upload one to four photos and export 15 seconds at 9:16. You do not write a prompt. A 15-second render usually takes about 4 minutes.',
+      zh: 'Wassup in a minute 模板是五套造型、同一种摇摆：上传一至四张照片，导出 15 秒、9:16。不用写提示词。15 秒的片子渲染通常约 4 分钟。',
     },
     guideTitle: {
       en: 'What the Wassup in a Minute template includes',
@@ -178,12 +178,12 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
       en: [
         'A wassup in a minute template saves you the two-step workflow creators used in late October 2026: an AI image prompt to draw the character, then keyframing the sway by hand in an editor. ViralReel folds both steps into one generation from one photo.',
         'The template family has five variants: Money Fan (the fanned stack of banknotes from the original edit), Puffer Classic (glossy black puffer over a white tee and cap), All Black (hoodie, chains, cargos), Jersey Look (oversized sports jersey), and Heavyweight (a broad imposing build). Each variant is the same white-background sway in a different outfit.',
-        'The public wassup in a minute page has no prompt box. You pick the outfit from the five cards. The ratio stays 9:16 and the length stays 15 seconds. A render usually takes 2–3 minutes.',
+        'The public wassup in a minute page has no prompt box. You pick the outfit from the five cards. The ratio stays 9:16 and the length stays 15 seconds. A 15-second render usually takes about 4 minutes.',
       ],
       zh: [
         'wassup in a minute template 替你省掉了 2026 年 10 月底创作者们用的两步流程：先用 AI 图像提示词画出角色，再在剪辑软件里手动打关键帧做摇摆。ViralReel 把两步合并成一次生成，只需要一张照片。',
         '模板系列有五个变体：甩钱原版（原片里挥开的那沓钞票）、黑羽绒经典（亮面黑羽绒服配白 T 和棒球帽）、全黑装（连帽衫、链子、工装裤）、球衣版（宽松运动球衣）和大块头（宽厚的壮硕身形）。每个变体都是同一套白底摇摆，换的是造型。',
-        '公开的 wassup in a minute 页面没有提示词框。造型从五张卡片里选。画幅保持 9:16，时长保持 15 秒。渲染通常要 2–3 分钟。',
+        '公开的 wassup in a minute 页面没有提示词框。造型从五张卡片里选。画幅保持 9:16，时长保持 15 秒。15 秒的片子渲染通常约 4 分钟。',
       ],
     },
     steps: makeVideoSteps,
@@ -349,8 +349,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute on TikTok', zh: 'Wassup in a Minute 上的 TikTok' },
     lead: {
-      en: 'Post wassup in a minute on TikTok by downloading the 15-second 9:16 MP4, then adding the trend sound inside TikTok and turning on the AI label. The file does not include the song. A render usually takes 2–3 minutes.',
-      zh: '把 wassup in a minute 发到 TikTok：先下载 15 秒、9:16 的 MP4，再在 TikTok 里加热梗原声并打开 AI 标注。文件不含那首歌。渲染通常要 2–3 分钟。',
+      en: 'Post wassup in a minute on TikTok by downloading the 15-second 9:16 MP4, then adding the trend sound inside TikTok and turning on the AI label. The file does not include the song. A 15-second render usually takes about 4 minutes.',
+      zh: '把 wassup in a minute 发到 TikTok：先下载 15 秒、9:16 的 MP4，再在 TikTok 里加热梗原声并打开 AI 标注。文件不含那首歌。15 秒的片子渲染通常约 4 分钟。',
     },
     guideTitle: {
       en: 'How to post a wassup in a minute TikTok',
@@ -716,8 +716,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a minute filter', zh: 'wassup in a minute 滤镜' },
     lead: {
-      en: 'There is no wassup in a minute filter on TikTok. The working path is a 15-second 9:16 template from one to four photos. A render usually takes 2–3 minutes, and the MP4 does not include the song.',
-      zh: 'TikTok 上没有 wassup in a minute 滤镜。能出片的是用一至四张照片做的 15 秒、9:16 模板。渲染通常要 2–3 分钟，MP4 不含那首歌。',
+      en: 'There is no wassup in a minute filter on TikTok. The working path is a 15-second 9:16 template from one to four photos. A 15-second render usually takes about 4 minutes, and the MP4 does not include the song.',
+      zh: 'TikTok 上没有 wassup in a minute 滤镜。能出片的是用一至四张照片做的 15 秒、9:16 模板。15 秒的片子渲染通常约 4 分钟，MP4 不含那首歌。',
     },
     guideTitle: {
       en: 'How the "wassup in a minute filter" actually works',
@@ -873,8 +873,8 @@ export const WASSUP_LONG_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a minute generator', zh: 'wassup in a minute 生成器' },
     lead: {
-      en: 'The wassup in a minute generator makes a 15-second 9:16 MP4 from one to four photos. You do not write a prompt. A render usually takes 2–3 minutes. The file does not include the song.',
-      zh: 'Wassup in a minute 生成器用一至四张照片做出 15 秒、9:16 的 MP4。不用写提示词。渲染通常要 2–3 分钟。文件不含那首歌。',
+      en: 'The wassup in a minute generator makes a 15-second 9:16 MP4 from one to four photos. You do not write a prompt. A 15-second render usually takes about 4 minutes. The file does not include the song.',
+      zh: 'Wassup in a minute 生成器用一至四张照片做出 15 秒、9:16 的 MP4。不用写提示词。15 秒的片子渲染通常约 4 分钟。文件不含那首歌。',
     },
     guideTitle: {
       en: 'Using the wassup in a minute generator',

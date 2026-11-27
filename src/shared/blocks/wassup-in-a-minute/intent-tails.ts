@@ -37,8 +37,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute AI generator', zh: 'Wassup in a Minute AI 生成器' },
     lead: {
-      en: 'The wassup in a minute AI generator is the same 15-second 9:16 template: one to four photos, no blank prompt box. A render usually takes 2–3 minutes. The MP4 does not include the song.',
-      zh: 'Wassup in a minute AI 生成器就是同一条 15 秒、9:16 模板：一至四张照片，没有空白提示词框。渲染通常要 2–3 分钟。MP4 不含那首歌。',
+      en: 'The wassup in a minute AI generator is the same 15-second 9:16 template: one to four photos, no blank prompt box. A render usually takes about 4 minutes. The MP4 does not include the song.',
+      zh: 'Wassup in a minute AI 生成器就是同一条 15 秒、9:16 模板：一至四张照片，没有空白提示词框。渲染通常要 4 分钟左右。MP4 不含那首歌。',
     },
     guideTitle: {
       en: 'What the AI generator actually runs',
@@ -87,8 +87,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Make a Wassup in a Minute AI video', zh: '制作 Wassup in a Minute AI 视频' },
     lead: {
-      en: 'To make a wassup in a minute video, open the template, upload one to four photos, and download a 15-second 9:16 MP4. A render usually takes 2–3 minutes. Then add the sound in the app you post to.',
-      zh: '制作 wassup in a minute：打开模板，上传一至四张照片，下载 15 秒、9:16 的 MP4。渲染通常要 2–3 分钟。然后在你发布的 App 里另加原声。',
+      en: 'To make a wassup in a minute video, open the template, upload one to four photos, and download a 15-second 9:16 MP4. A render usually takes about 4 minutes. Then add the sound in the app you post to.',
+      zh: '制作 wassup in a minute：打开模板，上传一至四张照片，下载 15 秒、9:16 的 MP4。渲染通常要 4 分钟左右。然后在你发布的 App 里另加原声。',
     },
     guideTitle: {
       en: 'How to make the sway',
@@ -237,8 +237,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute online', zh: '在线 Wassup in a Minute' },
     lead: {
-      en: 'Wassup in a minute online is the browser template: no app install, one to four photos, a 15-second 9:16 MP4. A render usually takes 2–3 minutes. The file does not include the song.',
-      zh: '在线 wassup in a minute 就是浏览器模板：不用装 App，一至四张照片，15 秒、9:16 的 MP4。渲染通常要 2–3 分钟。文件不含那首歌。',
+      en: 'Wassup in a minute online is the browser template: no app install, one to four photos, a 15-second 9:16 MP4. A render usually takes about 4 minutes. The file does not include the song.',
+      zh: '在线 wassup in a minute 就是浏览器模板：不用装 App，一至四张照片，15 秒、9:16 的 MP4。渲染通常要 4 分钟左右。文件不含那首歌。',
     },
     guideTitle: {
       en: 'The browser path',
@@ -337,8 +337,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute without CapCut', zh: '不用 CapCut 的 Wassup in a Minute' },
     lead: {
-      en: 'You can make wassup in a minute without opening CapCut. The browser template takes one to four photos and exports a 15-second 9:16 MP4. A render usually takes 2–3 minutes.',
-      zh: '不打开 CapCut 也能做 wassup in a minute。浏览器模板用一至四张照片，导出 15 秒、9:16 的 MP4。渲染通常要 2–3 分钟。',
+      en: 'You can make wassup in a minute without opening CapCut. The browser template takes one to four photos and exports a 15-second 9:16 MP4. A render usually takes about 4 minutes.',
+      zh: '不打开 CapCut 也能做 wassup in a minute。浏览器模板用一至四张照片，导出 15 秒、9:16 的 MP4。渲染通常要 4 分钟左右。',
     },
     guideTitle: {
       en: 'The path that never opens CapCut',
@@ -487,8 +487,8 @@ export const WASSUP_INTENT_TAILS: readonly LongTailEntry[] = [
     },
     h1: { en: 'Wassup in a Minute MP4', zh: 'Wassup in a Minute MP4' },
     lead: {
-      en: 'The wassup in a minute MP4 is a new 15-second 9:16 file of your characters swaying. It is not the song, not a GIF, and not the original edit. A render usually takes 2–3 minutes.',
-      zh: 'Wassup in a minute 的 MP4 是角色在摇摆的新 15 秒、9:16 文件。不是那首歌，不是 GIF，也不是原片。渲染通常要 2–3 分钟。',
+      en: 'The wassup in a minute MP4 is a new 15-second 9:16 file of your characters swaying. It is not the song, not a GIF, and not the original edit. A render usually takes about 4 minutes.',
+      zh: 'Wassup in a minute 的 MP4 是角色在摇摆的新 15 秒、9:16 文件。不是那首歌，不是 GIF，也不是原片。渲染通常要 4 分钟左右。',
     },
     guideTitle: {
       en: 'What the download contains',

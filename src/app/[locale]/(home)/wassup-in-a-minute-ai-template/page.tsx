@@ -39,8 +39,8 @@ export async function generateMetadata({
     creditsPerUsd,
   });
   const description = zh
-    ? `Wassup in a minute 是用一至四张照片做的 15 秒、9:16 摇摆。默认 720p 是 ${costs.p720} 积分（约 ${costs.usd720}）。渲染通常要 2–3 分钟。MP4 不含那首歌。`
-    : `Wassup in a minute is a 15-second 9:16 sway from one to four photos. Default 720p is ${costs.p720} credits (about ${costs.usd720}). A render usually takes 2–3 minutes. The MP4 does not include the song.`;
+    ? `Wassup in a minute 是用一至四张照片做的 15 秒、9:16 摇摆。默认 720p 是 ${costs.p720} 积分（约 ${costs.usd720}）。15 秒的片子渲染通常约 4 分钟。MP4 不含那首歌。`
+    : `Wassup in a minute is a 15-second 9:16 sway from one to four photos. Default 720p is ${costs.p720} credits (about ${costs.usd720}). A 15-second render usually takes about 4 minutes. The MP4 does not include the song.`;
   const canonical =
     locale === 'zh'
       ? `${envConfigs.app_url}/zh/wassup-in-a-minute-ai-template`
