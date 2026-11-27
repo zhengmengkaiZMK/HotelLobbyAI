@@ -64,7 +64,7 @@ export function wassupHubLead(zh: boolean, ctx: TemplateCostContext = {}) {
   const { p480, p720, p1080, creditsPerUsd, usd720 } =
     wassupFifteenSecondCosts(ctx);
   if (zh) {
-    return `Wassup in a minute 是一条 15 秒、9:16 的白底摇摆：一至四张照片变成原创街服角色。默认 720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd720}）；480p 是 ${formatCreditCount(p480)} 积分，1080p 是 ${formatCreditCount(p1080)} 积分，生成器会在开始前显示确切数字。渲染通常要 2–3 分钟。成片不含那首歌，发布时在 TikTok、Reels 或 Shorts 里另加。`;
+    return `Wassup in a minute 是一条 15 秒、9:16 的白底摇摆：一至四张照片变成原创街服角色。默认 720p 是 ${formatCreditCount(p720)} 积分（按 ${creditsPerUsd} 积分 = 1 美元，约 ${usd720}）；480p 是 ${formatCreditCount(p480)} 积分，1080p 是 ${formatCreditCount(p1080)} 积分，生成器会在开始前显示确切数字。渲染通常要 4 分钟左右。成片不含那首歌，发布时在 TikTok、Reels 或 Shorts 里另加。`;
   }
-  return `Wassup in a minute is a 15-second, 9:16 sway on white: one to four photos become original streetwear characters. The default 720p charge is ${formatCreditCount(p720)} credits (about ${usd720} at ${creditsPerUsd} credits = $1); 480p is ${formatCreditCount(p480)} credits and 1080p is ${formatCreditCount(p1080)} credits, and the generator shows the exact number before you start. A render usually takes 2–3 minutes. The file does not include the song — add it in TikTok, Reels, or Shorts.`;
+  return `Wassup in a minute is a 15-second, 9:16 sway on white: one to four photos become original streetwear characters. The default 720p charge is ${formatCreditCount(p720)} credits (about ${usd720} at ${creditsPerUsd} credits = $1); 480p is ${formatCreditCount(p480)} credits and 1080p is ${formatCreditCount(p1080)} credits, and the generator shows the exact number before you start. A render usually takes about 4 minutes. The file does not include the song — add it in TikTok, Reels, or Shorts.`;
 }
